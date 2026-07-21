@@ -1,0 +1,38 @@
+name: Bug report
+description: Report incorrect highlighting, output, or package behavior
+title: '[bug] '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Include the smallest valid code sample that reproduces the problem.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include the code, registered languages, options, and actual output.
+      render: ts
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+    validations:
+      required: true
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Browser
+        - Node.js / SSR
+        - Both
+    validations:
+      required: true

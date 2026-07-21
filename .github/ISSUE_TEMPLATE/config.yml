@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/TanStack/highlight/discussions
+    about: Discuss usage and proposals before opening an implementation issue.

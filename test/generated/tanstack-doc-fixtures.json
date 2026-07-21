@@ -1,0 +1,2338 @@
+{
+  "perLanguageLimit": 20,
+  "maxCodeLength": 3000,
+  "count": 333,
+  "fixtures": [
+    {
+      "file": "router/docs/router/how-to/deploy-to-production.md",
+      "line": 290,
+      "rawLang": "apache",
+      "lang": "apache",
+      "code": "<IfModule mod_rewrite.c>\n  RewriteEngine On\n  RewriteBase /\n  RewriteRule ^index\\.html$ - [L]\n  RewriteCond %{REQUEST_FILENAME} !-f\n  RewriteCond %{REQUEST_FILENAME} !-d\n  RewriteRule . /index.html [L]\n</IfModule>"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/deploy-to-production.md",
+      "line": 290,
+      "rawLang": "apache",
+      "lang": "apache",
+      "code": "<IfModule mod_rewrite.c>\n  RewriteEngine On\n  RewriteBase /\n  RewriteRule ^index\\.html$ - [L]\n  RewriteCond %{REQUEST_FILENAME} !-f\n  RewriteCond %{REQUEST_FILENAME} !-d\n  RewriteRule . /index.html [L]\n</IfModule>"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/cdn-asset-urls.md",
+      "line": 250,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "/* emitted stylesheet href: /assets/dashboard.css */\n.card {\n  background-image: url('./dot.svg');\n}"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/css-styling.md",
+      "line": 214,
+      "rawLang": "css",
+      "lang": "css",
+      "code": ".card {\n  background-image: url('./dot.svg');\n}"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/css-styling.md",
+      "line": 222,
+      "rawLang": "css",
+      "lang": "css",
+      "code": ".card {\n  background-image: url(/_build/assets/dot.svg);\n}"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/tailwind-integration.md",
+      "line": 86,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "/* src/styles/app.css */\n@import 'tailwindcss' source('../');"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/tailwind-integration.md",
+      "line": 199,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "/* src/styles/app.css */\n@tailwind base;\n@tailwind components;\n@tailwind utilities;"
+    },
+    {
+      "file": "router/docs/start/framework/react/migrate-from-next-js.md",
+      "line": 470,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "@import 'tailwindcss' source('../');\n\n@import '@fontsource-variable/dm-sans'; /* [!code ++] */\n@import '@fontsource-variable/jetbrains-mono'; /* [!code ++] */\n\n@theme inline {\n  --font-sans: 'DM Sans Variable', sans-serif; /* [!code ++] */\n  --font-mono: 'JetBrains Mono Variable', monospace; /* [!code ++] */\n  /* ... */\n}\n\n/* ... */"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/guide/tailwind-integration.md",
+      "line": 46,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "/* src/styles/app.css */\n@import 'tailwindcss';"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/guide/tailwind-integration.md",
+      "line": 131,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "/* src/styles/app.css */\n@tailwind base;\n@tailwind components;\n@tailwind utilities;"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/migrate-from-next-js.md",
+      "line": 392,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "@import 'tailwindcss';\n\n@import '@fontsource-variable/dm-sans'; /* [!code ++] */\n@import '@fontsource-variable/jetbrains-mono'; /* [!code ++] */\n\n@theme inline {\n  --font-sans: 'DM Sans Variable', sans-serif; /* [!code ++] */\n  --font-mono: 'JetBrains Mono Variable', monospace; /* [!code ++] */\n  /* ... */\n}\n\n/* ... */"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/solid/guide/tailwind-integration.md",
+      "line": 51,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "/* src/styles/app.css */\n@import 'tailwindcss';"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/solid/guide/tailwind-integration.md",
+      "line": 136,
+      "rawLang": "css",
+      "lang": "css",
+      "code": "/* src/styles/app.css */\n@tailwind base;\n@tailwind components;\n@tailwind utilities;"
+    },
+    {
+      "file": "react-charts/docs/README.md",
+      "line": 21,
+      "rawLang": "diff",
+      "lang": "diff",
+      "code": "-NOTION_TOKEN=XXXX\n+NOTION_TOKEN=<YOUR_TOKEN>\n-BLOG_INDEX_ID=XXXXX\n+BLOG_INDEX_ID=<YOUR_BLOG_INDEX_ID>"
+    },
+    {
+      "file": "tanstack.com/src/blog/tanstack-ai-alpha-2.md",
+      "line": 134,
+      "rawLang": "diff",
+      "lang": "diff",
+      "code": "chat({\n-  adapter: openai(),\n+  adapter: openaiText(\"gpt-4\"),\n-  model: \"gpt-4\",\n-  providerOptions: {\n+  modelOptions: {\n    text: {}\n  },\n-  options: {\n-    temperature: 0.6\n-  },\n+  temperature: 0.6\n})"
+    },
+    {
+      "file": "tanstack.com/src/blog/tanstack-ai-beta.md",
+      "line": 73,
+      "rawLang": "diff",
+      "lang": "diff",
+      "code": "- import { openaiText } from '@tanstack/ai-openai'\n+ import { anthropicText } from '@tanstack/ai-anthropic'\n\n  const stream = chat({\n-   adapter: openaiText('gpt-5.2'),\n+   adapter: anthropicText('claude-opus-4-6'),\n    messages,\n  })"
+    },
+    {
+      "file": "cli/docs/examples.md",
+      "line": 69,
+      "rawLang": "dockerfile",
+      "lang": "dockerfile",
+      "code": "FROM node:20-slim\nRUN npm install -g @tanstack/cli pnpm\nRUN tanstack create app -y\nWORKDIR /app\nRUN pnpm install && pnpm build\nCMD [\"pnpm\", \"start\"]"
+    },
+    {
+      "file": "old-cli/docs/examples.md",
+      "line": 96,
+      "rawLang": "dockerfile",
+      "lang": "dockerfile",
+      "code": "FROM node:20-slim\nRUN npm install -g @tanstack/cli pnpm\nRUN tanstack create app -y --integrations tanstack-query\nWORKDIR /app\nRUN pnpm install && pnpm build\nCMD [\"pnpm\", \"start\"]"
+    },
+    {
+      "file": "router/docs/router/how-to/deploy-to-production.md",
+      "line": 332,
+      "rawLang": "dockerfile",
+      "lang": "dockerfile",
+      "code": "# Build stage\nFROM node:18-alpine AS build\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build\n\n# Production stage\nFROM nginx:alpine\nCOPY --from=build /app/dist /usr/share/nginx/html\nCOPY nginx.conf /etc/nginx/conf.d/default.conf\nEXPOSE 80\nCMD [\"nginx\", \"-g\", \"daemon off;\"]"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/deploy-to-production.md",
+      "line": 332,
+      "rawLang": "dockerfile",
+      "lang": "dockerfile",
+      "code": "# Build stage\nFROM node:18-alpine AS build\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build\n\n# Production stage\nFROM nginx:alpine\nCOPY --from=build /app/dist /usr/share/nginx/html\nCOPY nginx.conf /etc/nginx/conf.d/default.conf\nEXPOSE 80\nCMD [\"nginx\", \"-g\", \"daemon off;\"]"
+    },
+    {
+      "file": "cli/docs/creating-add-ons.md",
+      "line": 151,
+      "rawLang": "ejs",
+      "lang": "ejs",
+      "code": "<% if (addOnOption['my-feature']?.database === 'postgres') { %>\n// PostgreSQL code\n<% } %>"
+    },
+    {
+      "file": "old-cli/docs/creating-integrations.md",
+      "line": 134,
+      "rawLang": "ejs",
+      "lang": "ejs",
+      "code": "<% if (integrationOption['my-feature']?.database === 'postgres') { %>\n// PostgreSQL code\n<% } %>"
+    },
+    {
+      "file": "router/docs/router/how-to/setup-auth-providers.md",
+      "line": 25,
+      "rawLang": "env",
+      "lang": "env",
+      "code": "VITE_AUTH0_DOMAIN=your-auth0-domain.auth0.com\nVITE_AUTH0_CLIENT_ID=your_auth0_client_id"
+    },
+    {
+      "file": "router/docs/router/how-to/setup-auth-providers.md",
+      "line": 158,
+      "rawLang": "env",
+      "lang": "env",
+      "code": "VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_key"
+    },
+    {
+      "file": "router/docs/router/how-to/setup-auth-providers.md",
+      "line": 306,
+      "rawLang": "env",
+      "lang": "env",
+      "code": "VITE_SUPABASE_URL=https://your-project.supabase.co\nVITE_SUPABASE_ANON_KEY=your_supabase_anon_key"
+    },
+    {
+      "file": "router/docs/start/framework/react/tutorial/fetching-external-api.md",
+      "line": 85,
+      "rawLang": "dotenv",
+      "lang": "env",
+      "code": "TMDB_AUTH_TOKEN=your_bearer_token_here"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/setup-auth-providers.md",
+      "line": 25,
+      "rawLang": "env",
+      "lang": "env",
+      "code": "VITE_AUTH0_DOMAIN=your-auth0-domain.auth0.com\nVITE_AUTH0_CLIENT_ID=your_auth0_client_id"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/setup-auth-providers.md",
+      "line": 158,
+      "rawLang": "env",
+      "lang": "env",
+      "code": "VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_key"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/setup-auth-providers.md",
+      "line": 306,
+      "rawLang": "env",
+      "lang": "env",
+      "code": "VITE_SUPABASE_URL=https://your-project.supabase.co\nVITE_SUPABASE_ANON_KEY=your_supabase_anon_key"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/tutorial/fetching-external-api.md",
+      "line": 85,
+      "rawLang": "dotenv",
+      "lang": "env",
+      "code": "TMDB_AUTH_TOKEN=your_bearer_token_here"
+    },
+    {
+      "file": "form/docs/framework/angular/guides/arrays.md",
+      "line": 41,
+      "rawLang": "angular-html",
+      "lang": "html",
+      "code": "<button (click)=\"people.api.pushValue(defaultPerson)\" type=\"button\">\n  Add person\n</button>"
+    },
+    {
+      "file": "form/docs/framework/angular/guides/arrays.md",
+      "line": 49,
+      "rawLang": "angular-html",
+      "lang": "html",
+      "code": " <ng-container\n  [tanstackField]=\"form\"\n  [name]=\"getPeopleName($index)\"\n  #person=\"field\"\n>\n  <div>\n    <label>\n      <div>Name for person {{ $index }}</div>\n      <input\n        [value]=\"person.api.state.value\"\n        (input)=\"\n          person.api.handleChange($any($event).target.value)\n        \"\n      />\n    </label>\n  </div>\n</ng-container>"
+    },
+    {
+      "file": "form/docs/framework/angular/guides/basic-concepts.md",
+      "line": 27,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<ng-container [tanstackField]=\"form\" name=\"firstName\" #firstName=\"field\">\n  <input\n    [value]=\"firstName.api.state.value\"\n    (blur)=\"firstName.api.handleBlur()\"\n    (input)=\"firstName.api.handleChange($any($event).target.value)\"\n  />\n</ng-container>"
+    },
+    {
+      "file": "form/docs/framework/angular/guides/basic-concepts.md",
+      "line": 64,
+      "rawLang": "angular-html",
+      "lang": "html",
+      "code": "<input\n  [value]=\"fieldName.api.state.value\"\n  (blur)=\"fieldName.api.handleBlur()\"\n  (input)=\"fieldName.api.handleChange($any($event).target.value)\"\n/>"
+    },
+    {
+      "file": "form/docs/framework/angular/guides/validation.md",
+      "line": 512,
+      "rawLang": "angular-html",
+      "lang": "html",
+      "code": "<ng-container\n  [tanstackField]=\"form\"\n  name=\"age\"\n  asyncDebounceMs={500}\n  [validators]=\"{ onChangeAsync: someValidator }\"\n  #age=\"field\"\n>\n  <!-- ... -->\n</ng-container>"
+    },
+    {
+      "file": "form/docs/framework/angular/guides/validation.md",
+      "line": 526,
+      "rawLang": "angular-html",
+      "lang": "html",
+      "code": "<ng-container\n  [tanstackField]=\"form\"\n  name=\"age\"\n  [validators]=\"{\n    onChangeAsyncDebounceMs: 1500,\n    onChangeAsync: someValidator,\n    onBlurAsync: otherValidator\n  }\"\n  #age=\"field\"\n>\n  <!-- ... -->\n</ng-container>"
+    },
+    {
+      "file": "form/docs/framework/lit/guides/arrays.md",
+      "line": 50,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<div class=\"container\">\n  <button type=\"button\" @click=\"${()\" =\"\">\n    { peopleField.pushValue({name: \"\",age: \"\"}) }}> Add Person\n  </button>\n</div>"
+    },
+    {
+      "file": "hotkeys/docs/framework/lit/guides/formatting-display.md",
+      "line": 88,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<shortcut-badge hotkey=\"Mod+S\"></shortcut-badge>        <!-- ⌘ S (Mac) or Ctrl+S (Windows) -->\n<shortcut-badge hotkey=\"Mod+Shift+P\"></shortcut-badge>  <!-- ⌘ ⇧ P (Mac) or Ctrl+Shift+P (Windows) -->"
+    },
+    {
+      "file": "observable-plot/docs/getting-started.md",
+      "line": 38,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<!DOCTYPE html>\n<div id=\"myplot\"></div>\n<script type=\"module\">\n\nimport * as Plot from \"https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/+esm\";\n\nconst plot = Plot.rectY({length: 10000}, Plot.binX({y: \"count\"}, {x: Math.random})).plot();\nconst div = document.querySelector(\"#myplot\");\ndiv.append(plot);\n\n</script>"
+    },
+    {
+      "file": "observable-plot/docs/getting-started.md",
+      "line": 52,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<!DOCTYPE html>\n<div id=\"myplot\"></div>\n<script src=\"https://cdn.jsdelivr.net/npm/d3@7\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6\"></script>\n<script type=\"module\">\n\nconst plot = Plot.rectY({length: 10000}, Plot.binX({y: \"count\"}, {x: Math.random})).plot();\nconst div = document.querySelector(\"#myplot\");\ndiv.append(plot);\n\n</script>"
+    },
+    {
+      "file": "observable-plot/docs/getting-started.md",
+      "line": 66,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<!DOCTYPE html>\n<div id=\"myplot\"></div>\n<script src=\"d3.js\"></script>\n<script src=\"plot.js\"></script>\n<script type=\"module\">\n\nconst plot = Plot.rectY({length: 10000}, Plot.binX({y: \"count\"}, {x: Math.random})).plot();\nconst div = document.querySelector(\"#myplot\");\ndiv.append(plot);\n\n</script>"
+    },
+    {
+      "file": "query/docs/framework/angular/guides/infinite-queries.md",
+      "line": 51,
+      "rawLang": "angular-html",
+      "lang": "html",
+      "code": "<div>\n  @if (query.isPending()) {\n    <p>Loading...</p>\n  } @else if (query.isError()) {\n    <span>Error: {{ query?.error().message }}</span>\n  } @else {\n    @for (page of query?.data().pages; track $index) {\n      @for (project of page.data; track project.id) {\n        <p>{{ project.name }} {{ project.id }}</p>\n      }\n    }\n    <div>\n      <button (click)=\"query.fetchNextPage()\" [disabled]=\"nextButtonDisabled()\">\n        {{ nextButtonText() }}\n      </button>\n    </div>\n  }\n</div>"
+    },
+    {
+      "file": "query/docs/framework/lit/guides/mutations.md",
+      "line": 69,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<app-query-provider>\n  <todos-view></todos-view>\n</app-query-provider>"
+    },
+    {
+      "file": "query/docs/framework/lit/installation.md",
+      "line": 70,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<app-query-provider>\n  <todos-view></todos-view>\n</app-query-provider>"
+    },
+    {
+      "file": "query/docs/framework/lit/overview.md",
+      "line": 83,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<app-query-provider>\n  <repo-stats></repo-stats>\n</app-query-provider>"
+    },
+    {
+      "file": "query/docs/framework/lit/quick-start.md",
+      "line": 75,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<app-query-provider>\n  <todos-view></todos-view>\n</app-query-provider>"
+    },
+    {
+      "file": "query/docs/framework/preact/installation.md",
+      "line": 15,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<script type=\"module\">\n  import { render } from 'https://esm.sh/preact@10.23.1'\n  import { QueryClient } from 'https://esm.sh/@tanstack/preact-query'\n</script>"
+    },
+    {
+      "file": "query/docs/framework/react/installation.md",
+      "line": 48,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<script type=\"module\">\n  import React from 'https://esm.sh/react@18.2.0'\n  import ReactDOM from 'https://esm.sh/react-dom@18.2.0'\n  import { QueryClient } from 'https://esm.sh/@tanstack/react-query'\n</script>"
+    },
+    {
+      "file": "query/docs/framework/solid/installation.md",
+      "line": 40,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<script type=\"module\">\n  import { QueryClient } from 'https://esm.sh/@tanstack/solid-query'\n</script>"
+    },
+    {
+      "file": "query/docs/framework/vue/guides/ssr.md",
+      "line": 211,
+      "rawLang": "html",
+      "lang": "html",
+      "code": "<!-- MyComponent.vue -->\n<template>\n  <div>\n    <button @click=\"refetch\">Refetch</button>\n    <p>{{ data }}</p>\n  </div>\n</template>\n\n<script setup>\n  import { useQuery } from '@tanstack/vue-query'\n  import { onServerPrefetch } from 'vue'\n\n  // This will be prefetched and sent from the server\n  const { refetch, data, suspense } = useQuery({\n    queryKey: ['todos'],\n    queryFn: getTodos,\n  })\n\n  onServerPrefetch(suspense)\n</script>"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 26,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "Content-Type: application/json"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 50,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "Content-Type: application/x-ndjson\nTransfer-Encoding: chunked"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 56,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "Content-Type: application/json\nTransfer-Encoding: chunked"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 122,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "HTTP/1.1 200 OK\nContent-Type: application/x-ndjson\nTransfer-Encoding: chunked"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 23,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "Content-Type: application/json"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 47,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "Content-Type: text/event-stream\nCache-Control: no-cache\nConnection: keep-alive"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 111,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "HTTP/1.1 200 OK\nContent-Type: text/event-stream\nCache-Control: no-cache\nConnection: keep-alive"
+    },
+    {
+      "file": "workflow/docs/guide/deployment.md",
+      "line": 289,
+      "rawLang": "http",
+      "lang": "http",
+      "code": "Authorization: Bearer <CRON_SECRET>"
+    },
+    {
+      "file": "config/docs/eslint.md",
+      "line": 26,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "import { tanstackConfig } from '@tanstack/eslint-config'\n\nexport default [\n  ...tanstackConfig,\n  {\n    // Custom rules go here\n  },\n]"
+    },
+    {
+      "file": "db/docs/collections/electric-collection.md",
+      "line": 369,
+      "rawLang": "javascript",
+      "lang": "js",
+      "code": "localStorage.debug = 'ts/db:electric'"
+    },
+    {
+      "file": "db/docs/overview.md",
+      "line": 553,
+      "rawLang": "javascript",
+      "lang": "js",
+      "code": "import \"react-native-random-uuid\""
+    },
+    {
+      "file": "db/docs/reference/classes/AggregateFunctionNotInSelectError.md",
+      "line": 132,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/AggregateFunctionNotInSelectError.md",
+      "line": 148,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/AggregateNotSupportedError.md",
+      "line": 128,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/AggregateNotSupportedError.md",
+      "line": 144,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/CannotCombineEmptyExpressionListError.md",
+      "line": 126,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/CannotCombineEmptyExpressionListError.md",
+      "line": 142,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionConfigurationError.md",
+      "line": 139,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionConfigurationError.md",
+      "line": 155,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionInErrorStateError.md",
+      "line": 136,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionInErrorStateError.md",
+      "line": 152,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionInputNotFoundError.md",
+      "line": 146,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionInputNotFoundError.md",
+      "line": 162,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionIsInErrorStateError.md",
+      "line": 126,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionIsInErrorStateError.md",
+      "line": 142,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionOperationError.md",
+      "line": 145,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionOperationError.md",
+      "line": 161,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "function a() {\n  b();\n}\n\nfunction b() {\n  c();\n}\n\nfunction c() {\n  // Create an error without stack trace to avoid calculating the stack trace twice.\n  const { stackTraceLimit } = Error;\n  Error.stackTraceLimit = 0;\n  const error = new Error();\n  Error.stackTraceLimit = stackTraceLimit;\n\n  // Capture the stack trace above function b\n  Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace\n  throw error;\n}\n\na();"
+    },
+    {
+      "file": "db/docs/reference/classes/CollectionRequiresConfigError.md",
+      "line": 126,
+      "rawLang": "js",
+      "lang": "js",
+      "code": "const myObject = {};\nError.captureStackTrace(myObject);\nmyObject.stack;  // Similar to `new Error().stack`"
+    },
+    {
+      "file": "ai/docs/protocol/chunk-definitions.md",
+      "line": 60,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"type\": \"RUN_STARTED\",\n  \"runId\": \"run_abc123\",\n  \"model\": \"gpt-4o\",\n  \"timestamp\": 1701234567890\n}"
+    },
+    {
+      "file": "ai/docs/protocol/chunk-definitions.md",
+      "line": 89,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"type\": \"RUN_FINISHED\",\n  \"runId\": \"run_abc123\",\n  \"model\": \"gpt-4o\",\n  \"timestamp\": 1701234567900,\n  \"finishReason\": \"stop\",\n  \"usage\": {\n    \"promptTokens\": 100,\n    \"completionTokens\": 50,\n    \"totalTokens\": 150\n  }\n}"
+    },
+    {
+      "file": "ai/docs/protocol/chunk-definitions.md",
+      "line": 122,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"type\": \"RUN_ERROR\",\n  \"runId\": \"run_abc123\",\n  \"model\": \"gpt-4o\",\n  \"timestamp\": 1701234567890,\n  \"error\": {\n    \"message\": \"Rate limit exceeded\",\n    \"code\": \"rate_limit\"\n  }\n}"
+    },
+    {
+      "file": "ai/docs/protocol/chunk-definitions.md",
+      "line": 165,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"type\": \"TEXT_MESSAGE_CONTENT\",\n  \"messageId\": \"msg_abc123\",\n  \"model\": \"gpt-4o\",\n  \"timestamp\": 1701234567890,\n  \"delta\": \"Hello\",\n  \"content\": \"Hello\"\n}"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 31,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hello, how are you?\"\n    }\n  ],\n  \"data\": {\n    // Optional additional data\n  }\n}"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 85,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\"type\":\"content\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567890,\"delta\":\"Hello\",\"content\":\"Hello\",\"role\":\"assistant\"}\n{\"type\":\"content\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567891,\"delta\":\" world\",\"content\":\"Hello world\",\"role\":\"assistant\"}\n{\"type\":\"content\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567892,\"delta\":\"!\",\"content\":\"Hello world!\",\"role\":\"assistant\"}"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 93,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\"type\":\"tool_call\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567893,\"toolCall\":{\"id\":\"call_xyz\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"location\\\":\\\"SF\\\"}\"}},\"index\":0}\n{\"type\":\"tool_result\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567894,\"toolCallId\":\"call_xyz\",\"content\":\"{\\\"temperature\\\":72,\\\"conditions\\\":\\\"sunny\\\"}\"}"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 100,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\"type\":\"done\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567895,\"finishReason\":\"stop\",\"usage\":{\"promptTokens\":10,\"completionTokens\":15,\"totalTokens\":25}}"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 132,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\"type\":\"content\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567890,\"delta\":\"The\",\"content\":\"The\"}\n{\"type\":\"content\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567891,\"delta\":\" weather\",\"content\":\"The weather\"}\n{\"type\":\"content\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567892,\"delta\":\" is\",\"content\":\"The weather is\"}\n{\"type\":\"content\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567893,\"delta\":\" sunny\",\"content\":\"The weather is sunny\"}\n{\"type\":\"done\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567894,\"finishReason\":\"stop\"}"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 152,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\"type\":\"error\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567895,\"error\":{\"message\":\"Rate limit exceeded\",\"code\":\"rate_limit_exceeded\"}}"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 362,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\"type\":\"content\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567890,\"delta\":\"Hello\",\"content\":\"Hello\"}\n{\"type\":\"content\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567891,\"delta\":\" there\",\"content\":\"Hello there\"}\n{\"type\":\"done\",\"id\":\"msg_1\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567892,\"finishReason\":\"stop\"}"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 28,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hello, how are you?\"\n    }\n  ],\n  \"data\": {\n    // Optional additional data\n  }\n}"
+    },
+    {
+      "file": "cli/docs/cli-reference.md",
+      "line": 311,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"version\": 1,\n  \"projectName\": \"my-app\",\n  \"framework\": \"react\",\n  \"mode\": \"file-router\",\n  \"typescript\": true,\n  \"tailwind\": true,\n  \"packageManager\": \"pnpm\",\n  \"chosenAddOns\": [\"tanstack-query\", \"clerk\"]\n}"
+    },
+    {
+      "file": "cli/docs/creating-add-ons.md",
+      "line": 59,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"name\": \"My Feature\",\n  \"version\": \"0.0.1\",\n  \"description\": \"What it does\",\n  \"type\": \"add-on\",\n  \"phase\": \"add-on\",\n  \"category\": \"tooling\",\n  \"modes\": [\"file-router\"]\n}"
+    },
+    {
+      "file": "cli/docs/creating-add-ons.md",
+      "line": 80,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"dependsOn\": [\"tanstack-query\"],\n  \"conflicts\": [\"other-feature\"],\n  \"envVars\": [{ \"name\": \"API_KEY\", \"description\": \"...\", \"required\": true }],\n  \"gitignorePatterns\": [\"*.cache\"]\n}"
+    },
+    {
+      "file": "cli/docs/creating-add-ons.md",
+      "line": 93,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"integrations\": [\n    {\n      \"type\": \"root-provider\",\n      \"jsName\": \"MyProvider\",\n      \"path\": \"src/integrations/my-feature/provider.tsx\"\n    }\n  ]\n}"
+    },
+    {
+      "file": "cli/docs/creating-add-ons.md",
+      "line": 116,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"routes\": [\n    {\n      \"url\": \"/demo/my-feature\",\n      \"name\": \"My Feature Demo\",\n      \"path\": \"src/routes/demo/my-feature.tsx\",\n      \"jsName\": \"MyFeatureDemo\"\n    }\n  ]\n}"
+    },
+    {
+      "file": "cli/docs/creating-add-ons.md",
+      "line": 133,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"options\": {\n    \"database\": {\n      \"type\": \"select\",\n      \"label\": \"Database\",\n      \"options\": [\n        { \"value\": \"postgres\", \"label\": \"PostgreSQL\" },\n        { \"value\": \"sqlite\", \"label\": \"SQLite\" }\n      ],\n      \"default\": \"postgres\"\n    }\n  }\n}"
+    },
+    {
+      "file": "config/docs/vite.md",
+      "line": 46,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"exports\": {\n    \".\": {\n      \"import\": {\n        \"types\": \"./dist/esm/index.d.ts\",\n        \"default\": \"./dist/esm/index.js\"\n      },\n      \"require\": {\n        \"types\": \"./dist/cjs/index.d.cts\",\n        \"default\": \"./dist/cjs/index.cjs\"\n      }\n    },\n    \"./package.json\": \"./package.json\"\n  }\n}"
+    },
+    {
+      "file": "forge/docs/app-prompt-benchmarks.md",
+      "line": 637,
+      "rawLang": "json",
+      "lang": "json",
+      "code": "{\n  \"intent\": \"build a team SaaS app for managing projects\",\n  \"resources\": [\"projects\", \"tasks\", \"comments\"],\n  \"routes\": [\"/app/projects\", \"/app/projects/$projectId\"],\n  \"policies\": [\"projects.read\", \"projects.create\", \"projects.update\"],\n  \"sideEffects\": [\"project.created\"],\n  \"jobs\": [],\n  \"machines\": [\"onboarding\"],\n  \"emails\": [\"invite\", \"trial-ending\"],\n  \"billing\": [\"free\", \"pro\"],\n  \"console\": [\"organizations\", \"billing\", \"projects\"],\n  \"migrations\": [\"0004_projects.sql\"],\n  \"verification\": {\n    \"typecheck\": \"passed\",\n    \"policies\": \"passed\",\n    \"preview\": \"passed\"\n  }\n}"
+    },
+    {
+      "file": "form/docs/framework/react/guides/arrays.md",
+      "line": 12,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "function App() {\n  const form = useForm({\n    defaultValues: {\n      people: [],\n    },\n  })\n\n  return (\n    <form.Field name=\"people\" mode=\"array\">\n      {(field) => (\n        <div>\n          {field.state.value.map((_, i) => {\n            // ...\n          })}\n        </div>\n      )}\n    </form.Field>\n  )\n}"
+    },
+    {
+      "file": "form/docs/framework/react/guides/arrays.md",
+      "line": 36,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "<button onClick={() => field.pushValue({ name: '', age: 0 })} type=\"button\">\n  Add person\n</button>"
+    },
+    {
+      "file": "form/docs/framework/react/guides/arrays.md",
+      "line": 44,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "<form.Field key={i} name={`people[${i}].name`}>\n  {(subField) => (\n    <input\n      value={subField.state.value}\n      onChange={(e) => subField.handleChange(e.target.value)}\n    />\n  )}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/react/guides/arrays.md",
+      "line": 57,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "function App() {\n  const form = useForm({\n    defaultValues: {\n      people: [],\n    },\n    onSubmit({ value }) {\n      alert(JSON.stringify(value))\n    },\n  })\n\n  return (\n    <div>\n      <form\n        onSubmit={(e) => {\n          e.preventDefault()\n          e.stopPropagation()\n          form.handleSubmit()\n        }}\n      >\n        <form.Field name=\"people\" mode=\"array\">\n          {(field) => {\n            return (\n              <div>\n                {field.state.value.map((_, i) => {\n                  return (\n                    <form.Field key={i} name={`people[${i}].name`}>\n                      {(subField) => {\n                        return (\n                          <div>\n                            <label>\n                              <div>Name for person {i}</div>\n                              <input\n                                value={subField.state.value}\n                                onChange={(e) =>\n                                  subField.handleChange(e.target.value)\n                                }\n                              />\n                            </label>\n                          </div>\n                        )\n                      }}\n                    </form.Field>\n                  )\n                })}\n                <button\n                  onClick={() => field.pushValue({ name: '', age: 0 })}\n                  type=\"button\"\n                >\n                  Add person\n                </button>\n              </div>\n            )\n          }}\n        </form.Field>\n        <form.Subscribe\n          selector={(state) => [state.canSubmit, state.isSubmitting]}\n          children={([canSubmit, isSubmitting]) => (\n            <button type=\"submit\" disabled={!canSubmit}>\n              {isSubmitting ? '...' : 'Submit'}\n            </button>\n          )}\n        />\n      </form>\n    </div>\n  )\n}"
+    },
+    {
+      "file": "form/docs/framework/solid/guides/arrays.md",
+      "line": 13,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "function App() {\n  const form = createForm(() => ({\n    defaultValues: {\n      people: [],\n    },\n  }))\n\n  return (\n    <form.Field name=\"people\" mode=\"array\">\n      {(field) => (\n        <Show when={field().state.value.length > 0}>\n          {/* Do not change this to `For` or things will not work as-expected */}\n          <Index each={field().state.value}>\n            {\n              (_, i) => null // ...\n            }\n          </Index>\n        </Show>\n      )}\n    </form.Field>\n  )\n}"
+    },
+    {
+      "file": "form/docs/framework/solid/guides/arrays.md",
+      "line": 45,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "<button onClick={() => field().pushValue({ name: '', age: 0 })} type=\"button\">\n  Add person\n</button>"
+    },
+    {
+      "file": "form/docs/framework/solid/guides/arrays.md",
+      "line": 53,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "<form.Field name={`people[${i}].name`}>\n  {(subField) => (\n    <input\n      value={subField().state.value}\n      onInput={(e) => {\n        subField().handleChange(e.currentTarget.value)\n      }}\n    />\n  )}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/solid/guides/arrays.md",
+      "line": 68,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "function App() {\n  const form = createForm(() => ({\n    defaultValues: {\n      people: [],\n    },\n    onSubmit: ({ value }) => alert(JSON.stringify(value)),\n  }))\n\n  return (\n    <div>\n      <form\n        onSubmit={(e) => {\n          e.preventDefault()\n          e.stopPropagation()\n          form.handleSubmit()\n        }}\n      >\n        <form.Field name=\"people\">\n          {(field) => (\n            <div>\n              <Show when={field().state.value.length > 0}>\n                {/* Do not change this to For or the test will fail */}\n                <Index each={field().state.value}>\n                  {(_, i) => (\n                    <form.Field name={`people[${i}].name`}>\n                      {(subField) => (\n                        <div>\n                          <label>\n                            <div>Name for person {i}</div>\n                            <input\n                              value={subField().state.value}\n                              onInput={(e) => {\n                                subField().handleChange(e.currentTarget.value)\n                              }}\n                            />\n                          </label>\n                        </div>\n                      )}\n                    </form.Field>\n                  )}\n                </Index>\n              </Show>\n\n              <button\n                onClick={() => field().pushValue({ name: '', age: 0 })}\n                type=\"button\"\n              >\n                Add person\n              </button>\n            </div>\n          )}\n        </form.Field>\n        <button type=\"submit\">Submit</button>\n      </form>\n    </div>\n  )\n}"
+    },
+    {
+      "file": "observable-plot/docs/getting-started.md",
+      "line": 153,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "import * as Plot from \"@observablehq/plot\";\nimport PlotFigure from \"./PlotFigure.js\";\nimport penguins from \"./penguins.json\";\n\nexport default function App() {\n  return (\n    <div>\n      <h1>Penguins</h1>\n      <PlotFigure\n        options={{\n          marks: [\n            Plot.dot(penguins, {x: \"culmen_length_mm\", y: \"culmen_depth_mm\"})\n          ]\n        }}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "file": "observable-plot/docs/getting-started.md",
+      "line": 180,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "import * as Plot from \"@observablehq/plot\";\nimport * as d3 from \"d3\";\nimport {useEffect, useRef, useState} from \"react\";\n\nexport default function App() {\n  const containerRef = useRef();\n  const [data, setData] = useState();\n\n  useEffect(() => {\n    d3.csv(\"/gistemp.csv\", d3.autoType).then(setData);\n  }, []);\n\n  useEffect(() => {\n    if (data === undefined) return;\n    const plot = Plot.plot({\n      y: {grid: true},\n      color: {scheme: \"burd\"},\n      marks: [\n        Plot.ruleY([0]),\n        Plot.dot(data, {x: \"Date\", y: \"Anomaly\", stroke: \"Anomaly\"})\n      ]\n    });\n    containerRef.current.append(plot);\n    return () => plot.remove();\n  }, [data]);\n\n  return <div ref={containerRef} />;\n}"
+    },
+    {
+      "file": "octane/docs/differences-from-react.md",
+      "line": 101,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "<input value={text} onChange={(e) => setText(e.target.value)} /> // React\n<input value={text} onInput={(e) => setText(e.target.value)} /> // Octane"
+    },
+    {
+      "file": "query/docs/framework/react/guides/infinite-queries.md",
+      "line": 112,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "<List onEndReached={() => hasNextPage && !isFetching && fetchNextPage()} />"
+    },
+    {
+      "file": "query/docs/framework/solid/guides/infinite-queries.md",
+      "line": 66,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "<List\n  onEndReached={() =>\n    projectsQuery.hasNextPage &&\n    !projectsQuery.isFetching &&\n    projectsQuery.fetchNextPage()\n  }\n/>"
+    },
+    {
+      "file": "router/docs/start/framework/react/tutorial/reading-writing-file.md",
+      "line": 211,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "// src/routes/index.tsx\nimport { createFileRoute } from '@tanstack/react-router'\nimport { getJokes } from './serverActions/jokesActions'\nimport { JokesList } from './JokesList'\n\nexport const Route = createFileRoute('/')({\n  loader: async () => {\n    // Load jokes data when the route is accessed\n    return getJokes()\n  },\n  component: App,\n})\n\nconst App = () => {\n  const jokes = Route.useLoaderData() || []\n\n  return (\n    <div className=\"max-w-2xl mx-auto py-12 px-4 space-y-6\">\n      <h1 className=\"text-4xl font-bold text-center mb-10\">DevJokes</h1>\n      <JokesList jokes={jokes} />\n    </div>\n  )\n}"
+    },
+    {
+      "file": "router/docs/start/framework/solid/tutorial/reading-writing-file.md",
+      "line": 211,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "// src/routes/index.tsx\nimport { createFileRoute } from '@tanstack/solid-router'\nimport { getJokes } from './serverActions/jokesActions'\nimport { JokesList } from './JokesList'\n\nexport const Route = createFileRoute('/')({\n  loader: async () => {\n    // Load jokes data when the route is accessed\n    return getJokes()\n  },\n  component: App,\n})\n\nconst App = () => {\n  const jokes = Route.useLoaderData() || []\n\n  return (\n    <div class=\"max-w-2xl mx-auto py-12 px-4 space-y-6\">\n      <h1 class=\"text-4xl font-bold text-center mb-10\">DevJokes</h1>\n      <JokesList jokes={jokes} />\n    </div>\n  )\n}"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/tutorial/reading-writing-file.md",
+      "line": 211,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "// src/routes/index.tsx\nimport { createFileRoute } from '@tanstack/react-router'\nimport { getJokes } from './serverActions/jokesActions'\nimport { JokesList } from './JokesList'\n\nexport const Route = createFileRoute('/')({\n  loader: async () => {\n    // Load jokes data when the route is accessed\n    return getJokes()\n  },\n  component: App,\n})\n\nconst App = () => {\n  const jokes = Route.useLoaderData() || []\n\n  return (\n    <div className=\"max-w-2xl mx-auto py-12 px-4 space-y-6\">\n      <h1 className=\"text-4xl font-bold text-center mb-10\">DevJokes</h1>\n      <JokesList jokes={jokes} />\n    </div>\n  )\n}"
+    },
+    {
+      "file": "store/docs/framework/solid/quick-start.md",
+      "line": 8,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "import { Store, useStore } from '@tanstack/solid-store';\n\n// You can instantiate the store outside of Solid components too!\nexport const store = new Store({\n  cats: 0,\n  dogs: 0\n})\n\nexport const Display = (props) => {\n  const count = useStore(store, (state) => state[props.animals]);\n  return (\n    <span>\n      {props.animals}: {count()}\n      </span>\n    );\n}\n\nexport const Button = (props) => {\n  return (\n    <button\n      onClick={() => {\n        store.setState((state) => {\n          return {\n            ...state,\n            [props.animals]: state[props.animals] + 1\n          }\n        })\n      }}\n    >\n      Increment\n    </button>\n  )\n}\n\nconst App = () => {\n  return (\n    <div>\n    <h1>How many of your friends like cats or dogs?</h1>\n    <p>\n      Press one of the buttons to add a counter of how many of your friends\n      like cats or dogs\n      </p>\n      <Button animals=\"dogs\" />\n      <Display animals=\"dogs\" />\n      <Button animals=\"cats\" />\n      <Display animals=\"cats\" />\n  </div>\n  );\n};\n\nexport default App;"
+    },
+    {
+      "file": "table/docs/framework/angular/guide/table-state.md",
+      "line": 30,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "table = createAngularTable(() => ({\n  columns: this.columns,\n  data: this.data(),\n  initialState: {\n    columnOrder: ['age', 'firstName', 'lastName'], //customize the initial column order\n    columnVisibility: {\n      id: false //hide the id column by default\n    },\n    expanded: true, //expand all rows by default\n    sorting: [\n      {\n        id: 'age',\n        desc: true //sort by age in descending order by default\n      }\n    ]\n  },\n  //...\n}))"
+    },
+    {
+      "file": "table/docs/framework/lit/guide/table-state.md",
+      "line": 71,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "import {html} from \"lit\";\n\n@customElement('my-component')\nclass MyComponent extends LitElement {\n  @state()\n  private _sorting: SortingState = []\n\n  render() {\n    const table = this.tableController.table({\n      columns,\n      data,\n      state: {\n        sorting: this._sorting,\n      },\n      onSortingChange: updaterOrValue => {\n        if (typeof updaterOrValue === 'function') {\n          this._sorting = updaterOrValue(this._sorting)\n        } else {\n          this._sorting = updaterOrValue\n        }\n      },\n      getSortedRowModel: getSortedRowModel(),\n      getCoreRowModel: getCoreRowModel(),\n    })\n\n    return html`...`\n  }\n}\n//..."
+    },
+    {
+      "file": "table/docs/framework/lit/guide/table-state.md",
+      "line": 145,
+      "rawLang": "jsx",
+      "lang": "jsx",
+      "code": "@state()\nprivate _sorting = [];\n//...\nrender() {\n  const table = this.tableController.table({\n    columns,\n    data,\n    state: {\n      sorting: this._sorting,\n    },\n    onSortingChange: updaterOrValue => {\n      if (typeof updaterOrValue === 'function') {\n        this._sorting = updaterOrValue(this._sorting)\n      } else {\n        this._sorting = updaterOrValue\n      }\n    },\n    getSortedRowModel: getSortedRowModel(),\n    getCoreRowModel: getCoreRowModel(),\n  })\n\n  return html`...`;\n}"
+    },
+    {
+      "file": "intent/docs/cli/intent-install.md",
+      "line": 38,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "<!-- intent-skills:start -->\n## Skill Loading\n\nBefore substantial work:\n- Skill check: run `npx @tanstack/intent@latest list`, or use skills already listed in context.\n- Skill guidance: if one local skill clearly matches the task, run `npx @tanstack/intent@latest load <package>#<skill>` and follow the returned `SKILL.md`.\n- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.\n- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.\n<!-- intent-skills:end -->"
+    },
+    {
+      "file": "intent/docs/getting-started/quick-start-consumers.md",
+      "line": 30,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "<!-- intent-skills:start -->\n## Skill Loading\n\nBefore substantial work:\n- Skill check: run `pnpm dlx @tanstack/intent@latest list`, or use skills already listed in context.\n- Skill guidance: if one local skill clearly matches the task, run `pnpm dlx @tanstack/intent@latest load <package>#<skill>` and follow the returned `SKILL.md`.\n- Monorepos: when working across packages, run the skill check from the workspace root and prefer the local skill for the package being changed.\n- Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.\n<!-- intent-skills:end -->"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/rendering-markdown.md",
+      "line": 218,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "## <!-- src/blog/hello-world.md -->\n\ntitle: Hello World\npublished: 2024-01-15\nauthors:\n\n- Jane Doe\n  description: My first blog post\n\n---\n\n![Hero Image](/images/hero.jpg)\n\nWelcome to my blog! This is my first post.\n\n## Getting Started\n\nHere's some content with **bold** and _italic_ text."
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/guide/rendering-markdown.md",
+      "line": 218,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "## <!-- src/blog/hello-world.md -->\n\ntitle: Hello World\npublished: 2024-01-15\nauthors:\n\n- Jane Doe\n  description: My first blog post\n\n---\n\n![Hero Image](/images/hero.jpg)\n\nWelcome to my blog! This is my first post.\n\n## Getting Started\n\nHere's some content with **bold** and _italic_ text."
+    },
+    {
+      "file": "tanstack.com/docs/ssr-rsc-migration-findings.md",
+      "line": 64,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "Call server functions from:\n\n- **Route loaders** - Perfect for data fetching\n- **Components** - Use with `useServerFn()` hook"
+    },
+    {
+      "file": "tanstack.com-workflow-intent-sync/docs/ssr-rsc-migration-findings.md",
+      "line": 64,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "Call server functions from:\n\n- **Route loaders** - Perfect for data fetching\n- **Components** - Use with `useServerFn()` hook"
+    },
+    {
+      "file": "workshop/docs/PM_NOTIFICATION_STRATEGY.md",
+      "line": 35,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "# 🌅 Daily System Briefing: [YYYY-MM-DD]\n\n**📊 Pulse Check**\n*   **System Health:** 🟢 Nominal / 🟡 Degraded / 🔴 Critical\n*   **Active Agents:** [Count]\n*   **Queue Size:** [Count] Open Items\n\n**✅ Yesterday's Wins**\n*   Completed [X] Work Items:\n    *   [ID] - [Title] (Worker: [WorkerID])\n    *   [ID] - [Title] (Worker: [WorkerID])\n\n**🚧 Blockers & Decisions (Action Required)**\n*   [ID] is blocked by [Reason]. Needed: [Input]\n*   [ID] requires approval for [Action].\n\n**📅 Plan for Today**\n1.  Targeting [ID] - [Title]\n2.  Targeting [ID] - [Title]\n\n**💰 Usage Stats**\n*   Tokens Used: [Count]\n*   Est. Cost: $[Amount]"
+    },
+    {
+      "file": "workshop/docs/research/030a-context-compression.md",
+      "line": 44,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "---\nsession_id: \"worker-030a\"\ntask_id: \"002-two-agents\"\nstatus: \"completed\" | \"failed\" | \"blocked\"\nnext_suggested_action: \"Merge PR\" | \"Debug connection\" | \"Review logs\"\n---\n\n# 🧠 Context Handoff\n\n## 🎯 The Goal\n(1 sentence on what this worker was trying to do)\n\n## 🏁 Final State\n(What was actually achieved? What artifacts were created?)\n- Created `docs/research/030a-context-compression.md`\n- Verified `mkdir` commands works\n\n## ⛔ Decisions & Trade-offs\n(Crucial: Why did you do it this way?)\n- **Decision**: Chose *Concept A* over *Concept B*\n  - **Rationale**: Concept B required a dependency we don't have.\n- **Abandoned Path**: Tried to use library `xyz` but it failed due to version conflicts.\n\n## ⚠️ Known Issues / Blockers\n- The `test.sh` script is flaky on the first run.\n- Check permissions on generated files.\n\n## ⏭️ Next Steps for Successor\n1. Read the research doc.\n2. Implement the `handoff.md` generator script."
+    },
+    {
+      "file": "workshop/docs/research/034a-memory-hierarchy.md",
+      "line": 40,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "---\ntask: 034a\nworker: worker-034a\noutcome: success\nduration: 5m\n---\n## Key Learnings\n- `grep` argument order matters on macOS.\n- The `search` tool is faster than `find`."
+    },
+    {
+      "file": "workshop/docs/research/057a-pm-memory-context.md",
+      "line": 24,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "---\n# Frontmatter for quick parsing\nphase: \"Phase 4: Parallelization\"\ncurrent_focus: \"File locking stability\"\nlast_updated: 2026-02-02\n---\n\n# Project Brain\n\n## 1. Core Mandates (User Preferences)\n- **Style:** Functional over OOP. No class-based controllers.\n- **Deps:** Minimal external dependencies. Verify before adding.\n- **Testing:** Integration tests > Unit tests for this phase.\n\n## 2. Active Constraints\n- **FileSystem:** No absolute paths in code (portability).\n- **Concurrency:** All file writes must use the lockfile wrapper.\n\n## 3. Recent Strategic Shifts\n- *2026-02-01:* Shifted from \"Coordinator\" agent to \"Orchestrator\" pattern to simplify state management.\n- *2026-01-28:* Deprecated the SQL approach; moving fully to Markdown + Frontmatter for persistence."
+    },
+    {
+      "file": "workshop/docs/research/058a-strategic-planning.md",
+      "line": 38,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "# Role\nYou are the Strategic Planning PM Agent. Your goal is to decompose the User Request into a set of independent, actionable Work Items.\n\n# Context\nUser Request: \"{{USER_REQUEST}}\"\nCurrent Project State: {{PROJECT_STATE_SUMMARY}}\n\n# Instructions\nPerform the following steps sequentially (do not skip):\n\n## Step 1: Hierarchical Decomposition (Chain of Thought)\nBreak the User Request down into 3-5 high-level components. Then, recursively break those down until they are \"Worker-Ready\" (can be done in < 30 mins by one agent).\n- Use a Tree structure.\n- Leaf nodes must be code changes, research docs, or config updates.\n\n## Step 2: Dependency Analysis\nFor each leaf node task from Step 1:\n- List exactly what must be true *before* this task can start.\n- Identify which other tasks provide these prerequisites.\n- Assign IDs (e.g., T-001, T-002).\n\n## Step 3: Success Criteria Definition\nFor each leaf node task, define the \"Definition of Done\":\n- MUST be binary (True/False).\n- MUST be verifiable via a shell command or file check if possible.\n\n# Output Format\nReturn a JSON list of Work Items:\n{\n  \"work_items\": [\n    {\n      \"title\": \"Brief title\",\n      \"description\": \"Detailed context and instructions\",\n      \"dependencies\": [\"T-001\"], // IDs of blocking tasks\n      \"definition_of_done\": [\n        \"File X exists\",\n        \"Test Y passes\"\n      ],\n      \"estimated_complexity\": \"Low/Medium/High\"\n    }\n  ]\n}"
+    },
+    {
+      "file": "workshop/docs/research/worker-specialization.md",
+      "line": 40,
+      "rawLang": "markdown",
+      "lang": "markdown",
+      "code": "---\nid: \"123\"\nstatus: open\nprofile: researcher\n---\n# Analyze Competitor APIs\n..."
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 37,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "> [!NOTE] Custom title\n> Use `redirect_from` on the canonical page when docs are moved.\n\n> [!TIP]\n> Prefer absolute paths like `/framework/react/overview`."
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 65,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "<!-- ::start:tabs variant=\"files\" -->"
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 98,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "<!-- ::start:tabs variant=\"package-manager\" -->\n\nreact: <package-1>\nreact: <package-2>\n\n<!-- ::end:tabs -->"
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 124,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "<!-- ::start:tabs variant=\"package-manager\" mode=\"install\" -->\n\nreact: <package>\nsolid: <package>\n\n<!-- ::end:tabs -->"
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 141,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "<!-- ::start:tabs variant=\"package-manager\" mode=\"dev-install\" -->\n\nreact: <package>\nsolid: <package>\n\n<!-- ::end:tabs -->"
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 158,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "<!-- ::start:tabs variant=\"package-manager\" mode=\"local-install\" -->\n\nreact: <package>\nsolid: <package>\n\n<!-- ::end:tabs -->"
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 175,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "<!-- ::start:tabs variant=\"package-manager\" mode=\"create\" -->\n\nreact: <package>\nsolid: <package>\n\n<!-- ::end:tabs -->"
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 192,
+      "rawLang": "md",
+      "lang": "markdown",
+      "code": "<!-- ::start:tabs variant=\"package-manager\" mode=\"custom\" -->\n\nreact: <command> <package>\nsolid: <command> <package>\n\n<!-- ::end:tabs -->"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 31,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "flowchart TD\n    A[Server - TextEngine]\n    B[StreamProcessor]\n    C[ChatClient]\n\n    A -- \"AG-UI stream · SSE / HTTP\" --> B\n    B -- \"events\" --> C"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 139,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "flowchart TD\n    S1[awaiting-input]\n    S2[input-streaming]\n    S3[input-complete]\n    S4[approval-requested]\n    S5([execute directly])\n    S6[approval-responded]\n    S7([execute tool])\n    S8([cancelled])\n\n    S1 -- \"TOOL_CALL_START\" --> S2\n    S2 -- \"TOOL_CALL_ARGS\" --> S3\n    S3 -- \"TOOL_CALL_END · needsApproval: true\" --> S4\n    S3 -- \"TOOL_CALL_END · needsApproval: false\" --> S5\n    S4 -- \"addToolApprovalResponse()\" --> S6\n    S6 -- \"approved: true\" --> S7\n    S6 -- \"approved: false\" --> S8"
+    },
+    {
+      "file": "ai/docs/guides/agentic-cycle.md",
+      "line": 9,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "graph TD\n    A[User sends message] --> B[LLM analyzes request]\n    B --> C{Does task need tools?}\n    C -->|No| D[Generate text response]\n    C -->|Yes| E[Call appropriate tool]\n    E --> F{Where does<br/>tool execute?}\n    F -->|Server| G[Execute on server]\n    F -->|Client| H[Execute on client]\n    G --> I[Tool returns result]\n    H --> I\n    I --> J[Add result to conversation]\n    J --> K[LLM analyzes result]\n    K --> L{Task complete?}\n    L -->|No| E\n    L -->|Yes| D\n    D --> M[Stream response to user]\n    M --> N[Done]\n    \n    style E fill:#e1f5ff\n    style G fill:#ffe1e1\n    style H fill:#ffe1e1\n    style L fill:#fff4e1"
+    },
+    {
+      "file": "ai/docs/guides/agentic-cycle.md",
+      "line": 36,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n    participant User\n    participant Client\n    participant Server\n    participant LLM\n    participant Tools\n    \n    User->>Client: \"What's the weather in SF and LA?\"\n    Client->>Server: Send message\n    Server->>LLM: Message + tool definitions\n    \n    Note over LLM: Cycle 1: Call first tool\n    \n    LLM->>Server: tool_call: get_weather(SF)\n    Server->>Tools: Execute get_weather\n    Tools-->>Server: {temp: 65, conditions: \"sunny\"}\n    Server->>LLM: tool_result\n    \n    Note over LLM: Cycle 2: Call second tool\n    \n    LLM->>Server: tool_call: get_weather(LA)\n    Server->>Tools: Execute get_weather\n    Tools-->>Server: {temp: 75, conditions: \"clear\"}\n    Server->>LLM: tool_result\n    \n    Note over LLM: Cycle 3: Generate answer\n    \n    LLM-->>Server: content: \"SF is 65°F...\"\n    Server-->>Client: Stream response\n    Client->>User: Display answer"
+    },
+    {
+      "file": "ai/docs/guides/client-tools.md",
+      "line": 9,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n    participant LLM Service\n    participant Server\n    participant Browser\n    participant ClientTool\n    \n    LLM Service->>Server: tool_call chunk<br/>{name: \"updateUI\", args: {...}}\n    Server->>Server: Check if tool has<br/>server execute\n    \n    Note over Server: No execute function<br/>= client tool\n    \n    Server->>Browser: Forward tool-input-available<br/>chunk via SSE/HTTP\n    Browser->>Browser: onToolCall callback<br/>triggered\n    Browser->>ClientTool: execute(args)\n    ClientTool->>ClientTool: Update UI,<br/>localStorage, etc.\n    ClientTool-->>Browser: Return result\n    Browser->>Server: POST tool result\n    Server->>LLM Service: Add tool_result<br/>to conversation\n    \n    Note over LLM Service: Model uses result<br/>to continue\n    \n    LLM Service-->>Server: Stream response\n    Server-->>Browser: Forward chunks"
+    },
+    {
+      "file": "ai/docs/guides/generations.md",
+      "line": 15,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "flowchart TB\n  subgraph Server [\"Server\"]\n    direction TB\n    activities[\"generateImage({ ..., stream: true })\ngenerateSpeech({ ..., stream: true })\ngenerateTranscription({ ..., stream: true })\nsummarize({ ..., stream: true })\ngenerateVideo({ ..., stream: true })\"]\n    transport[\"toServerSentEventsResponse()\"]\n    activities --> transport\n  end\n\n  transport -- \"StreamChunks via SSE\nRUN_STARTED → generation:result → RUN_FINISHED\" --> adapter\n\n  subgraph Client [\"Client\"]\n    direction TB\n    adapter[\"fetchServerSentEvents('/api/...')\"]\n    gc[\"GenerationClient\n(state machine)\"]\n    hooks[\"Framework Hooks\nuseGenerateImage() · useGenerateSpeech()\nuseGenerateVideo() · useSummarize()\nuseTranscription()\"]\n    adapter --> gc\n    gc -- \"result, isLoading, error, status\" --> hooks\n  end"
+    },
+    {
+      "file": "ai/docs/guides/middleware.md",
+      "line": 46,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "graph TD\n    A[\"chat() called\"] --> B[\"onConfig (phase: init)\"]\n    B --> C[onStart]\n    C --> D[\"onConfig (phase: beforeModel)\"]\n    D --> E[\"Adapter streams response\"]\n    E --> F[\"onChunk (for each chunk)\"]\n    F --> G{Tool calls?}\n    G -->|No| H[onUsage]\n    G -->|Yes| I[onBeforeToolCall]\n    I --> J[Tool executes]\n    J --> K[onAfterToolCall]\n    K --> L{Continue loop?}\n    L -->|Yes| D\n    L -->|No| H\n    H --> M{Outcome}\n    M -->|Success| N[onFinish]\n    M -->|Abort| O[onAbort]\n    M -->|Error| P[onError]\n\n    style I fill:#e1f5ff\n    style J fill:#ffe1e1\n    style N fill:#e1ffe1\n    style O fill:#fff4e1\n    style P fill:#ffe1e1"
+    },
+    {
+      "file": "ai/docs/guides/server-tools.md",
+      "line": 9,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n    participant LLM Service\n    participant Server\n    participant Tool\n    participant Database/API\n    \n    LLM Service->>Server: tool_call chunk<br/>{name: \"getUserData\", args: {...}}\n    Server->>Server: Parse tool call<br/>arguments\n    Server->>Tool: execute(parsedArgs)\n    Tool->>Database/API: Query/Fetch data\n    Database/API-->>Tool: Return data\n    Tool-->>Server: Return result\n    Server->>Server: Create tool_result<br/>message\n    Server->>LLM Service: Continue chat with<br/>tool_result in history\n    \n    Note over LLM Service: Model uses result<br/>to generate response\n    \n    LLM Service-->>Server: Stream content chunks\n    Server-->>Server: Stream to client"
+    },
+    {
+      "file": "ai/docs/guides/tool-architecture.md",
+      "line": 26,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n    participant User\n    participant Browser\n    participant Server\n    participant LLM Service\n    \n    User->>Browser: Types message\n    Browser->>Server: POST /api/chat<br/>{messages, ...}\n    Server->>Server: Build tool definitions<br/>from tool array\n    Server->>LLM Service: Send request with:<br/>- messages<br/>- tool definitions<br/>- model config\n    \n    Note over LLM Service: Model analyzes tools<br/>and decides to use one\n    \n    LLM Service-->>Server: Stream chunks:<br/>tool_call, content, done\n    Server-->>Browser: Forward chunks via SSE/HTTP\n    Browser->>Browser: Parse chunks &<br/>update UI\n    Browser->>User: Show response"
+    },
+    {
+      "file": "ai/docs/guides/tool-architecture.md",
+      "line": 115,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "stateDiagram-v2\n    [*] --> AwaitingInput: tool_call received\n    AwaitingInput --> InputStreaming: partial arguments\n    InputStreaming --> InputComplete: all arguments received\n    InputComplete --> ApprovalRequested: needsApproval=true\n    InputComplete --> Executing: needsApproval=false\n    ApprovalRequested --> Executing: user approves\n    ApprovalRequested --> Cancelled: user denies\n    Executing --> OutputAvailable: success\n    Executing --> OutputError: error\n    OutputAvailable --> [*]\n    OutputError --> [*]\n    Cancelled --> [*]"
+    },
+    {
+      "file": "ai/docs/guides/tool-architecture.md",
+      "line": 205,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n    participant User\n    participant Client\n    participant Server\n    participant LLM\n    participant Tool\n    \n    LLM->>Server: tool_call: send_email\n    Server->>Server: Check needsApproval\n    Server->>Client: approval-requested chunk\n    Client->>Client: Show approval UI\n    User->>Client: Clicks \"Approve\"\n    Client->>Server: POST approval response\n    Server->>Tool: execute(args)\n    Tool-->>Server: result\n    Server->>LLM: tool_result\n    LLM-->>Client: Generate response"
+    },
+    {
+      "file": "ai/docs/guides/tool-architecture.md",
+      "line": 326,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "graph TD\n    A[LLM decides to call 3 tools] --> B[tool_call index: 0]\n    A --> C[tool_call index: 1]\n    A --> D[tool_call index: 2]\n    B --> E[Execute in parallel]\n    C --> E\n    D --> E\n    E --> F[Collect all results]\n    F --> G[Continue with results]"
+    },
+    {
+      "file": "markdown/docs/spec.md",
+      "line": 26,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "flowchart LR\n  M[\"Markdown\"] --> P[\"Tiny parser\"]\n  P --> A[\"Serializable AST\"]\n  A --> H[\"HTML renderer\"]\n  A --> R[\"React adapter\"]\n  A --> J[\"JSON/cache\"]\n  C[\"Code fence metadata\"] --> X[\"External highlighter callback\"]\n  X --> H\n  X --> R"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/middleware.md",
+      "line": 119,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n  HTTP ->> Middleware.server: Request\n  Middleware.server ->> Middleware.server: next()\n  Middleware.server ->> ServerFn: payload\n  ServerFn ->> Middleware.server: result\n  Middleware.server ->> Middleware.server: return\n  Middleware.server ->> HTTP: Response\n\n  box Server\n  participant Middleware.server\n  participant ServerFn\n  end"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/middleware.md",
+      "line": 273,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n  ServerFn (client) ->> Middleware.client: payload\n  Middleware.client ->> Middleware.client: next()\n  Middleware.client ->> Middleware.server: Request\n  Middleware.server ->> Middleware.server: next()\n  Middleware.server ->> ServerFn: payload\n  ServerFn ->> Middleware.server: result\n  Middleware.server ->> Middleware.server: return\n  Middleware.server ->> Middleware.client: Response\n  Middleware.client ->> Middleware.client: return\n  Middleware.client ->> ServerFn (client): result\n\n  box Client\n  participant ServerFn (client)\n  participant Middleware.client\n  end\n\n  box Server\n  participant Middleware.server\n  participant ServerFn\n  end"
+    },
+    {
+      "file": "router/docs/start/framework/react/tutorial/fetching-external-api.md",
+      "line": 270,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n    autonumber\n    actor U as User\n    participant R as Router (TanStack Start)\n    participant L as Route Loader (/fetch-movies)\n    participant A as External API (TMDB)\n    participant V as MoviesPage (UI)\n\n    U->>R: Navigate to /fetch-movies\n    R->>L: Invoke loader (server-side)\n    L->>A: GET /movie/popular\\nAuthorization: Bearer <TOKEN>\n    A-->>L: JSON TMDBResponse\n    alt response.ok\n        L-->>R: { movies, error: null }\n        R->>V: Render SSR with movies\n        V-->>U: HTML with movie grid\n    else non-ok / error\n        L-->>R: { movies: [], error: \"Failed to load movies\" }\n        R->>V: Render SSR with error alert\n        V-->>U: HTML with error state\n    end\n\n    note over L,V: Loader validates response.ok,\\nreturns data or error for initial render"
+    },
+    {
+      "file": "router/docs/start/framework/react/tutorial/reading-writing-file.md",
+      "line": 477,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\nautonumber\nactor User\nparticipant UI as Browser (HomePage + Form)\nparticipant Loader as Route Loader (loader)\nparticipant Server\nparticipant Store as jokes.json\n\n%% Visiting the Home Page\nUser ->> UI: Visit /\nUI ->> Loader: loader() calls getJokes()\nLoader ->> Server: getJokes()\nServer ->> Store: Read jokes.json\nStore -->> Server: jokes data\nServer -->> Loader: jokes[]\nLoader -->> UI: useLoaderData() → jokes[]\n\n%% Adding a New Joke\nUser ->> UI: Fill form and submit\nUI ->> Server: handleSubmit → addJoke(newJoke)\nServer ->> Store: Read jokes.json\nServer ->> Store: Write updated jokes.json\nServer -->> UI: addJoke() resolved\nUI ->> Loader: router.invalidate() (re-run loader)\nLoader ->> Server: getJokes()\nServer ->> Store: Read jokes.json\nStore -->> Server: updated jokes[]\nServer -->> Loader: updated jokes[]\nLoader -->> UI: useLoaderData() → updated jokes[]"
+    },
+    {
+      "file": "router/docs/start/framework/solid/tutorial/reading-writing-file.md",
+      "line": 477,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\nautonumber\nactor User\nparticipant UI as Browser (HomePage + Form)\nparticipant Loader as Route Loader (loader)\nparticipant Server\nparticipant Store as jokes.json\n\n%% Visiting the Home Page\nUser ->> UI: Visit /\nUI ->> Loader: loader() calls getJokes()\nLoader ->> Server: getJokes()\nServer ->> Store: Read jokes.json\nStore -->> Server: jokes data\nServer -->> Loader: jokes[]\nLoader -->> UI: useLoaderData() → jokes[]\n\n%% Adding a New Joke\nUser ->> UI: Fill form and submit\nUI ->> Server: handleSubmit → addJoke(newJoke)\nServer ->> Store: Read jokes.json\nServer ->> Store: Write updated jokes.json\nServer -->> UI: addJoke() resolved\nUI ->> Loader: router.invalidate() (re-run loader)\nLoader ->> Server: getJokes()\nServer ->> Store: Read jokes.json\nStore -->> Server: updated jokes[]\nServer -->> Loader: updated jokes[]\nLoader -->> UI: useLoaderData() → updated jokes[]"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/guide/middleware.md",
+      "line": 119,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n  HTTP ->> Middleware.server: Request\n  Middleware.server ->> Middleware.server: next()\n  Middleware.server ->> ServerFn: payload\n  ServerFn ->> Middleware.server: result\n  Middleware.server ->> Middleware.server: return\n  Middleware.server ->> HTTP: Response\n\n  box Server\n  participant Middleware.server\n  participant ServerFn\n  end"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/guide/middleware.md",
+      "line": 271,
+      "rawLang": "mermaid",
+      "lang": "mermaid",
+      "code": "sequenceDiagram\n  ServerFn (client) ->> Middleware.client: payload\n  Middleware.client ->> Middleware.client: next()\n  Middleware.client ->> Middleware.server: Request\n  Middleware.server ->> Middleware.server: next()\n  Middleware.server ->> ServerFn: payload\n  ServerFn ->> Middleware.server: result\n  Middleware.server ->> Middleware.server: return\n  Middleware.server ->> Middleware.client: Response\n  Middleware.client ->> Middleware.client: return\n  Middleware.client ->> ServerFn (client): result\n\n  box Client\n  participant ServerFn (client)\n  participant Middleware.client\n  end\n\n  box Server\n  participant Middleware.server\n  participant ServerFn\n  end"
+    },
+    {
+      "file": "router/docs/router/how-to/deploy-to-production.md",
+      "line": 307,
+      "rawLang": "nginx",
+      "lang": "nginx",
+      "code": "server {\n  listen 80;\n  server_name your-domain.com;\n  root /path/to/your/dist;\n  index index.html;\n\n  location / {\n    try_files $uri $uri/ /index.html;\n  }\n\n  # Optional: Cache static assets\n  location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg)$ {\n    expires 1y;\n    add_header Cache-Control \"public, immutable\";\n  }\n}"
+    },
+    {
+      "file": "router/docs/router/how-to/deploy-to-production.md",
+      "line": 351,
+      "rawLang": "nginx",
+      "lang": "nginx",
+      "code": "server {\n    listen 80;\n    server_name localhost;\n    root /usr/share/nginx/html;\n    index index.html;\n\n    location / {\n        try_files $uri $uri/ /index.html;\n    }\n}"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/deploy-to-production.md",
+      "line": 307,
+      "rawLang": "nginx",
+      "lang": "nginx",
+      "code": "server {\n  listen 80;\n  server_name your-domain.com;\n  root /path/to/your/dist;\n  index index.html;\n\n  location / {\n    try_files $uri $uri/ /index.html;\n  }\n\n  # Optional: Cache static assets\n  location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg)$ {\n    expires 1y;\n    add_header Cache-Control \"public, immutable\";\n  }\n}"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/deploy-to-production.md",
+      "line": 351,
+      "rawLang": "nginx",
+      "lang": "nginx",
+      "code": "server {\n    listen 80;\n    server_name localhost;\n    root /usr/share/nginx/html;\n    index index.html;\n\n    location / {\n        try_files $uri $uri/ /index.html;\n    }\n}"
+    },
+    {
+      "file": "agconnectinc/docs/ag-connect-mcp.md",
+      "line": 5,
+      "rawLang": "text",
+      "lang": "plaintext",
+      "code": "https://agconnectinc.com/mcp"
+    },
+    {
+      "file": "agconnectinc/docs/ag-connect-mcp.md",
+      "line": 26,
+      "rawLang": "text",
+      "lang": "plaintext",
+      "code": "SITE_URL=https://agconnectinc.com\nNETLIFY_DB_URL=...\nDATABASE_URL=...\nNETLIFY_DATABASE_URL=...\nGOOGLE_OAUTH_CLIENT_ID=...\nGOOGLE_OAUTH_CLIENT_SECRET=...\nSESSION_SECRET=..."
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 176,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "TOOL_CALL_START   { toolCallId: \"tc-1\", toolName: \"send_email\" }\nTOOL_CALL_ARGS    { toolCallId: \"tc-1\", delta: '{\"to\":\"...\"}' }\nTOOL_CALL_END     { toolCallId: \"tc-1\" }\nCUSTOM            { name: \"approval-requested\", value: {\n                      toolCallId: \"tc-1\",\n                      toolName: \"send_email\",\n                      input: { to: \"...\" },\n                      approval: { id: \"appr-1\", needsApproval: true }\n                  }}\nRUN_FINISHED      { finishReason: \"tool_calls\" }"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 191,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "handleCustomEvent():\n  1. updateToolCallApproval(messages, messageId, \"tc-1\", \"appr-1\")\n     → Sets part.state = \"approval-requested\"\n     → Sets part.approval = { id: \"appr-1\", needsApproval: true }\n  2. emitMessagesChange()\n  3. fires onApprovalRequest({ toolCallId, toolName, input, approvalId })"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 202,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "streamResponse() finally block:\n  1. setIsLoading(false)\n  2. drainPostStreamActions() → (nothing queued)\n  3. streamCompletedSuccessfully check:\n     lastPart is tool-call (not tool-result) → no auto-continue\n  → Returns to caller (sendMessage resolves)"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 215,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "addToolApprovalResponse({ id: \"appr-1\", approved: true }):\n  1. processor.addToolApprovalResponse(\"appr-1\", true)\n     → updateToolCallApprovalResponse():\n       part.approval.approved = true\n       part.state = \"approval-responded\"\n  2. isLoading is false → call checkForContinuation() directly"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 226,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "checkForContinuation():\n  1. continuationPending = false, isLoading = false → proceed\n  2. shouldAutoSend() → areAllToolsComplete():\n     part.state === \"approval-responded\" → true\n  3. continuationPending = true\n  4. streamResponse() → new stream to server with approval in messages\n  5. Server sees approval, executes tool, returns result + LLM response\n  6. continuationPending = false"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 247,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "Timeline:\n─────────────────────────────────────────────────────────────\n\n1. User approves tool A\n   └─ checkForContinuation() sets continuationPending = true\n   └─ streamResponse() starts (stream 2)\n\n2. Stream 2 produces tool B needing approval\n   └─ approval-requested chunk processed\n   └─ UI shows approval prompt for tool B\n\n3. User approves tool B WHILE stream 2 is still active\n   └─ addToolApprovalResponse():\n      └─ processor state updated (approval-responded)\n      └─ isLoading is true → queues checkForContinuation\n\n4. Stream 2 ends\n   └─ streamResponse() finally block:\n      └─ setIsLoading(false)\n      └─ drainPostStreamActions():\n         └─ Runs queued checkForContinuation()\n         └─ BUT continuationPending is STILL TRUE (from step 1)\n         └─ *** EARLY RETURN — approval swallowed ***\n   └─ Returns to step 1's checkForContinuation()\n   └─ continuationPending = false\n\n5. Nobody re-checks → tool B's approval is lost"
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 330,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "Timeline (with fix):\n─────────────────────────────────────────────────────────────\n\n1. User approves tool A\n   └─ checkForContinuation() [OUTER]\n   └─ continuationPending = true, continuationSkipped = false\n   └─ streamResponse() starts (stream 2)\n\n2. Stream 2 produces tool B, user approves during stream\n   └─ Queues checkForContinuation as post-stream action\n\n3. Stream 2 ends\n   └─ drainPostStreamActions():\n      └─ checkForContinuation(): continuationPending is true\n         └─ continuationSkipped = true  ← MARKED\n         └─ returns early\n   └─ Back in OUTER: continuationPending = false\n\n4. OUTER checks continuationSkipped → true\n   └─ continuationSkipped = false\n   └─ Recurses into checkForContinuation() [INNER]\n   └─ shouldAutoSend() → true (tool B is approval-responded)\n   └─ continuationPending = true\n   └─ streamResponse() → stream 3 (final text response)\n   └─ continuationPending = false\n   └─ continuationSkipped is false → no further recursion\n\n5. Done. All three streams completed correctly."
+    },
+    {
+      "file": "ai/docs/architecture/approval-flow-processing.md",
+      "line": 396,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "TOOL_CALL_START     → creates tool-call part (state: awaiting-input)\nTOOL_CALL_ARGS*     → accumulates arguments (state: input-streaming)\nTOOL_CALL_END       → finalizes arguments (state: input-complete)\nCUSTOM              → approval-requested (state: approval-requested)\nRUN_FINISHED        → finishReason: \"tool_calls\""
+    },
+    {
+      "file": "ai/docs/guides/generations.md",
+      "line": 153,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "1. RUN_STARTED          → Client sets status to 'generating'\n2. CUSTOM               → Client receives the result\n   name: 'generation:result'\n   value: <your result>\n3. RUN_FINISHED         → Client sets status to 'success'"
+    },
+    {
+      "file": "ai/docs/guides/generations.md",
+      "line": 163,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "1. RUN_STARTED          → Client sets status to 'generating'\n2. RUN_ERROR            → Client sets error + status to 'error'\n   error: { message: '...' }"
+    },
+    {
+      "file": "ai/docs/guides/per-model-type-safety.md",
+      "line": 50,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "error TS2353: Object literal may only specify known properties, and 'text' does not exist in type ...'."
+    },
+    {
+      "file": "ai/docs/guides/tool-architecture.md",
+      "line": 340,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "User: \"Compare the weather in NYC, SF, and LA\"\n\nLLM calls:\n- get_weather({city: \"NYC\"}) [index: 0]\n- get_weather({city: \"SF\"}) [index: 1]\n- get_weather({city: \"LA\"}) [index: 2]\n\nAll execute simultaneously, then LLM generates comparison."
+    },
+    {
+      "file": "ai/docs/protocol/chunk-definitions.md",
+      "line": 322,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "RUN_STARTED\nTOOL_CALL_START (index: 0, name: \"get_weather\")\nTOOL_CALL_START (index: 1, name: \"get_time\")\nTOOL_CALL_END (toolCallId: \"call_1\", result: \"...\")\nTOOL_CALL_END (toolCallId: \"call_2\", result: \"...\")\nTEXT_MESSAGE_START\nTEXT_MESSAGE_CONTENT (delta: \"Based on the data...\")\nTEXT_MESSAGE_END\nRUN_FINISHED (finishReason: \"stop\")"
+    },
+    {
+      "file": "ai/docs/protocol/http-stream-protocol.md",
+      "line": 69,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "{JSON_ENCODED_CHUNK}\\n"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 61,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "data: {JSON_ENCODED_CHUNK}\\n\\n"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 76,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "data: {\"type\":\"content\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567890,\"delta\":\"Hello\",\"content\":\"Hello\",\"role\":\"assistant\"}\\n\\n"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 82,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "data: {\"type\":\"tool_call\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567891,\"toolCall\":{\"id\":\"call_xyz\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"location\\\":\\\"SF\\\"}\"}},\"index\":0}\\n\\n"
+    },
+    {
+      "file": "ai/docs/protocol/sse-protocol.md",
+      "line": 88,
+      "rawLang": "plaintext",
+      "lang": "plaintext",
+      "code": "data: {\"type\":\"done\",\"id\":\"chatcmpl-abc123\",\"model\":\"gpt-5.2\",\"timestamp\":1701234567892,\"finishReason\":\"stop\",\"usage\":{\"promptTokens\":10,\"completionTokens\":5,\"totalTokens\":15}}\\n\\n"
+    },
+    {
+      "file": "workshop/docs/design/pm-autopilot-logic.md",
+      "line": 133,
+      "rawLang": "python",
+      "lang": "python",
+      "code": "def autopilot_loop():\n    while True:\n        # 1. Load State & Context\n        state = load_state()\n        memory = read_memory(\"global.md\")\n        \n        # 2. Check Triggers\n        if has_pending_decisions():\n            state = \"AWAITING_DECISION\"\n        elif new_discord_message():\n            state = \"ANALYSIS\"\n        elif cron_timer_tick():\n            state = \"ANALYSIS\"\n        else:\n            sleep(5)\n            continue\n\n        # 3. State Execution\n        match state:\n            case \"ANALYSIS\":\n                plan_diff = analyze_changes(memory, new_inputs)\n                if plan_diff.requires_action():\n                    transition_to(\"PLANNING\")\n                else:\n                    transition_to(\"IDLE\")\n\n            case \"PLANNING\":\n                plan = generate_plan(memory)\n                confidence = evaluate_confidence(plan)\n                \n                if confidence < 0.7 or plan.has_critical_actions():\n                    queue_decision(plan)\n                    transition_to(\"AWAITING_DECISION\")\n                else:\n                    save_plan(plan)\n                    transition_to(\"DELEGATING\")\n\n            case \"DELEGATING\":\n                workers = spawn_workers(plan)\n                monitor_workers(workers)\n                transition_to(\"IDLE\")\n\n            case \"AWAITING_DECISION\":\n                resolution = check_decision_status()\n                if resolution == \"approved\":\n                    transition_to(\"ANALYSIS\") # Re-eval with approval\n                elif resolution == \"rejected\":\n                    log_rejection()\n                    transition_to(\"IDLE\")\n                else:\n                    sleep(30) # Continue waiting\n\n            case \"RECOVERY\":\n                heal_state()\n                transition_to(\"IDLE\")"
+    },
+    {
+      "file": "workshop/docs/pm-agent-logic.md",
+      "line": 87,
+      "rawLang": "python",
+      "lang": "python",
+      "code": "def autopilot_loop():\n    while True:\n        task = queue.fetch_next()\n        if not task:\n            sleep(5)\n            continue\n\n        plan = generate_plan(task)\n        risk_level = assess_risk(plan)\n        confidence = self_evaluate(plan)\n\n        if risk_level >= HIGH or confidence < THRESHOLD:\n            # INTERRUPT\n            status = \"BLOCKED_AWAITING_USER\"\n            discord.notify(task, plan, risk_level, confidence)\n            wait_for_discord_approval(task.id)\n        else:\n            # AUTOPILOT\n            execute(plan)\n            \n        update_dashboard(task)"
+    },
+    {
+      "file": "workshop/docs/token-optimization-strategies.md",
+      "line": 40,
+      "rawLang": "python",
+      "lang": "python",
+      "code": "if session.spend + estimate(prompt) > session.budget:\n    raise BudgetExceededError()"
+    },
+    {
+      "file": "workshop/docs/tracing-standard.md",
+      "line": 58,
+      "rawLang": "python",
+      "lang": "python",
+      "code": "# Pseudo-code example\nlogger.start_span(\"research_task\", input={\"query\": \"tracing standards\"})\n# ... work ...\nlogger.end_span(\"research_task\", output={\"result\": \"found 5 standards\"})"
+    },
+    {
+      "file": "workshop/docs/research/isolation-patterns.md",
+      "line": 79,
+      "rawLang": "scheme",
+      "lang": "scheme",
+      "code": "(version 1)\n(allow default)\n(deny file-write* (subpath \"/\"))\n(allow file-write* (subpath \"/Users/me/project/.workshop/sessions/worker-001\"))\n(allow file-write* (subpath \"/tmp\"))"
+    },
+    {
+      "file": "agconnectinc/docs/ag-connect-mcp.md",
+      "line": 66,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "netlify dev:exec --context production -- pnpm run test:mcp:e2e:netlify -- --build"
+    },
+    {
+      "file": "agconnectinc/docs/ag-connect-mcp.md",
+      "line": 72,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "netlify dev:exec --context production -- pnpm run test:mcp:e2e:netlify -- --build --user=person@example.com"
+    },
+    {
+      "file": "agconnectinc/docs/ag-connect-mcp.md",
+      "line": 78,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "netlify dev:exec --context production -- pnpm run test:mcp:e2e:netlify -- --target=remote"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 11,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "npm install @tanstack/ai-anthropic"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 182,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "ANTHROPIC_API_KEY=sk-ant-..."
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 12,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "npm install @tanstack/ai-fal"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 230,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "FAL_KEY=your-fal-api-key"
+    },
+    {
+      "file": "ai/docs/adapters/gemini.md",
+      "line": 13,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "npm install @tanstack/ai-gemini"
+    },
+    {
+      "file": "ai/docs/adapters/gemini.md",
+      "line": 279,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "GEMINI_API_KEY=your-api-key-here\n# or\nGOOGLE_API_KEY=your-api-key-here"
+    },
+    {
+      "file": "ai/docs/adapters/grok.md",
+      "line": 11,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "npm install @tanstack/ai-grok"
+    },
+    {
+      "file": "ai/docs/adapters/grok.md",
+      "line": 153,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "XAI_API_KEY=xai-..."
+    },
+    {
+      "file": "ai/docs/adapters/groq.md",
+      "line": 11,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "npm install @tanstack/ai-groq"
+    },
+    {
+      "file": "ai/docs/adapters/groq.md",
+      "line": 211,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "GROQ_API_KEY=gsk_..."
+    },
+    {
+      "file": "ai/docs/adapters/ollama.md",
+      "line": 11,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "npm install @tanstack/ai-ollama"
+    },
+    {
+      "file": "ai/docs/adapters/ollama.md",
+      "line": 57,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "ollama list"
+    },
+    {
+      "file": "ai/docs/adapters/ollama.md",
+      "line": 195,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "# macOS\nbrew install ollama\n\n# Linux\ncurl -fsSL https://ollama.com/install.sh | sh\n\n# Windows\n# Download from https://ollama.com"
+    },
+    {
+      "file": "ai/docs/adapters/ollama.md",
+      "line": 208,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "ollama pull llama3"
+    },
+    {
+      "file": "ai/docs/adapters/ollama.md",
+      "line": 214,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "ollama serve"
+    },
+    {
+      "file": "ai/docs/adapters/ollama.md",
+      "line": 228,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "OLLAMA_HOST=0.0.0.0:11434 ollama serve"
+    },
+    {
+      "file": "ai/docs/adapters/ollama.md",
+      "line": 236,
+      "rawLang": "bash",
+      "lang": "shell",
+      "code": "OLLAMA_HOST=http://localhost:11434"
+    },
+    {
+      "file": "db/docs/reference/type-aliases/ApplyJoinOptionalityToMergedSchema.md",
+      "line": 28,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "FROM users LEFT JOIN orders  -- orders becomes optional\nFROM users RIGHT JOIN orders -- users becomes optional\nFROM users FULL JOIN orders  -- both become optional\nFROM users INNER JOIN orders -- both remain required"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 12,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE system (\n  id INTEGER PRIMARY KEY CHECK (id = 1),\n  mode TEXT NOT NULL DEFAULT 'active' CHECK (mode IN ('active', 'sleep')),\n  paused INTEGER NOT NULL DEFAULT 0,\n  created_at TEXT NOT NULL DEFAULT (datetime('now')),\n  updated_at TEXT NOT NULL DEFAULT (datetime('now'))\n);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 25,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE pm (\n  id INTEGER PRIMARY KEY CHECK (id = 1),\n  mode TEXT NOT NULL DEFAULT 'active' CHECK (mode IN ('active', 'autopilot')),\n  last_contact_at TEXT,\n  last_contact_channel TEXT,\n  mission TEXT,\n  goal TEXT,\n  quiet_hours_start INTEGER DEFAULT 2,\n  quiet_hours_end INTEGER DEFAULT 8,\n  autopilot_timeout_minutes INTEGER DEFAULT 30,\n  updated_at TEXT NOT NULL DEFAULT (datetime('now'))\n);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 43,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE pm_priorities (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  priority_order INTEGER NOT NULL,\n  content TEXT NOT NULL,\n  created_at TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX idx_pm_priorities_order ON pm_priorities(priority_order);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 56,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE pm_threads (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  topic TEXT NOT NULL,\n  thread_id TEXT NOT NULL,\n  created_at TEXT NOT NULL DEFAULT (datetime('now'))\n);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 68,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE decision_queue (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  topic TEXT NOT NULL,\n  question TEXT NOT NULL,\n  context TEXT,\n  priority TEXT DEFAULT 'medium',\n  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'resolved', 'expired')),\n  created_at TEXT NOT NULL DEFAULT (datetime('now')),\n  resolved_at TEXT\n);\nCREATE INDEX idx_decision_queue_status ON decision_queue(status);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 85,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE orchestrator (\n  id INTEGER PRIMARY KEY CHECK (id = 1),\n  status TEXT NOT NULL DEFAULT 'stopped' CHECK (status IN ('running', 'stopped')),\n  active_workers INTEGER NOT NULL DEFAULT 0,\n  max_workers INTEGER NOT NULL DEFAULT 3,\n  poll_interval INTEGER NOT NULL DEFAULT 5,\n  last_heartbeat_at TEXT,\n  updated_at TEXT NOT NULL DEFAULT (datetime('now'))\n);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 100,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE workers (\n  id TEXT PRIMARY KEY,\n  work_item_id TEXT NOT NULL,\n  status TEXT NOT NULL DEFAULT 'running' CHECK (status IN ('running', 'done', 'failed')),\n  started_at TEXT NOT NULL DEFAULT (datetime('now')),\n  finished_at TEXT,\n  FOREIGN KEY (work_item_id) REFERENCES work_items(id)\n);\nCREATE INDEX idx_workers_status ON workers(status);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 115,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE work_items (\n  id TEXT PRIMARY KEY,\n  file_path TEXT NOT NULL,\n  title TEXT NOT NULL,\n  status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'in_progress', 'done', 'failed')),\n  blocked_by TEXT,\n  created_at TEXT NOT NULL DEFAULT (datetime('now')),\n  updated_at TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX idx_work_items_status ON work_items(status);\nCREATE INDEX idx_work_items_created ON work_items(created_at DESC);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 132,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE TABLE activity (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  entry TEXT NOT NULL,\n  category TEXT, -- 'orchestrator', 'worker', 'pm', 'system'\n  created_at TEXT NOT NULL DEFAULT (datetime('now'))\n);\nCREATE INDEX idx_activity_created ON activity(created_at DESC);"
+    },
+    {
+      "file": "workshop/docs/specs/sqlite-schema.md",
+      "line": 147,
+      "rawLang": "sql",
+      "lang": "sql",
+      "code": "CREATE VIEW v_dashboard AS\nSELECT json_object(\n  'system', (SELECT json_object('mode', mode, 'paused', paused) FROM system),\n  'orchestrator', (SELECT json_object(\n    'status', status,\n    'active_workers', active_workers,\n    'max_workers', max_workers,\n    'poll_interval', poll_interval,\n    'last_heartbeat_at', last_heartbeat_at\n  ) FROM orchestrator),\n  'pm', (SELECT json_object(\n    'mode', mode,\n    'last_contact_at', last_contact_at,\n    'goal', goal,\n    'priorities', (SELECT json_group_array(content) FROM pm_priorities ORDER BY priority_order)\n  ) FROM pm),\n  'work_summary', (SELECT json_object(\n    'total', COUNT(*),\n    'open', SUM(CASE WHEN status = 'open' THEN 1 ELSE 0 END),\n    'in_progress', SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END),\n    'done', SUM(CASE WHEN status = 'done' THEN 1 ELSE 0 END),\n    'failed', SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END)\n  ) FROM work_items)\n) as state;"
+    },
+    {
+      "file": "db/docs/framework/svelte/overview.md",
+      "line": 24,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { useLiveQuery } from '@tanstack/svelte-db'\n  import { eq } from '@tanstack/db'\n\n  const query = useLiveQuery((q) =>\n    q.from({ todos: todosCollection })\n     .where(({ todos }) => eq(todos.completed, false))\n     .select(({ todos }) => ({ id: todos.id, text: todos.text }))\n  )\n</script>\n\n{#if query.isLoading}\n  <div>Loading...</div>\n{:else}\n  <ul>\n    {#each query.data as todo (todo.id)}\n      <li>{todo.text}</li>\n    {/each}\n  </ul>\n{/if}"
+    },
+    {
+      "file": "db/docs/framework/svelte/overview.md",
+      "line": 57,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { useLiveQuery } from '@tanstack/svelte-db'\n  import { gt } from '@tanstack/db'\n\n  let { minPriority } = $props()\n\n  const query = useLiveQuery(\n    (q) => q.from({ todos: todosCollection })\n           .where(({ todos }) => gt(todos.priority, minPriority)),\n    [() => minPriority] // Re-run when minPriority changes\n  )\n</script>\n\n<div>{query.data.length} high-priority todos</div>"
+    },
+    {
+      "file": "db/docs/framework/svelte/overview.md",
+      "line": 88,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { useLiveQuery } from '@tanstack/svelte-db'\n  import { eq, and } from '@tanstack/db'\n\n  let userId = $state(1)\n  let status = $state('active')\n\n  // Good - all external values in deps\n  const query = useLiveQuery(\n    (q) => q.from({ todos: todosCollection })\n           .where(({ todos }) => and(\n             eq(todos.userId, userId),\n             eq(todos.status, status)\n           )),\n    [() => userId, () => status]\n  )\n\n  // Bad - missing dependencies\n  const badQuery = useLiveQuery(\n    (q) => q.from({ todos: todosCollection })\n           .where(({ todos }) => eq(todos.userId, userId)),\n    [] // Missing userId!\n  )\n</script>\n\n<div>{query.data.length} todos</div>"
+    },
+    {
+      "file": "db/docs/framework/svelte/overview.md",
+      "line": 119,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { useLiveQuery } from '@tanstack/svelte-db'\n\n  // No external dependencies - query never changes\n  const query = useLiveQuery(\n    (q) => q.from({ todos: todosCollection }),\n    []\n  )\n</script>\n\n<div>{query.data.length} todos</div>"
+    },
+    {
+      "file": "db/docs/framework/svelte/overview.md",
+      "line": 135,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { useLiveQuery } from '@tanstack/svelte-db'\n\n  // Same as above - no deps needed\n  const query = useLiveQuery(\n    (q) => q.from({ todos: todosCollection })\n  )\n</script>\n\n<div>{query.data.length} todos</div>"
+    },
+    {
+      "file": "db/docs/framework/svelte/overview.md",
+      "line": 152,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { useLiveQuery } from '@tanstack/svelte-db'\n  import { eq } from '@tanstack/db'\n\n  const query = useLiveQuery((q) =>\n    q.from({ todos: todosCollection })\n     .where(({ todos }) => eq(todos.active, true))\n  )\n</script>\n\n<div>\n  <div>Status: {query.status}</div>\n  <div>Loading: {query.isLoading}</div>\n  <div>Ready: {query.isReady}</div>\n  <div>Total: {query.data.length}</div>\n</div>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/arrays.md",
+      "line": 13,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { createForm } from '@tanstack/svelte-form'\n\n  const form = createForm(() => ({\n    defaultValues: {\n      people: [],\n    },\n  }))\n</script>\n\n<form.Field name=\"people\" mode=\"array\">\n  {#snippet children(field)}\n    {#each field.state.value as person, i}\n      <!-- ... -->\n    {/each}\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/arrays.md",
+      "line": 35,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<button onclick={() => field.pushValue({ name: '', age: 0 })} type=\"button\">\n  Add person\n</button>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/arrays.md",
+      "line": 43,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<form.Field name={`people[${i}].name`}>\n  {#snippet children(subField)}\n    <input\n      value={subField.state.value}\n      oninput={(e) => {\n        subField.handleChange(e.currentTarget.value)\n      }}\n    />\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/arrays.md",
+      "line": 58,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script lang=\"ts\">\n  import { createForm } from '@tanstack/svelte-form'\n\n  const form = createForm(() => ({\n    defaultValues: {\n      people: [] as Array<{ age: number; name: string }>,\n    },\n    onSubmit: ({ value }) => alert(JSON.stringify(value)),\n  }))\n</script>\n\n<form\n  id=\"form\"\n  onsubmit={(e) => {\n    e.preventDefault()\n    e.stopPropagation()\n    form.handleSubmit()\n  }}\n>\n  <form.Field name=\"people\">\n    {#snippet children(field)}\n      <div>\n        {#each field.state.value as person, i}\n          <form.Field name={`people[${i}].name`}>\n            {#snippet children(subField)}\n              <div>\n                <label>\n                  <div>Name for person {i}</div>\n                  <input\n                    value={person.name}\n                    oninput={(e: Event) => {\n                      const target = e.target as HTMLInputElement\n                      subField.handleChange(target.value)\n                    }}\n                  />\n                </label>\n              </div>\n            {/snippet}\n          </form.Field>\n        {/each}\n\n        <button\n          onclick={() => field.pushValue({ name: '', age: 0 })}\n          type=\"button\"\n        >\n          Add person\n        </button>\n      </div>\n    {/snippet}\n  </form.Field>\n\n  <button type=\"submit\"> Submit </button>\n</form>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/async-initial-values.md",
+      "line": 19,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { createForm } from '@tanstack/svelte-form'\n  import { createQuery } from '@tanstack/svelte-query'\n\n    const { data, isLoading } = createQuery(() => ({\n      queryKey: ['data'],\n      queryFn: async () => {\n        await new Promise((resolve) => setTimeout(resolve, 1000))\n        return { firstName: 'FirstName', lastName: 'LastName' }\n      },\n    }))\n\n    const form = createForm(() => ({\n      defaultValues: {\n        firstName: $data?.firstName ?? '',\n        lastName: $data?.lastName ?? '',\n      },\n      onSubmit: async ({ value }) => {\n        // Do something with form data\n        console.log(value)\n      },\n    }))\n</script>\n\n{#if $isLoading}\n  <p>Loading...</p>\n{:else}\n  <!-- form... -->\n{/if}"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/basic-concepts.md",
+      "line": 60,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<form.Field name=\"firstName\">\n  {#snippet children(field)}\n    <input\n      name={field.name}\n      value={field.state.value}\n      onblur={field.handleBlur}\n      oninput={(e) => field.handleChange(e.target.value)}\n    />\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/basic-concepts.md",
+      "line": 100,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<input\n  name={field.name}\n  value={field.state.value}\n  onblur={field.handleBlur}\n  oninput={(e) => field.handleChange(e.target.value)}\n/>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/basic-concepts.md",
+      "line": 115,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<form.Field\n  name=\"firstName\"\n  validators={{\n    onChange: ({ value }) =>\n      !value\n        ? 'A first name is required'\n        : value.length < 3\n          ? 'First name must be at least 3 characters'\n          : undefined,\n    onChangeAsync: async ({ value }) => {\n      await new Promise((resolve) => setTimeout(resolve, 1000))\n      return value.includes('error') && 'No \"error\" allowed in first name'\n    },\n  }}\n>\n  {#snippet children(field)}\n    <input\n      name={field.name}\n      value={field.state.value}\n      onBlur={field.handleBlur}\n      onInput={(e) => field.handleChange(e.target.value)}\n    />\n    <p>{field.state.meta.errors[0]}</p>\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/basic-concepts.md",
+      "line": 155,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { z } from 'zod'\n\n  // ...\n</script>\n\n<form.Field\n  name=\"firstName\"\n  validators={{\n    onChange: z.string().min(3, 'First name must be at least 3 characters'),\n    onChangeAsyncDebounceMs: 500,\n    onChangeAsync: z.string().refine(\n      async (value) => {\n        await new Promise((resolve) => setTimeout(resolve, 1000))\n        return !value.includes('error')\n      },\n      {\n        message: 'No \"error\" allowed in first name',\n      },\n    ),\n  }}\n>\n  {#snippet children(field)}\n    <input\n      name={field.name}\n      value={field.state.value}\n      onBlur={field.handleBlur}\n      onInput={(e) => field.handleChange(e.target.value)}\n    />\n    <p>{field.state.meta.errors[0]}</p>\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/basic-concepts.md",
+      "line": 196,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  //...\n  const firstName = form.useStore((state) => state.values.firstName)\n</script>\n\n<form.Subscribe\n  selector={(state) => ({\n    canSubmit: state.canSubmit,\n    isSubmitting: state.isSubmitting,\n  })}\n>\n  {#snippet children(state)}\n    <button type=\"submit\" disabled={!state.canSubmit}>\n      {state.isSubmitting ? '...' : 'Submit'}\n    </button>\n  {/snippet}\n</form.Subscribe>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/basic-concepts.md",
+      "line": 224,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<form.Field name=\"hobbies\" mode=\"array\">\n  {#snippet children(hobbiesField)}\n    <div>\n      Hobbies\n      <div>\n        {#each hobbiesField.state.value as _, i}\n            <div>\n              <form.Field name={`hobbies[${i}].name`}>\n                {#snippet children(field)}\n                  <div>\n                    <label for={field.name}>Name:</label>\n                    <input\n                      id={field.name}\n                      name={field.name}\n                      value={field.state.value}\n                      onblur={field.handleBlur}\n                      onchange={(e) => field.handleChange(e.target.value)}\n                    />\n                    <button\n                      type=\"button\"\n                      onclick={() => hobbiesField.removeValue(i)}\n                    >\n                      X\n                    </button>\n                  </div>\n                {/snippet}\n              </form.Field>\n              <form.Field name={`hobbies[${i}].description`}>\n                {#snippet children(field)}\n                    <div>\n                      <label for={field.name}>Description:</label>\n                      <input\n                        id={field.name}\n                        name={field.name}\n                        value={field.state.value}\n                        onblur={field.handleBlur}\n                        onchange={(e) => field.handleChange(e.target.value)}\n                      />\n                    </div>\n                {/snippet}\n              </form.Field>\n            </div>\n          {:else}\n            No hobbies found.\n          {/each}\n      </div>\n      <button\n        type=\"button\"\n        onclick={() =>\n          hobbiesField.pushValue({\n            name: '',\n            description: '',\n            yearsOfExperience: 0,\n          })\n        }\n      >\n        Add hobby\n      </button>\n    </div>\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/linked-fields.md",
+      "line": 22,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<script>\n  import { createForm } from '@tanstack/svelte-form'\n\n  const form = createForm(() => ({\n    defaultValues: {\n      password: '',\n      confirm_password: '',\n    },\n    // ...\n  }))\n</script>\n\n<div>\n  <form.Field name=\"password\">\n    {#snippet children(field)}\n      <label>\n        <div>Password</div>\n        <input\n          value={field.state.value}\n          onChange={(e) => field.handleChange(e.target.value)}\n        />\n      </label>\n    {/snippet}\n  </form.Field>\n  <form.Field\n    name=\"confirm_password\"\n    validators={{\n      onChangeListenTo: ['password'],\n      onChange: ({ value, fieldApi }) => {\n        if (value !== fieldApi.form.getFieldValue('password')) {\n          return 'Passwords do not match'\n        }\n        return undefined\n      },\n    }}\n  >\n    {#snippet children(field)}\n      <div>\n        <label>\n          <div>Confirm Password</div>\n          <input\n            value={field.state.value}\n            onchange={(e) => field.handleChange(e.target.value)}\n          />\n        </label>\n        {#each field.state.meta.errors as err}\n          <div>{err}</div>\n        {/each}\n      </div>\n    {/snippet}\n  </form.Field>\n</div>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/validation.md",
+      "line": 18,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<form.Field\n  name=\"age\"\n  validators={{\n    onChange: ({ value }) =>\n      value < 13 ? 'You must be 13 to make an account' : undefined,\n  }}\n>\n  {#snippet children(field)}\n    <label for={field.name}>Age:</label>\n    <input\n      id={field.name}\n      name={field.name}\n      value={field.state.value}\n      type=\"number\"\n      onchange={(e) => field.handleChange(e.target.valueAsNumber)}\n    />\n    {#if field.state.meta.errors}\n      <em role=\"alert\">{field.state.meta.errors.join(', ')}</em>\n    {/if}\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/svelte/guides/validation.md",
+      "line": 44,
+      "rawLang": "svelte",
+      "lang": "svelte",
+      "code": "<form.Field\n  name=\"age\"\n  validators={{\n    onBlur: ({ value }) =>\n      value < 13 ? 'You must be 13 to make an account' : undefined,\n  }}\n>\n  {#snippet children(field)}\n    <label for={field.name}>Age:</label>\n    <input\n      id={field.name}\n      name={field.name}\n      value={field.state.value}\n      type=\"number\"\n      onblur={field.handleBlur}\n      onchange={(e) => field.handleChange(e.target.valueAsNumber)}\n    />\n    {#if field.state.meta.errors}\n      <em role=\"alert\">{field.state.meta.errors.join(', ')}</em>\n    {/if}\n  {/snippet}\n</form.Field>"
+    },
+    {
+      "file": "router/docs/router/how-to/deploy-to-production.md",
+      "line": 27,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[[redirects]]\n  from = \"/*\"\n  to = \"/index.html\"\n  status = 200\n\n[build]\n  publish = \"dist\"\n  command = \"npm run build\""
+    },
+    {
+      "file": "router/docs/router/how-to/deploy-to-production.md",
+      "line": 40,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[build]\n  publish = \".output/public\"\n  command = \"npm run build\"\n\n[functions]\n  directory = \".output/server\"\n\n[[redirects]]\n  from = \"/api/*\"\n  to = \"/.netlify/functions/server\"\n  status = 200\n\n[[redirects]]\n  from = \"/*\"\n  to = \"/index.html\"\n  status = 200"
+    },
+    {
+      "file": "router/docs/start/framework/react/guide/hosting.md",
+      "line": 168,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[build]\n  command = \"vite build\"\n  publish = \"dist/client\"\n[dev]\n  command = \"vite dev\"\n  port = 3000"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/deploy-to-production.md",
+      "line": 27,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[[redirects]]\n  from = \"/*\"\n  to = \"/index.html\"\n  status = 200\n\n[build]\n  publish = \"dist\"\n  command = \"npm run build\""
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/deploy-to-production.md",
+      "line": 40,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[build]\n  publish = \".output/public\"\n  command = \"npm run build\"\n\n[functions]\n  directory = \".output/server\"\n\n[[redirects]]\n  from = \"/api/*\"\n  to = \"/.netlify/functions/server\"\n  status = 200\n\n[[redirects]]\n  from = \"/*\"\n  to = \"/index.html\"\n  status = 200"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/react/guide/hosting.md",
+      "line": 172,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[build]\n  command = \"vite build\"\n  publish = \"dist/client\"\n[dev]\n  command = \"vite dev\"\n  port = 3000"
+    },
+    {
+      "file": "start-rsc/docs/start/framework/solid/guide/hosting.md",
+      "line": 166,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[build]\n  command = \"vite build\"\n  publish = \"dist/client\"\n[dev]\n  command = \"vite dev\"\n  port = 3000"
+    },
+    {
+      "file": "workflow/docs/api/host-adapters.md",
+      "line": 115,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[deploy]\nstartCommand = \"pnpm workflow:sweep\"\ncronSchedule = \"*/5 * * * *\"\nrestartPolicyType = \"NEVER\""
+    },
+    {
+      "file": "workflow/docs/concepts/scheduling.md",
+      "line": 91,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "# wrangler.toml\n[[triggers.crons]]\ncron = \"0 9 * * MON\""
+    },
+    {
+      "file": "workflow/docs/cookbook/index.md",
+      "line": 359,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "# railway.toml\n[deploy]\nstartCommand = \"pnpm workflow:sweep\"\ncronSchedule = \"*/5 * * * *\"\nrestartPolicyType = \"NEVER\""
+    },
+    {
+      "file": "workflow/docs/guide/deployment.md",
+      "line": 150,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "# railway.toml\n[deploy]\nstartCommand = \"pnpm workflow:sweep\"\ncronSchedule = \"*/5 * * * *\"\nrestartPolicyType = \"NEVER\""
+    },
+    {
+      "file": "workflow/docs/guide/index.md",
+      "line": 339,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "# railway.toml\n[deploy]\nstartCommand = \"pnpm workflow:sweep\"\ncronSchedule = \"*/5 * * * *\"\nrestartPolicyType = \"NEVER\""
+    },
+    {
+      "file": "workshop/docs/094-multi-project-strategy.md",
+      "line": 39,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[project]\nname = \"my-web-app\"\ndescription = \"Main frontend application\"\n\n[orchestrator]\n# Override global defaults if needed\npriority_bonus = 10 # Higher priority for this project's tasks\n\n[worker]\n# Files to always explicitly include in context window\ncontext_files = [\n  \"package.json\",\n  \"API_DESIGN.md\"\n]\n# Environment variables specific to this project\n[worker.env]\nNODE_ENV = \"test\""
+    },
+    {
+      "file": "workshop/docs/094-multi-project-strategy.md",
+      "line": 60,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "[system]\nmax_global_workers = 5\n\n[[projects]]\npath = \"/Users/me/projects/workshop\"\nname = \"workshop\"\nactive = true\n\n[[projects]]\npath = \"/Users/me/projects/client-app\"\nname = \"client-app\""
+    },
+    {
+      "file": "workshop/docs/design/configuration-schema.md",
+      "line": 7,
+      "rawLang": "toml",
+      "lang": "toml",
+      "code": "# workshop.toml - Centralized Workshop Configuration\n\n# --- System Settings ---\n[system]\n# Interval in seconds for the orchestrator loop\nheartbeat_interval = 5\n\n# Maximum number of worker agents running in parallel\n# Prevents resource exhaustion\nmax_concurrent_workers = 5\n\n# Logging verbosity: \"debug\", \"info\", \"warn\", \"error\"\nlog_level = \"info\"\n\n# --- Path Configuration ---\n# All paths can be absolute or relative to the workshop root\n[paths]\n# Directory where work item markdown files are stored\nwork_dir = \".workshop/work\"\n\n# Directory for ephemeral worker session state\nsessions_dir = \".workshop/sessions\"\n\n# Directory for completed work and closed sessions\narchive_dir = \".workshop/archive\"\n\n# --- Project Definitions ---\n# Support for multiple managed codebases\n[[projects]]\nname = \"workshop-core\"\npath = \".\"\n# If true, agents can make changes without explicit human gate per file\n# (Still subject to global 'ralph_mode' constraints if applicable)\nallow_autopilot = false\n\n[[projects]]\nname = \"client-app\"\npath = \"../client-app\"\nallow_autopilot = true\n\n# --- Model Configuration ---\n# Define which LLM models to use for different agent phases\n[models]\n# High reasoning model for breaking down tasks\nplanning = \"claude-3-opus\"\n\n# High speed/accuracy balance for implementation\ncoding = \"claude-3-sonnet\"\n\n# Model for Project Manager / synthesis tasks\npm = \"claude-3-haiku\"\n\n# --- Integrations ---\n[integrations]\n# Port for the local dashboard UI\ndashboard_port = 3000\n\n# Discord webhook URL for notifications\n# Supports env var expansion: \"${DISCORD_WEBHOOK_URL}\"\ndiscord_webhook = \"${DISCORD_WEBHOOK_URL}\"\n\n# --- Maintenance & Retention ---\n[maintenance]\n# How many days to keep successful session logs\nretention_days_success = 7\n\n# How many days to keep failed session logs (for debugging)\nretention_days_failure = 30\n\n# Maximum number of failure directories to keep regardless of age\nmax_failures_count = 50"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 17,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { chat } from \"@tanstack/ai\";\nimport { anthropicText } from \"@tanstack/ai-anthropic\";\n\nconst stream = chat({\n  adapter: anthropicText(\"claude-sonnet-4-5\"),\n  messages: [{ role: \"user\", content: \"Hello!\" }],\n});"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 29,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { chat } from \"@tanstack/ai\";\nimport { createAnthropicChat } from \"@tanstack/ai-anthropic\";\n\nconst adapter = createAnthropicChat(process.env.ANTHROPIC_API_KEY!, {\n  // ... your config options\n});\n\nconst stream = chat({\n  adapter: adapter(\"claude-sonnet-4-5\"),\n  messages: [{ role: \"user\", content: \"Hello!\" }],\n});"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 45,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { createAnthropicChat, type AnthropicChatConfig } from \"@tanstack/ai-anthropic\";\n\nconst config: Omit<AnthropicChatConfig, 'apiKey'> = {\n  baseURL: \"https://api.anthropic.com\", // Optional, for custom endpoints\n};\n\nconst adapter = createAnthropicChat(process.env.ANTHROPIC_API_KEY!, config);"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 58,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { chat, toServerSentEventsResponse } from \"@tanstack/ai\";\nimport { anthropicText } from \"@tanstack/ai-anthropic\";\n\nexport async function POST(request: Request) {\n  const { messages } = await request.json();\n\n  const stream = chat({\n    adapter: anthropicText(\"claude-sonnet-4-5\"),\n    messages,\n  });\n\n  return toServerSentEventsResponse(stream);\n}"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 76,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { chat, toolDefinition } from \"@tanstack/ai\";\nimport { anthropicText } from \"@tanstack/ai-anthropic\";\nimport { z } from \"zod\";\n\nconst searchDatabaseDef = toolDefinition({\n  name: \"search_database\",\n  description: \"Search the database\",\n  inputSchema: z.object({\n    query: z.string(),\n  }),\n});\n\nconst searchDatabase = searchDatabaseDef.server(async ({ query }) => {\n  // Search database\n  return { results: [] };\n});\n\nconst stream = chat({\n  adapter: anthropicText(\"claude-sonnet-4-5\"),\n  messages,\n  tools: [searchDatabase],\n});"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 105,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "const stream = chat({\n  adapter: anthropicText(\"claude-sonnet-4-5\"),\n  messages,\n  modelOptions: {\n    max_tokens: 4096,\n    temperature: 0.7,\n    top_p: 0.9,\n    top_k: 40,\n    stop_sequences: [\"END\"],\n  },\n});"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 123,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "modelOptions: {\n  thinking: {\n    type: \"enabled\",\n    budget_tokens: 2048, // Maximum tokens for thinking\n  },\n}"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 138,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "const stream = chat({\n  adapter: anthropicText(\"claude-sonnet-4-5\"),\n  messages: [\n    {\n      role: \"user\",\n      content: [\n        {\n          type: \"text\",\n          content: \"What is the capital of France?\",\n          metadata: {\n            cache_control: {\n              type: \"ephemeral\",\n            },\n          },\n        },\n      ],\n    },\n  ],\n});"
+    },
+    {
+      "file": "ai/docs/adapters/anthropic.md",
+      "line": 164,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { summarize } from \"@tanstack/ai\";\nimport { anthropicSummarize } from \"@tanstack/ai-anthropic\";\n\nconst result = await summarize({\n  adapter: anthropicSummarize(\"claude-sonnet-4-5\"),\n  text: \"Your long text to summarize...\",\n  maxLength: 100,\n  style: \"concise\", // \"concise\" | \"bullet-points\" | \"paragraph\"\n});\n\nconsole.log(result.summary);"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 20,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "// Good — full type safety and autocomplete\nconst adapter = falImage(\"fal-ai/z-image/turbo\");\n\n// Bad — no type inference for model-specific options\nconst modelId = \"fal-ai/z-image/turbo\";\nconst adapter = falImage(modelId);"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 33,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { generateImage } from \"@tanstack/ai\";\nimport { falImage } from \"@tanstack/ai-fal\";\n\nconst result = await generateImage({\n  adapter: falImage(\"fal-ai/flux/dev\"),\n  prompt: \"A futuristic cityscape at sunset\",\n  numberOfImages: 1,\n});\n\nconsole.log(result.images);"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 48,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { generateImage } from \"@tanstack/ai\";\nimport { falImage } from \"@tanstack/ai-fal\";\n\nconst adapter = falImage(\"fal-ai/flux/dev\", {\n  apiKey: process.env.FAL_KEY!,\n});\n\nconst result = await generateImage({\n  adapter,\n  prompt: \"A futuristic cityscape at sunset\",\n  numberOfImages: 1,\n});"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 65,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { falImage, type FalClientConfig } from \"@tanstack/ai-fal\";\n\n// Direct API key\nconst adapter = falImage(\"fal-ai/flux/dev\", {\n  apiKey: \"your-api-key\",\n});\n\n// Using a proxy URL (for client-side usage)\nconst proxiedAdapter = falImage(\"fal-ai/flux/dev\", {\n  apiKey: \"your-api-key\",\n  proxyUrl: \"https://your-server.com/api/fal/proxy\",\n});"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 84,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { generateImage } from \"@tanstack/ai\";\nimport { falImage } from \"@tanstack/ai-fal\";\n\n// Use string literals for the model to get full type safety\nconst result = await generateImage({\n  adapter: falImage(\"fal-ai/nano-banana-pro\"),\n  prompt: \"A futuristic cityscape at sunset\",\n  numberOfImages: 1,\n  size: \"16:9_4K\",\n  modelOptions: {\n    output_format: \"jpeg\",\n  },\n});"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 106,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { generateImage } from \"@tanstack/ai\";\nimport { falImage } from \"@tanstack/ai-fal\";\n\n// Model-specific options are type-safe\nconst result = await generateImage({\n  adapter: falImage(\"fal-ai/z-image/turbo\"),\n  prompt: \"A serene mountain landscape\",\n  numberOfImages: 1,\n  size: \"landscape_16_9\",\n  modelOptions: {\n    acceleration: \"high\",\n    enable_prompt_expansion: true,\n  },\n});"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 134,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "// Aspect ratio only\nsize: \"16:9\"\n\n// Aspect ratio with resolution\nsize: \"16:9_4K\"\n\n// Named size (model-specific)\nsize: \"landscape_16_9\""
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 151,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { generateVideo, getVideoJobStatus } from \"@tanstack/ai\";\nimport { falVideo } from \"@tanstack/ai-fal\";"
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 160,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { generateVideo, getVideoJobStatus } from \"@tanstack/ai\";\nimport { falVideo } from \"@tanstack/ai-fal\";\n\n// 1. Submit the video generation job\nconst adapter = falVideo(\"fal-ai/kling-video/v2.6/pro/text-to-video\");\n\nconst job = await generateVideo({\n  adapter,\n  prompt: \"A timelapse of a flower blooming\",\n  size: \"16:9_1080p\",\n  modelOptions: {\n    duration: \"5\",\n  },\n});\n\n// 2. Poll for status\nconst status = await getVideoJobStatus({\n  adapter,\n  jobId: job.jobId,\n});\n\nconsole.log(status.status); // \"pending\" | \"processing\" | \"completed\""
+    },
+    {
+      "file": "ai/docs/adapters/fal.md",
+      "line": 187,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { generateVideo } from \"@tanstack/ai\";\nimport { falVideo } from \"@tanstack/ai-fal\";\n\nconst job = await generateVideo({\n  adapter: falVideo(\"fal-ai/kling-video/v2.6/pro/image-to-video\"),\n  prompt: \"Animate this scene with gentle wind\",\n  modelOptions: {\n    start_image_url: \"https://example.com/image.jpg\",\n    generate_audio: true,\n    duration: \"5\",\n  },\n});"
+    },
+    {
+      "file": "ai/docs/adapters/gemini.md",
+      "line": 19,
+      "rawLang": "typescript",
+      "lang": "ts",
+      "code": "import { chat } from \"@tanstack/ai\";\nimport { geminiText } from \"@tanstack/ai-gemini\";\n\nconst stream = chat({\n  adapter: geminiText(\"gemini-2.5-pro\"),\n  messages: [{ role: \"user\", content: \"Hello!\" }],\n});"
+    },
+    {
+      "file": "ai/docs/getting-started/devtools.md",
+      "line": 36,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { TanStackDevtools } from '@tanstack/react-devtools'\nimport { aiDevtoolsPlugin } from '@tanstack/react-ai-devtools'\n\nconst App = () => {\n  return (\n    <>\n       <TanStackDevtools \n          plugins={[\n            // ... other plugins\n            aiDevtoolsPlugin(),\n          ]}\n          // this config is important to connect to the server event bus\n          eventBusConfig={{\n            connectToServerBus: true,\n          }}\n        />\n    </>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/generations.md",
+      "line": 71,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateImage } from '@tanstack/ai-react'\nimport { fetchServerSentEvents } from '@tanstack/ai-client'\n\nconst { generate, result, isLoading } = useGenerateImage({\n  connection: fetchServerSentEvents('/api/generate/image'),\n})"
+    },
+    {
+      "file": "ai/docs/guides/generations.md",
+      "line": 103,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateImage } from '@tanstack/ai-react'\nimport { generateImageFn } from '../lib/server-functions'\n\nconst { generate, result, isLoading } = useGenerateImage({\n  fetcher: (input) => generateImageFn({ data: input }),\n})"
+    },
+    {
+      "file": "ai/docs/guides/generations.md",
+      "line": 138,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateImage } from '@tanstack/ai-react'\nimport { generateImageStreamFn } from '../lib/server-functions'\n\nconst { generate, result, isLoading } = useGenerateImage({\n  fetcher: (input) => generateImageStreamFn({ data: input }),\n})"
+    },
+    {
+      "file": "ai/docs/guides/generations.md",
+      "line": 205,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "const { result } = useGenerateSpeech({\n  connection: fetchServerSentEvents('/api/generate/speech'),\n  onResult: (raw) => ({\n    audioUrl: `data:${raw.contentType};base64,${raw.audio}`,\n    duration: raw.duration,\n  }),\n})\n// result is typed as { audioUrl: string; duration?: number } | null"
+    },
+    {
+      "file": "ai/docs/guides/image-generation.md",
+      "line": 295,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateImage, fetchServerSentEvents } from '@tanstack/ai-react'\n\nfunction ImageGenerator() {\n  const { generate, result, isLoading, error, reset } = useGenerateImage({\n    connection: fetchServerSentEvents('/api/generate/image'),\n  })\n\n  return (\n    <div>\n      <button\n        onClick={() => generate({ prompt: 'A sunset over mountains' })}\n        disabled={isLoading}\n      >\n        {isLoading ? 'Generating...' : 'Generate'}\n      </button>\n      {error && <p>Error: {error.message}</p>}\n      {result?.images.map((img, i) => (\n        <img\n          key={i}\n          src={img.url || `data:image/png;base64,${img.b64Json}`}\n          alt={img.revisedPrompt || 'Generated image'}\n        />\n      ))}\n      {result && <button onClick={reset}>Clear</button>}\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/image-generation.md",
+      "line": 345,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "// components/ImageGenerator.tsx\nimport { useGenerateImage } from '@tanstack/ai-react'\nimport { generateImageFn } from '../lib/server-functions'\n\nfunction ImageGenerator() {\n  const { generate, result, isLoading } = useGenerateImage({\n    fetcher: (data) => generateImageFn({ data }),\n  })\n\n  return (\n    <div>\n      <button\n        onClick={() => generate({ prompt: 'A sunset over mountains' })}\n        disabled={isLoading}\n      >\n        Generate\n      </button>\n      {result?.images.map((img, i) => (\n        <img key={i} src={img.url || `data:image/png;base64,${img.b64Json}`} />\n      ))}\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/image-generation.md",
+      "line": 394,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateImage } from '@tanstack/ai-react'\nimport { generateImageStreamFn } from '../lib/server-functions'\n\nfunction ImageGenerator() {\n  const { generate, result, isLoading } = useGenerateImage({\n    fetcher: (input) => generateImageStreamFn({ data: input }),\n  })\n\n  return (\n    <div>\n      <button\n        onClick={() => generate({ prompt: 'A sunset over mountains' })}\n        disabled={isLoading}\n      >\n        Generate\n      </button>\n      {result?.images.map((img, i) => (\n        <img key={i} src={img.url || `data:image/png;base64,${img.b64Json}`} />\n      ))}\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/multimodal-content.md",
+      "line": 394,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useChat } from '@tanstack/ai-react'\nimport { fetchServerSentEvents } from '@tanstack/ai-client'\nimport { useState } from 'react'\n\nfunction ChatWithImages() {\n  const [imageUrl, setImageUrl] = useState('')\n  const { sendMessage, messages } = useChat({\n    connection: fetchServerSentEvents('/api/chat'),\n  })\n\n  const handleSendWithImage = () => {\n    if (imageUrl) {\n      sendMessage({\n        content: [\n          { type: 'text', content: 'What do you see in this image?' },\n          { type: 'image', source: { type: 'url', value: imageUrl } }\n        ]\n      })\n    }\n  }\n\n  return (\n    <div>\n      <input\n        type=\"url\"\n        placeholder=\"Image URL\"\n        value={imageUrl}\n        onChange={(e) => setImageUrl(e.target.value)}\n      />\n      <button onClick={handleSendWithImage}>Send with Image</button>\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/multimodal-content.md",
+      "line": 434,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useChat } from '@tanstack/ai-react'\nimport { fetchServerSentEvents } from '@tanstack/ai-client'\n\nfunction ChatWithFileUpload() {\n  const { sendMessage } = useChat({\n    connection: fetchServerSentEvents('/api/chat'),\n  })\n\n  const handleFileUpload = async (file: File) => {\n    // Convert file to base64\n    const base64 = await new Promise<string>((resolve) => {\n      const reader = new FileReader()\n      reader.onload = () => {\n        const result = reader.result as string\n        // Remove data URL prefix (e.g., \"data:image/png;base64,\")\n        resolve(result.split(',')[1])\n      }\n      reader.readAsDataURL(file)\n    })\n\n    // Determine content type based on file type\n    const type = file.type.startsWith('image/')\n      ? 'image'\n      : file.type.startsWith('audio/')\n        ? 'audio'\n        : file.type.startsWith('video/')\n          ? 'video'\n          : 'document'\n\n    await sendMessage({\n      content: [\n        { type: 'text', content: `Please analyze this ${type}` },\n        {\n          type,\n          source: { type: 'data', value: base64 },\n          metadata: { mimeType: file.type }\n        }\n      ]\n    })\n  }\n\n  return (\n    <input\n      type=\"file\"\n      accept=\"image/*,audio/*,video/*,.pdf\"\n      onChange={(e) => {\n        const file = e.target.files?.[0]\n        if (file) handleFileUpload(file)\n      }}\n    />\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/observability.md",
+      "line": 59,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "// App.tsx\nimport { aiEventClient } from \"@tanstack/ai/event-client\";\n\nconst App = () => {\n  useEffect(() => {\n    const cleanup = aiEventClient.on(\"tools:call:updated\", e => {\n      // do whatever you need to do\n    })\n    return cleanup;\n  },[])\n  return <div></div>\n}"
+    },
+    {
+      "file": "ai/docs/guides/text-to-speech.md",
+      "line": 218,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateSpeech, fetchServerSentEvents } from '@tanstack/ai-react'\n\nfunction SpeechGenerator() {\n  const { generate, result, isLoading, error } = useGenerateSpeech({\n    connection: fetchServerSentEvents('/api/generate/speech'),\n  })\n\n  const playAudio = () => {\n    if (!result) return\n    const audioData = atob(result.audio)\n    const bytes = new Uint8Array(audioData.length)\n    for (let i = 0; i < audioData.length; i++) {\n      bytes[i] = audioData.charCodeAt(i)\n    }\n    const blob = new Blob([bytes], { type: result.contentType })\n    const url = URL.createObjectURL(blob)\n    const audio = new Audio(url)\n    audio.play()\n    audio.onended = () => URL.revokeObjectURL(url)\n  }\n\n  return (\n    <div>\n      <button\n        onClick={() => generate({ text: 'Hello, welcome to TanStack AI!' })}\n        disabled={isLoading}\n      >\n        {isLoading ? 'Generating...' : 'Generate Speech'}\n      </button>\n      {error && <p>Error: {error.message}</p>}\n      {result && <button onClick={playAudio}>Play Audio</button>}\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/text-to-speech.md",
+      "line": 276,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateSpeech } from '@tanstack/ai-react'\nimport { generateSpeechFn } from '../lib/server-functions'\n\nfunction SpeechGenerator() {\n  const { generate, result, isLoading } = useGenerateSpeech({\n    fetcher: (input) => generateSpeechFn({ data: input }),\n  })\n  // ... same UI as above\n}"
+    },
+    {
+      "file": "ai/docs/guides/text-to-speech.md",
+      "line": 312,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateSpeech } from '@tanstack/ai-react'\nimport { generateSpeechStreamFn } from '../lib/server-functions'\n\nfunction SpeechGenerator() {\n  const { generate, result, isLoading } = useGenerateSpeech({\n    fetcher: (input) => generateSpeechStreamFn({ data: input }),\n  })\n  // ... same UI as above\n}"
+    },
+    {
+      "file": "ai/docs/guides/text-to-speech.md",
+      "line": 359,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateSpeech, fetchServerSentEvents } from '@tanstack/ai-react'\n\nfunction SpeechPlayer() {\n  const { generate, result, isLoading } = useGenerateSpeech({\n    connection: fetchServerSentEvents('/api/generate/speech'),\n    onResult: (raw) => {\n      const audioData = atob(raw.audio)\n      const bytes = new Uint8Array(audioData.length)\n      for (let i = 0; i < audioData.length; i++) {\n        bytes[i] = audioData.charCodeAt(i)\n      }\n      const blob = new Blob([bytes], { type: raw.contentType })\n      const url = URL.createObjectURL(blob)\n      return {\n        audio: new Audio(url),\n        duration: raw.duration,\n      }\n    },\n  })\n\n  return (\n    <div>\n      <button\n        onClick={() => generate({ text: 'Hello world!', voice: 'alloy' })}\n        disabled={isLoading}\n      >\n        Generate\n      </button>\n      {result && (\n        <button onClick={() => result.audio.play()}>\n          Play Audio\n        </button>\n      )}\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/transcription.md",
+      "line": 328,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useTranscription, fetchServerSentEvents } from '@tanstack/ai-react'\n\nfunction AudioTranscriber() {\n  const { generate, result, isLoading, error } = useTranscription({\n    connection: fetchServerSentEvents('/api/transcribe'),\n  })\n\n  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {\n    const file = e.target.files?.[0]\n    if (!file) return\n\n    // Convert to base64 for JSON transport\n    const buffer = await file.arrayBuffer()\n    const base64 = btoa(\n      new Uint8Array(buffer).reduce((s, b) => s + String.fromCharCode(b), ''),\n    )\n    const dataUrl = `data:${file.type};base64,${base64}`\n\n    await generate({ audio: dataUrl, language: 'en' })\n  }\n\n  return (\n    <div>\n      <input type=\"file\" accept=\"audio/*\" onChange={handleFileUpload} />\n      {isLoading && <p>Transcribing...</p>}\n      {error && <p>Error: {error.message}</p>}\n      {result && (\n        <div>\n          <p>{result.text}</p>\n          {result.duration && <p>Duration: {result.duration}s</p>}\n        </div>\n      )}\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/transcription.md",
+      "line": 387,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useTranscription } from '@tanstack/ai-react'\nimport { transcribeFn } from '../lib/server-functions'\n\nfunction AudioTranscriber() {\n  const { generate, result, isLoading } = useTranscription({\n    fetcher: (input) => transcribeFn({ data: input }),\n  })\n  // ... same UI as above\n}"
+    },
+    {
+      "file": "ai/docs/guides/transcription.md",
+      "line": 423,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useTranscription } from '@tanstack/ai-react'\nimport { transcribeStreamFn } from '../lib/server-functions'\n\nfunction AudioTranscriber() {\n  const { generate, result, isLoading } = useTranscription({\n    fetcher: (input) => transcribeStreamFn({\n      data: { ...input, audio: input.audio as string },\n    }),\n  })\n  // ... same UI as above\n}"
+    },
+    {
+      "file": "ai/docs/guides/video-generation.md",
+      "line": 183,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateVideo, fetchServerSentEvents } from '@tanstack/ai-react'\n\nfunction VideoGenerator() {\n  const {\n    generate,\n    result,\n    jobId,\n    videoStatus,\n    isLoading,\n    error,\n    stop,\n    reset,\n  } = useGenerateVideo({\n    connection: fetchServerSentEvents('/api/generate/video'),\n    onJobCreated: (id) => console.log('Job created:', id),\n    onStatusUpdate: (status) => console.log('Status:', status.status),\n  })\n\n  return (\n    <div>\n      <button\n        onClick={() =>\n          generate({ prompt: 'A golden retriever playing in sunflowers' })\n        }\n        disabled={isLoading}\n      >\n        {isLoading ? 'Generating...' : 'Generate Video'}\n      </button>\n\n      {isLoading && (\n        <div>\n          {jobId && <p>Job: {jobId}</p>}\n          {videoStatus?.progress != null && (\n            <progress value={videoStatus.progress} max={100} />\n          )}\n          <p>Status: {videoStatus?.status ?? 'starting...'}</p>\n          <button onClick={stop}>Cancel</button>\n        </div>\n      )}\n\n      {error && <p>Error: {error.message}</p>}\n\n      {result && (\n        <div>\n          <video src={result.url} controls width={640} />\n          <button onClick={reset}>Clear</button>\n        </div>\n      )}\n    </div>\n  )\n}"
+    },
+    {
+      "file": "ai/docs/guides/video-generation.md",
+      "line": 277,
+      "rawLang": "tsx",
+      "lang": "tsx",
+      "code": "import { useGenerateVideo } from '@tanstack/ai-react'\nimport { generateVideoFn } from '../lib/server-functions'\n\nfunction VideoGenerator() {\n  const { generate, result, isLoading } = useGenerateVideo({\n    fetcher: (input) => generateVideoFn({ data: input }),\n  })\n  // ... same UI as above (note: jobId and videoStatus won't update in fetcher mode)\n}"
+    },
+    {
+      "file": "db/docs/framework/vue/overview.md",
+      "line": 24,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup>\nimport { useLiveQuery } from '@tanstack/vue-db'\nimport { eq } from '@tanstack/db'\n\nconst { data, isLoading } = useLiveQuery((q) =>\n  q.from({ todos: todosCollection })\n   .where(({ todos }) => eq(todos.completed, false))\n   .select(({ todos }) => ({ id: todos.id, text: todos.text }))\n)\n</script>\n\n<template>\n  <div v-if=\"isLoading\">Loading...</div>\n  <ul v-else>\n    <li v-for=\"todo in data\" :key=\"todo.id\">{{ todo.text }}</li>\n  </ul>\n</template>"
+    },
+    {
+      "file": "db/docs/framework/vue/overview.md",
+      "line": 54,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup>\nimport { ref } from 'vue'\nimport { useLiveQuery } from '@tanstack/vue-db'\nimport { gt } from '@tanstack/db'\n\nconst minPriority = ref(5)\n\nconst { data } = useLiveQuery(\n  (q) => q.from({ todos: todosCollection })\n         .where(({ todos }) => gt(todos.priority, minPriority.value)),\n  [minPriority] // Pass the ref directly, it will be unwrapped automatically\n)\n</script>\n\n<template>\n  <div>{{ data.length }} high-priority todos</div>\n</template>"
+    },
+    {
+      "file": "db/docs/framework/vue/overview.md",
+      "line": 88,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup>\nimport { ref } from 'vue'\nimport { useLiveQuery } from '@tanstack/vue-db'\nimport { eq, and } from '@tanstack/db'\n\nconst userId = ref(1)\nconst status = ref('active')\n\n// Good - all refs in deps array\nconst { data } = useLiveQuery(\n  (q) => q.from({ todos: todosCollection })\n         .where(({ todos }) => and(\n           eq(todos.userId, userId.value),\n           eq(todos.status, status.value)\n         )),\n  [userId, status] // Pass refs directly\n)\n\n// Bad - missing dependencies\nconst { data: badData } = useLiveQuery(\n  (q) => q.from({ todos: todosCollection })\n         .where(({ todos }) => eq(todos.userId, userId.value)),\n  [] // Missing userId!\n)\n</script>\n\n<template>\n  <div>{{ data.length }} todos</div>\n</template>"
+    },
+    {
+      "file": "db/docs/framework/vue/overview.md",
+      "line": 122,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup>\nimport { toRef } from 'vue'\nimport { useLiveQuery } from '@tanstack/vue-db'\nimport { eq } from '@tanstack/db'\n\nconst props = defineProps<{ userId: number }>()\n\n// Option 1: Convert prop to ref\nconst userIdRef = toRef(props, 'userId')\nconst { data } = useLiveQuery(\n  (q) => q.from({ todos: todosCollection })\n         .where(({ todos }) => eq(todos.userId, userIdRef.value)),\n  [userIdRef]\n)\n\n// Option 2: Use a getter function for the prop\nconst { data: data2 } = useLiveQuery(\n  (q) => q.from({ todos: todosCollection })\n         .where(({ todos }) => eq(todos.userId, props.userId)),\n  [() => props.userId] // Getter function for non-ref values\n)\n</script>\n\n<template>\n  <div>{{ data.length }} todos</div>\n</template>"
+    },
+    {
+      "file": "db/docs/framework/vue/overview.md",
+      "line": 153,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup>\nimport { useLiveQuery } from '@tanstack/vue-db'\n\n// No external dependencies - query never changes\nconst { data } = useLiveQuery(\n  (q) => q.from({ todos: todosCollection }),\n  []\n)\n</script>\n\n<template>\n  <div>{{ data.length }} todos</div>\n</template>"
+    },
+    {
+      "file": "db/docs/framework/vue/overview.md",
+      "line": 171,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup>\nimport { useLiveQuery } from '@tanstack/vue-db'\n\n// Same as above - no deps needed\nconst { data } = useLiveQuery(\n  (q) => q.from({ todos: todosCollection })\n)\n</script>\n\n<template>\n  <div>{{ data.length }} todos</div>\n</template>"
+    },
+    {
+      "file": "db/docs/framework/vue/overview.md",
+      "line": 190,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup>\nimport { ref } from 'vue'\nimport { createLiveQueryCollection } from '@tanstack/db'\nimport { useLiveQuery } from '@tanstack/vue-db'\nimport { eq } from '@tanstack/db'\n\n// Create collection outside component or in a composable\nconst todosQuery = createLiveQueryCollection({\n  query: (q) => q.from({ todos: todosCollection })\n               .where(({ todos }) => eq(todos.active, true)),\n  startSync: true\n})\n\n// Use the pre-created collection\nconst { data, collection } = useLiveQuery(todosQuery)\n\n// Or use a reactive ref to switch between collections\nconst currentQuery = ref(todosQuery)\nconst { data: reactiveData } = useLiveQuery(currentQuery)\n</script>\n\n<template>\n  <div>{{ data.length }} todos</div>\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/arrays.md",
+      "line": 13,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup lang=\"ts\">\nimport { useForm } from '@tanstack/vue-form'\n\nconst form = useForm({\n  defaultValues: {\n    people: [] as Array<{ age: number; name: string }>,\n  },\n  onSubmit: ({ value }) => alert(JSON.stringify(value)),\n})\n</script>\n\n<template>\n  <form.Field name=\"people\">\n    <template v-slot=\"{ field, state }\">\n      <div>\n        <form.Field\n          v-for=\"(_, i) of field.state.value\"\n          :key=\"i\"\n          :name=\"`people[${i}].name`\"\n        >\n          <template v-slot=\"{ field: subField, state }\">\n            <!-- ... -->\n          </template>\n        </form.Field>\n      </div>\n    </template>\n  </form.Field>\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/arrays.md",
+      "line": 46,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<button @click=\"field.pushValue({ name: '', age: 0 })\" type=\"button\">\n  Add person\n</button>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/arrays.md",
+      "line": 54,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<form.Field\n  v-for=\"(_, i) of field.state.value\"\n  :key=\"i\"\n  :name=\"`people[${i}].name`\"\n>\n  <template v-slot=\"{ field: subField, state }\">\n    <div>\n      <label>\n        <div>Name for person {{ i }}</div>\n        <input\n          :value=\"subField.state.value\"\n          @input=\"\n          (e) =>\n          subField.handleChange(\n            (e.target as HTMLInputElement).value,\n          )\n          \"\n        />\n      </label>\n    </div>\n  </template>\n</form.Field>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/arrays.md",
+      "line": 81,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup lang=\"ts\">\nimport { useForm } from '@tanstack/vue-form'\n\nconst form = useForm({\n  defaultValues: {\n    people: [] as Array<{ age: number; name: string }>,\n  },\n  onSubmit: ({ value }) => alert(JSON.stringify(value)),\n})\n</script>\n\n<template>\n  <form\n    @submit=\"\n      (e) => {\n        e.preventDefault()\n        e.stopPropagation()\n        form.handleSubmit()\n      }\n    \"\n  >\n    <div>\n      <form.Field name=\"people\">\n        <template v-slot=\"{ field, state }\">\n          <div>\n            <form.Field\n              v-for=\"(_, i) of field.state.value\"\n              :key=\"i\"\n              :name=\"`people[${i}].name`\"\n            >\n              <template v-slot=\"{ field: subField, state }\">\n                <div>\n                  <label>\n                    <div>Name for person {{ i }}</div>\n                    <input\n                      :value=\"subField.state.value\"\n                      @input=\"\n                        (e) =>\n                          subField.handleChange(\n                            (e.target as HTMLInputElement).value,\n                          )\n                      \"\n                    />\n                  </label>\n                </div>\n              </template>\n            </form.Field>\n\n            <button\n              @click=\"field.pushValue({ name: '', age: 0 })\"\n              type=\"button\"\n            >\n              Add person\n            </button>\n          </div>\n        </template>\n      </form.Field>\n    </div>\n    <form.Subscribe>\n      <template v-slot=\"{ canSubmit, isSubmitting }\">\n        <button type=\"submit\" :disabled=\"!canSubmit\">\n          {{ isSubmitting ? '...' : 'Submit' }}\n        </button>\n      </template>\n    </form.Subscribe>\n  </form>\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/async-initial-values.md",
+      "line": 20,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup lang=\"ts\">\nimport { useForm } from '@tanstack/vue-form'\nimport { useQuery } from '@tanstack/vue-query'\nimport { watchEffect, reactive } from 'vue'\n\nconst { data, isLoading } = useQuery({\n  queryKey: ['data'],\n  queryFn: async () => {\n    await new Promise((resolve) => setTimeout(resolve, 1000))\n    return { firstName: 'FirstName', lastName: 'LastName' }\n  },\n})\n\nconst firstName = computed(() => data.value?.firstName || '')\nconst lastName = computed(() => data.value?.lastName || '')\n\nconst defaultValues = reactive({\n  firstName,\n  lastName,\n})\n\nconst form = useForm({\n  defaultValues,\n  onSubmit: async ({ value }) => {\n    // Do something with form data\n    console.log(value)\n  },\n})\n</script>\n\n<template>\n  <p v-if=\"isLoading\">Loading..</p>\n  <form v-else @submit.prevent.stop=\"form.handleSubmit\">\n    <!-- ... -->\n  </form>\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/basic-concepts.md",
+      "line": 60,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<template>\n  <!-- ... -->\n  <form.Field name=\"fullName\">\n    <template v-slot=\"{ field }\">\n      <input\n        :name=\"field.name\"\n        :value=\"field.state.value\"\n        @blur=\"field.handleBlur\"\n        @input=\"(e) => field.handleChange(e.target.value)\"\n      />\n    </template>\n  </form.Field>\n  <!-- ... -->\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/basic-concepts.md",
+      "line": 104,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<template v-slot=\"{ field }\">\n  <input\n    :name=\"field.name\"\n    :value=\"field.state.value\"\n    @blur=\"field.handleBlur\"\n    @input=\"(e) => field.handleChange(e.target.value)\"\n  />\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/basic-concepts.md",
+      "line": 121,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<template>\n    <!-- ... -->\n    <form.Field\n        name=\"firstName\"\n        :validators=\"{\n            onChange: ({ value }) =>\n                !value\n                    ? `A first name is required`\n                    : value.length < 3\n                        ? `First name must be at least 3 characters`\n                        : undefined,\n            onChangeAsync: async ({ value }) => {\n                await new Promise((resolve) => setTimeout(resolve, 1000))\n                return value.includes('error') && 'No \"error\" allowed in first name'\n        },\n    }\"\n    >\n        <template v-slot=\"{ field }\">\n            <input\n                :value=\"field.state.value\"\n                @input=\"(e) => field.handleChange(e.target.value)\"\n                @blur=\"field.handleBlur\"\n            />\n            <FieldInfo :field=\"field\" />\n        </template>\n    </form.Field>\n    <!-- ... -->\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/basic-concepts.md",
+      "line": 164,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup lang=\"ts\">\nimport { useForm } from '@tanstack/vue-form'\nimport { z } from 'zod'\n\nconst form = useForm({\n  // ...\n})\n\nconst onChangeFirstName = z.string().refine(\n  async (value) => {\n    await new Promise((resolve) => setTimeout(resolve, 1000))\n    return !value.includes('error')\n  },\n  {\n    message: \"No 'error' allowed in first name\",\n  },\n)\n</script>\n\n<template>\n  <!-- ... -->\n  <form.Field\n    name=\"firstName\"\n    :validators=\"{\n      onChange: z.string().min(3, 'First name must be at least 3 characters'),\n      onChangeAsyncDebounceMs: 500,\n      onChangeAsync: onChangeFirstName,\n    }\"\n  >\n    <template v-slot=\"{ field, state }\">\n      <label :htmlFor=\"field.name\">First Name:</label>\n      <input\n        :id=\"field.name\"\n        :name=\"field.name\"\n        :value=\"field.state.value\"\n        @input=\"(e) => field.handleChange((e.target as HTMLInputElement).value)\"\n        @blur=\"field.handleBlur\"\n      />\n      <FieldInfo :state=\"state\" />\n    </template>\n  </form.Field>\n  <!-- ... -->\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/basic-concepts.md",
+      "line": 216,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup lang=\"ts\">\n// ...\nconst firstName = form.useStore((state) => state.values.firstName)\n</script>\n\n<template>\n  <!-- ... -->\n  <form.Subscribe>\n    <template v-slot=\"{ canSubmit, isSubmitting }\">\n      <button type=\"submit\" :disabled=\"!canSubmit\">\n        {{ isSubmitting ? '...' : 'Submit' }}\n      </button>\n    </template>\n  </form.Subscribe>\n  <!-- ... -->\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/basic-concepts.md",
+      "line": 241,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<template>\n  <form.Field\n    name=\"country\"\n    :listeners=\"{\n      onChange: ({ value }) => {\n        console.log(`Country changed to: ${value}, resetting province`)\n        form.setFieldValue('province', '')\n      },\n    }\"\n  >\n    <template v-slot=\"{ field }\">\n      <input\n        :value=\"field.state.value\"\n        @input=\"(e) => field.handleChange(e.target.value)\"\n      />\n    </template>\n  </form.Field>\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/basic-concepts.md",
+      "line": 274,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<template>\n  <form @submit.prevent.stop=\"form.handleSubmit\">\n    <form.Field name=\"hobbies\" mode=\"array\">\n      <template v-slot=\"{ field: hobbiesField }\">\n        <div>\n          Hobbies\n          <div>\n            <div\n              v-if=\"\n                Array.isArray(hobbiesField.state.value) &&\n                !hobbiesField.state.value.length\n              \"\n            >\n              No hobbies found.\n            </div>\n            <div v-else>\n              <div v-for=\"(_, i) in hobbiesField.state.value\" :key=\"i\">\n                <form.Field :name=\"`hobbies[${i}].name`\">\n                  <template v-slot=\"{ field }\">\n                    <div>\n                      <label :for=\"field.name\">Name:</label>\n                      <input\n                        :id=\"field.name\"\n                        :name=\"field.name\"\n                        :value=\"field.state.value\"\n                        @blur=\"field.handleBlur\"\n                        @input=\"(e) => field.handleChange(e.target.value)\"\n                      />\n                      <button\n                        type=\"button\"\n                        @click=\"hobbiesField.removeValue(i)\"\n                      >\n                        X\n                      </button>\n                      <FieldInfo :field=\"field\" />\n                    </div>\n                  </template>\n                </form.Field>\n                <form.Field :name=\"`hobbies[${i}].description`\">\n                  <template v-slot=\"{ field }\">\n                    <div>\n                      <label :for=\"field.name\">Description:</label>\n                      <input\n                        :id=\"field.name\"\n                        :name=\"field.name\"\n                        :value=\"field.state.value\"\n                        @blur=\"field.handleBlur\"\n                        @input=\"(e) => field.handleChange(e.target.value)\"\n                      />\n                      <FieldInfo :field=\"field\" />\n                    </div>\n                  </template>\n                </form.Field>\n              </div>\n            </div>\n            <button\n              type=\"button\"\n              @click=\"\n                hobbiesField.pushValue({\n                  name: '',\n                  description: '',\n                  yearsOfExperience: 0,\n                })\n              \"\n            >\n              Add hobby\n            </button>\n          </div>\n        </div>\n      </template>\n    </form.Field>\n  </form>\n</template>"
+    },
+    {
+      "file": "form/docs/framework/vue/guides/linked-fields.md",
+      "line": 22,
+      "rawLang": "vue",
+      "lang": "vue",
+      "code": "<script setup lang=\"ts\">\nimport { useForm } from '@tanstack/vue-form'\n\nconst form = useForm({\n  defaultValues: {\n    password: '',\n    confirm_password: '',\n  },\n  // ...\n})\n</script>\n\n<template>\n  <div>\n    <form @submit.prevent.stop=\"form.handleSubmit\">\n      <div>\n        <form.Field name=\"password\">\n          <template v-slot=\"{ field }\">\n            <div>Password:</div>\n            <input\n              :value=\"field.state.value\"\n              @input=\"\n                (e) => field.handleChange((e.target as HTMLInputElement).value)\n              \"\n            />\n          </template>\n        </form.Field>\n        <form.Field\n          name=\"confirm_password\"\n          :validators=\"{\n            onChangeListenTo: ['password'],\n            onChange: ({ value, fieldApi }) => {\n              if (value !== fieldApi.form.getFieldValue('password')) {\n                return 'Passwords do not match'\n              }\n              return undefined\n            },\n          }\"\n        >\n          <template v-slot=\"{ field }\">\n            <div>Confirm Password:</div>\n            <input\n              :value=\"field.state.value\"\n              @input=\"\n                (e) => field.handleChange((e.target as HTMLInputElement).value)\n              \"\n            />\n            <div v-for=\"(err, index) in field.state.meta.errors\" :key=\"index\">\n              {{ err }}\n            </div>\n          </template>\n        </form.Field>\n      </div>\n      <button type=\"submit\">Submit</button>\n    </form>\n  </div>\n</template>"
+    },
+    {
+      "file": "cli/docs/examples.md",
+      "line": 53,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "name: Create Project\non:\n  workflow_dispatch:\n    inputs:\n      name:\n        required: true\njobs:\n  create:\n    runs-on: ubuntu-latest\n    steps:\n      - run: npx @tanstack/cli create ${{ inputs.name }} -y"
+    },
+    {
+      "file": "intent/docs/cli/intent-install.md",
+      "line": 54,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "<!-- intent-skills:start -->\n# Skill mappings - load `use` with `npx @tanstack/intent@latest load <use>`.\nskills:\n  - when: \"Query data fetching patterns\"\n    use: \"@tanstack/query#fetching\"\n<!-- intent-skills:end -->"
+    },
+    {
+      "file": "intent/docs/cli/intent-stale.md",
+      "line": 31,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "coverage:\n  ignored_packages:\n    - '@tanstack/internal-tooling'\n    - name: packages/devtools-fixture\n      reason: test fixture only"
+    },
+    {
+      "file": "intent/docs/getting-started/quick-start-maintainers.md",
+      "line": 172,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "coverage:\n  ignored_packages:\n    - '@tanstack/internal-tooling'\n    - name: packages/devtools-fixture\n      reason: test fixture only"
+    },
+    {
+      "file": "old-cli/docs/examples.md",
+      "line": 80,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "name: Create Project\non:\n  workflow_dispatch:\n    inputs:\n      name:\n        required: true\njobs:\n  create:\n    runs-on: ubuntu-latest\n    steps:\n      - run: npx @tanstack/cli create ${{ inputs.name }} --integrations tanstack-query -y"
+    },
+    {
+      "file": "router/docs/router/how-to/deploy-to-production.md",
+      "line": 213,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "name: Deploy to GitHub Pages\n\non:\n  push:\n    branches: [main]\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n\n      - name: Setup Node.js\n        uses: actions/setup-node@v3\n        with:\n          node-version: '18'\n          cache: 'npm'\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Build\n        run: npm run build\n\n      - name: Create 404.html\n        run: cp dist/index.html dist/404.html\n\n      - name: Deploy to GitHub Pages\n        uses: peaceiris/actions-gh-pages@v3\n        with:\n          github_token: ${{ secrets.GITHUB_TOKEN }}\n          publish_dir: ./dist"
+    },
+    {
+      "file": "start-rsc/docs/router/framework/react/how-to/deploy-to-production.md",
+      "line": 213,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "name: Deploy to GitHub Pages\n\non:\n  push:\n    branches: [main]\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n\n      - name: Setup Node.js\n        uses: actions/setup-node@v3\n        with:\n          node-version: '18'\n          cache: 'npm'\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Build\n        run: npm run build\n\n      - name: Create 404.html\n        run: cp dist/index.html dist/404.html\n\n      - name: Deploy to GitHub Pages\n        uses: peaceiris/actions-gh-pages@v3\n        with:\n          github_token: ${{ secrets.GITHUB_TOKEN }}\n          publish_dir: ./dist"
+    },
+    {
+      "file": "tanstack.com/docs/proposals/source-packages.md",
+      "line": 68,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# Pseudocode\n- name: Publish main package\n  run: npm publish\n\n- name: Publish source package\n  run: |\n    # Create temp package with only src/\n    cp -r src/ dist-source/src/\n    cp package.json dist-source/\n    # Modify package name to add -source suffix\n    jq '.name += \"-source\"' dist-source/package.json > tmp && mv tmp dist-source/package.json\n    # Modify files field to only include src/\n    jq '.files = [\"src\"]' dist-source/package.json > tmp && mv tmp dist-source/package.json\n    cd dist-source && npm publish"
+    },
+    {
+      "file": "tanstack.com-site-stack-wip/docs/proposals/source-packages.md",
+      "line": 68,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# Pseudocode\n- name: Publish main package\n  run: npm publish\n\n- name: Publish source package\n  run: |\n    # Create temp package with only src/\n    cp -r src/ dist-source/src/\n    cp package.json dist-source/\n    # Modify package name to add -source suffix\n    jq '.name += \"-source\"' dist-source/package.json > tmp && mv tmp dist-source/package.json\n    # Modify files field to only include src/\n    jq '.files = [\"src\"]' dist-source/package.json > tmp && mv tmp dist-source/package.json\n    cd dist-source && npm publish"
+    },
+    {
+      "file": "tanstack.com-workflow-intent-sync/docs/proposals/source-packages.md",
+      "line": 68,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# Pseudocode\n- name: Publish main package\n  run: npm publish\n\n- name: Publish source package\n  run: |\n    # Create temp package with only src/\n    cp -r src/ dist-source/src/\n    cp package.json dist-source/\n    # Modify package name to add -source suffix\n    jq '.name += \"-source\"' dist-source/package.json > tmp && mv tmp dist-source/package.json\n    # Modify files field to only include src/\n    jq '.files = [\"src\"]' dist-source/package.json > tmp && mv tmp dist-source/package.json\n    cd dist-source && npm publish"
+    },
+    {
+      "file": "workflow/docs/concepts/scheduling.md",
+      "line": 163,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# serverless.yml (excerpt)\nfunctions:\n  dailyReport:\n    handler: handlers/daily-report.handler\n    events:\n      - schedule: cron(0 9 ? * MON *) # EventBridge cron syntax — UTC"
+    },
+    {
+      "file": "workshop/docs/multi-project-execution.md",
+      "line": 45,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "---\nid: \"123\"\nproject: \"webapp\"\nstatus: open\n---\nFix login bug in auth controller..."
+    },
+    {
+      "file": "workshop/docs/research/053a-multi-project-arch.md",
+      "line": 128,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# ~/.workshop-global/config.yaml (User preferences)\nmax_concurrent_workers: 4\ndefault_model: claude-3-5-sonnet\n\n# ~/projects/my-app/.workshop/project.yaml (Project context)\nproject_name: \"My App\"\nstack: [\"react\", \"typescript\", \"vite\"]\nrules:\n  - \"No class components\"\n  - \"Use tailwind for styling\""
+    },
+    {
+      "file": "workshop/docs/research/055a-autopilot-queuing.md",
+      "line": 57,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "id: \"D-20260201-001\"\nstatus: pending # pending | approved | rejected\nagent_id: \"worker-055a\"\nwork_item_id: \"055a\"\ntimestamp: \"2026-02-01T10:00:00Z\"\n\naction:\n  tool: \"edit_file\"\n  path: \"src/server.ts\"\n  description: \"Refactor auth middleware to use JWT\"\n\nrisk:\n  level: \"L3\"\n  reason: \"Modifies core authentication logic\"\n\nconfidence:\n  score: 0.7\n  reason: \"Ambiguous requirements on token expiry handling\"\n\ndiff: |\n  (Unified diff or context of change)"
+    },
+    {
+      "file": "workshop/docs/research/model-selection-strategy.md",
+      "line": 40,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "---\nid: \"005\"\nstatus: open\ntitle: \"Refactor orchestration loop\"\nmodel_class: high_reasoning  # Options: high_reasoning, fast, balanced (default)\n---"
+    },
+    {
+      "file": "workshop/docs/research/prompt-management.md",
+      "line": 50,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# .workshop/prompts/manifest.yaml\nroles:\n  default: \"base/v3.md\"\n  researcher: \"roles/researcher/v1.md\"\n  coder: \"roles/coder/v2-canary.md\""
+    },
+    {
+      "file": "workshop/docs/research/token-budgeting.md",
+      "line": 48,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "---\nid: \"033a\"\nstatus: open\n# ... existing fields ...\nbudget_tokens: 100000       # Max tokens allowed for this task\nbudget_cost: 0.50           # Max cost in USD (optional, implies model mix)\nmodel_preference: \"balanced\" # Options: fast (cheap), balanced, powerful (expensive)\n---"
+    },
+    {
+      "file": "workshop/docs/specs/configuration-schema.md",
+      "line": 9,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# ~/.workshop/config.yaml\n\n# System-wide concurrency limits\nconcurrency:\n  max_global_workers: 10  # Hard cap on total agents running on the machine\n  default_project_workers: 2 # Default limit per project if not specified\n\n# Default Model Configuration\nmodels:\n  planner: \"claude-3-5-sonnet-20241022\"\n  worker: \"claude-3-5-sonnet-20241022\"\n  cheap: \"gpt-4o-mini\"\n\n# Telemetry & Logging\nlogging:\n  level: \"info\" # debug, info, warn, error\n  retention_days: 7\n\n# Global Tool Settings\ntools:\n  allowed_global_tools: [\"web_search\", \"calculator\"] # Tools available to all projects"
+    },
+    {
+      "file": "workshop/docs/specs/configuration-schema.md",
+      "line": 58,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "# ./.workshop/config.yaml\n\nproject:\n  id: \"workshop-core\" # Unique identifier (matches registry)\n  name: \"Workshop Core\"\n\n# Project-specific concurrency overrides\nconcurrency:\n  max_workers: 5 # Allow more workers for this specific project\n\n# Project-specific Model Overrides\nmodels:\n  worker: \"claude-3-opus-20240229\" # Use a smarter model for this complex codebase\n\n# Environment & Context\ncontext:\n  ignore_files: [\".git\", \"node_modules\", \"dist\"] # Files to exclude from context building\n  main_branch: \"main\"\n\n# Tool Permissions (Security)\npermissions:\n  allow_shell: true\n  allow_network: true\n  allowed_domains: [\"github.com\", \"npmjs.com\"] # If allow_network is true, restrict to these"
+    },
+    {
+      "file": "tanstack.com/docs-info.md",
+      "line": 9,
+      "rawLang": "yaml",
+      "lang": "yaml",
+      "code": "---\ntitle: Overview\nredirect_from:\n  - /framework/react/overview\n  - /framework/solid/overview\n---"
+    }
+  ]
+}
