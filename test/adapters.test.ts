@@ -72,7 +72,11 @@ describe('markdown helpers', () => {
     expect(rendered.lang).toBe('ts')
     expect(hast.properties?.dataTitle).toBe('example.ts')
     expect(hast.tagName).toBe('pre')
-    expect(hast.properties?.className).toEqual(['th-code', 'th-code--ts'])
+    expect(hast.properties?.className).toEqual([
+      'th-code',
+      'th-code--ts',
+      'th-code--line-numbers',
+    ])
     expect(rendered.title).toBe('example.ts')
     expect(JSON.stringify(hast)).toContain('th-keyword')
     expect(JSON.stringify(hast)).toContain('th-line--highlighted')

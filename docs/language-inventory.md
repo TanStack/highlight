@@ -1,3 +1,7 @@
+---
+title: Language Inventory
+---
+
 # TanStack Docs Language Inventory
 
 Generated from local markdown and MDX files in:

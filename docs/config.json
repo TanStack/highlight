@@ -1,0 +1,65 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TanStack/tanstack.com/main/tanstack-docs-config.schema.json",
+  "docSearch": {
+    "appId": "",
+    "apiKey": "",
+    "indexName": "tanstack-highlight"
+  },
+  "sections": [
+    {
+      "label": "Getting Started",
+      "children": [
+        { "label": "Overview", "to": "overview" },
+        { "label": "Installation", "to": "installation" },
+        { "label": "Quick Start", "to": "quick-start" },
+        { "label": "Comparison", "to": "comparison" }
+      ]
+    },
+    {
+      "label": "Core Concepts",
+      "children": [
+        { "label": "Language Registration", "to": "guides/language-registration" },
+        { "label": "Embedded Languages", "to": "guides/embedded-languages" },
+        { "label": "Output and CSS", "to": "guides/output-and-css" },
+        { "label": "Themes", "to": "guides/themes" },
+        { "label": "Annotations", "to": "guides/annotations" }
+      ]
+    },
+    {
+      "label": "Guides",
+      "children": [
+        { "label": "Markdown Pipelines", "to": "guides/markdown-pipelines" },
+        { "label": "SSR and Client Rendering", "to": "guides/ssr-and-client" },
+        { "label": "React Integration", "to": "guides/react" },
+        { "label": "Custom Languages", "to": "guides/custom-languages" },
+        { "label": "Bundle Size and Performance", "to": "guides/performance" }
+      ]
+    },
+    {
+      "label": "Reference",
+      "children": [
+        { "label": "Reference Overview", "to": "reference/index" },
+        { "label": "Default Entry", "to": "reference/default-entry" },
+        { "label": "Core", "to": "reference/core" },
+        { "label": "Markdown", "to": "reference/markdown" },
+        { "label": "Remark", "to": "reference/remark" },
+        { "label": "Rehype", "to": "reference/rehype" },
+        { "label": "React", "to": "reference/react" },
+        { "label": "Theme", "to": "reference/theme" },
+        { "label": "Languages", "to": "reference/languages" },
+        { "label": "Themes", "to": "reference/themes" }
+      ]
+    },
+    {
+      "label": "Project",
+      "children": [
+        { "label": "Language Support", "to": "language-support" },
+        { "label": "FAQ", "to": "faq" },
+        { "label": "Architecture", "to": "architecture" },
+        { "label": "Testing Strategy", "to": "test-strategy" },
+        { "label": "Language Inventory", "to": "language-inventory" },
+        { "label": "Upstream Contracts", "to": "upstream-output-contracts" }
+      ]
+    }
+  ]
+}

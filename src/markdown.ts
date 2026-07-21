@@ -150,7 +150,11 @@ export function tokensToHast(
     type: 'element',
     tagName: 'pre',
     properties: {
-      className: ['th-code', `th-code--${lang}`],
+      className: [
+        'th-code',
+        `th-code--${lang}`,
+        ...(options.lineNumbers ? ['th-code--line-numbers'] : []),
+      ],
       dataLanguage: lang,
       ...(options.title ? { dataTitle: options.title } : {}),
     },

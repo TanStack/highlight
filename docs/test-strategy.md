@@ -1,3 +1,7 @@
+---
+title: Test Strategy
+---
+
 # Test Strategy
 
 The suite protects the package's actual product boundary: valid code commonly published in blogs and documentation, with a small browser payload and synchronous client performance.

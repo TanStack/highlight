@@ -10,6 +10,16 @@ Tiny, synchronous syntax highlighting for blogs and documentation.
 
 This is not an editor parser or a TextMate engine. It is a deliberately small docs highlighter.
 
+## Documentation
+
+- [Overview](docs/overview.md)
+- [Installation](docs/installation.md)
+- [Quick Start](docs/quick-start.md)
+- [Comparison](docs/comparison.md)
+- [Language Support](docs/language-support.md)
+- [Guides](docs/guides/language-registration.md)
+- [API Reference](docs/reference/index.md)
+
 ## Install
 
 ```sh

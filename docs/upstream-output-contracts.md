@@ -1,3 +1,7 @@
+---
+title: Upstream Output Contracts
+---
+
 # Upstream Output Contracts
 
 These are the borrowed ideas that shape the local tests. The goal is not to copy implementation details or exact tokenization. It is to preserve the useful output properties that make mature highlighters practical in docs.

@@ -107,7 +107,7 @@ describe('output contract', () => {
     expect(element.html).toContain('th-attr')
   })
 
-  it('returns a tanstack.com-compatible code block data shape', () => {
+  it('returns a view-ready code block data shape', () => {
     const data = renderCodeBlockData({
       code: `const value = 'copy'\n\n`,
       lang: 'typescript',

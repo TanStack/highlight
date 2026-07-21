@@ -100,9 +100,10 @@
     "scan:languages": "node scripts/scan-languages.mjs",
     "size": "node scripts/measure-size.mjs",
     "test": "vitest run",
+    "test:docs": "node scripts/verify-docs.mjs",
     "test:package": "node scripts/test-package.mjs",
     "typecheck": "tsc --noEmit",
-    "verify": "pnpm run typecheck && pnpm run build && pnpm run lint:package && pnpm run test:package && pnpm run test && pnpm run size && pnpm run bench"
+    "verify": "pnpm run typecheck && pnpm run build && pnpm run test:docs && pnpm run lint:package && pnpm run test:package && pnpm run test && pnpm run size && pnpm run bench"
   },
   "devDependencies": {
     "@types/node": "^26.0.0",
