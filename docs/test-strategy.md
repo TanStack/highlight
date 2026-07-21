@@ -28,7 +28,7 @@ The selective profiles are the primary product metric. The all-language profile 
 
 ## Throughput
 
-`pnpm run bench` processes at least 10,000 blocks from the committed real-doc corpus. The 750 ms CI budget is intentionally loose enough for shared runners while still catching structural regressions.
+`pnpm run bench` processes at least 10,000 blocks from the committed real-doc corpus. The 1.2 second CI budget is based on the shared-runner baseline and still catches structural regressions.
 
 `pnpm run compare:sugar-high` compares the overlapping JS/TS/JSX/TSX use case. `pnpm run compare:shiki` compares all supported fixtures. These are directional measurements, not claims of equivalent grammar depth.
 

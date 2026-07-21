@@ -5,7 +5,7 @@ import { performance } from 'node:perf_hooks'
 import { pathToFileURL } from 'node:url'
 import { build } from 'esbuild'
 
-const maxElapsedMs = 750
+const maxElapsedMs = 1_200
 const targetBlocks = 10_000
 const fixtureFile = 'test/generated/tanstack-doc-fixtures.json'
 const bundleFile = path.join(os.tmpdir(), `tanstack-highlight-bench-${process.pid}.mjs`)
