@@ -17,6 +17,7 @@ This is not an editor parser or a TextMate engine. It is a deliberately small do
 - [Quick Start](docs/quick-start.md)
 - [Comparison](docs/comparison.md)
 - [Language Support](docs/language-support.md)
+- [Octane Integration](docs/guides/octane.md)
 - [Guides](docs/guides/language-registration.md)
 - [API Reference](docs/reference/index.md)
 
@@ -96,6 +97,22 @@ const plugin = rehypeHighlightCodeBlocks({ highlighter })
 
 The remark adapter emits standard HAST data rather than raw HTML. The rehype adapter replaces `<pre><code class="language-*">` nodes and is idempotent.
 
+## Octane
+
+The isolated Octane entry supports direct components and `@octanejs/mdx` without a framework dependency:
+
+```ts
+import { octaneMdx } from '@octanejs/mdx/vite'
+import { createOctaneMdxHighlight } from '@tanstack/highlight/octane'
+import { highlighter } from './highlight'
+
+octaneMdx({
+  rehypePlugins: [createOctaneMdxHighlight({ highlighter })],
+})
+```
+
+The plugin is synchronous, so it works with both `compileMdx()` and `compileMdxSync()`. Direct Octane components can use `createHighlightedCodeBlockProps()` from the same entry to receive an escaped `dangerouslySetInnerHTML` payload.
+
 Fence metadata supports titles, line numbers, and common line annotations:
 
 ````md
@@ -147,7 +164,7 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Monokai, Nord, O
 
 `apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsx`, `vue`, and `yaml`.
 
-Each language is available from `@tanstack/highlight/languages/<name>`. `@tanstack/highlight/languages` intentionally aggregates all definitions.
+Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit.
 
 ## Output Contract
 
@@ -166,6 +183,7 @@ Local browser bundles, minified with esbuild and compressed independently:
 | --- | ---: | ---: | ---: |
 | Core, no languages | 3.7 KB | 1.7 KB | 1.6 KB |
 | Core + TSX | 9.3 KB | 3.9 KB | 3.5 KB |
+| Octane MDX + TypeScript | 12.5 KB | 4.9 KB | 4.5 KB |
 | Nine-language docs set | 15.3 KB | 5.8 KB | 5.3 KB |
 | All 25 languages | 22.2 KB | 8.0 KB | 7.2 KB |
 

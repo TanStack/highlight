@@ -8,12 +8,13 @@ Small and fast are product constraints, not README adjectives. The repository me
 
 ## Bundle profiles
 
-`pnpm run size` builds four browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently.
+`pnpm run size` builds five browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently.
 
 | Profile | Registered languages | Current gzip | CI budget |
 | --- | --- | ---: | ---: |
 | Core | None | 1.74 KB | 2.0 KB |
 | TSX | TSX | 3.86 KB | 4.1 KB |
+| Octane | TypeScript plus Octane MDX adapter | 4.93 KB | 5.2 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 5.83 KB | 6.1 KB |
 | All | All 25 definitions | 7.96 KB | 8.3 KB |
 

@@ -103,3 +103,5 @@ They solve different problems:
 - `remark` and `rehype` transform the code fences of a rendered Markdown document.
 
 Most documentation sites need the adapter. Register the Markdown language only when they display Markdown source inside a code block.
+
+`@octanejs/mdx` users can wrap the Rehype adapter in its expected plugin tuple with [`createOctaneMdxHighlight()`](octane#octane-mdx).

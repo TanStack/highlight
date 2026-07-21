@@ -31,6 +31,7 @@
         { "label": "Markdown Pipelines", "to": "guides/markdown-pipelines" },
         { "label": "SSR and Client Rendering", "to": "guides/ssr-and-client" },
         { "label": "React Integration", "to": "guides/react" },
+        { "label": "Octane Integration", "to": "guides/octane" },
         { "label": "Custom Languages", "to": "guides/custom-languages" },
         { "label": "Bundle Size and Performance", "to": "guides/performance" }
       ]
@@ -45,6 +46,7 @@
         { "label": "Remark", "to": "reference/remark" },
         { "label": "Rehype", "to": "reference/rehype" },
         { "label": "React", "to": "reference/react" },
+        { "label": "Octane", "to": "reference/octane" },
         { "label": "Theme", "to": "reference/theme" },
         { "label": "Languages", "to": "reference/languages" },
         { "label": "Themes", "to": "reference/themes" }

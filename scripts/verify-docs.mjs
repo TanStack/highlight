@@ -54,6 +54,7 @@ const apiDocuments = new Map([
   ['./core', 'docs/reference/core.md'],
   ['./languages', 'docs/reference/languages.md'],
   ['./markdown', 'docs/reference/markdown.md'],
+  ['./octane', 'docs/reference/octane.md'],
   ['./remark', 'docs/reference/remark.md'],
   ['./rehype', 'docs/reference/rehype.md'],
   ['./react', 'docs/reference/react.md'],

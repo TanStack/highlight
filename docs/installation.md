@@ -44,6 +44,7 @@ The package is ESM-only and has no runtime dependencies.
 | `@tanstack/highlight/remark` | Remark adapter | No |
 | `@tanstack/highlight/rehype` | Rehype adapter | No |
 | `@tanstack/highlight/react` | React-oriented data helper | No React dependency |
+| `@tanstack/highlight/octane` | Octane component and MDX helpers | No Octane dependency |
 
 ## Recommended import style
 

@@ -5,6 +5,7 @@ const publicEntries = [
   '@tanstack/highlight/core',
   '@tanstack/highlight/languages',
   '@tanstack/highlight/theme',
+  '@tanstack/highlight/octane',
   '@tanstack/highlight/markdown',
   '@tanstack/highlight/rehype',
   '@tanstack/highlight/remark',
@@ -30,6 +31,7 @@ const core = modules[0]
 const modularCore = modules[1]
 const languages = modules[2]
 const theme = modules[3]
+const octane = modules[4]
 
 if (typeof core.highlight !== 'function') {
   throw new Error('The root entry does not export highlight()')
@@ -49,6 +51,13 @@ if ('createThemeCss' in core) {
 
 if (typeof theme.createThemeCss !== 'function') {
   throw new Error('The theme entry does not export createThemeCss()')
+}
+
+if (
+  typeof octane.createHighlightedCodeBlockProps !== 'function' ||
+  typeof octane.createOctaneMdxHighlight !== 'function'
+) {
+  throw new Error('The Octane entry does not export both adapter helpers')
 }
 
 console.log(`Imported ${publicEntries.length} public ESM entries`)

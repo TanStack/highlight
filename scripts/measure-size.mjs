@@ -17,6 +17,17 @@ const profiles = {
     `,
     limits: { minified: 9_800, gzip: 4_100, brotli: 3_750 },
   },
+  octane: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { ts } from './src/languages/ts.ts'
+      import { createOctaneMdxHighlight } from './src/octane.ts'
+      const highlighter = createHighlighter({ languages: [ts] })
+      globalThis.highlighter = highlighter
+      globalThis.octaneHighlight = createOctaneMdxHighlight({ highlighter })
+    `,
+    limits: { minified: 13_000, gzip: 5_200, brotli: 4_750 },
+  },
   docs: {
     source: `
       import { createHighlighter } from './src/core.ts'

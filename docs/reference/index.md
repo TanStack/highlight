@@ -14,6 +14,7 @@ TanStack Highlight is split into explicit entry points. Importing an entry point
 | [`@tanstack/highlight/remark`](remark) | Remark/MDAST integration |
 | [`@tanstack/highlight/rehype`](rehype) | Rehype/HAST integration |
 | [`@tanstack/highlight/react`](react) | Framework-neutral data adapter for React components |
+| [`@tanstack/highlight/octane`](octane) | Octane component data and `@octanejs/mdx` integration |
 | [`@tanstack/highlight/theme`](theme) | Theme types and CSS generation |
 | [`@tanstack/highlight/languages`](languages) | Aggregate exports for every bundled language |
 | [`@tanstack/highlight/languages/*`](languages) | Individually importable language definitions |

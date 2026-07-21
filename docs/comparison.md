@@ -31,7 +31,7 @@ Syntax highlighters solve different problems. The smallest correct choice is the
 | Built-in character-range decorations | Yes | No | Transformers | No | Plugins |
 | HTML script/style delegation | Registered languages | No general embedding | Grammar-driven | Grammar-driven | Grammar-driven |
 | Markdown fence delegation | Registered languages | No | Grammar-driven | Grammar-driven | Grammar-driven |
-| Remark and rehype adapters | Yes | No | Ecosystem | Ecosystem | Ecosystem |
+| Remark, rehype, and Octane MDX adapters | Yes | No | Ecosystem | Ecosystem | Ecosystem |
 | Automatic language detection | No | No | No | Yes | No |
 | TextMate/VS Code compatibility | No | No | Yes | No | No |
 | Hundreds of languages | No | No | Yes | Yes | Yes |
