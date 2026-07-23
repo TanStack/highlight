@@ -1,13 +1,14 @@
 {
   "name": "@tanstack/highlight",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Tiny class-based syntax highlighting for documentation.",
   "keywords": [
     "syntax-highlighting",
     "markdown",
     "documentation",
     "ssr",
-    "typescript"
+    "typescript",
+    "tanstack-intent"
   ],
   "type": "module",
   "license": "MIT",
@@ -31,7 +32,9 @@
   "files": [
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "skills",
+    "!skills/_artifacts"
   ],
   "publishConfig": {
     "access": "public"
@@ -107,10 +110,12 @@
     "test": "vitest run",
     "test:docs": "node scripts/verify-docs.mjs",
     "test:package": "node scripts/test-package.mjs",
+    "test:skills": "intent validate",
     "typecheck": "tsc --noEmit",
-    "verify": "pnpm run typecheck && pnpm run build && pnpm run test:docs && pnpm run lint:package && pnpm run test:package && pnpm run test && pnpm run size && pnpm run bench"
+    "verify": "pnpm run typecheck && pnpm run build && pnpm run test:docs && pnpm run test:skills && pnpm run lint:package && pnpm run test:package && pnpm run test && pnpm run size && pnpm run bench"
   },
   "devDependencies": {
+    "@tanstack/intent": "^0.3.6",
     "@types/node": "^26.0.0",
     "esbuild": "^0.28.1",
     "mdast-util-to-hast": "^13.2.1",

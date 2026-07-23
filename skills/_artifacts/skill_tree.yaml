@@ -1,0 +1,104 @@
+# skills/_artifacts/skill_tree.yaml
+library:
+  name: '@tanstack/highlight'
+  version: '0.0.5'
+  repository: 'https://github.com/TanStack/highlight'
+  description: 'Dependency-free, class-based syntax highlighting for documentation code.'
+generated_from:
+  domain_map: 'skills/_artifacts/domain_map.yaml'
+  skill_spec: 'skills/_artifacts/skill_spec.md'
+generated_at: '2026-07-22'
+
+skills:
+  - name: 'Configure selective highlighting'
+    slug: 'configure-selective-highlighting'
+    type: 'core'
+    domain: 'highlighting-configuration'
+    path: 'skills/configure-selective-highlighting/SKILL.md'
+    description: 'Create a minimal isomorphic @tanstack/highlight registry with createHighlighter, direct language imports, aliases, and explicit fallback behavior. Load when setup, client bundle size, SSR consistency, or language registration is involved.'
+    sources:
+      - 'TanStack/highlight:docs/guides/language-registration.md'
+      - 'TanStack/highlight:docs/guides/ssr-and-client.md'
+      - 'TanStack/highlight:docs/guides/embedded-languages.md'
+      - 'TanStack/highlight:src/core.ts'
+    references:
+      - 'references/languages.md'
+
+  - name: 'Integrate Markdown pipelines'
+    slug: 'integrate-markdown-pipelines'
+    type: 'composition'
+    domain: 'documentation-pipelines'
+    path: 'skills/integrate-markdown-pipelines/SKILL.md'
+    description: 'Highlight documentation fences with renderCodeFence, structured Remark nodes, Rehype pre/code transforms, and shared fence metadata. Load when editing unified, Remark, Rehype, MDX, or custom HAST processing.'
+    requires:
+      - 'configure-selective-highlighting'
+    sources:
+      - 'TanStack/highlight:docs/guides/markdown-pipelines.md'
+      - 'TanStack/highlight:docs/guides/annotations.md'
+      - 'TanStack/highlight:src/markdown.ts'
+      - 'TanStack/highlight:src/remark.ts'
+      - 'TanStack/highlight:src/rehype.ts'
+    subsystems:
+      - 'direct fence and HAST helpers'
+      - 'Remark'
+      - 'Rehype'
+    references:
+      - 'references/direct-fences.md'
+      - 'references/remark.md'
+      - 'references/rehype.md'
+
+  - name: 'Integrate framework code blocks'
+    slug: 'integrate-framework-code-blocks'
+    type: 'composition'
+    domain: 'documentation-pipelines'
+    path: 'skills/integrate-framework-code-blocks/SKILL.md'
+    description: 'Prepare React or Octane code-block data, configure @octanejs/mdx highlighting, and preserve deterministic hydrated SSR output. Load when implementing framework components, MDX builds, hydration, or post-navigation client highlighting.'
+    requires:
+      - 'configure-selective-highlighting'
+      - 'integrate-markdown-pipelines'
+    sources:
+      - 'TanStack/highlight:docs/guides/react.md'
+      - 'TanStack/highlight:docs/guides/octane.md'
+      - 'TanStack/highlight:docs/guides/ssr-and-client.md'
+      - 'TanStack/highlight:src/react.ts'
+      - 'TanStack/highlight:src/octane.ts'
+    subsystems:
+      - 'React component data'
+      - 'Octane component data'
+      - 'Octane MDX'
+    references:
+      - 'references/react.md'
+      - 'references/octane-components.md'
+      - 'references/octane-mdx.md'
+
+  - name: 'Theme and annotate code'
+    slug: 'theme-and-annotate-code'
+    type: 'core'
+    domain: 'output-presentation'
+    path: 'skills/theme-and-annotate-code/SKILL.md'
+    description: 'Generate light, dark, or named theme CSS and add line, range, and fence decorations to @tanstack/highlight output. Load when styling tokens, importing isolated themes, adding line numbers, or rendering annotations.'
+    sources:
+      - 'TanStack/highlight:docs/guides/themes.md'
+      - 'TanStack/highlight:docs/guides/annotations.md'
+      - 'TanStack/highlight:docs/guides/output-and-css.md'
+      - 'TanStack/highlight:src/theme.ts'
+      - 'TanStack/highlight:src/core.ts'
+    references:
+      - 'references/themes-and-tokens.md'
+
+  - name: 'Extend language support'
+    slug: 'extend-language-support'
+    type: 'core'
+    domain: 'language-extension'
+    path: 'skills/extend-language-support/SKILL.md'
+    description: 'Implement defineLanguage tokenizers with priority-ordered UTF-16 ranges, semantic classes, optional embedded delegation, and isolated exports. Load when adding custom or shipped language support and its quality gates.'
+    requires:
+      - 'configure-selective-highlighting'
+    sources:
+      - 'TanStack/highlight:docs/guides/custom-languages.md'
+      - 'TanStack/highlight:docs/guides/embedded-languages.md'
+      - 'TanStack/highlight:docs/test-strategy.md'
+      - 'TanStack/highlight:src/core.ts'
+      - 'TanStack/highlight:src/languages'
+    references:
+      - 'references/tokenizer-patterns.md'

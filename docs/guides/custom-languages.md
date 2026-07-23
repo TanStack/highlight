@@ -54,7 +54,10 @@ type TokenRange = {
 }
 ```
 
-Ranges use zero-based, end-exclusive UTF-16 offsets. Return them in priority order. The core bounds, orders, and removes overlaps before creating tokens.
+Ranges use zero-based, end-exclusive UTF-16 offsets. Return non-overlapping
+ranges. The core clamps and sorts ranges by source position, then drops invalid
+or overlapping entries before creating tokens. A broad range that starts first
+can therefore suppress a more specific range inside it.
 
 Prefer leaving text unclassified over assigning an inaccurate class. Gaps are preserved as plain text automatically.
 

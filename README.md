@@ -27,6 +27,8 @@ This is not an editor parser or a TextMate engine. It is a deliberately small do
 pnpm add @tanstack/highlight
 ```
 
+If you use an AI agent, run `npx @tanstack/intent@latest install`.
+
 ## Selective Languages
 
 ```ts

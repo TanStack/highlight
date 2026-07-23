@@ -19,12 +19,13 @@ The suite protects the package's actual product boundary: valid code commonly pu
 
 ## Size Profiles
 
-`pnpm run size` builds four browser profiles independently. Each has minified, gzip, and Brotli budgets:
+`pnpm run size` builds five browser profiles independently. Each has minified, gzip, and Brotli budgets:
 
 | Profile | Languages | Gzip budget |
 | --- | --- | ---: |
 | Core | None | 2.0 KB |
 | TSX | TSX | 4.1 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.2 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.1 KB |
 | All | All 25 definitions | 8.3 KB |
 
