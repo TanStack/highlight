@@ -1,5 +1,17 @@
 # Direct Fence and HAST Helpers
 
+## TanStack Markdown
+
+```ts
+import { createTanStackMarkdownHighlighter } from '@tanstack/highlight/markdown'
+import { highlighter } from './highlight'
+
+export const highlightMarkdownCode =
+  createTanStackMarkdownHighlighter(highlighter)
+```
+
+Use this callback as TanStack Markdown's `highlighter` option. It emits escaped inner markup rather than another code-block wrapper.
+
 ## `renderCodeFence`
 
 ```ts

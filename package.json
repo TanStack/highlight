@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/highlight",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Tiny class-based syntax highlighting for documentation.",
   "keywords": [
     "syntax-highlighting",
@@ -110,9 +110,12 @@
     "test": "vitest run",
     "test:docs": "node scripts/verify-docs.mjs",
     "test:package": "node scripts/test-package.mjs",
-    "test:skills": "intent validate",
+    "test:skills": "intent validate skills --check && pnpm run skills:check-version",
+    "skills:check-version": "node scripts/sync-skill-version.mjs --check",
+    "skills:sync-version": "node scripts/sync-skill-version.mjs",
     "typecheck": "tsc --noEmit",
-    "verify": "pnpm run typecheck && pnpm run build && pnpm run test:docs && pnpm run test:skills && pnpm run lint:package && pnpm run test:package && pnpm run test && pnpm run size && pnpm run bench"
+    "verify": "pnpm run typecheck && pnpm run build && pnpm run test:docs && pnpm run test:skills && pnpm run lint:package && pnpm run test:package && pnpm run test && pnpm run size && pnpm run bench",
+    "version": "pnpm run skills:sync-version"
   },
   "devDependencies": {
     "@tanstack/intent": "^0.3.6",

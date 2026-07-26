@@ -34,7 +34,9 @@ Use either a light/dark pair or an explicit selector list:
 
 ```ts
 type CreateThemeCssOptions = {
+  codeBlockSelector?: string
   includeBaseStyles?: boolean
+  lineNumbersSelector?: string
   lightSelector?: string
   darkSelector?: string
 } & (
@@ -49,7 +51,18 @@ type CreateThemeCssOptions = {
 )
 ```
 
-Pair mode defaults to `:root` for light and `.dark` for dark. `includeBaseStyles` defaults to `true`.
+Pair mode defaults to `:root` for light and `.dark` for dark. `includeBaseStyles` defaults to `true`. Base styles target `pre.th-code` and `.th-code--line-numbers` unless `codeBlockSelector` and `lineNumbersSelector` override them.
+
+## `ThemeBaseCssOptions`
+
+```ts
+type ThemeBaseCssOptions = {
+  codeBlockSelector?: string
+  lineNumbersSelector?: string
+}
+```
+
+Use custom selectors when a Markdown or framework renderer owns the outer code-block classes.
 
 ## `createThemeCss`
 
@@ -70,7 +83,7 @@ Returns one selector block defining `--th-background`, `--th-token`, and every s
 ## `createThemeBaseCss`
 
 ```ts
-function createThemeBaseCss(): string
+function createThemeBaseCss(options?: ThemeBaseCssOptions): string
 ```
 
 Returns the structural styles and variable lookups for code blocks, tokens, line wrappers, and line numbers. It does not set fonts, borders, radii, or application layout.

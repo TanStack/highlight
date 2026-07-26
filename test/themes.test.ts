@@ -72,6 +72,24 @@ describe('themes', () => {
     expect(css).not.toContain('pre.th-code')
   })
 
+  it('can target a renderer-owned code block', () => {
+    const css = createThemeCss({
+      codeBlockSelector: '.markdown-renderer pre.tm-code',
+      dark: draculaTheme,
+      darkSelector: '.dark .markdown-renderer',
+      light: githubLightTheme,
+      lightSelector: '.markdown-renderer',
+      lineNumbersSelector: '.markdown-renderer .tm-code--line-numbers',
+    })
+
+    expect(css).toContain('.markdown-renderer pre.tm-code {')
+    expect(css).toContain(
+      '.markdown-renderer .tm-code--line-numbers code',
+    )
+    expect(css).not.toContain('pre.th-code')
+    expect(css).not.toContain('.th-code--line-numbers code')
+  })
+
   it('can emit a raw theme rule', () => {
     const css = createThemeRule('.theme-nord', nordTheme)
 

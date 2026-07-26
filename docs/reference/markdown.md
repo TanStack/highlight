@@ -6,6 +6,31 @@ title: Markdown API
 
 `@tanstack/highlight/markdown` converts Markdown code-fence inputs into rendered block data or HAST. It does not parse Markdown documents.
 
+## TanStack Markdown adapter
+
+### `TanStackMarkdownHighlighterOptions`
+
+```ts
+type TanStackMarkdownHighlighterOptions = {
+  highlightLines?: ReadonlyArray<number>
+  lineNumbers?: boolean
+}
+```
+
+### `TanStackMarkdownHighlighter`
+
+A synchronous callback matching TanStack Markdown's code-highlighter contract without importing `@tanstack/markdown`.
+
+### `createTanStackMarkdownHighlighter`
+
+```ts
+function createTanStackMarkdownHighlighter(
+  highlighter: Highlighter,
+): TanStackMarkdownHighlighter
+```
+
+Returns escaped inner token markup for a renderer-owned `<code>` element. Highlighted lines receive `th-line--highlighted`; unknown languages use the highlighter's configured fallback.
+
 ## Metadata
 
 ### `CodeFenceMeta`

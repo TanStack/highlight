@@ -96,6 +96,8 @@ const nodes = renderTokens(tokens, {
 
 `renderNodesToHtml(nodes)` converts those nodes to escaped inline markup. `tokensToHast()` from the Markdown entry converts tokens to a complete HAST `<pre><code>` tree.
 
+For TanStack Markdown, use `createTanStackMarkdownHighlighter()` from the Markdown entry. It packages this inner-markup pipeline without emitting a second `<pre><code>` wrapper.
+
 ## Escaping and trust
 
 - Code text is HTML-escaped.

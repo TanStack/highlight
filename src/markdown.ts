@@ -1,4 +1,5 @@
 import {
+  renderNodesToHtml,
   renderTokens,
   type Highlighter,
   type HighlightDecoration,
@@ -38,6 +39,17 @@ export type CodeFenceMeta = {
   lineNumbers: boolean
   title?: string
 }
+
+export type TanStackMarkdownHighlighterOptions = {
+  highlightLines?: ReadonlyArray<number>
+  lineNumbers?: boolean
+}
+
+export type TanStackMarkdownHighlighter = (
+  code: string,
+  lang?: string,
+  options?: TanStackMarkdownHighlighterOptions,
+) => string
 
 export function parseCodeFenceMeta(meta?: string | null): CodeFenceMeta {
   if (!meta) return { decorations: [], lineNumbers: false }
@@ -135,6 +147,30 @@ export function codeFenceToHast(
     lineNumbers: rendered.lineNumbers,
     title: rendered.title,
   })
+}
+
+export function createTanStackMarkdownHighlighter(
+  highlighter: Highlighter,
+): TanStackMarkdownHighlighter {
+  return (code, lang = 'plaintext', options = {}) => {
+    const result = highlighter.tokenize(code, { lang })
+
+    return renderNodesToHtml(
+      renderTokens(result.tokens, {
+        ...(options.lineNumbers !== undefined
+          ? { lineNumbers: options.lineNumbers }
+          : {}),
+        ...(options.highlightLines?.length
+          ? {
+              decorations: options.highlightLines.map((lines) => ({
+                className: 'th-line--highlighted',
+                lines,
+              })),
+            }
+          : {}),
+      }),
+    )
+  }
 }
 
 export function tokensToHast(

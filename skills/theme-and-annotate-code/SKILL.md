@@ -8,7 +8,7 @@ description: >
 metadata:
   type: core
   library: '@tanstack/highlight'
-  library_version: '0.0.5'
+  library_version: '0.0.6'
 sources:
   - 'TanStack/highlight:docs/guides/themes.md'
   - 'TanStack/highlight:docs/guides/annotations.md'
@@ -62,6 +62,21 @@ export const syntaxThemeCss = createThemeCss({
 ```
 
 `themes` mode is mutually exclusive with the `light` and `dark` pair mode.
+
+### Target renderer-owned code blocks
+
+```ts
+export const syntaxThemeCss = createThemeCss({
+  light: githubLightTheme,
+  dark: githubDarkTheme,
+  lightSelector: '.markdown-renderer',
+  darkSelector: '.dark .markdown-renderer',
+  codeBlockSelector: '.markdown-renderer pre.tm-code',
+  lineNumbersSelector: '.markdown-renderer .tm-code--line-numbers',
+})
+```
+
+The selector defaults are `pre.th-code` and `.th-code--line-numbers`. Override both when the surrounding renderer owns different wrapper classes.
 
 ### Add line numbers and line decorations
 

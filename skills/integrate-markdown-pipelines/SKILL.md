@@ -8,7 +8,7 @@ description: >
 metadata:
   type: composition
   library: '@tanstack/highlight'
-  library_version: '0.0.5'
+  library_version: '0.0.6'
 requires:
   - 'configure-selective-highlighting'
 sources:
@@ -24,6 +24,16 @@ This skill builds on `configure-selective-highlighting`. Read it first for regis
 # Integrate Markdown Pipelines
 
 ## Setup
+
+Connect TanStack Markdown without duplicating its `<pre><code>` wrapper:
+
+```ts
+import { createTanStackMarkdownHighlighter } from '@tanstack/highlight/markdown'
+import { highlighter } from './highlight'
+
+export const highlightMarkdownCode =
+  createTanStackMarkdownHighlighter(highlighter)
+```
 
 Render a parsed fence directly when the application owns Markdown traversal:
 
@@ -46,6 +56,25 @@ export function renderFence(code: string, lang: string, meta?: string) {
 The result includes `copyText`, `htmlMarkup`, `lang`, `title`, `tokens`, `decorations`, and `lineNumbers`.
 
 ## Core Patterns
+
+### Theme TanStack Markdown containers
+
+```ts
+import { createThemeCss } from '@tanstack/highlight/theme'
+import { githubDarkTheme } from '@tanstack/highlight/themes/github-dark'
+import { githubLightTheme } from '@tanstack/highlight/themes/github-light'
+
+export const css = createThemeCss({
+  light: githubLightTheme,
+  dark: githubDarkTheme,
+  lightSelector: '.markdown-renderer',
+  darkSelector: '.dark .markdown-renderer',
+  codeBlockSelector: '.markdown-renderer pre.tm-code',
+  lineNumbersSelector: '.markdown-renderer .tm-code--line-numbers',
+})
+```
+
+The adapter returns escaped inner markup. TanStack Markdown owns the outer elements and adds `tm-code--line-numbers` when requested.
 
 ### Transform MDAST before remark-rehype
 

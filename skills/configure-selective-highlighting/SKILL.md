@@ -8,7 +8,7 @@ description: >
 metadata:
   type: core
   library: '@tanstack/highlight'
-  library_version: '0.0.5'
+  library_version: '0.0.6'
 sources:
   - 'TanStack/highlight:docs/guides/language-registration.md'
   - 'TanStack/highlight:docs/guides/ssr-and-client.md'

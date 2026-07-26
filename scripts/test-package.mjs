@@ -32,6 +32,7 @@ const modularCore = modules[1]
 const languages = modules[2]
 const theme = modules[3]
 const octane = modules[4]
+const markdown = modules[5]
 
 if (typeof core.highlight !== 'function') {
   throw new Error('The root entry does not export highlight()')
@@ -58,6 +59,12 @@ if (
   typeof octane.createOctaneMdxHighlight !== 'function'
 ) {
   throw new Error('The Octane entry does not export both adapter helpers')
+}
+
+if (typeof markdown.createTanStackMarkdownHighlighter !== 'function') {
+  throw new Error(
+    'The Markdown entry does not export createTanStackMarkdownHighlighter()',
+  )
 }
 
 console.log(`Imported ${publicEntries.length} public ESM entries`)

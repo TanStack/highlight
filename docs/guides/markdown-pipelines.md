@@ -6,6 +6,54 @@ title: Markdown Pipelines
 
 TanStack Highlight provides helpers at three different Markdown boundaries. All accept an explicit highlighter so adapters do not import every language.
 
+## TanStack Markdown
+
+TanStack Markdown owns the surrounding `<pre><code>` elements. Use the dedicated adapter to return only Highlight's escaped inner token markup:
+
+```ts
+import { createTanStackMarkdownHighlighter } from '@tanstack/highlight/markdown'
+import { highlighter } from './highlight'
+
+export const highlightMarkdownCode =
+  createTanStackMarkdownHighlighter(highlighter)
+```
+
+Pass the same callback to the React or HTML renderer:
+
+```tsx
+import { Markdown } from '@tanstack/markdown/react'
+import { highlightMarkdownCode } from './markdown-highlighter'
+
+export function Article({ source }: { source: string }) {
+  return (
+    <Markdown highlighter={highlightMarkdownCode} codeLineNumbers>
+      {source}
+    </Markdown>
+  )
+}
+```
+
+The adapter maps parsed highlighted lines to `th-line--highlighted`, preserves line-number wrappers, escapes source text, and degrades unknown languages to escaped plaintext. It does not import TanStack Markdown or any languages.
+
+Generate theme CSS against Markdown's wrapper classes:
+
+```ts
+import { createThemeCss } from '@tanstack/highlight/theme'
+import { githubDarkTheme } from '@tanstack/highlight/themes/github-dark'
+import { githubLightTheme } from '@tanstack/highlight/themes/github-light'
+
+export const markdownHighlightCss = createThemeCss({
+  light: githubLightTheme,
+  dark: githubDarkTheme,
+  lightSelector: '.markdown-renderer',
+  darkSelector: '.dark .markdown-renderer',
+  codeBlockSelector: '.markdown-renderer pre.tm-code',
+  lineNumbersSelector: '.markdown-renderer .tm-code--line-numbers',
+})
+```
+
+Wrap the rendered document in `.markdown-renderer`. Add application CSS for `.th-line--highlighted` if highlighted lines need a background.
+
 ## Direct fence rendering
 
 ```ts

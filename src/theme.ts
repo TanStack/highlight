@@ -32,7 +32,12 @@ export type HighlightTheme = {
   type: 'dark' | 'light'
 }
 
-type ThemeCssOptions = {
+export type ThemeBaseCssOptions = {
+  codeBlockSelector?: string
+  lineNumbersSelector?: string
+}
+
+type ThemeCssOptions = ThemeBaseCssOptions & {
   darkSelector?: string
   includeBaseStyles?: boolean
   lightSelector?: string
@@ -90,7 +95,7 @@ export function createThemeCss(options: CreateThemeCssOptions) {
     return themeCss
   }
 
-  return `${themeCss}\n\n${createThemeBaseCss()}`
+  return `${themeCss}\n\n${createThemeBaseCss(options)}`
 }
 
 export function createThemeRule(selector: string, theme: HighlightTheme) {
@@ -107,8 +112,12 @@ ${variables.join('\n')}
 }`
 }
 
-export function createThemeBaseCss() {
-  return `pre.th-code {
+export function createThemeBaseCss(options: ThemeBaseCssOptions = {}) {
+  const codeBlockSelector = options.codeBlockSelector || 'pre.th-code'
+  const lineNumbersSelector =
+    options.lineNumbersSelector || '.th-code--line-numbers'
+
+  return `${codeBlockSelector} {
   overflow-x: auto;
   padding: 1rem;
   background: var(--th-background);
@@ -137,8 +146,8 @@ export function createThemeBaseCss() {
 .th-selector { color: var(--th-selector); }
 .th-command { color: var(--th-command); }
 .th-line { display: block; min-width: max-content; }
-.th-code--line-numbers code { counter-reset: th-line; }
-.th-code--line-numbers .th-line::before {
+${lineNumbersSelector} code { counter-reset: th-line; }
+${lineNumbersSelector} .th-line::before {
   display: inline-block;
   width: 2.5em;
   padding-right: 1em;

@@ -62,6 +62,23 @@ const variables = createThemeCss({
 
 You can also call `createThemeRule(selector, theme)` and `createThemeBaseCss()` separately.
 
+## Renderer-owned wrappers
+
+When another renderer owns the outer code block, point the base rules at its classes:
+
+```ts
+const css = createThemeCss({
+  light: githubLightTheme,
+  dark: githubDarkTheme,
+  lightSelector: '.markdown-renderer',
+  darkSelector: '.dark .markdown-renderer',
+  codeBlockSelector: '.markdown-renderer pre.tm-code',
+  lineNumbersSelector: '.markdown-renderer .tm-code--line-numbers',
+})
+```
+
+The defaults remain `pre.th-code` and `.th-code--line-numbers`. Token classes stay `th-*` because Highlight owns the inner token markup.
+
 ## Shipped theme matrix
 
 | Theme | Export | Type | Import |

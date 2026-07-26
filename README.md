@@ -83,6 +83,16 @@ The API is synchronous and deterministic. Server output and hydrated client outp
 
 Adapters take an explicit highlighter, so importing one never pulls in the all-language build.
 
+TanStack Markdown owns its `<pre><code>` containers. Use the dedicated adapter so Highlight returns only escaped inner token markup:
+
+```ts
+import { createTanStackMarkdownHighlighter } from '@tanstack/highlight/markdown'
+import { highlighter } from './highlight'
+
+export const highlightMarkdownCode =
+  createTanStackMarkdownHighlighter(highlighter)
+```
+
 ```ts
 import { remarkHighlightCodeBlocks } from '@tanstack/highlight/remark'
 import { highlighter } from './highlight'
@@ -159,6 +169,8 @@ const css = createThemeCss({
   darkSelector: '.dark',
 })
 ```
+
+For TanStack Markdown, set `codeBlockSelector` to its `pre.tm-code` wrapper and `lineNumbersSelector` to `.tm-code--line-numbers`. See the [Markdown pipeline guide](docs/guides/markdown-pipelines.md#tanstack-markdown).
 
 Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Monokai, Nord, One Dark Pro, Solarized Dark, and Solarized Light.
 

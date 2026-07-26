@@ -3,6 +3,7 @@ import { toHast } from 'mdast-util-to-hast'
 import { defaultHighlighter, tokenize } from '../src/index'
 import {
   codeFenceToHast,
+  createTanStackMarkdownHighlighter,
   getCodeFenceTitle,
   parseCodeFenceMeta,
   renderCodeFence,
@@ -81,6 +82,28 @@ describe('markdown helpers', () => {
     expect(JSON.stringify(hast)).toContain('th-keyword')
     expect(JSON.stringify(hast)).toContain('th-line--highlighted')
     expect(JSON.stringify(hast)).toContain('dataLine')
+  })
+
+  it('adapts tokens to TanStack Markdown inner markup', () => {
+    const highlightMarkdownCode =
+      createTanStackMarkdownHighlighter(defaultHighlighter)
+    const html = highlightMarkdownCode(
+      '<img src=x onerror=alert(1)>',
+      'html',
+      {
+        highlightLines: [1],
+        lineNumbers: true,
+      },
+    )
+
+    expect(html).toContain('class="th-line th-line--highlighted"')
+    expect(html).toContain('&lt;')
+    expect(html).not.toContain('<img')
+    expect(html).not.toContain('<pre')
+    expect(html).not.toContain('<code')
+
+    const unknown = highlightMarkdownCode('<script>x</script>', 'unknown')
+    expect(unknown).toBe('&lt;script&gt;x&lt;/script&gt;')
   })
 })
 
