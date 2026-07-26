@@ -9,6 +9,27 @@ export type LanguageFixture = {
 
 export const languageFixtures: Array<LanguageFixture> = [
   {
+    lang: 'octane',
+    normalized: 'tsrx',
+    code: `import { useState } from 'octane'
+
+export function Counter() @{
+  const [count, setCount] = useState(0)
+
+  <button onClick={() => setCount(count + 1)}>
+    {'Count: ' + count}
+  </button>
+}`,
+    expectedClasses: [
+      'th-keyword',
+      'th-string',
+      'th-function',
+      'th-tag',
+      'th-attr',
+      'th-number',
+    ],
+  },
+  {
     lang: 'tsx',
     normalized: 'tsx',
     code: `import { useState } from 'react'\n\ntype Props = { name: string }\n\nexport function Greeting({ name }: Props) {\n  const [count, setCount] = useState(0)\n  return <button className=\"primary\" onClick={() => setCount(count + 1)}>{name}</button>\n}`,

@@ -1,7 +1,7 @@
 {
   "perLanguageLimit": 20,
   "maxCodeLength": 3000,
-  "count": 333,
+  "count": 334,
   "fixtures": [
     {
       "file": "router/docs/router/how-to/deploy-to-production.md",
@@ -1913,6 +1913,13 @@
       "rawLang": "typescript",
       "lang": "ts",
       "code": "import { chat } from \"@tanstack/ai\";\nimport { geminiText } from \"@tanstack/ai-gemini\";\n\nconst stream = chat({\n  adapter: geminiText(\"gemini-2.5-pro\"),\n  messages: [{ role: \"user\", content: \"Hello!\" }],\n});"
+    },
+    {
+      "file": "markdown/docs/core-concepts/rendering.md",
+      "line": 21,
+      "rawLang": "tsrx",
+      "lang": "tsrx",
+      "code": "import { Markdown } from '@tanstack/markdown/octane'\n\n<Markdown>{source}</Markdown>"
     },
     {
       "file": "ai/docs/getting-started/devtools.md",

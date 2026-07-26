@@ -9,6 +9,7 @@ import { markdown } from '../src/languages/markdown'
 import { python } from '../src/languages/python'
 import { shell } from '../src/languages/shell'
 import { ts } from '../src/languages/ts'
+import { tsrx } from '../src/languages/tsrx'
 import { tsx } from '../src/languages/tsx'
 import { vue } from '../src/languages/vue'
 import { yaml } from '../src/languages/yaml'
@@ -24,6 +25,7 @@ const highlighter = createHighlighter({
     python,
     shell,
     ts,
+    tsrx,
     tsx,
     vue,
     yaml,
@@ -93,6 +95,78 @@ describe('script context', () => {
     expect(classesFor(result, 'toUpperCase')).toContain('property')
     expect(classesFor(result, 'count')).not.toContain('string')
     expect(result.tokens.filter((token) => token.className === 'operator')).toHaveLength(6)
+    expect(reconstruct(result)).toBe(result.code)
+  })
+})
+
+describe('TSRX context', () => {
+  it('highlights Octane component shorthand and template directives', () => {
+    const result = highlighter.tokenize(
+      `@Component()
+export function View(props) @{
+  @if (props.loading) {
+    <p>Loading</p>
+  } @else {
+    @for (const item of props.items; key item.id) {
+      <span>{item.label as string}</span>
+    } @empty {
+      <p>Empty</p>
+    }
+  }
+
+  @switch (props.state) {
+    @case ('ready') { <p>Ready</p> }
+    @default { <p>Unknown</p> }
+  }
+
+  @try {
+    <Content />
+  } @pending {
+    <Spinner />
+  } @catch (error) {
+    <ErrorMessage error={error} />
+  }
+}`,
+      { lang: 'tsrx' },
+    )
+
+    expect(
+      result.tokens
+        .filter((token) => token.value.startsWith('@'))
+        .map((token) => [token.value, token.className]),
+    ).toEqual([
+      ['@Component', 'function'],
+      ['@{', 'keyword'],
+      ['@if', 'keyword'],
+      ['@else', 'keyword'],
+      ['@for', 'keyword'],
+      ['@empty', 'keyword'],
+      ['@switch', 'keyword'],
+      ['@case', 'keyword'],
+      ['@default', 'keyword'],
+      ['@try', 'keyword'],
+      ['@pending', 'keyword'],
+      ['@catch', 'keyword'],
+    ])
+    expect(classesFor(result, 'Content')).toContain('tag')
+    expect(reconstruct(result)).toBe(result.code)
+  })
+
+  it('does not highlight TSRX syntax inside strings or comments', () => {
+    const result = highlighter.tokenize(
+      `const example = '@if (ready) { <Ready /> }'
+// @for and @{
+export function View() @{ <p>Ready</p> }`,
+      { lang: 'octane' },
+    )
+
+    expect(classesFor(result, "'@if (ready) { <Ready /> }'")).toContain('string')
+    expect(classesFor(result, '// @for and @{')).toContain('comment')
+    expect(
+      result.tokens
+        .filter((token) => token.value.startsWith('@'))
+        .map((token) => token.value),
+    ).toEqual(['@{'])
     expect(reconstruct(result)).toBe(result.code)
   })
 })

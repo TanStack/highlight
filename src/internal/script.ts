@@ -41,13 +41,21 @@ const semanticPatterns = [
   },
 ] as const
 
-export function collectScriptRanges(code: string, jsx = false) {
-  const lexical = collectScriptLexicalRanges(code, jsx)
-  const markup = jsx ? collectJsxRanges(code) : []
+export function collectScriptRanges(
+  code: string,
+  jsx = false,
+  jsxAtLineStart = false,
+) {
+  const lexical = collectScriptLexicalRanges(code, jsx, jsxAtLineStart)
+  const markup = jsx ? collectJsxRanges(code, jsxAtLineStart) : []
   return collectPatternRanges(code, semanticPatterns, [...lexical, ...markup])
 }
 
-function collectScriptLexicalRanges(code: string, jsx: boolean) {
+function collectScriptLexicalRanges(
+  code: string,
+  jsx: boolean,
+  jsxAtLineStart: boolean,
+) {
   const ranges: Array<TokenRange> = []
   let index = 0
 
@@ -78,7 +86,7 @@ function collectScriptLexicalRanges(code: string, jsx: boolean) {
     }
 
     if (character === '`') {
-      index = collectTemplateRanges(code, index, ranges, jsx)
+      index = collectTemplateRanges(code, index, ranges, jsx, jsxAtLineStart)
       continue
     }
 
@@ -106,6 +114,7 @@ function collectTemplateRanges(
   start: number,
   ranges: Array<TokenRange>,
   jsx: boolean,
+  jsxAtLineStart: boolean,
 ) {
   let segmentStart = start
   let index = start + 1
@@ -130,7 +139,12 @@ function collectTemplateRanges(
       const end = findInterpolationEnd(code, index + 2)
       const expressionEnd = end < 0 ? code.length : end
       const expression = code.slice(index + 2, expressionEnd)
-      ranges.push(...offsetRanges(collectScriptRanges(expression, jsx), index + 2))
+      ranges.push(
+        ...offsetRanges(
+          collectScriptRanges(expression, jsx, jsxAtLineStart),
+          index + 2,
+        ),
+      )
 
       if (end < 0) return code.length
       ranges.push({ start: end, end: end + 1, className: 'operator' })
@@ -194,7 +208,7 @@ function skipTemplate(code: string, start: number) {
   return code.length
 }
 
-function collectJsxRanges(code: string) {
+function collectJsxRanges(code: string, jsxAtLineStart: boolean) {
   const ranges: Array<TokenRange> = []
   let index = 0
   let jsxDepth = 0
@@ -229,7 +243,10 @@ function collectJsxRanges(code: string) {
       index += 3
       continue
     }
-    if (code.startsWith('<>', index) && (jsxDepth > 0 || isJsxStart(code, index))) {
+    if (
+      code.startsWith('<>', index) &&
+      (jsxDepth > 0 || isJsxStart(code, index, jsxAtLineStart))
+    ) {
       jsxDepth++
       index += 2
       continue
@@ -239,7 +256,12 @@ function collectJsxRanges(code: string) {
     const nameStart = index + (closing ? 2 : 1)
     const nameMatch = /^[A-Za-z][\w:.-]*/.exec(code.slice(nameStart))
     const inJsxText = jsxDepth > 0 && expressionDepth === 0
-    if (!nameMatch || (!closing && !inJsxText && !isJsxStart(code, index))) {
+    if (
+      !nameMatch ||
+      (!closing &&
+        !inJsxText &&
+        !isJsxStart(code, index, jsxAtLineStart))
+    ) {
       index++
       continue
     }
@@ -286,7 +308,14 @@ function collectJsxAttributes(
   }
 }
 
-function isJsxStart(code: string, index: number) {
+function isJsxStart(code: string, index: number, jsxAtLineStart: boolean) {
+  if (
+    jsxAtLineStart &&
+    /^\s*$/.test(code.slice(code.lastIndexOf('\n', index - 1) + 1, index))
+  ) {
+    return true
+  }
+
   const before = code.slice(0, index).trimEnd()
   if (!before) return true
   if (/\b(?:return|case|yield)$/.test(before)) return true

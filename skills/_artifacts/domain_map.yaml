@@ -43,7 +43,7 @@ skills:
       - 'Choose direct language imports and intentional fallback behavior'
     reference_candidates:
       - topic: 'shipped language names, aliases, and isolated imports'
-        reason: 'The package exposes 25 independently importable language definitions with aliases.'
+        reason: 'The package exposes 26 independently importable language definitions with aliases.'
     failure_modes:
       - mistake: 'Importing the root entry in size-sensitive clients'
         mechanism: 'The root entry constructs the all-language registry, so a bound helper retains every shipped language.'

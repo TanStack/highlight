@@ -42,7 +42,7 @@ if (typeof modularCore.createHighlighter !== 'function') {
   throw new Error('The core entry does not export createHighlighter()')
 }
 
-if (!languages.tsx || !languages.shell) {
+if (!languages.tsrx || !languages.tsx || !languages.shell) {
   throw new Error('The languages entry does not export language definitions')
 }
 

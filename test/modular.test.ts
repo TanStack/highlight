@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { createHighlighter } from '../src/core'
 import { html } from '../src/languages/html'
 import { js } from '../src/languages/js'
+import { tsrx } from '../src/languages/tsrx'
 import { tsx } from '../src/languages/tsx'
 
 describe('language registration', () => {
@@ -23,6 +24,14 @@ describe('language registration', () => {
 
     expect(markupOnly.highlight(code, { lang: 'html' }).html).not.toContain('th-keyword')
     expect(withJavaScript.highlight(code, { lang: 'html' }).html).toContain('th-keyword')
+  })
+
+  it('registers the Octane alias with TSRX only', () => {
+    const highlighter = createHighlighter({ languages: [tsrx] })
+
+    expect(highlighter.listLanguages()).toEqual(['tsrx'])
+    expect(highlighter.normalizeLanguage('octane')).toBe('tsrx')
+    expect(highlighter.normalizeLanguage('tsx')).toBe('plaintext')
   })
 })
 

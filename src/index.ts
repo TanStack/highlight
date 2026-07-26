@@ -27,6 +27,7 @@ import { sql } from './languages/sql.js'
 import { svelte } from './languages/svelte.js'
 import { toml } from './languages/toml.js'
 import { ts } from './languages/ts.js'
+import { tsrx } from './languages/tsrx.js'
 import { tsx } from './languages/tsx.js'
 import { vue } from './languages/vue.js'
 import { yaml } from './languages/yaml.js'
@@ -54,6 +55,7 @@ export type HighlightLanguage =
   | 'svelte'
   | 'toml'
   | 'ts'
+  | 'tsrx'
   | 'tsx'
   | 'vue'
   | 'yaml'
@@ -121,6 +123,7 @@ export const allLanguages = [
   svelte,
   toml,
   ts,
+  tsrx,
   tsx,
   vue,
   yaml,

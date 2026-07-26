@@ -176,7 +176,7 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Monokai, Nord, O
 
 ## Languages
 
-`apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsx`, `vue`, and `yaml`.
+`apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
 
 Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit.
 

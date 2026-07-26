@@ -26,6 +26,7 @@ Import only the definitions the application registers.
 | Svelte | `svelte` | `@tanstack/highlight/languages/svelte` | - |
 | TOML | `toml` | `@tanstack/highlight/languages/toml` | - |
 | TypeScript | `ts` | `@tanstack/highlight/languages/ts` | `typescript`, `angular-ts` |
+| TSRX | `tsrx` | `@tanstack/highlight/languages/tsrx` | `octane` |
 | TSX | `tsx` | `@tanstack/highlight/languages/tsx` | - |
 | Vue | `vue` | `@tanstack/highlight/languages/vue` | - |
 | YAML | `yaml` | `@tanstack/highlight/languages/yaml` | `yml` |

@@ -16,10 +16,11 @@ import { createHighlighter } from '@tanstack/highlight/core'
 import { css } from '@tanstack/highlight/languages/css'
 import { js } from '@tanstack/highlight/languages/js'
 import { ts } from '@tanstack/highlight/languages/ts'
+import { tsrx } from '@tanstack/highlight/languages/tsrx'
 import { tsx } from '@tanstack/highlight/languages/tsx'
 
 export const highlighter = createHighlighter({
-  languages: [css, js, ts, tsx],
+  languages: [css, js, ts, tsrx, tsx],
 })
 ```
 

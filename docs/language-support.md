@@ -32,6 +32,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Svelte | `svelte` | - | Markup plus optional script/style and expression delegation |
 | TOML | `toml` | - | Strings, comments, tables, properties |
 | TypeScript | `ts` | `typescript`, `angular-ts` | JavaScript scanner plus TypeScript keywords/types |
+| TSRX | `tsrx` | `octane` | TypeScript, contextual JSX, Octane component shorthand and template directives |
 | TSX | `tsx` | - | TypeScript, contextual JSX, generic disambiguation |
 | Vue | `vue` | - | Template markup plus optional script/style delegation |
 | YAML | `yaml` | `yml` | Comment boundaries and block scalars |
