@@ -51,6 +51,33 @@ export type TanStackMarkdownHighlighter = (
   options?: TanStackMarkdownHighlighterOptions,
 ) => string
 
+const codeDiffNotation =
+  /[ \t]*(?:(?:\/\/|#)[ \t]*\[!code[ \t]+(\+\+|--)\]|\/\*[ \t]*\[!code[ \t]+(\+\+|--)\][ \t]*\*\/|<!--[ \t]*\[!code[ \t]+(\+\+|--)\][ \t]*-->)[ \t]*$/
+
+export function parseCodeDiffNotation(code: string) {
+  const decorations: Array<HighlightDecoration> = []
+  const lines = code.split('\n')
+
+  const cleanLines = lines.map((line, index) => {
+    const match = codeDiffNotation.exec(line)
+    if (!match) return line
+
+    const notation = match[1] || match[2] || match[3]
+    decorations.push({
+      className:
+        notation === '++' ? 'th-line--inserted' : 'th-line--deleted',
+      lines: index + 1,
+    })
+
+    return line.slice(0, match.index)
+  })
+
+  return {
+    code: cleanLines.join('\n'),
+    decorations,
+  }
+}
+
 export function parseCodeFenceMeta(meta?: string | null): CodeFenceMeta {
   if (!meta) return { decorations: [], lineNumbers: false }
 
@@ -116,14 +143,19 @@ export function renderCodeFence(
     lineNumbers,
     meta,
     title,
-  }: CodeFenceInput,
+}: CodeFenceInput,
   highlighter: Highlighter,
 ): HighlightedCodeFence {
+  const annotated = parseCodeDiffNotation(code)
   const parsed = parseCodeFenceMeta(meta)
-  const resolvedDecorations = [...parsed.decorations, ...(decorations || [])]
+  const resolvedDecorations = [
+    ...annotated.decorations,
+    ...parsed.decorations,
+    ...(decorations || []),
+  ]
   const resolvedLineNumbers = lineNumbers ?? parsed.lineNumbers
   const rendered = highlighter.renderCodeBlockData({
-    code,
+    code: annotated.code,
     decorations: resolvedDecorations,
     lang: lang || undefined,
     lineNumbers: resolvedLineNumbers,
@@ -153,19 +185,23 @@ export function createTanStackMarkdownHighlighter(
   highlighter: Highlighter,
 ): TanStackMarkdownHighlighter {
   return (code, lang = 'plaintext', options = {}) => {
-    const result = highlighter.tokenize(code, { lang })
+    const annotated = parseCodeDiffNotation(code)
+    const result = highlighter.tokenize(annotated.code, { lang })
 
     return renderNodesToHtml(
       renderTokens(result.tokens, {
         ...(options.lineNumbers !== undefined
           ? { lineNumbers: options.lineNumbers }
           : {}),
-        ...(options.highlightLines?.length
+        ...(annotated.decorations.length || options.highlightLines?.length
           ? {
-              decorations: options.highlightLines.map((lines) => ({
-                className: 'th-line--highlighted',
-                lines,
-              })),
+              decorations: [
+                ...annotated.decorations,
+                ...(options.highlightLines || []).map((lines) => ({
+                  className: 'th-line--highlighted',
+                  lines,
+                })),
+              ],
             }
           : {}),
       }),

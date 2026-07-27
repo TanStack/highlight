@@ -5,6 +5,7 @@ import {
   codeFenceToHast,
   createTanStackMarkdownHighlighter,
   getCodeFenceTitle,
+  parseCodeDiffNotation,
   parseCodeFenceMeta,
   renderCodeFence,
 } from '../src/markdown'
@@ -30,6 +31,35 @@ describe('token output', () => {
 })
 
 describe('markdown helpers', () => {
+  it('turns inline diff notation into clean code and line decorations', () => {
+    expect(
+      parseCodeDiffNotation(
+        [
+          `- const oldValue = true // [!code --]`,
+          `+ const newValue = true // [!code ++]`,
+          `color: red; /* [!code ++] */`,
+          `echo old # [!code --]`,
+          `<old-tag /> <!-- [!code --] -->`,
+        ].join('\n'),
+      ),
+    ).toEqual({
+      code: [
+        `- const oldValue = true`,
+        `+ const newValue = true`,
+        `color: red;`,
+        `echo old`,
+        `<old-tag />`,
+      ].join('\n'),
+      decorations: [
+        { className: 'th-line--deleted', lines: 1 },
+        { className: 'th-line--inserted', lines: 2 },
+        { className: 'th-line--inserted', lines: 3 },
+        { className: 'th-line--deleted', lines: 4 },
+        { className: 'th-line--deleted', lines: 5 },
+      ],
+    })
+  })
+
   it('parses common code fence title metadata', () => {
     expect(getCodeFenceTitle('title="app.tsx"')).toBe('app.tsx')
     expect(getCodeFenceTitle("{filename='route.ts'}")).toBe('route.ts')
@@ -54,7 +84,7 @@ describe('markdown helpers', () => {
   it('renders a code fence into data and hast', () => {
     const rendered = renderCodeFence(
       {
-        code: `const value = 'x'\n`,
+        code: `const value = 'x' // [!code ++]\n`,
         lang: 'typescript',
         meta: 'title="example.ts"',
       },
@@ -70,6 +100,12 @@ describe('markdown helpers', () => {
     )
 
     expect(rendered.copyText).toBe(`const value = 'x'`)
+    expect(rendered.decorations).toContainEqual({
+      className: 'th-line--inserted',
+      lines: 1,
+    })
+    expect(rendered.htmlMarkup).toContain('th-line--inserted')
+    expect(rendered.htmlMarkup).not.toContain('!code')
     expect(rendered.lang).toBe('ts')
     expect(hast.properties?.dataTitle).toBe('example.ts')
     expect(hast.tagName).toBe('pre')
@@ -101,6 +137,13 @@ describe('markdown helpers', () => {
     expect(html).not.toContain('<img')
     expect(html).not.toContain('<pre')
     expect(html).not.toContain('<code')
+
+    const diff = highlightMarkdownCode(
+      `- const oldValue = true // [!code --]`,
+      'ts',
+    )
+    expect(diff).toContain('class="th-line th-line--deleted"')
+    expect(diff).not.toContain('!code')
 
     const unknown = highlightMarkdownCode('<script>x</script>', 'unknown')
     expect(unknown).toBe('&lt;script&gt;x&lt;/script&gt;')
