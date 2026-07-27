@@ -33,6 +33,17 @@ Returns escaped inner token markup for a renderer-owned `<code>` element. Highli
 
 ## Metadata
 
+### `parseCodeDiffNotation`
+
+```ts
+function parseCodeDiffNotation(code: string): {
+  code: string
+  decorations: Array<HighlightDecoration>
+}
+```
+
+Removes trailing `[!code ++]` and `[!code --]` directives and returns `th-line--inserted` and `th-line--deleted` decorations for their one-based line numbers. JavaScript-style line and block comments, `#` line comments, and HTML comments are supported.
+
 ### `CodeFenceMeta`
 
 ```ts
@@ -74,7 +85,7 @@ type CodeFenceInput = {
 }
 ```
 
-Explicit `decorations` are appended after metadata decorations. Explicit `lineNumbers` takes precedence over metadata. Explicit `title` takes precedence when it is non-empty.
+Inline diff notation is converted first, followed by metadata and explicit `decorations`. Explicit `lineNumbers` takes precedence over metadata. Explicit `title` takes precedence when it is non-empty.
 
 ### `HighlightedCodeFence`
 
@@ -89,7 +100,7 @@ function renderCodeFence(
 ): HighlightedCodeFence
 ```
 
-Parses metadata and delegates to the supplied highlighter.
+Parses inline diff notation and metadata, then delegates to the supplied highlighter.
 
 ## HAST
 

@@ -78,6 +78,17 @@ The Markdown helpers recognize common metadata:
 
 `title`, `filename`, `file`, and `name` are accepted title keys. `lineNumbers` and `showLineNumbers` enable numbers.
 
+## Inline diff notation
+
+Markdown adapters also recognize the diff notation used by Shiki:
+
+```ts
+- const oldValue = true // [!code --]
++ const newValue = true // [!code ++]
+```
+
+The directives are removed before tokenization and copying. Their lines receive `th-line--deleted` and `th-line--inserted`, respectively. JavaScript-style line and block comments, `#` line comments, and HTML comments are supported.
+
 ## Styling
 
 Annotation classes are intentionally unstyled:
