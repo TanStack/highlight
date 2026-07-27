@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/highlight",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Tiny class-based syntax highlighting for documentation.",
   "keywords": [
     "syntax-highlighting",

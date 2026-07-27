@@ -1,7 +1,7 @@
 # skills/_artifacts/skill_tree.yaml
 library:
   name: '@tanstack/highlight'
-  version: '0.0.7'
+  version: '0.0.8'
   repository: 'https://github.com/TanStack/highlight'
   description: 'Dependency-free, class-based syntax highlighting for documentation code.'
 generated_from:
