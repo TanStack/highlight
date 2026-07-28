@@ -145,7 +145,7 @@ export function createThemeBaseCss(options: ThemeBaseCssOptions = {}) {
 .th-code-inline { color: var(--th-code-inline); }
 .th-selector { color: var(--th-selector); }
 .th-command { color: var(--th-command); }
-.th-line { display: block; min-width: max-content; }
+.th-line { display: inline-block; min-width: 100%; width: max-content; }
 ${lineNumbersSelector} code { counter-reset: th-line; }
 ${lineNumbersSelector} .th-line::before {
   display: inline-block;
