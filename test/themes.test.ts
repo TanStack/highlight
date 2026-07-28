@@ -72,6 +72,12 @@ describe('themes', () => {
     expect(css).not.toContain('pre.th-code')
   })
 
+  it('lays out wrapped lines without doubling preserved newlines', () => {
+    expect(createThemeBaseCss()).toContain(
+      '.th-line { display: inline-block; min-width: 100%; width: max-content; }',
+    )
+  })
+
   it('can target a renderer-owned code block', () => {
     const css = createThemeCss({
       codeBlockSelector: '.markdown-renderer pre.tm-code',
