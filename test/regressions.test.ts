@@ -5,6 +5,7 @@ import { dockerfile } from '../src/languages/dockerfile'
 import { html } from '../src/languages/html'
 import { http } from '../src/languages/http'
 import { js } from '../src/languages/js'
+import { jsx } from '../src/languages/jsx'
 import { markdown } from '../src/languages/markdown'
 import { python } from '../src/languages/python'
 import { shell } from '../src/languages/shell'
@@ -21,6 +22,7 @@ const highlighter = createHighlighter({
     html,
     http,
     js,
+    jsx,
     markdown,
     python,
     shell,
@@ -46,11 +48,16 @@ describe('script context', () => {
       'const pair = <Key, Value>(key: Key, value: Value) => [key, value]',
       { lang: 'tsx' },
     )
+    const multiline = highlighter.tokenize(
+      'const pair = <Key,\n  Value>(key: Key, value: Value) => [key, value]',
+      { lang: 'tsx' },
+    )
 
     expect(classesFor(generic, 'T')).toContain('type')
     expect(classesFor(generic, 'T')).not.toContain('tag')
     expect(classesFor(element, 'Component')).toContain('tag')
     expect(classesFor(multiple, 'Key')).not.toContain('tag')
+    expect(classesFor(multiline, 'Key')).not.toContain('tag')
     expect(reconstruct(generic)).toBe(generic.code)
     expect(reconstruct(element)).toBe(element.code)
   })
@@ -83,6 +90,114 @@ describe('script context', () => {
         (token) => token.className === 'literal' && token.value.includes('/span'),
       ),
     ).toBe(false)
+  })
+
+  it('keeps apostrophes in JSX text from swallowing closing tags', () => {
+    const cases = [
+      {
+        code: `<Description>We'll never share your email.</Description>`,
+        textEnd: '</Description>',
+      },
+      {
+        code: `<Description>Don't {say('hi')}</Description>`,
+        textEnd: '{',
+      },
+    ]
+
+    for (const lang of ['jsx', 'tsx']) {
+      for (const { code, textEnd } of cases) {
+        const result = highlighter.tokenize(code, { lang })
+        const textStart = code.indexOf('>') + 1
+
+        expect(
+          classesInRange(result, textStart, code.indexOf(textEnd)),
+          lang,
+        ).toEqual([])
+        expect(exactClassesFor(result, 'Description'), lang).toEqual([
+          'tag',
+          'tag',
+        ])
+        if (code.includes("'hi'")) {
+          expect(exactClassesFor(result, "'hi'"), lang).toEqual(['string'])
+        }
+        expect(reconstruct(result), lang).toBe(code)
+      }
+    }
+  })
+
+  it('classifies multiline JSX tags and attributes', () => {
+    const code = `<AriaLink
+  href={props.href}
+  aria-label="Docs"
+  render={({ ref }) => null}
+/>`
+
+    for (const lang of ['jsx', 'tsx']) {
+      const result = highlighter.tokenize(code, { lang })
+
+      expect(exactClassesFor(result, 'AriaLink'), lang).toEqual(['tag'])
+      expect(exactClassesFor(result, 'href'), lang).toContain('attr')
+      expect(exactClassesFor(result, 'aria-label'), lang).toEqual(['attr'])
+      expect(exactClassesFor(result, '"Docs"'), lang).toEqual(['string'])
+      expect(exactClassesFor(result, 'render'), lang).toEqual(['attr'])
+      expect(classesFor(result, 'props'), lang).not.toContain('attr')
+      expect(classesFor(result, 'null'), lang).toContain('literal')
+      expect(reconstruct(result), lang).toBe(code)
+    }
+  })
+
+  it('leaves JSX text prose unclassified', () => {
+    const cases = [
+      '<Trigger>How do I get started?</Trigger>',
+      '<Item>Option 1</Item>',
+    ]
+
+    for (const lang of ['jsx', 'tsx']) {
+      for (const code of cases) {
+        const result = highlighter.tokenize(code, { lang })
+        const textStart = code.indexOf('>') + 1
+        const textEnd = code.lastIndexOf('<')
+
+        expect(classesInRange(result, textStart, textEnd), `${lang}: ${code}`).toEqual(
+          [],
+        )
+        expect(reconstruct(result), lang).toBe(code)
+      }
+    }
+  })
+
+  it('separates nested JSX text from its surrounding expression', () => {
+    const code =
+      'return <div>{ready ? <strong>Get 1 item</strong> : null}</div>'
+    const result = highlighter.tokenize(code, { lang: 'tsx' })
+    const textStart = code.indexOf('Get')
+    const textEnd = textStart + 'Get 1 item'.length
+
+    expect(classesInRange(result, textStart, textEnd)).toEqual([])
+    expect(exactClassesFor(result, 'strong')).toEqual(['tag', 'tag'])
+    expect(classesFor(result, 'null')).toContain('literal')
+    expect(reconstruct(result)).toBe(code)
+  })
+
+  it('tracks fragments and lexical syntax around JSX boundaries', () => {
+    const fragment =
+      'return <><span>Text 2</span>{ready ? "}" : /* > */ null}</>'
+    const expression = highlighter.tokenize(fragment, { lang: 'tsx' })
+    const textStart = fragment.indexOf('Text')
+    const textEnd = textStart + 'Text 2'.length
+    const script = highlighter.tokenize(
+      'const pattern = /(?:<Component>)/\nconst ready = true',
+      { lang: 'tsx' },
+    )
+
+    expect(classesInRange(expression, textStart, textEnd)).toEqual([])
+    expect(exactClassesFor(expression, 'span')).toEqual(['tag', 'tag'])
+    expect(classesFor(expression, 'null')).toContain('literal')
+    expect(classesFor(script, '/(?:<Component>)/')).toContain('literal')
+    expect(classesFor(script, 'true')).toContain('literal')
+    expect(exactClassesFor(script, 'Component')).not.toContain('tag')
+    expect(reconstruct(expression)).toBe(fragment)
+    expect(reconstruct(script)).toBe(script.code)
   })
 
   it('tokenizes template interpolations recursively', () => {
@@ -277,6 +392,34 @@ function classesFor(
   return result.tokens
     .filter((token) => token.value.includes(value))
     .map((token) => token.className)
+}
+
+function exactClassesFor(
+  result: ReturnType<typeof highlighter.tokenize>,
+  value: string,
+) {
+  return result.tokens
+    .filter((token) => token.value === value)
+    .map((token) => token.className)
+}
+
+function classesInRange(
+  result: ReturnType<typeof highlighter.tokenize>,
+  start: number,
+  end: number,
+) {
+  const classes: Array<string> = []
+  let offset = 0
+
+  for (const token of result.tokens) {
+    const tokenEnd = offset + token.value.length
+    if (token.className && tokenEnd > start && offset < end) {
+      classes.push(token.className)
+    }
+    offset = tokenEnd
+  }
+
+  return classes
 }
 
 function reconstruct(result: ReturnType<typeof highlighter.tokenize>) {
