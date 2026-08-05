@@ -128,7 +128,8 @@ describe('script context', () => {
   it('classifies multiline JSX tags and attributes', () => {
     const code = `<AriaLink
   href={props.href}
-  aria-label="Docs"
+  aria-label="Docs
+  reference"
   render={({ ref }) => null}
 />`
 
@@ -138,10 +139,27 @@ describe('script context', () => {
       expect(exactClassesFor(result, 'AriaLink'), lang).toEqual(['tag'])
       expect(exactClassesFor(result, 'href'), lang).toContain('attr')
       expect(exactClassesFor(result, 'aria-label'), lang).toEqual(['attr'])
-      expect(exactClassesFor(result, '"Docs"'), lang).toEqual(['string'])
+      expect(exactClassesFor(result, '"Docs\n  reference"'), lang).toEqual([
+        'string',
+      ])
       expect(exactClassesFor(result, 'render'), lang).toEqual(['attr'])
       expect(classesFor(result, 'props'), lang).not.toContain('attr')
       expect(classesFor(result, 'null'), lang).toContain('literal')
+      expect(reconstruct(result), lang).toBe(code)
+    }
+  })
+
+  it('classifies JSX nested in attribute expressions', () => {
+    const code = `<Wrapper child={<Label>can't</Label>} />`
+
+    for (const lang of ['jsx', 'tsx']) {
+      const result = highlighter.tokenize(code, { lang })
+      const textStart = code.indexOf("can't")
+
+      expect(exactClassesFor(result, 'Wrapper'), lang).toEqual(['tag'])
+      expect(exactClassesFor(result, 'child'), lang).toEqual(['attr'])
+      expect(exactClassesFor(result, 'Label'), lang).toEqual(['tag', 'tag'])
+      expect(classesInRange(result, textStart, textStart + 5), lang).toEqual([])
       expect(reconstruct(result), lang).toBe(code)
     }
   })

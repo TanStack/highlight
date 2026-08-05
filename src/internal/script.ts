@@ -47,11 +47,13 @@ export function collectScriptRanges(
   jsxAtLineStart = false,
 ) {
   const jsxText = jsx ? new Uint8Array(code.length) : undefined
-  const initial = collectScriptInitialRanges(
+  const initial: Array<TokenRange> = []
+  collectScriptInitialRanges(
     code,
     jsx,
     jsxAtLineStart,
     jsxText,
+    initial,
   )
   const ranges = collectPatternRanges(code, semanticPatterns, initial)
   return jsxText
@@ -63,10 +65,11 @@ function collectScriptInitialRanges(
   code: string,
   jsx: boolean,
   jsxAtLineStart: boolean,
-  jsxText?: Uint8Array,
-  ranges: Array<TokenRange> = [],
+  jsxText: Uint8Array | undefined,
+  ranges: Array<TokenRange>,
   index = 0,
   limit = code.length,
+  tagBody = false,
 ) {
   const expressions: Array<number> = []
   let jsxDepth = 0
@@ -93,6 +96,15 @@ function collectScriptInitialRanges(
       }
     }
 
+    if (
+      tagBody &&
+      !expressions.length &&
+      !jsxDepth &&
+      character === '>'
+    ) {
+      return index
+    }
+
     if (character === '/' && next === '/') {
       const end = findLineEnd(code, index + 2)
       ranges.push({ start: index, end, className: 'comment' })
@@ -109,7 +121,12 @@ function collectScriptInitialRanges(
     }
 
     if (character === "'" || character === '"') {
-      const end = findQuotedEnd(code, index, character)
+      const end = findQuotedEnd(
+        code,
+        index,
+        character,
+        tagBody && !expressions.length,
+      )
       ranges.push({ start: index, end, className: 'string' })
       index = end
       continue
@@ -138,12 +155,16 @@ function collectScriptInitialRanges(
       continue
     }
 
-    if (!inJsxText && expression && character === '{') {
-      expressions.push(expression)
+    if (
+      !inJsxText &&
+      character === '{' &&
+      (expressions.length || tagBody)
+    ) {
+      expressions.push(expressions.length ? expression! : jsxDepth)
       index++
       continue
     }
-    if (!inJsxText && expression && character === '}') {
+    if (!inJsxText && expressions.length && character === '}') {
       expressions.pop()
       index++
       continue
@@ -154,7 +175,7 @@ function collectScriptInitialRanges(
       continue
     }
 
-    if (jsxDepth && code.startsWith('</>', index)) {
+    if (code.startsWith('</>', index)) {
       jsxDepth--
       index += 3
       continue
@@ -181,7 +202,16 @@ function collectScriptInitialRanges(
       continue
     }
 
-    const end = findTagEnd(code, nameStart + nameMatch[0].length)
+    const end = collectScriptInitialRanges(
+      code,
+      true,
+      jsxAtLineStart,
+      jsxText,
+      ranges,
+      nameStart + nameMatch[0].length,
+      limit,
+      true,
+    )
     if (end < 0 || isTypeParameter(code, index, end, closing)) {
       index++
       continue
@@ -196,15 +226,6 @@ function collectScriptInitialRanges(
     if (!closing) {
       const attributeStart = nameStart + nameMatch[0].length
       collectJsxAttributes(code, attributeStart, end, ranges)
-      collectScriptInitialRanges(
-        code,
-        false,
-        false,
-        undefined,
-        ranges,
-        attributeStart,
-        end,
-      )
     }
     const selfClosing = /\/\s*$/.test(code.slice(nameStart, end))
     if (closing) jsxDepth--
@@ -212,7 +233,7 @@ function collectScriptInitialRanges(
     index = end + 1
   }
 
-  return ranges
+  return -1
 }
 
 function collectTemplateRanges(
@@ -391,29 +412,17 @@ function findRegexEnd(code: string, start: number) {
   return start + 1
 }
 
-function findTagEnd(code: string, start: number) {
-  let braceDepth = 0
-  let index = start
-  while (index < code.length) {
-    const character = code[index]
-    if (character === "'" || character === '"') {
-      index = findQuotedEnd(code, index, character)
-      continue
-    }
-    if (character === '{') braceDepth++
-    else if (character === '}') braceDepth--
-    else if (character === '>' && braceDepth === 0) return index
-    index++
-  }
-  return -1
-}
-
-function findQuotedEnd(code: string, start: number, quote: string) {
+function findQuotedEnd(
+  code: string,
+  start: number,
+  quote: string,
+  multiline = false,
+) {
   let index = start + 1
   while (index < code.length) {
     if (code[index] === '\\') index += 2
     else if (code[index] === quote) return index + 1
-    else if (code[index] === '\n') return index
+    else if (!multiline && code[index] === '\n') return index
     else index++
   }
   return code.length
