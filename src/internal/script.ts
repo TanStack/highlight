@@ -46,22 +46,64 @@ export function collectScriptRanges(
   jsx = false,
   jsxAtLineStart = false,
 ) {
-  const lexical = collectScriptLexicalRanges(code, jsx, jsxAtLineStart)
-  const markup = jsx ? collectJsxRanges(code, jsxAtLineStart) : []
-  return collectPatternRanges(code, semanticPatterns, [...lexical, ...markup])
+  const jsxText = jsx ? new Uint8Array(code.length) : undefined
+  const initial: Array<TokenRange> = []
+  collectScriptInitialRanges(
+    code,
+    jsx,
+    jsxAtLineStart,
+    jsxText,
+    initial,
+  )
+  const ranges = collectPatternRanges(code, semanticPatterns, initial)
+  return jsxText
+    ? ranges.filter((range) => !jsxText[range.start])
+    : ranges
 }
 
-function collectScriptLexicalRanges(
+function collectScriptInitialRanges(
   code: string,
   jsx: boolean,
   jsxAtLineStart: boolean,
+  jsxText: Uint8Array | undefined,
+  ranges: Array<TokenRange>,
+  index = 0,
+  limit = code.length,
+  tagBody = false,
 ) {
-  const ranges: Array<TokenRange> = []
-  let index = 0
+  const expressions: Array<number> = []
+  let jsxDepth = 0
 
-  while (index < code.length) {
+  while (index < limit) {
+    const expression = expressions.at(-1)
+    const inJsxText = jsxDepth > (expression || 0)
     const character = code[index]
     const next = code[index + 1]
+
+    if (inJsxText) {
+      if (character === '{') {
+        expressions.push(jsxDepth)
+        index++
+        continue
+      }
+      if (character !== '<') {
+        const start = index
+        while (index < code.length && code[index] !== '<' && code[index] !== '{') {
+          index++
+        }
+        jsxText!.fill(1, start, index)
+        continue
+      }
+    }
+
+    if (
+      tagBody &&
+      !expressions.length &&
+      !jsxDepth &&
+      character === '>'
+    ) {
+      return index
+    }
 
     if (character === '/' && next === '/') {
       const end = findLineEnd(code, index + 2)
@@ -79,7 +121,12 @@ function collectScriptLexicalRanges(
     }
 
     if (character === "'" || character === '"') {
-      const end = findQuotedEnd(code, index, character)
+      const end = findQuotedEnd(
+        code,
+        index,
+        character,
+        tagBody && !expressions.length,
+      )
       ranges.push({ start: index, end, className: 'string' })
       index = end
       continue
@@ -103,10 +150,90 @@ function collectScriptLexicalRanges(
       }
     }
 
-    index++
+    if (!jsx) {
+      index++
+      continue
+    }
+
+    if (
+      !inJsxText &&
+      character === '{' &&
+      (expressions.length || tagBody)
+    ) {
+      expressions.push(expressions.length ? expression! : jsxDepth)
+      index++
+      continue
+    }
+    if (!inJsxText && expressions.length && character === '}') {
+      expressions.pop()
+      index++
+      continue
+    }
+
+    if (character !== '<') {
+      index++
+      continue
+    }
+
+    if (code.startsWith('</>', index)) {
+      jsxDepth--
+      index += 3
+      continue
+    }
+    if (
+      code.startsWith('<>', index) &&
+      (inJsxText || isJsxStart(code, index, jsxAtLineStart))
+    ) {
+      jsxDepth++
+      index += 2
+      continue
+    }
+
+    const closing = code[index + 1] === '/'
+    const nameStart = index + (closing ? 2 : 1)
+    const nameMatch = /^[A-Za-z][\w:.-]*/.exec(code.slice(nameStart))
+    if (
+      !nameMatch ||
+      (!closing &&
+        !inJsxText &&
+        !isJsxStart(code, index, jsxAtLineStart))
+    ) {
+      index++
+      continue
+    }
+
+    const end = collectScriptInitialRanges(
+      code,
+      true,
+      jsxAtLineStart,
+      jsxText,
+      ranges,
+      nameStart + nameMatch[0].length,
+      limit,
+      true,
+    )
+    if (end < 0 || isTypeParameter(code, index, end, closing)) {
+      index++
+      continue
+    }
+
+    ranges.push({
+      start: nameStart,
+      end: nameStart + nameMatch[0].length,
+      className: 'tag',
+    })
+
+    if (!closing) {
+      const attributeStart = nameStart + nameMatch[0].length
+      collectJsxAttributes(code, attributeStart, end, ranges)
+    }
+    const selfClosing = /\/\s*$/.test(code.slice(nameStart, end))
+    if (closing) jsxDepth--
+    else if (!selfClosing) jsxDepth++
+    index = end + 1
   }
 
-  return ranges
+  return -1
 }
 
 function collectTemplateRanges(
@@ -208,86 +335,6 @@ function skipTemplate(code: string, start: number) {
   return code.length
 }
 
-function collectJsxRanges(code: string, jsxAtLineStart: boolean) {
-  const ranges: Array<TokenRange> = []
-  let index = 0
-  let jsxDepth = 0
-  let expressionDepth = 0
-
-  while (index < code.length) {
-    if (jsxDepth && (code[index] === '"' || code[index] === "'" || code[index] === '`')) {
-      index = code[index] === '`'
-        ? skipTemplate(code, index)
-        : findQuotedEnd(code, index, code[index])
-      continue
-    }
-
-    if (jsxDepth && code[index] === '{') {
-      expressionDepth++
-      index++
-      continue
-    }
-    if (jsxDepth && code[index] === '}') {
-      expressionDepth = Math.max(0, expressionDepth - 1)
-      index++
-      continue
-    }
-
-    if (code[index] !== '<') {
-      index++
-      continue
-    }
-
-    if (code.startsWith('</>', index)) {
-      jsxDepth = Math.max(0, jsxDepth - 1)
-      index += 3
-      continue
-    }
-    if (
-      code.startsWith('<>', index) &&
-      (jsxDepth > 0 || isJsxStart(code, index, jsxAtLineStart))
-    ) {
-      jsxDepth++
-      index += 2
-      continue
-    }
-
-    const closing = code[index + 1] === '/'
-    const nameStart = index + (closing ? 2 : 1)
-    const nameMatch = /^[A-Za-z][\w:.-]*/.exec(code.slice(nameStart))
-    const inJsxText = jsxDepth > 0 && expressionDepth === 0
-    if (
-      !nameMatch ||
-      (!closing &&
-        !inJsxText &&
-        !isJsxStart(code, index, jsxAtLineStart))
-    ) {
-      index++
-      continue
-    }
-
-    const end = findTagEnd(code, nameStart + nameMatch[0].length)
-    if (end < 0 || isTypeParameter(code, index, end, closing)) {
-      index++
-      continue
-    }
-
-    ranges.push({
-      start: nameStart,
-      end: nameStart + nameMatch[0].length,
-      className: 'tag',
-    })
-
-    if (!closing) collectJsxAttributes(code, nameStart + nameMatch[0].length, end, ranges)
-    const selfClosing = /\/\s*$/.test(code.slice(nameStart, end))
-    if (closing) jsxDepth = Math.max(0, jsxDepth - 1)
-    else if (!selfClosing) jsxDepth++
-    index = end + 1
-  }
-
-  return ranges
-}
-
 function collectJsxAttributes(
   code: string,
   start: number,
@@ -298,8 +345,7 @@ function collectJsxAttributes(
   const regex = /\s([:@A-Za-z_$][\w$:.-]*)(?=\s*(?:=|\/?>))/g
   let match: RegExpExecArray | null
   while ((match = regex.exec(source))) {
-    const offset = match[0].indexOf(match[1])
-    const attributeStart = start + match.index + offset
+    const attributeStart = start + match.index + 1
     ranges.push({
       start: attributeStart,
       end: attributeStart + match[1].length,
@@ -366,30 +412,17 @@ function findRegexEnd(code: string, start: number) {
   return start + 1
 }
 
-function findTagEnd(code: string, start: number) {
-  let braceDepth = 0
-  let index = start
-  while (index < code.length) {
-    const character = code[index]
-    if (character === "'" || character === '"') {
-      index = findQuotedEnd(code, index, character)
-      continue
-    }
-    if (character === '{') braceDepth++
-    else if (character === '}') braceDepth = Math.max(0, braceDepth - 1)
-    else if (character === '>' && braceDepth === 0) return index
-    else if (character === '\n' && braceDepth === 0) return -1
-    index++
-  }
-  return -1
-}
-
-function findQuotedEnd(code: string, start: number, quote: string) {
+function findQuotedEnd(
+  code: string,
+  start: number,
+  quote: string,
+  multiline = false,
+) {
   let index = start + 1
   while (index < code.length) {
     if (code[index] === '\\') index += 2
     else if (code[index] === quote) return index + 1
-    else if (code[index] === '\n' && quote !== '`') return index
+    else if (!multiline && code[index] === '\n') return index
     else index++
   }
   return code.length
