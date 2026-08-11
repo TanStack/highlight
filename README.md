@@ -176,7 +176,7 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Monokai, Nord, O
 
 ## Languages
 
-`apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
+`apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
 
 Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit.
 
@@ -199,7 +199,7 @@ Local browser bundles, minified with esbuild and compressed independently:
 | Core + TSX | 9.3 KB | 3.9 KB | 3.5 KB |
 | Octane MDX + TypeScript | 12.5 KB | 4.9 KB | 4.5 KB |
 | Nine-language docs set | 15.3 KB | 5.8 KB | 5.3 KB |
-| All 25 languages | 22.2 KB | 8.0 KB | 7.2 KB |
+| All 26 languages | 23.8 KB | 8.6 KB | 7.7 KB |
 
 On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks:
 

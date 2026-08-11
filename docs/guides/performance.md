@@ -16,7 +16,7 @@ Small and fast are product constraints, not README adjectives. The repository me
 | TSX | TSX | 3.86 KB | 4.1 KB |
 | Octane | TypeScript plus Octane MDX adapter | 4.93 KB | 5.2 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 5.83 KB | 6.1 KB |
-| All | All 25 definitions | 7.96 KB | 8.3 KB |
+| All | All 26 definitions | 8.55 KB | 8.9 KB |
 
 Selective profiles are the primary metric. The all-language profile exists to prevent convenience-entry growth from becoming invisible.
 

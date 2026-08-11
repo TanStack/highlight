@@ -51,7 +51,7 @@ const profiles = {
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
-    limits: { minified: 23_000, gzip: 8_300, brotli: 7_500 },
+    limits: { minified: 24_500, gzip: 8_900, brotli: 8_000 },
   },
 }
 

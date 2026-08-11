@@ -27,7 +27,7 @@ The suite protects the package's actual product boundary: valid code commonly pu
 | TSX | TSX | 4.1 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.2 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.1 KB |
-| All | All 25 definitions | 8.3 KB |
+| All | All 26 definitions | 8.9 KB |
 
 The selective profiles are the primary product metric. The all-language profile protects the convenience entry from unbounded growth.
 
