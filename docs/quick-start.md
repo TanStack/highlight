@@ -59,6 +59,52 @@ export const highlightCss = createThemeCss({
 
 Add the returned CSS once. Theme changes do not require another highlighting pass.
 
+## Run the complete setup
+
+This example registers the common documentation languages, highlights TSX, and applies the light or dark GitHub theme from the site.
+
+```ts group=highlight-quick-start file=/src/main.ts entry env=client
+import { createHighlighter } from '@tanstack/highlight/core'
+import { css } from '@tanstack/highlight/languages/css'
+import { html } from '@tanstack/highlight/languages/html'
+import { js } from '@tanstack/highlight/languages/js'
+import { ts } from '@tanstack/highlight/languages/ts'
+import { tsx } from '@tanstack/highlight/languages/tsx'
+import { createThemeCss } from '@tanstack/highlight/theme'
+import { githubDarkTheme } from '@tanstack/highlight/themes/github-dark'
+import { githubLightTheme } from '@tanstack/highlight/themes/github-light'
+
+const highlighter = createHighlighter({
+  languages: [css, html, js, ts, tsx],
+})
+
+const source = [
+  'type GreetingProps = { name: string }',
+  '',
+  'export function Greeting({ name }: GreetingProps) {',
+  '  return <h1>Hello, {name}!</h1>',
+  '}',
+].join('\n')
+
+const result = highlighter.highlight(source, { lang: 'tsx' })
+const themeCss = createThemeCss({
+  light: githubLightTheme,
+  dark: githubDarkTheme,
+  darkSelector: '.dark',
+})
+
+export default function render(output: HTMLElement) {
+  const style = document.createElement('style')
+  style.textContent = `${themeCss}
+body { margin: 0; padding: 24px; font-family: ui-sans-serif, system-ui; }
+pre.th-code { margin: 0; border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 12px; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 14px; line-height: 1.6; }`
+
+  document.head.append(style)
+  output.innerHTML = result.html
+}
+```
+
 ## 4. Use the same module during SSR and hydration
 
 ```ts

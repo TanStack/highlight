@@ -57,6 +57,63 @@ highlighter.highlight(code, {
 
 This adds `th-code--line-numbers`, line wrappers, and `data-line`. Base theme CSS renders the number with `::before`.
 
+## Try annotations
+
+The rendered block combines line numbers, a focused line, and an exact character-range diagnostic.
+
+```ts group=highlight-annotations file=/src/main.ts entry env=client
+import { createHighlighter } from '@tanstack/highlight/core'
+import { ts } from '@tanstack/highlight/languages/ts'
+import { createThemeCss } from '@tanstack/highlight/theme'
+import { githubDarkTheme } from '@tanstack/highlight/themes/github-dark'
+import { githubLightTheme } from '@tanstack/highlight/themes/github-light'
+
+const source = [
+  'type User = { name: string }',
+  'const user = missingUser',
+  'console.log(user.name)',
+].join('\n')
+const identifier = 'missingUser'
+const start = source.indexOf(identifier)
+
+const highlighter = createHighlighter({ languages: [ts] })
+const result = highlighter.highlight(source, {
+  lang: 'ts',
+  lineNumbers: true,
+  decorations: [
+    { lines: 3, className: 'is-focused' },
+    {
+      range: [start, start + identifier.length],
+      className: 'is-error',
+      data: { message: 'Unknown identifier' },
+    },
+  ],
+})
+
+const themeCss = createThemeCss({
+  light: githubLightTheme,
+  dark: githubDarkTheme,
+  darkSelector: '.dark',
+})
+
+export default function render(output: HTMLElement) {
+  const style = document.createElement('style')
+  style.textContent = `${themeCss}
+body { margin: 0; padding: 24px; font-family: ui-sans-serif, system-ui; }
+pre.th-code { margin: 0; border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 12px; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 14px; line-height: 1.65; }
+.is-focused { background: color-mix(in srgb, #8250df 14%, transparent); }
+.is-error { text-decoration: underline wavy var(--notebook-error); text-underline-offset: 3px; }
+.hint { margin: 12px 4px 0; color: color-mix(in srgb, currentColor 70%, transparent); font-size: 13px; }`
+
+  document.head.append(style)
+  output.innerHTML = `${result.html}<p class="hint">Hover the underlined identifier to read its diagnostic.</p>`
+
+  const diagnostic = output.querySelector<HTMLElement>('.is-error')
+  if (diagnostic) diagnostic.title = diagnostic.dataset.message ?? ''
+}
+```
+
 ## Fence annotations
 
 The Markdown helpers recognize common metadata:

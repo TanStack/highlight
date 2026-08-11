@@ -39,6 +39,103 @@ Default `<script>` bodies use JavaScript. `<script lang="ts">` uses TypeScript. 
 
 If the target definition is absent, the body remains plain text while the outer markup still highlights.
 
+## Compare embedded languages
+
+Switch the outer language to see registered JavaScript, TypeScript, and CSS tokenizers handle each embedded region.
+
+```ts group=highlight-embedded-languages file=/src/main.ts entry env=client
+import { createHighlighter } from '@tanstack/highlight/core'
+import { css } from '@tanstack/highlight/languages/css'
+import { html } from '@tanstack/highlight/languages/html'
+import { js } from '@tanstack/highlight/languages/js'
+import { markdown } from '@tanstack/highlight/languages/markdown'
+import { ts } from '@tanstack/highlight/languages/ts'
+import { tsx } from '@tanstack/highlight/languages/tsx'
+import { vue } from '@tanstack/highlight/languages/vue'
+import { createThemeCss } from '@tanstack/highlight/theme'
+import { githubDarkTheme } from '@tanstack/highlight/themes/github-dark'
+import { githubLightTheme } from '@tanstack/highlight/themes/github-light'
+
+const samples = {
+  html: [
+    '<script>',
+    '  const ready = true',
+    '</script>',
+    '',
+    '<style>',
+    '  .button { color: tomato }',
+    '</style>',
+  ].join('\n'),
+  vue: [
+    '<script lang="ts">',
+    '  const user: { name: string } = { name: "Ada" }',
+    '</script>',
+    '',
+    '<template><p>{{ user.name }}</p></template>',
+  ].join('\n'),
+  markdown: [
+    '# Typed button',
+    '',
+    '```tsx',
+    'const button = <button>Save</button>',
+    '```',
+  ].join('\n'),
+}
+
+const highlighter = createHighlighter({
+  languages: [css, html, js, markdown, ts, tsx, vue],
+})
+const themeCss = createThemeCss({
+  light: githubLightTheme,
+  dark: githubDarkTheme,
+  darkSelector: '.dark',
+})
+
+export default function render(output: HTMLElement) {
+  const style = document.createElement('style')
+  style.textContent = `${themeCss}
+body { margin: 0; padding: 24px; font-family: ui-sans-serif, system-ui; }
+.demo { overflow: hidden; border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 12px; }
+.tabs { display: flex; gap: 4px; padding: 8px; border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent); }
+.tabs button { padding: 6px 10px; border: 0; border-radius: 7px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: color-mix(in srgb, currentColor 12%, transparent); font-weight: 600; }
+pre.th-code { margin: 0; min-height: 180px; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 14px; line-height: 1.6; }`
+
+  document.head.append(style)
+  output.innerHTML = `<section class="demo">
+  <div class="tabs">
+    <button type="button" data-lang="html" aria-pressed="true">HTML</button>
+    <button type="button" data-lang="vue" aria-pressed="false">Vue</button>
+    <button type="button" data-lang="markdown" aria-pressed="false">Markdown</button>
+  </div>
+  <div class="output"></div>
+</section>`
+
+  const codeOutput = output.querySelector('.output')
+  const buttons = output.querySelectorAll<HTMLButtonElement>('[data-lang]')
+
+  function renderLanguage(lang: keyof typeof samples) {
+    if (!(codeOutput instanceof HTMLElement)) return
+    codeOutput.innerHTML = highlighter.highlight(samples[lang], { lang }).html
+    buttons.forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.lang === lang))
+    })
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const lang = button.dataset.lang
+      if (lang === 'html' || lang === 'vue' || lang === 'markdown') {
+        renderLanguage(lang)
+      }
+    })
+  })
+
+  renderLanguage('html')
+}
+```
+
 ## Vue expressions
 
 Vue moustache expressions delegate to JavaScript when it is registered:

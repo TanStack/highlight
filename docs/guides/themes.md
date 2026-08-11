@@ -49,6 +49,73 @@ const css = createThemeCss({
 
 `themes` mode is mutually exclusive with `light` and `dark`.
 
+## Try the shipped themes
+
+The highlighted markup stays the same while the selected theme changes only its CSS variables.
+
+```ts group=highlight-themes file=/src/main.ts entry env=client
+import { createHighlighter } from '@tanstack/highlight/core'
+import { ts } from '@tanstack/highlight/languages/ts'
+import { createThemeCss } from '@tanstack/highlight/theme'
+import { draculaTheme } from '@tanstack/highlight/themes/dracula'
+import { githubDarkTheme } from '@tanstack/highlight/themes/github-dark'
+import { githubLightTheme } from '@tanstack/highlight/themes/github-light'
+
+const highlighter = createHighlighter({ languages: [ts] })
+const result = highlighter.highlight(
+  [
+    'type Theme = "light" | "dark"',
+    '',
+    'export function selectTheme(theme: Theme) {',
+    '  document.documentElement.dataset.theme = theme',
+    '}',
+  ].join('\n'),
+  { lang: 'ts' },
+)
+
+const themeCss = createThemeCss({
+  themes: [
+    { selector: '[data-code-theme="github-light"]', theme: githubLightTheme },
+    { selector: '[data-code-theme="github-dark"]', theme: githubDarkTheme },
+    { selector: '[data-code-theme="dracula"]', theme: draculaTheme },
+  ],
+})
+
+export default function render(output: HTMLElement) {
+  const style = document.createElement('style')
+  style.textContent = `${themeCss}
+body { margin: 0; padding: 24px; font-family: ui-sans-serif, system-ui; }
+.demo { overflow: hidden; border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 12px; background: var(--th-background); color: var(--th-token); }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent); }
+.toolbar label { font-size: 13px; font-weight: 600; }
+.toolbar select { padding: 6px 28px 6px 8px; border: 1px solid color-mix(in srgb, currentColor 22%, transparent); border-radius: 7px; background: var(--th-background); color: var(--th-token); }
+pre.th-code { margin: 0; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 14px; line-height: 1.6; }`
+
+  document.head.append(style)
+  output.innerHTML = `<section class="demo" data-code-theme="github-light">
+  <div class="toolbar">
+    <label for="theme">Code theme</label>
+    <select id="theme">
+      <option value="github-light">GitHub Light</option>
+      <option value="github-dark">GitHub Dark</option>
+      <option value="dracula">Dracula</option>
+    </select>
+  </div>
+  ${result.html}
+</section>`
+
+  const demo = output.querySelector('.demo')
+  const select = output.querySelector('#theme')
+
+  if (demo instanceof HTMLElement && select instanceof HTMLSelectElement) {
+    select.addEventListener('change', () => {
+      demo.dataset.codeTheme = select.value
+    })
+  }
+}
+```
+
 ## Variables only
 
 Set `includeBaseStyles: false` when the application already owns the token selectors:
