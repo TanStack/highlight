@@ -199,7 +199,7 @@ Local browser bundles, minified with esbuild and compressed independently:
 | Core + TSX | 9.3 KB | 3.9 KB | 3.5 KB |
 | Octane MDX + TypeScript | 12.5 KB | 4.9 KB | 4.5 KB |
 | Nine-language docs set | 15.3 KB | 5.8 KB | 5.3 KB |
-| All 26 languages | 23.8 KB | 8.6 KB | 7.7 KB |
+| All 27 languages | 24.0 KB | 8.6 KB | 7.7 KB |
 
 On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks:
 
