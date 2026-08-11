@@ -172,7 +172,7 @@ const css = createThemeCss({
 
 For TanStack Markdown, set `codeBlockSelector` to its `pre.tm-code` wrapper and `lineNumbersSelector` to `.tm-code--line-numbers`. See the [Markdown pipeline guide](docs/guides/markdown-pipelines.md#tanstack-markdown).
 
-Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Monokai, Nord, One Dark Pro, Solarized Dark, and Solarized Light.
+Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Gruvbox Dark, Gruvbox Light, Monokai, Nord, One Dark Pro, Solarized Dark, and Solarized Light.
 
 ## Languages
 

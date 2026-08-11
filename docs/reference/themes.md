@@ -12,6 +12,8 @@ Bundled themes are isolated objects. Importing one theme does not include anothe
 | `draculaTheme` | `@tanstack/highlight/themes/dracula` | Dark |
 | `githubDarkTheme` | `@tanstack/highlight/themes/github-dark` | Dark |
 | `githubLightTheme` | `@tanstack/highlight/themes/github-light` | Light |
+| `gruvboxDarkTheme` | `@tanstack/highlight/themes/gruvbox-dark` | Dark |
+| `gruvboxLightTheme` | `@tanstack/highlight/themes/gruvbox-light` | Light |
 | `monokaiTheme` | `@tanstack/highlight/themes/monokai` | Dark |
 | `nordTheme` | `@tanstack/highlight/themes/nord` | Dark |
 | `oneDarkProTheme` | `@tanstack/highlight/themes/one-dark-pro` | Dark |
