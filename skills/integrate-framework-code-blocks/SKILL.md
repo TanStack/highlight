@@ -8,7 +8,7 @@ description: >
 metadata:
   type: composition
   library: '@tanstack/highlight'
-  library_version: '0.0.11'
+  library_version: '0.1.0'
 requires:
   - 'configure-selective-highlighting'
   - 'integrate-markdown-pipelines'
