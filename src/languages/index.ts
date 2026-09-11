@@ -1,4 +1,6 @@
 export { apache } from './apache.js'
+export { cmake } from './cmake.js'
+export { cpp } from './cpp.js'
 export { css } from './css.js'
 export { diff } from './diff.js'
 export { dockerfile } from './dockerfile.js'

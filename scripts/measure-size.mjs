@@ -80,13 +80,31 @@ const profiles = {
     languages: ['php'],
     limits: { minified: 8_000, gzip: 3_700, brotli: 3_400 },
   },
+  cpp: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { cpp } from './src/languages/cpp.ts'
+      globalThis.highlighter = createHighlighter({ languages: [cpp] })
+    `,
+    languages: ['cpp'],
+    limits: { minified: 6_500, gzip: 3_100, brotli: 2_900 },
+  },
+  cmake: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { cmake } from './src/languages/cmake.ts'
+      globalThis.highlighter = createHighlighter({ languages: [cmake] })
+    `,
+    languages: ['cmake'],
+    limits: { minified: 6_000, gzip: 2_800, brotli: 2_600 },
+  },
   all: {
     source: `
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 27_500, gzip: 9_900, brotli: 9_000 },
+    limits: { minified: 30_500, gzip: 10_800, brotli: 9_800 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,

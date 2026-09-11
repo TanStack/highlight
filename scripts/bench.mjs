@@ -56,6 +56,18 @@ try {
       outputBytes: htmlBytes,
       targetBlocks: 10_000,
     },
+    cpp: {
+      fixtures: [{ rawLang: 'cpp', code: '#include <vector>\nconstexpr auto text = R"tag(// raw text)tag";\nint main() { std::vector<int> values{1, 2, 3}; return values.size(); }' }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 10_000,
+    },
+    cmake: {
+      fixtures: [{ rawLang: 'cmake', code: 'cmake_minimum_required(VERSION 3.20)\n#[=[ comment ]=]\nproject(Hello)\nset(TEXT [=[# text]=])\nadd_subdirectory(${SOURCE_DIR})\nmessage($<IF:$<CONFIG:Debug>,debug,release>)' }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 10_000,
+    },
     tokenize: {
       fixtures,
       run: (fixture) => tokenize(fixture.code, { lang: fixture.rawLang }),

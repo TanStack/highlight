@@ -5,6 +5,8 @@ Import only the definitions the application registers.
 | Language | Export | Direct import | Aliases |
 | --- | --- | --- | --- |
 | Apache | `apache` | `@tanstack/highlight/languages/apache` | - |
+| CMake | `cmake` | `@tanstack/highlight/languages/cmake` | - |
+| C++ | `cpp` | `@tanstack/highlight/languages/cpp` | `c++`, `cc`, `cxx`, `hpp`, `hxx` |
 | CSS | `css` | `@tanstack/highlight/languages/css` | - |
 | Diff | `diff` | `@tanstack/highlight/languages/diff` | `patch` |
 | Dockerfile | `dockerfile` | `@tanstack/highlight/languages/dockerfile` | `docker` |
