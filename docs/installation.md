@@ -60,7 +60,7 @@ export const highlighter = createHighlighter({
 })
 ```
 
-The root entry is useful for prototypes, server-only scripts, or sites where the roughly 8 KB gzip all-language build is acceptable:
+The root entry is useful for prototypes, server-only scripts, or sites where the roughly 10 KB gzip all-language build is acceptable:
 
 ```ts
 import { highlight } from '@tanstack/highlight'

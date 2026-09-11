@@ -9,6 +9,18 @@ export type LanguageFixture = {
 
 export const languageFixtures: Array<LanguageFixture> = [
   {
+    lang: 'c++',
+    normalized: 'cpp',
+    code: '#include <iostream>\nstruct Point { int x = 42; };\nint main() { std::cout << "hello"; return 0; } // output',
+    expectedClasses: ['th-meta', 'th-string', 'th-keyword', 'th-type', 'th-number', 'th-function', 'th-operator', 'th-comment'],
+  },
+  {
+    lang: 'cmake',
+    normalized: 'cmake',
+    code: 'cmake_minimum_required(VERSION 3.20)\nproject(Hello)\nset(ENABLED ON)\nif(ENABLED)\n  message("hello")\n  add_subdirectory(${SOURCE_DIR})\nendif() # done',
+    expectedClasses: ['th-command', 'th-number', 'th-literal', 'th-keyword', 'th-string', 'th-variable', 'th-comment'],
+  },
+  {
     lang: 'octane',
     normalized: 'tsrx',
     code: `import { useState } from 'octane'

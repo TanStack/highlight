@@ -3,6 +3,8 @@ import path from 'node:path'
 
 export const supportedLanguages = [
   'apache',
+  'cmake',
+  'cpp',
   'css',
   'diff',
   'dockerfile',
@@ -32,6 +34,11 @@ export const supportedLanguages = [
 ]
 
 const aliases = {
+  'c++': 'cpp',
+  cc: 'cpp',
+  cxx: 'cpp',
+  hpp: 'cpp',
+  hxx: 'cpp',
   '-->': 'plaintext',
   'angular-html': 'html',
   'angular-ts': 'ts',

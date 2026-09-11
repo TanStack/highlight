@@ -11,6 +11,8 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Language | Export | Aliases | Context-aware behavior |
 | --- | --- | --- | --- |
 | Apache | `apache` | - | Directives, tags, comments |
+| CMake | `cmake` | - | Bracket strings/comments, nested variables, generator expressions |
+| C++ | `cpp` | `c++`, `cc`, `cxx`, `hpp`, `hxx` | Raw and prefixed strings, character literals, preprocessor directives, digit separators |
 | CSS | `css` | - | Strings and comments protect inner syntax |
 | Diff | `diff` | `patch` | Metadata, inserted, and deleted lines |
 | Dockerfile | `dockerfile` | `docker` | Common directives, variables, commands |
