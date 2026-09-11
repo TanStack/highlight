@@ -19,7 +19,7 @@ The suite protects the package's actual product boundary: valid code commonly pu
 
 ## Size Profiles
 
-`pnpm run size` checks fourteen independent browser profiles, including root helpers, language barrel imports, adapters, and themes. Each has minified, gzip, and Brotli budgets. The five highlighter profiles are:
+`pnpm run size` checks fifteen independent browser profiles, including root helpers, language barrel imports, adapters, and themes. Each has minified, gzip, and Brotli budgets. The five highlighter profiles are:
 
 | Profile | Languages | Gzip budget |
 | --- | --- | ---: |
@@ -27,7 +27,7 @@ The suite protects the package's actual product boundary: valid code commonly pu
 | TSX | TSX | 4.1 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.5 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.1 KB |
-| All | All 27 definitions | 8.9 KB |
+| All | All 28 definitions | 9.9 KB |
 
 The selective profiles are the primary product metric. The all-language profile protects the convenience entry from unbounded growth. Bundle graphs reject unexpected language or theme code. Package tests repeat isolation checks through public exports after building.
 

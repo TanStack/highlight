@@ -158,6 +158,21 @@ EJS regions delegate to JavaScript when available:
 <% } %>
 ```
 
+## PHP
+
+Register `php` to highlight PHP code, including tagless excerpts. Inputs containing `<?php` or `<?=` are treated as documents, with text outside the PHP tags delegated to `html` only when it is registered. Legacy `<?` short tags aren't recognized.
+
+```ts
+import { createHighlighter } from '@tanstack/highlight/core'
+import { html } from '@tanstack/highlight/languages/html'
+import { php } from '@tanstack/highlight/languages/php'
+
+const highlighter = createHighlighter({ languages: [php, html] })
+const result = highlighter.highlight('<p><?= $name ?></p>', { lang: 'php' })
+```
+
+PHP does not import HTML. Register `js`, `ts`, and `css` too when the surrounding HTML contains script or style blocks. Quoted strings, including interpolation, and heredoc/nowdoc bodies stay string tokens; Highlight doesn't parse the expressions inside them.
+
 ## Markdown fences
 
 The Markdown definition reads the fence info string and delegates the body:

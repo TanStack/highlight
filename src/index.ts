@@ -20,6 +20,7 @@ import { jsx } from './languages/jsx.js'
 import { markdown } from './languages/markdown.js'
 import { mermaid } from './languages/mermaid.js'
 import { nginx } from './languages/nginx.js'
+import { php } from './languages/php.js'
 import { plaintext } from './languages/plaintext.js'
 import { python } from './languages/python.js'
 import { scheme } from './languages/scheme.js'
@@ -49,6 +50,7 @@ export type HighlightLanguage =
   | 'markdown'
   | 'mermaid'
   | 'nginx'
+  | 'php'
   | 'plaintext'
   | 'python'
   | 'scheme'
@@ -118,6 +120,7 @@ export const allLanguages = [
   markdown,
   mermaid,
   nginx,
+  php,
   plaintext,
   python,
   scheme,

@@ -71,13 +71,22 @@ const profiles = {
     languages: ['css', 'html', 'js', 'json', 'jsx', 'markdown', 'shell', 'ts', 'tsx'],
     limits: { minified: 16_000, gzip: 6_100, brotli: 5_550 },
   },
+  php: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { php } from './src/languages/php.ts'
+      globalThis.highlighter = createHighlighter({ languages: [php] })
+    `,
+    languages: ['php'],
+    limits: { minified: 8_000, gzip: 3_700, brotli: 3_400 },
+  },
   all: {
     source: `
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 24_500, gzip: 8_900, brotli: 8_000 },
+    limits: { minified: 27_500, gzip: 9_900, brotli: 9_000 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,
