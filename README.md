@@ -1,3 +1,21 @@
+<div align="center">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://tanstack.com/api/readme/highlight.png?theme=dark"
+    />
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://tanstack.com/api/readme/highlight.png"
+    />
+    <img
+      src="https://tanstack.com/api/readme/highlight.png"
+      alt="TanStack Highlight"
+      width="900"
+    />
+  </picture>
+</div>
+
 # TanStack Highlight
 
 Tiny, synchronous syntax highlighting for blogs and documentation.
