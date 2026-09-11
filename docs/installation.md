@@ -34,7 +34,7 @@ The package is ESM-only and has no runtime dependencies.
 
 | Import | Purpose | Pulls all languages? |
 | --- | --- | --- |
-| `@tanstack/highlight` | Convenient preconfigured API | Yes |
+| `@tanstack/highlight` | Preconfigured API and core re-exports | Bound helpers do; core-only imports can tree-shake |
 | `@tanstack/highlight/core` | Registry and renderer primitives | No |
 | `@tanstack/highlight/languages/<name>` | One language definition | No |
 | `@tanstack/highlight/languages` | Aggregate language exports | Relies on tree shaking |
@@ -65,6 +65,8 @@ The root entry is useful for prototypes, server-only scripts, or sites where the
 ```ts
 import { highlight } from '@tanstack/highlight'
 ```
+
+Importing only core helpers such as `createHighlighter` or `escapeHtml` from the root lets a compatible bundler remove the built-in language registry. Direct `/core` and `/languages/<name>` imports keep that separation explicit.
 
 ## TypeScript
 

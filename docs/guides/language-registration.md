@@ -79,6 +79,8 @@ import {
 
 This is convenient, but importing any bound helper retains the all-language registry. Use `@tanstack/highlight/core` when browser size matters.
 
+Core helpers re-exported from the root, such as `createHighlighter`, `defineLanguage`, and `escapeHtml`, don't need that registry. Importing only those helpers lets a compatible bundler remove every built-in language.
+
 ## Share one registry
 
 Create the highlighter once at module scope:
