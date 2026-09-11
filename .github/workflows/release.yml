@@ -5,82 +5,46 @@ on:
     branches: [main]
 
 concurrency:
-  group: release-main
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
-  verify:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    outputs:
-      mode: ${{ steps.changesets.outputs.mode }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          persist-credentials: false
-      - name: Setup tools
-        uses: TanStack/config/.github/setup@e4b48f16568324f76f467aa4c2aac2f05db632c3
-      - name: Verify
-        run: pnpm run verify
-      - name: Select release operation
-        id: changesets
-        uses: changesets/action/select-mode@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-
-  version:
-    needs: verify
-    if: needs.verify.outputs.mode == 'version'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      actions: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Setup tools
-        uses: TanStack/config/.github/setup@e4b48f16568324f76f467aa4c2aac2f05db632c3
-      - name: Create or update release pull request
-        id: changesets
-        uses: changesets/action/version@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-        with:
-          script: pnpm run release:version
-          commit-message: Release packages
-          pr-title: Release packages
-          pr-base-branch: main
-      - name: Run CI on the release pull request
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_PR: ${{ steps.changesets.outputs.pr-number }}
-        # Dispatch runs normally when the release PR was created with GITHUB_TOKEN.
-        run: |
-          RELEASE_BRANCH=$(gh pr view "$RELEASE_PR" --json headRefName --jq .headRefName)
-          gh workflow run ci.yml --ref "$RELEASE_BRANCH"
-
-  publish:
-    needs: verify
-    if: needs.verify.outputs.mode == 'publish'
+  release:
+    name: Release
+    if: github.repository_owner == 'TanStack'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
+      pull-requests: write
+      actions: write
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Setup tools
+      - name: Setup Tools
         uses: TanStack/config/.github/setup@e4b48f16568324f76f467aa4c2aac2f05db632c3
-      - name: Publish to npm and create GitHub releases
-        uses: changesets/action/publish@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+      - name: Run Tests
+        run: pnpm run verify
+      - name: Run Changesets (version or publish)
+        id: changesets
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b # v1.8.0
         with:
-          script: pnpm run release:publish
-          create-github-releases: true
-          push-git-tags: true
+          version: pnpm run release:version
+          publish: pnpm run release:publish
+          commit: 'ci: Version Packages'
+          title: 'ci: Version Packages'
+      - name: Run CI on the release pull request
+        if: steps.changesets.outputs.pullRequestNumber != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_PR: ${{ steps.changesets.outputs.pullRequestNumber }}
+        # Dispatch CI because PRs created with GITHUB_TOKEN do not trigger it.
+        run: |
+          RELEASE_BRANCH=$(gh pr view "$RELEASE_PR" --json headRefName --jq .headRefName)
+          gh workflow run ci.yml --ref "$RELEASE_BRANCH"
