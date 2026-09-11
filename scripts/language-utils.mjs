@@ -19,6 +19,7 @@ export const supportedLanguages = [
   'markdown',
   'mermaid',
   'nginx',
+  'php',
   'plaintext',
   'python',
   'scheme',

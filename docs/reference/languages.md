@@ -38,6 +38,7 @@ const highlighter = createHighlighter({
 | `markdown` | `@tanstack/highlight/languages/markdown` | `md` |
 | `mermaid` | `@tanstack/highlight/languages/mermaid` | None |
 | `nginx` | `@tanstack/highlight/languages/nginx` | None |
+| `php` | `@tanstack/highlight/languages/php` | None |
 | `plaintext` | `@tanstack/highlight/languages/plaintext` | `text`, `txt`, `-->` |
 | `python` | `@tanstack/highlight/languages/python` | `py` |
 | `scheme` | `@tanstack/highlight/languages/scheme` | `scm`, `racket` |
@@ -51,6 +52,6 @@ const highlighter = createHighlighter({
 | `vue` | `@tanstack/highlight/languages/vue` | None |
 | `yaml` | `@tanstack/highlight/languages/yaml` | `yml` |
 
-`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
+`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `php`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
 
 See the [language support matrix](../language-support) for the context-aware behavior and current scope of each registration.

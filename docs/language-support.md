@@ -27,6 +27,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Markdown | `markdown` | `md` | Optional fenced-language delegation |
 | Mermaid | `mermaid` | - | Common diagram declarations and arrows |
 | Nginx | `nginx` | - | Directives, variables, URLs, comments |
+| PHP | `php` | - | PHP tags, attributes, quoted strings, heredoc/nowdoc, optional HTML delegation |
 | Plaintext | `plaintext` | `text`, `txt`, `-->` | Escaping only |
 | Python | `python` | `py` | Triple strings, prefixes, decorators, comments |
 | Scheme | `scheme` | `scm`, `racket` | Comments, strings, forms, literals |

@@ -21,6 +21,7 @@ Import only the definitions the application registers.
 | Markdown | `markdown` | `@tanstack/highlight/languages/markdown` | `md` |
 | Mermaid | `mermaid` | `@tanstack/highlight/languages/mermaid` | - |
 | Nginx | `nginx` | `@tanstack/highlight/languages/nginx` | - |
+| PHP | `php` | `@tanstack/highlight/languages/php` | - |
 | Plaintext | `plaintext` | `@tanstack/highlight/languages/plaintext` | `text`, `txt`, `-->` |
 | Python | `python` | `@tanstack/highlight/languages/python` | `py` |
 | Scheme | `scheme` | `@tanstack/highlight/languages/scheme` | `scm`, `racket` |
@@ -42,6 +43,7 @@ Import only the definitions the application registers.
 | Vue | `js`, `ts`, `css` |
 | Svelte | `js`, `ts`, `css` |
 | EJS | `js` |
+| PHP | `html` (and its optional script/style languages) |
 | Markdown | The language named by each fence |
 
 The aggregate `@tanstack/highlight/languages` entry can tree-shake in a compatible bundler. Direct subpaths make isolation explicit and are the default for size-sensitive clients.

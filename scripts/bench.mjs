@@ -86,6 +86,12 @@ try {
       observe: (result) => result.children[0].children.length,
       targetBlocks: 5_000,
     },
+    php: {
+      fixtures: [{ rawLang: 'php', code: '<p><?= $name ?></p><?php #[Route("/hello")] function greet(string $name): string { return "Hi {$name}"; }\n$text = <<<END\nraw ?> # text\nEND;' }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 10_000,
+    },
     lineNumbers: {
       fixtures,
       run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang, lineNumbers: true }),

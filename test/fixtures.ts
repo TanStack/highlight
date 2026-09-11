@@ -9,6 +9,12 @@ export type LanguageFixture = {
 
 export const languageFixtures: Array<LanguageFixture> = [
   {
+    lang: 'php',
+    normalized: 'php',
+    code: '<?php\n#[Route("/hello")]\nfunction greet(string $name): string { return "Hello " . $name; }\n$count = 42; // count\n$ready = true;',
+    expectedClasses: ['th-meta', 'th-attr', 'th-keyword', 'th-function', 'th-type', 'th-variable', 'th-string', 'th-operator', 'th-number', 'th-comment', 'th-literal'],
+  },
+  {
     lang: 'c++',
     normalized: 'cpp',
     code: '#include <iostream>\nstruct Point { int x = 42; };\nint main() { std::cout << "hello"; return 0; } // output',
