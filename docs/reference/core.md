@@ -33,7 +33,7 @@ type TokenRange = {
 }
 ```
 
-`start` is inclusive and `end` is exclusive. Both are zero-based UTF-16 string offsets.
+`start` is inclusive and `end` is exclusive. Both are zero-based UTF-16 string offsets. The highlighter clamps integer offsets to the source bounds, sorts ranges, and skips overlaps. Non-integer offsets are ignored.
 
 ### `TokenizerContext`
 

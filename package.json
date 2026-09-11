@@ -99,11 +99,15 @@
   "scripts": {
     "bench": "node scripts/bench.mjs",
     "build": "node scripts/clean.mjs && tsc -p tsconfig.build.json",
+    "changeset": "changeset",
+    "changeset:status": "changeset status",
     "compare:shiki": "pnpm run build && node scripts/compare-shiki.mjs",
     "compare:sugar-high": "pnpm run build && node scripts/compare-sugar-high.mjs",
     "extract:fixtures": "node scripts/extract-doc-fixtures.mjs",
     "lint:package": "publint",
     "prepublishOnly": "pnpm run verify",
+    "release:publish": "pnpm run verify && changeset publish",
+    "release:version": "changeset version && pnpm run skills:sync-version",
     "report:compare": "pnpm run build && node scripts/generate-visual-compare.mjs",
     "scan:languages": "node scripts/scan-languages.mjs",
     "size": "node scripts/measure-size.mjs",
@@ -118,6 +122,7 @@
     "version": "pnpm run skills:sync-version"
   },
   "devDependencies": {
+    "@changesets/cli": "3.0.2",
     "@tanstack/intent": "^0.3.6",
     "@types/node": "^26.0.0",
     "esbuild": "^0.28.1",

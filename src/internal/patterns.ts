@@ -8,6 +8,7 @@ export type Pattern =
       className:
         | HighlightTokenClass
         | ((match: RegExpExecArray) => HighlightTokenClass)
+      // Captured tokens must end at the end of the match.
       group?: number
       regex: RegExp
     }
@@ -23,9 +24,9 @@ export function collectPatternRanges(
   code: string,
   patterns: ReadonlyArray<Pattern>,
   initial: ReadonlyArray<TokenRange> = [],
+  occupied = new Uint8Array(code.length),
 ) {
   const ranges: Array<TokenRange> = [...initial]
-  const occupied = new Uint8Array(code.length)
   for (const range of initial) occupied.fill(1, range.start, range.end)
 
   for (const pattern of patterns) {
@@ -43,7 +44,7 @@ export function collectPatternRanges(
         continue
       }
 
-      const offset = pattern.group ? match[0].indexOf(value) : 0
+      const offset = pattern.group ? match[0].length - value.length : 0
       const start = match.index + offset
       addRange(ranges, occupied, {
         start,
@@ -92,7 +93,7 @@ export function addRange(
 function cloneRegex(regex: RegExp) {
   return new RegExp(
     regex.source,
-    regex.flags.includes('g') ? regex.flags : `${regex.flags}g`,
+    regex.global ? regex.flags : `${regex.flags}g`,
   )
 }
 

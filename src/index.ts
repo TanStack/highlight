@@ -129,7 +129,7 @@ export const allLanguages = [
   yaml,
 ] as const
 
-export const defaultHighlighter = createHighlighter({ languages: allLanguages })
+export const defaultHighlighter = /* @__PURE__ */ createHighlighter({ languages: allLanguages })
 
 export function normalizeLanguage(lang?: string): HighlightLanguage {
   return defaultHighlighter.normalizeLanguage(lang) as HighlightLanguage

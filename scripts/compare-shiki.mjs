@@ -2,16 +2,10 @@ import fs from 'node:fs'
 import { performance } from 'node:perf_hooks'
 import * as shiki from 'shiki'
 import { highlight } from '../dist/index.js'
+import { measureRuntime } from './benchmark-utils.mjs'
 
 const fixtureFile = 'test/generated/tanstack-doc-fixtures.json'
 const fixtures = JSON.parse(fs.readFileSync(fixtureFile, 'utf8')).fixtures
-
-const ourStart = performance.now()
-let ourHtmlBytes = 0
-for (const fixture of fixtures) {
-  ourHtmlBytes += highlight(fixture.code, { lang: fixture.rawLang }).html.length
-}
-const ourElapsedMs = performance.now() - ourStart
 
 const shikiInitStart = performance.now()
 const shikiHighlighter = await shiki.createHighlighter({
@@ -21,46 +15,63 @@ const shikiHighlighter = await shiki.createHighlighter({
 const shikiInitMs = performance.now() - shikiInitStart
 
 const failedLanguages = new Set()
-const shikiStart = performance.now()
-let shikiHtmlBytes = 0
+const languages = new Map()
+const languageLoadStart = performance.now()
 for (const fixture of fixtures) {
   const lang = normalizeShikiLanguage(fixture.rawLang)
-  const effectiveLang = await ensureShikiLanguage(shikiHighlighter, lang, failedLanguages)
-  shikiHtmlBytes += shikiHighlighter.codeToHtml(fixture.code, {
-    lang: effectiveLang,
-    themes: {
-      light: 'github-light',
-      dark: 'aurora-x',
-    },
-  }).length
+  if (!languages.has(lang)) {
+    languages.set(lang, await ensureShikiLanguage(shikiHighlighter, lang, failedLanguages))
+  }
 }
-const shikiElapsedMs = performance.now() - shikiStart
+const languageLoadMs = performance.now() - languageLoadStart
 
-console.log(
-  JSON.stringify(
-    {
-      fixtures: fixtures.length,
-      ours: {
-        highlightMs: Number(ourElapsedMs.toFixed(2)),
-        htmlKiB: Math.round(ourHtmlBytes / 1024),
+try {
+  const ours = measureRuntime({
+    fixtures,
+    run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }).html,
+    targetBlocks: fixtures.length,
+    outputBytes: (html) => Buffer.byteLength(html),
+  })
+  const theirs = measureRuntime({
+    fixtures,
+    run: (fixture) => shikiHighlighter.codeToHtml(fixture.code, {
+      lang: languages.get(normalizeShikiLanguage(fixture.rawLang)),
+      themes: { light: 'github-light', dark: 'aurora-x' },
+    }),
+    targetBlocks: fixtures.length,
+    outputBytes: (html) => Buffer.byteLength(html),
+  })
+
+  console.log(
+    JSON.stringify(
+      {
+        fixtures: fixtures.length,
+        timing: 'Median of three samples after two warmup passes; language loading measured separately',
+        ours: {
+          highlightMs: ours.elapsedMs,
+          samplesMs: ours.samplesMs,
+          htmlKiB: ours.htmlKiB,
+        },
+        shiki: {
+          initMs: Number(shikiInitMs.toFixed(2)),
+          languageLoadMs: Number(languageLoadMs.toFixed(2)),
+          highlightMs: theirs.elapsedMs,
+          samplesMs: theirs.samplesMs,
+          htmlKiB: theirs.htmlKiB,
+          failedLanguages: [...failedLanguages].sort(),
+        },
+        ratios: {
+          highlightSpeedup: Number((theirs.elapsedMs / Math.max(ours.elapsedMs, 0.001)).toFixed(1)),
+          htmlSizeReduction: Number((theirs.htmlBytes / Math.max(ours.htmlBytes, 1)).toFixed(1)),
+        },
       },
-      shiki: {
-        initMs: Number(shikiInitMs.toFixed(2)),
-        highlightMs: Number(shikiElapsedMs.toFixed(2)),
-        totalMs: Number((shikiInitMs + shikiElapsedMs).toFixed(2)),
-        htmlKiB: Math.round(shikiHtmlBytes / 1024),
-        failedLanguages: [...failedLanguages].sort(),
-      },
-      ratios: {
-        highlightSpeedup: Number((shikiElapsedMs / Math.max(ourElapsedMs, 0.001)).toFixed(1)),
-        totalSpeedup: Number(((shikiInitMs + shikiElapsedMs) / Math.max(ourElapsedMs, 0.001)).toFixed(1)),
-        htmlSizeReduction: Number((shikiHtmlBytes / Math.max(ourHtmlBytes, 1)).toFixed(1)),
-      },
-    },
-    null,
-    2,
-  ),
-)
+      null,
+      2,
+    ),
+  )
+} finally {
+  shikiHighlighter.dispose()
+}
 
 async function ensureShikiLanguage(highlighter, lang, failedLanguages) {
   if (failedLanguages.has(lang)) return 'plaintext'

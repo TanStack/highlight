@@ -178,7 +178,7 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Monokai, Nord, O
 
 `apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
 
-Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit.
+Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
 
 ## Output Contract
 
@@ -191,24 +191,24 @@ Each language is available from `@tanstack/highlight/languages/<name>`. The aggr
 
 ## Size And Speed
 
-Local browser bundles, minified with esbuild and compressed independently:
+Local browser bundles, minified with esbuild and compressed independently. KB uses 1,000 bytes:
 
 | Registration | Minified | Gzip | Brotli |
 | --- | ---: | ---: | ---: |
-| Core, no languages | 3.7 KB | 1.7 KB | 1.6 KB |
-| Core + TSX | 9.3 KB | 3.9 KB | 3.5 KB |
-| Octane MDX + TypeScript | 12.5 KB | 4.9 KB | 4.5 KB |
-| Nine-language docs set | 15.3 KB | 5.8 KB | 5.3 KB |
-| All 25 languages | 22.2 KB | 8.0 KB | 7.2 KB |
+| Core, no languages | 3.84 KB | 1.82 KB | 1.66 KB |
+| Core + TSX | 9.46 KB | 4.03 KB | 3.66 KB |
+| Octane MDX + TypeScript | 13.21 KB | 5.37 KB | 4.90 KB |
+| Nine-language docs set | 15.39 KB | 5.97 KB | 5.44 KB |
+| All 26 languages | 22.59 KB | 8.29 KB | 7.49 KB |
 
-On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks:
+On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks, using the median of three runs after warmup:
 
 | | Bundle gzip | Highlight time | Generated HTML |
 | --- | ---: | ---: | ---: |
-| TanStack Highlight | 3.93 KB | 162 ms | 6.7 MiB |
-| Sugar High 1.2.1 | 3.28 KB | 395 ms | 44.7 MiB |
+| TanStack Highlight | 4.11 KB | 78 ms | 6.7 MiB |
+| Sugar High 1.2.1 | 3.28 KB | 377 ms | 44.8 MiB |
 
-On all 333 committed docs fixtures, TanStack Highlight took 19 ms. Shiki 4.3.1 took 23 ms to initialize and 1,253 ms to highlight, while producing 3.4x more HTML. These are local directional measurements, not claims of equivalent grammar depth.
+On all 334 committed docs fixtures, warmed highlighting took 4.6 ms with TanStack Highlight and 182 ms with Shiki 4.3.1. Shiki also took 22 ms to initialize and 47 ms to load languages, and produced 3.4x more HTML. The comparison falls back to plaintext for EJS, ENV, and TSRX in Shiki. These local measurements do not imply equivalent grammar depth.
 
 Reproduce them with:
 
@@ -237,4 +237,4 @@ pnpm install
 pnpm run verify
 ```
 
-`verify` checks types, package exports, publint, 333 real docs fixtures, focused parser regressions, bundle budgets, and a roughly 10,000-block throughput budget.
+`verify` checks types, package exports, publint, 334 real docs fixtures, focused parser regressions, bundle budgets, and a roughly 10,000-block throughput budget.

@@ -34,20 +34,39 @@ export function rehypeHighlightCodeBlocks(options: RehypeHighlightOptions) {
 export function rehypePreCodeToHast(
   node: HastElement,
   options: RehypeHighlightOptions,
-) {
+): HastElement | undefined {
   if (hasClassName(node, 'th-code')) return undefined
   const code = getCodeChild(node)
   if (!code) return undefined
-  return codeFenceToHast(
+  const highlighted = codeFenceToHast(
     {
-      code: collectText(code).trimEnd(),
+      code: collectText(code),
       decorations: options.getDecorations?.(node),
       lang: getLanguage(code),
       lineNumbers: options.lineNumbers,
+      meta: typeof code.data?.meta === 'string' ? code.data.meta : undefined,
       title: options.getTitle?.(node),
     },
     options.highlighter,
   )
+  const highlightedCode = highlighted.children[0] as HastElement
+
+  return {
+    ...node,
+    ...highlighted,
+    properties: {
+      ...node.properties,
+      ...highlighted.properties,
+      className: [...getClassNames(node), ...getClassNames(highlighted)],
+    },
+    children: [
+      {
+        ...code,
+        ...highlightedCode,
+        properties: { ...code.properties, ...highlightedCode.properties },
+      },
+    ],
+  }
 }
 
 function replacePreCodeNodes(node: UnknownNode, options: RehypeHighlightOptions) {
@@ -70,28 +89,23 @@ function getCodeChild(node: HastElement) {
   )
 }
 
-function getLanguage(node: HastElement) {
+function getClassNames(node: HastElement): Array<string> {
   const className = node.properties?.className
-  const classes = Array.isArray(className)
-    ? className
+  return Array.isArray(className)
+    ? className.filter((value): value is string => typeof value === 'string')
     : typeof className === 'string'
-      ? className.split(/\s+/)
+      ? className.split(/\s+/).filter(Boolean)
       : []
-  return classes
-    .find(
-      (value): value is string =>
-        typeof value === 'string' && value.startsWith('language-'),
-    )
+}
+
+function getLanguage(node: HastElement) {
+  return getClassNames(node)
+    .find((value) => value.startsWith('language-'))
     ?.slice('language-'.length)
 }
 
 function hasClassName(node: HastElement, expected: string) {
-  const className = node.properties?.className
-  return Array.isArray(className)
-    ? className.includes(expected)
-    : typeof className === 'string'
-      ? className.split(/\s+/).includes(expected)
-      : false
+  return getClassNames(node).includes(expected)
 }
 
 function collectText(node: HastNode): string {

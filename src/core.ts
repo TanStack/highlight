@@ -196,7 +196,7 @@ export function createHighlighter({
 
     return {
       ...result,
-      html: `<pre class="th-code th-code--${escapeAttribute(result.lang)}${options.lineNumbers ? ' th-code--line-numbers' : ''}" data-language="${escapeAttribute(result.lang)}"><code>${innerHtml}</code></pre>`,
+      html: `<pre class="th-code th-code--${escapeHtml(result.lang)}${options.lineNumbers ? ' th-code--line-numbers' : ''}" data-language="${escapeHtml(result.lang)}"><code>${innerHtml}</code></pre>`,
     }
   }
 
@@ -243,16 +243,20 @@ export function renderTokens(
   tokens: ReadonlyArray<HighlightToken>,
   options: Pick<HighlightOptions, 'decorations' | 'lineNumbers'> = {},
 ): Array<HighlightRenderNode> {
-  const code = tokens.map((token) => token.value).join('')
-  const decorations = options.decorations || []
-  const rangeDecorations = decorations.filter(isRangeDecoration)
-  const lineDecorations = decorations.filter(isLineDecoration)
+  const rangeDecorations: Array<HighlightRangeDecoration> = []
+  const lineDecorations: Array<HighlightLineDecoration> = []
+  for (const decoration of options.decorations || []) {
+    if (decoration.range) rangeDecorations.push(decoration)
+    else lineDecorations.push(decoration)
+  }
   const wrapLines = Boolean(options.lineNumbers || lineDecorations.length)
+  const cursor = { index: 0, offset: 0 }
 
   if (!wrapLines) {
-    return renderTokenSlice(tokens, 0, code.length, rangeDecorations)
+    return renderTokenSlice(tokens, 0, Infinity, rangeDecorations, cursor)
   }
 
+  const code = tokens.map((token) => token.value).join('')
   const nodes: Array<HighlightRenderNode> = []
   const lineStarts = getLineStarts(code)
 
@@ -276,7 +280,7 @@ export function renderTokens(
         ...mergeData(active),
         line: String(line),
       },
-      children: renderTokenSlice(tokens, start, end, rangeDecorations),
+      children: renderTokenSlice(tokens, start, end, rangeDecorations, cursor),
     })
 
     if (hasNewline) nodes.push({ type: 'text', value: '\n' })
@@ -294,26 +298,29 @@ export function renderNodesToHtml(nodes: ReadonlyArray<HighlightRenderNode>) {
       continue
     }
 
-    const className = node.classNames.map(escapeAttribute).join(' ')
-    const data = Object.entries(node.data || {})
-      .map(
-        ([key, value]) =>
-          ` data-${escapeAttribute(toKebabCase(key))}="${escapeAttribute(value)}"`,
-      )
-      .join('')
+    const className = escapeHtml(node.classNames.join(' '))
+    let data = ''
+    if (node.data) {
+      for (const [key, value] of Object.entries(node.data)) {
+        data += ` data-${normalizeDataKey(key)}="${escapeHtml(value)}"`
+      }
+    }
     html += `<span${className ? ` class="${className}"` : ''}${data}>${renderNodesToHtml(node.children)}</span>`
   }
 
   return html
 }
 
+const htmlEscapes: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+}
+
 export function escapeHtml(value: string) {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
+  return value.replace(/[&<>"']/g, (character) => htmlEscapes[character])
 }
 
 function normalizeName(value: string) {
@@ -325,20 +332,27 @@ function normalizeTokenRanges(
   input: ReadonlyArray<TokenRange>,
 ) {
   const ranges: Array<TokenRange> = []
-  const candidates = input
-    .map((candidate) => ({
-      ...candidate,
-      start: Math.max(0, Math.min(codeLength, candidate.start)),
-      end: Math.max(0, Math.min(codeLength, candidate.end)),
-    }))
-    .sort((a, b) => a.start - b.start)
+  let sorted = true
+  let previousStart = 0
+  for (const candidate of input) {
+    if (!Number.isInteger(candidate.start) || !Number.isInteger(candidate.end)) continue
+    const start = Math.max(0, Math.min(codeLength, candidate.start))
+    const end = Math.max(0, Math.min(codeLength, candidate.end))
+    if (start >= end) continue
+    if (start < previousStart) sorted = false
+    previousStart = start
+    ranges.push({ className: candidate.className, start, end })
+  }
+  if (!sorted) ranges.sort((a, b) => a.start - b.start)
 
   let end = 0
-  for (const candidate of candidates) {
-    if (candidate.start >= candidate.end || candidate.start < end) continue
-    ranges.push(candidate)
+  let count = 0
+  for (const candidate of ranges) {
+    if (candidate.start < end) continue
+    ranges[count++] = candidate
     end = candidate.end
   }
+  ranges.length = count
   return ranges
 }
 
@@ -364,25 +378,30 @@ function renderTokenSlice(
   start: number,
   end: number,
   decorations: ReadonlyArray<HighlightRangeDecoration>,
+  cursor: { index: number; offset: number },
 ) {
   const nodes: Array<HighlightRenderNode> = []
-  let tokenStart = 0
 
-  for (const token of tokens) {
+  for (; cursor.index < tokens.length; cursor.index++) {
+    const token = tokens[cursor.index]
+    const tokenStart = cursor.offset
     const tokenEnd = tokenStart + token.value.length
     const sliceStart = Math.max(start, tokenStart)
     const sliceEnd = Math.min(end, tokenEnd)
 
     if (sliceStart < sliceEnd) {
-      const boundaries = new Set([sliceStart, sliceEnd])
-      for (const decoration of decorations) {
-        const [decorationStart, decorationEnd] = decoration.range
-        if (decorationEnd <= sliceStart || decorationStart >= sliceEnd) continue
-        boundaries.add(Math.max(sliceStart, decorationStart))
-        boundaries.add(Math.min(sliceEnd, decorationEnd))
+      let sorted = [sliceStart, sliceEnd]
+      if (decorations.length) {
+        const boundaries = new Set(sorted)
+        for (const decoration of decorations) {
+          const [decorationStart, decorationEnd] = decoration.range
+          if (decorationEnd <= sliceStart || decorationStart >= sliceEnd) continue
+          boundaries.add(Math.max(sliceStart, decorationStart))
+          boundaries.add(Math.min(sliceEnd, decorationEnd))
+        }
+        sorted = [...boundaries].sort((a, b) => a - b)
       }
 
-      const sorted = [...boundaries].sort((a, b) => a - b)
       for (let index = 0; index < sorted.length - 1; index++) {
         const segmentStart = sorted[index]
         const segmentEnd = sorted[index + 1]
@@ -402,12 +421,11 @@ function renderTokenSlice(
           }
         }
 
-        const active = decorations.filter(
-          (decoration) =>
-            decoration.range[0] <= segmentStart &&
-            decoration.range[1] >= segmentEnd,
-        )
-        for (const decoration of active) {
+        for (const decoration of decorations) {
+          if (
+            decoration.range[0] > segmentStart ||
+            decoration.range[1] < segmentEnd
+          ) continue
           node = {
             type: 'element',
             classNames: [
@@ -423,23 +441,12 @@ function renderTokenSlice(
       }
     }
 
-    tokenStart = tokenEnd
-    if (tokenStart >= end) break
+    // Keep a token that crosses the line boundary for the next slice.
+    if (tokenEnd > end) break
+    cursor.offset = tokenEnd
   }
 
   return nodes
-}
-
-function isRangeDecoration(
-  decoration: HighlightDecoration,
-): decoration is HighlightRangeDecoration {
-  return 'range' in decoration
-}
-
-function isLineDecoration(
-  decoration: HighlightDecoration,
-): decoration is HighlightLineDecoration {
-  return 'lines' in decoration
 }
 
 function getLineStarts(code: string) {
@@ -487,8 +494,4 @@ function splitClassNames(className?: string) {
 
 function toKebabCase(value: string) {
   return value.replace(/[A-Z]/g, (character) => `-${character.toLowerCase()}`)
-}
-
-function escapeAttribute(value: string) {
-  return escapeHtml(value)
 }
