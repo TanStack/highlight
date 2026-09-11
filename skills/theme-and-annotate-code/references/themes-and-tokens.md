@@ -8,6 +8,8 @@
 | Dracula | `draculaTheme` | dark | `@tanstack/highlight/themes/dracula` |
 | GitHub Dark | `githubDarkTheme` | dark | `@tanstack/highlight/themes/github-dark` |
 | GitHub Light | `githubLightTheme` | light | `@tanstack/highlight/themes/github-light` |
+| Gruvbox Dark | `gruvboxDarkTheme` | dark | `@tanstack/highlight/themes/gruvbox-dark` |
+| Gruvbox Light | `gruvboxLightTheme` | light | `@tanstack/highlight/themes/gruvbox-light` |
 | Monokai | `monokaiTheme` | dark | `@tanstack/highlight/themes/monokai` |
 | Nord | `nordTheme` | dark | `@tanstack/highlight/themes/nord` |
 | One Dark Pro | `oneDarkProTheme` | dark | `@tanstack/highlight/themes/one-dark-pro` |
