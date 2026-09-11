@@ -129,6 +129,8 @@ The plugin:
 3. Collects text from its descendants.
 4. Replaces the node with highlighted HAST.
 
+It also reads fence titles, annotations, and line numbers from the code node's `data.meta`, and preserves existing attributes, classes, and plugin data on both elements. An explicit `lineNumbers` option overrides the fence metadata, omit it to let each fence choose. A non-empty `getTitle` result overrides the metadata title.
+
 Already highlighted `th-code` blocks are skipped, making the transform idempotent.
 
 ## HAST helpers

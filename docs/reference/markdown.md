@@ -44,6 +44,8 @@ function parseCodeDiffNotation(code: string): {
 
 Removes trailing `[!code ++]` and `[!code --]` directives and returns `th-line--inserted` and `th-line--deleted` decorations for their one-based line numbers. JavaScript-style line and block comments, `#` line comments, and HTML comments are supported.
 
+Both LF and Windows CRLF line endings are preserved when directives are removed.
+
 ### `CodeFenceMeta`
 
 ```ts
@@ -61,6 +63,8 @@ function parseCodeFenceMeta(meta?: string | null): CodeFenceMeta
 ```
 
 Recognizes `title`, `filename`, `file`, `name`, `lineNumbers`, `showLineNumbers`, shorthand highlighted lines, and named line annotations. Invalid line fragments are ignored. See [Annotations](../guides/annotations).
+
+Quoted values are treated as text, so `title="lineNumbers {2}"` sets a title without enabling line numbers or highlighting a line. Named annotations require braces, for example `ins={2}`, and line numbers must be positive safe integers with ascending ranges.
 
 ### `getCodeFenceTitle`
 

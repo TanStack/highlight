@@ -110,3 +110,5 @@ The core [`RenderedCodeBlockData`](core#renderedcodeblockdata) narrowed so `lang
 The default entry also exports `createHighlighter`, `defineLanguage`, `escapeHtml`, `renderNodesToHtml`, and `renderTokens`, along with these types: `Highlighter`, `HighlightDecoration`, `HighlightDecorationData`, `HighlightElementNode`, `HighlightLineDecoration`, `HighlightOptions`, `HighlightRangeDecoration`, `HighlightRenderNode`, `HighlightTextNode`, `HighlightToken`, `HighlightTokenClass`, `LanguageDefinition`, `TokenRange`, and `TokenizerContext`.
 
 Their contracts are documented in the [core reference](core).
+
+Importing only these core helpers lets a compatible bundler remove the all-language registry. The bound convenience functions above retain it.
