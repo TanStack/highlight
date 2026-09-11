@@ -10,6 +10,7 @@ Import only the definitions the application registers.
 | Dockerfile | `dockerfile` | `@tanstack/highlight/languages/dockerfile` | `docker` |
 | EJS | `ejs` | `@tanstack/highlight/languages/ejs` | - |
 | Env | `env` | `@tanstack/highlight/languages/env` | `dotenv` |
+| Go | `go` | `@tanstack/highlight/languages/go` | `golang` |
 | HTML | `html` | `@tanstack/highlight/languages/html` | `htm`, `xml`, `angular-html` |
 | HTTP | `http` | `@tanstack/highlight/languages/http` | - |
 | JavaScript | `js` | `@tanstack/highlight/languages/js` | `javascript`, `mjs`, `cjs`, `js-vue` |

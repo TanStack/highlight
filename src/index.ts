@@ -11,6 +11,7 @@ import { diff } from './languages/diff.js'
 import { dockerfile } from './languages/dockerfile.js'
 import { ejs } from './languages/ejs.js'
 import { env } from './languages/env.js'
+import { go } from './languages/go.js'
 import { html } from './languages/html.js'
 import { http } from './languages/http.js'
 import { js } from './languages/js.js'
@@ -39,6 +40,7 @@ export type HighlightLanguage =
   | 'dockerfile'
   | 'ejs'
   | 'env'
+  | 'go'
   | 'html'
   | 'http'
   | 'js'
@@ -107,6 +109,7 @@ export const allLanguages = [
   dockerfile,
   ejs,
   env,
+  go,
   html,
   http,
   js,

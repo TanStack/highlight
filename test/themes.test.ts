@@ -9,6 +9,8 @@ import { auroraXTheme } from '../src/themes/aurora-x'
 import { draculaTheme } from '../src/themes/dracula'
 import { githubDarkTheme } from '../src/themes/github-dark'
 import { githubLightTheme } from '../src/themes/github-light'
+import { gruvboxDarkTheme } from '../src/themes/gruvbox-dark'
+import { gruvboxLightTheme } from '../src/themes/gruvbox-light'
 import { monokaiTheme } from '../src/themes/monokai'
 import { nordTheme } from '../src/themes/nord'
 import { oneDarkProTheme } from '../src/themes/one-dark-pro'
@@ -20,6 +22,8 @@ const themes = [
   draculaTheme,
   githubDarkTheme,
   githubLightTheme,
+  gruvboxDarkTheme,
+  gruvboxLightTheme,
   monokaiTheme,
   nordTheme,
   oneDarkProTheme,
@@ -38,6 +42,11 @@ describe('themes', () => {
       expect(theme.tokens.string).toMatch(/^#/)
       expect(theme.tokens.comment).toMatch(/^#/)
     }
+  })
+
+  it('ships Gruvbox with the medium contrast backgrounds', () => {
+    expect(gruvboxDarkTheme.background).toBe('#282828')
+    expect(gruvboxLightTheme.background).toBe('#fbf1c7')
   })
 
   it('composes only the themes the caller passes', () => {

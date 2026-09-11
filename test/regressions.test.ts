@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { createHighlighter } from '../src/core'
 import { css } from '../src/languages/css'
 import { dockerfile } from '../src/languages/dockerfile'
+import { go } from '../src/languages/go'
 import { html } from '../src/languages/html'
 import { http } from '../src/languages/http'
 import { js } from '../src/languages/js'
@@ -19,6 +20,7 @@ const highlighter = createHighlighter({
   languages: [
     css,
     dockerfile,
+    go,
     html,
     http,
     js,
@@ -305,6 +307,46 @@ export function View() @{ <p>Ready</p> }`,
 })
 
 describe('docs language regressions', () => {
+  it('handles Go raw strings, runes, and numeric forms', () => {
+    const numbers = [
+      '0b1010',
+      '0o755',
+      '0x1.fp2',
+      '1.',
+      '1.e2',
+      '1.e2i',
+      '.5',
+      '.5i',
+      '.5e2',
+      '.5e2i',
+      '1e2',
+      '1e2i',
+      '0x1.p2',
+      '0x.8p2',
+      '0x_1p2',
+      '0x1.p2i',
+      '1_000.5e-2i',
+    ]
+    const result = highlighter.tokenize(
+      [
+        'raw := `https://go.dev/a//b`',
+        "runeValue := '\\n'",
+        `values := []complex128{${numbers.join(', ')}}`,
+        '// done',
+      ].join('\n'),
+      { lang: 'go' },
+    )
+
+    expect(exactClassesFor(result, '`https://go.dev/a//b`')).toEqual(['string'])
+    expect(exactClassesFor(result, "'\\n'")).toEqual(['string'])
+    expect(exactClassesFor(result, 'complex128')).toEqual(['type'])
+    for (const number of numbers) {
+      expect(exactClassesFor(result, number), number).toEqual(['number'])
+    }
+    expect(exactClassesFor(result, '// done')).toEqual(['comment'])
+    expect(reconstruct(result)).toBe(result.code)
+  })
+
   it('keeps Python triple strings together and highlights literals and numbers', () => {
     const result = highlighter.tokenize(
       'text = """hello\nworld"""\nempty = None\nenabled = True\ncount = 42',

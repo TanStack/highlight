@@ -1,3 +1,21 @@
+<div align="center">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://tanstack.com/api/readme/highlight.png?theme=dark"
+    />
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://tanstack.com/api/readme/highlight.png"
+    />
+    <img
+      src="https://tanstack.com/api/readme/highlight.png"
+      alt="TanStack Highlight"
+      width="900"
+    />
+  </picture>
+</div>
+
 # TanStack Highlight
 
 Tiny, synchronous syntax highlighting for blogs and documentation.
@@ -172,11 +190,11 @@ const css = createThemeCss({
 
 For TanStack Markdown, set `codeBlockSelector` to its `pre.tm-code` wrapper and `lineNumbersSelector` to `.tm-code--line-numbers`. See the [Markdown pipeline guide](docs/guides/markdown-pipelines.md#tanstack-markdown).
 
-Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Monokai, Nord, One Dark Pro, Solarized Dark, and Solarized Light.
+Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Gruvbox Dark, Gruvbox Light, Monokai, Nord, One Dark Pro, Solarized Dark, and Solarized Light.
 
 ## Languages
 
-`apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
+`apache`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
 
 Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
 
@@ -199,7 +217,7 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Core + TSX | 9.46 KB | 4.03 KB | 3.66 KB |
 | Octane MDX + TypeScript | 13.21 KB | 5.37 KB | 4.90 KB |
 | Nine-language docs set | 15.39 KB | 5.97 KB | 5.44 KB |
-| All 26 languages | 22.59 KB | 8.29 KB | 7.49 KB |
+| All 27 languages | 23.93 KB | 8.66 KB | 7.78 KB |
 
 On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks, using the median of three runs after warmup:
 

@@ -154,6 +154,8 @@ The defaults remain `pre.th-code` and `.th-code--line-numbers`. Token classes st
 | Dracula | `draculaTheme` | Dark | `themes/dracula` |
 | GitHub Dark | `githubDarkTheme` | Dark | `themes/github-dark` |
 | GitHub Light | `githubLightTheme` | Light | `themes/github-light` |
+| Gruvbox Dark | `gruvboxDarkTheme` | Dark | `themes/gruvbox-dark` |
+| Gruvbox Light | `gruvboxLightTheme` | Light | `themes/gruvbox-light` |
 | Monokai | `monokaiTheme` | Dark | `themes/monokai` |
 | Nord | `nordTheme` | Dark | `themes/nord` |
 | One Dark Pro | `oneDarkProTheme` | Dark | `themes/one-dark-pro` |
