@@ -62,7 +62,7 @@ function fillCodeRange(
 ) {
   const ranges: Array<TokenRange> = []
   let index = start
-  for (const range of [...embedded].sort((a, b) => a.start - b.start)) {
+  for (const range of embedded) {
     if (range.start > index) ranges.push({ start: index, end: range.start, className: 'code-inline' })
     ranges.push(range)
     index = range.end

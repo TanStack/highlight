@@ -3,6 +3,11 @@ import { offsetRanges } from './patterns.js'
 
 export type MarkupMode = 'ejs' | 'html' | 'svelte' | 'vue'
 
+const rawTextClosing = {
+  script: /<\/script(?=[\s/>])/gi,
+  style: /<\/style(?=[\s/>])/gi,
+}
+
 export function collectMarkupRanges(
   code: string,
   context: TokenizerContext,
@@ -12,7 +17,7 @@ export function collectMarkupRanges(
   const regions: Array<{ end: number; lang: string; start: number }> = []
   let index = 0
 
-  while (index < code.length) {
+  while ((index = code.indexOf('<', index)) >= 0) {
     if (code.startsWith('<!--', index)) {
       const close = code.indexOf('-->', index + 4)
       const end = close < 0 ? code.length : close + 3
@@ -26,11 +31,6 @@ export function collectMarkupRanges(
       const end = close < 0 ? code.length : close
       regions.push({ start: index + 2, end, lang: 'js' })
       index = close < 0 ? code.length : close + 2
-      continue
-    }
-
-    if (code[index] !== '<') {
-      index++
       continue
     }
 
@@ -57,13 +57,13 @@ export function collectMarkupRanges(
     if (!closing) collectAttributes(code, nameStart + nameMatch[0].length, tagEnd, ranges)
 
     if (!closing && (tagName === 'script' || tagName === 'style')) {
-      const closingTag = `</${tagName}`
-      const contentEnd = code.toLowerCase().indexOf(closingTag, tagEnd + 1)
-      if (contentEnd >= 0) {
-        const openingTag = code.slice(index, tagEnd + 1)
-        const lang = getEmbeddedLanguage(tagName, openingTag)
-        regions.push({ start: tagEnd + 1, end: contentEnd, lang })
-      }
+      const rawTextClose = rawTextClosing[tagName]
+      rawTextClose.lastIndex = tagEnd + 1
+      const contentEnd = rawTextClose.exec(code)?.index ?? code.length
+      const lang = getEmbeddedLanguage(tagName, code.slice(index, tagEnd + 1))
+      regions.push({ start: tagEnd + 1, end: contentEnd, lang })
+      index = contentEnd
+      continue
     }
 
     index = tagEnd + 1

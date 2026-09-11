@@ -26,7 +26,7 @@ const semanticPatterns = [
   },
   {
     className: 'function' as const,
-    regex: /(^|[^.A-Za-z0-9_$])([A-Za-z_$][\w$]*)\s*(?=\()/g,
+    regex: /(^|[^.A-Za-z0-9_$])([A-Za-z_$][\w$]*)(?=\s*\()/g,
     group: 2,
   },
   {
@@ -55,10 +55,7 @@ export function collectScriptRanges(
     jsxText,
     initial,
   )
-  const ranges = collectPatternRanges(code, semanticPatterns, initial)
-  return jsxText
-    ? ranges.filter((range) => !jsxText[range.start])
-    : ranges
+  return collectPatternRanges(code, semanticPatterns, initial, jsxText)
 }
 
 function collectScriptInitialRanges(
@@ -312,6 +309,10 @@ function findInterpolationEnd(code: string, start: number) {
     if (character === '/' && next === '*') {
       const close = code.indexOf('*/', index + 2)
       index = close < 0 ? code.length : close + 2
+      continue
+    }
+    if (character === '/' && isRegexStart(code, index)) {
+      index = findRegexEnd(code, index)
       continue
     }
     if (character === '{') depth++

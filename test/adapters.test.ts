@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { toHast } from 'mdast-util-to-hast'
 import { defaultHighlighter, tokenize } from '../src/index'
 import {
@@ -8,11 +8,13 @@ import {
   parseCodeDiffNotation,
   parseCodeFenceMeta,
   renderCodeFence,
+  tokensToHast,
 } from '../src/markdown'
-import { rehypeHighlightCodeBlocks } from '../src/rehype'
+import { rehypeHighlightCodeBlocks, rehypePreCodeToHast } from '../src/rehype'
 import { createHighlightedCodeBlockProps } from '../src/react'
 import {
   remarkCodeNodeToHtml,
+  remarkCodeNodeToMdast,
   remarkHighlightCodeBlocks,
 } from '../src/remark'
 
@@ -60,6 +62,20 @@ describe('markdown helpers', () => {
     })
   })
 
+  it('keeps unannotated source and Windows line endings intact', () => {
+    const plain = 'const value = true  \r\n\t\r\n'
+    expect(parseCodeDiffNotation(plain)).toEqual({ code: plain, decorations: [] })
+    expect(parseCodeDiffNotation(
+      'const oldValue = false // [!code --]\r\nconst value = true /* [!code ++] */\r\n',
+    )).toEqual({
+      code: 'const oldValue = false\r\nconst value = true\r\n',
+      decorations: [
+        { className: 'th-line--deleted', lines: 1 },
+        { className: 'th-line--inserted', lines: 2 },
+      ],
+    })
+  })
+
   it('parses common code fence title metadata', () => {
     expect(getCodeFenceTitle('title="app.tsx"')).toBe('app.tsx')
     expect(getCodeFenceTitle("{filename='route.ts'}")).toBe('route.ts')
@@ -79,6 +95,51 @@ describe('markdown helpers', () => {
       { className: 'th-line--inserted', lines: 6 },
       { className: 'th-line--error', lines: [8, 9] },
     ])
+  })
+
+  it('treats quoted metadata as text and only recognizes complete option names', () => {
+    const title = 'lineNumbers {1} ins={2} showLineNumbers.ts'
+    expect(parseCodeFenceMeta(`title="${title}" caption='error={3}'`)).toEqual({
+      decorations: [],
+      lineNumbers: false,
+      title,
+    })
+    expect(parseCodeFenceMeta(
+      'data-title="ignored.ts" no-lineNumbers lineNumbers=false no-ins={4}',
+    )).toEqual({ decorations: [], lineNumbers: false, title: undefined })
+    expect(getCodeFenceTitle(`caption="title='ignored.ts'" filename=actual.ts`))
+      .toBe('actual.ts')
+  })
+
+  it('keeps mixed annotations in source order and ignores invalid line numbers', () => {
+    expect(parseCodeFenceMeta(
+      `ins={5} {1,2-3} del={4} highlight={0,4-2,9007199254740993,${'9'.repeat(400)}}`,
+    ).decorations).toEqual([
+      { className: 'th-line--inserted', lines: 5 },
+      { className: 'th-line--highlighted', lines: 1 },
+      { className: 'th-line--highlighted', lines: [2, 3] },
+      { className: 'th-line--deleted', lines: 4 },
+    ])
+  })
+
+  it.each([
+    { code: '<script>"&"</script>  \n', lang: 'unknown', meta: undefined },
+    { code: 'const value = true // [!code ++]\n\n', lang: 'typescript', meta: 'title="App.ts" {1} lineNumbers' },
+    { code: '  \n', lang: 'ts', meta: 'lineNumbers' },
+  ])('creates equivalent HAST directly from tokens for $lang', (input) => {
+    const rendered = renderCodeFence(input, defaultHighlighter)
+    const highlighter = {
+      ...defaultHighlighter,
+      tokenize: vi.fn(defaultHighlighter.tokenize),
+      renderCodeBlockData: vi.fn(() => {
+        throw new Error('HAST rendering must not serialize unused HTML')
+      }),
+    }
+    expect(codeFenceToHast(input, highlighter)).toEqual(
+      tokensToHast(rendered.tokens, rendered.lang, rendered),
+    )
+    expect(highlighter.tokenize).toHaveBeenCalledTimes(1)
+    expect(highlighter.renderCodeBlockData).not.toHaveBeenCalled()
   })
 
   it('renders a code fence into data and hast', () => {
@@ -179,6 +240,31 @@ describe('remark adapter', () => {
     expect(pre.children[0]?.children[0]?.tagName).not.toBe('pre')
   })
 
+  it('shares normalized copy data without generating unused HTML', () => {
+    const highlighter = {
+      ...defaultHighlighter,
+      renderCodeBlockData: vi.fn(() => {
+        throw new Error('MDAST rendering must not serialize unused HTML')
+      }),
+    }
+    const node = remarkCodeNodeToMdast({
+      type: 'code',
+      value: 'const value = true // [!code ++]\n',
+      lang: 'typescript',
+      meta: 'title="App.ts"',
+      data: { custom: 'kept' },
+    }, { highlighter })
+
+    expect(node.data.custom).toBe('kept')
+    expect(node.data.syntaxHighlight).toEqual({
+      copyText: 'const value = true',
+      lang: 'ts',
+      title: 'App.ts',
+    })
+    expect(JSON.stringify(node.data.hChildren)).toContain('th-line--inserted')
+    expect(highlighter.renderCodeBlockData).not.toHaveBeenCalled()
+  })
+
   it('can explicitly create a raw html node', () => {
     const node = remarkCodeNodeToHtml(
       {
@@ -223,6 +309,57 @@ describe('rehype adapter', () => {
     expect(pre.tagName).toBe('pre')
     expect(pre.properties?.className).toEqual(['th-code', 'th-code--ts'])
     expect(JSON.stringify(pre)).toContain('th-keyword')
+  })
+
+  it('reads fence metadata from the standard mdast-to-hast pipeline', () => {
+    const tree = toHast({
+      type: 'root',
+      children: [{
+        type: 'code',
+        value: 'const value = true',
+        lang: 'typescript',
+        meta: 'title="App.ts" {1} lineNumbers',
+      }],
+    })
+
+    rehypeHighlightCodeBlocks({ highlighter: defaultHighlighter })(tree as any)
+    const pre = (tree as any).children[0]
+    expect(pre.properties.dataTitle).toBe('App.ts')
+    expect(pre.properties.className).toContain('th-code--line-numbers')
+    expect(JSON.stringify(pre)).toContain('th-line--highlighted')
+
+    const overridden = rehypePreCodeToHast({
+      type: 'element', tagName: 'pre', children: [{
+        type: 'element', tagName: 'code', children: [{ type: 'text', value: 'x' }],
+        data: { meta: 'title="Original.ts" lineNumbers' },
+      }],
+    }, { highlighter: defaultHighlighter, getTitle: () => 'Override.ts', lineNumbers: false })
+    expect(overridden?.properties?.dataTitle).toBe('Override.ts')
+    expect(overridden?.properties?.className).not.toContain('th-code--line-numbers')
+  })
+
+  it('preserves attributes and plugin data on pre and code elements', () => {
+    const highlighted = rehypePreCodeToHast({
+      type: 'element', tagName: 'pre',
+      properties: { id: 'example', className: 'existing-block', ariaLabel: 'Example' },
+      data: { custom: true },
+      children: [{
+        type: 'element', tagName: 'code',
+        properties: { className: ['language-ts', 'existing-code'], tabIndex: 0 },
+        data: { customCode: true },
+        children: [{ type: 'text', value: 'const value = true' }],
+      }],
+    }, { highlighter: defaultHighlighter })
+
+    expect(highlighted?.properties).toMatchObject({
+      id: 'example', ariaLabel: 'Example',
+      className: ['existing-block', 'th-code', 'th-code--ts'],
+    })
+    expect(highlighted?.data).toEqual({ custom: true })
+    expect(highlighted?.children[0]).toMatchObject({
+      properties: { className: ['language-ts', 'existing-code'], tabIndex: 0 },
+      data: { customCode: true },
+    })
   })
 
   it('does not reprocess already highlighted blocks', () => {

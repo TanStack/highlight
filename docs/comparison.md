@@ -40,25 +40,25 @@ Syntax highlighters solve different problems. The smallest correct choice is the
 
 ## Measured overlap with Sugar High
 
-The repository pins Sugar High and compares the overlapping JavaScript, TypeScript, JSX, and TSX fixture set.
+The repository compares its installed Sugar High version against the overlapping JavaScript, TypeScript, JSX, and TSX fixture set. Timings are the median of three samples after two warmup passes. Bundle KB uses 1,000 bytes; HTML sizes count UTF-8 bytes.
 
 | | Bundle gzip | 5,040-block runtime | Generated HTML |
 | --- | ---: | ---: | ---: |
-| TanStack Highlight | 3.93 KB | 162 ms | 6.7 MiB |
-| Sugar High 1.2.1 | 3.28 KB | 395 ms | 44.7 MiB |
+| TanStack Highlight | 4.11 KB | 78 ms | 6.7 MiB |
+| Sugar High 1.2.1 | 3.28 KB | 377 ms | 44.8 MiB |
 
-Sugar High wins raw JavaScript bundle size. TanStack Highlight spends about 650 additional gzip bytes on its registry, class-based output, decorations, and broader context handling, then produces substantially less HTML in this corpus.
+Sugar High wins raw JavaScript bundle size. TanStack Highlight spends about 830 additional gzip bytes on its registry, class-based output, decorations, and broader context handling, then produces substantially less HTML in this corpus.
 
 ## Measured overlap with Shiki
 
-Across 333 committed documentation fixtures:
+Across 334 committed documentation fixtures:
 
-| | Initialization | Highlighting | Generated HTML |
-| --- | ---: | ---: | ---: |
-| TanStack Highlight | None | ~20 ms | 364 KiB |
-| Shiki 4.3.1 | ~20 ms | ~1.2 s | 1,252 KiB |
+| | Initialization | Language loading | Warmed highlighting | Generated HTML |
+| --- | ---: | ---: | ---: | ---: |
+| TanStack Highlight | None | None | 4.6 ms | 365 KiB |
+| Shiki 4.3.1 | 22 ms | 47 ms | 182 ms | 1,257 KiB |
 
-Timings vary by machine. This is not equivalent work: Shiki provides much deeper grammar accuracy and compatibility. The benchmark describes the cost difference when both are used to render this package's targeted docs corpus.
+The script reports language loading separately and falls back to plaintext for EJS, ENV, and TSRX in Shiki. Timings vary by machine. This is not equivalent work: Shiki provides much deeper grammar accuracy and compatibility. The benchmark describes the cost difference when both are used to render this package's targeted docs corpus.
 
 ## When not to use TanStack Highlight
 

@@ -124,27 +124,9 @@ export function createThemeBaseCss(options: ThemeBaseCssOptions = {}) {
   color: var(--th-token);
 }
 
-.th-token { color: var(--th-token); }
-.th-keyword { color: var(--th-keyword); }
-.th-string { color: var(--th-string); }
-.th-comment { color: var(--th-comment); }
-.th-function { color: var(--th-function); }
-.th-type { color: var(--th-type); }
-.th-property { color: var(--th-property); }
-.th-tag { color: var(--th-tag); }
-.th-attr { color: var(--th-attr); }
-.th-literal { color: var(--th-literal); }
-.th-number { color: var(--th-number); }
-.th-variable { color: var(--th-variable); }
-.th-operator { color: var(--th-operator); }
-.th-inserted { color: var(--th-inserted); }
-.th-deleted { color: var(--th-deleted); }
-.th-meta { color: var(--th-meta); }
-.th-heading { color: var(--th-heading); }
-.th-link { color: var(--th-link); }
-.th-code-inline { color: var(--th-code-inline); }
-.th-selector { color: var(--th-selector); }
-.th-command { color: var(--th-command); }
+${themeTokenClasses
+  .map((token) => `.th-${token} { color: var(--th-${token}); }`)
+  .join('\n')}
 .th-line { display: inline-block; min-width: 100%; width: max-content; }
 ${lineNumbersSelector} code { counter-reset: th-line; }
 ${lineNumbersSelector} .th-line::before {

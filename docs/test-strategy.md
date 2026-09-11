@@ -9,7 +9,7 @@ The suite protects the package's actual product boundary: valid code commonly pu
 ## Contracts
 
 - Every supported language has committed code from real TanStack Markdown or MDX files.
-- The corpus contains up to twenty samples per language and currently totals 333 blocks.
+- The corpus contains up to twenty samples per language and currently totals 334 blocks.
 - Every token stream reconstructs its source byte for byte.
 - Focused regressions cover context-sensitive failures such as TSX generics, nested template interpolation, regular expressions, Python triple strings, shell heredocs, YAML fragments and block scalars, and markup embeddings.
 - HTML uses one escaped `<pre><code>` tree with no inline style attributes.
@@ -19,21 +19,21 @@ The suite protects the package's actual product boundary: valid code commonly pu
 
 ## Size Profiles
 
-`pnpm run size` builds five browser profiles independently. Each has minified, gzip, and Brotli budgets:
+`pnpm run size` checks fourteen independent browser profiles, including root helpers, language barrel imports, adapters, and themes. Each has minified, gzip, and Brotli budgets. The five highlighter profiles are:
 
 | Profile | Languages | Gzip budget |
 | --- | --- | ---: |
 | Core | None | 2.0 KB |
 | TSX | TSX | 4.1 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.2 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.5 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.1 KB |
-| All | All 25 definitions | 8.3 KB |
+| All | All 26 definitions | 8.3 KB |
 
-The selective profiles are the primary product metric. The all-language profile protects the convenience entry from unbounded growth.
+The selective profiles are the primary product metric. The all-language profile protects the convenience entry from unbounded growth. Bundle graphs reject unexpected language or theme code. Package tests repeat isolation checks through public exports after building.
 
 ## Throughput
 
-`pnpm run bench` processes at least 10,000 blocks from the committed real-doc corpus. The 1.2 second CI budget is based on the shared-runner baseline and still catches structural regressions.
+`pnpm run bench` measures seven profiles: highlighting, tokenization, Markdown, HAST, line numbers, long numbered blocks, and long decorated blocks. Timings use the median of three samples after two warmup passes. Each profile has a 1.2 second CI budget; the main highlighting profile processes at least 10,000 blocks.
 
 `pnpm run compare:sugar-high` compares the overlapping JS/TS/JSX/TSX use case. `pnpm run compare:shiki` compares all supported fixtures. These are directional measurements, not claims of equivalent grammar depth.
 

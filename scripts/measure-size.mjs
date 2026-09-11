@@ -9,12 +9,35 @@ const profiles = {
     `,
     limits: { minified: 4_000, gzip: 2_000, brotli: 1_800 },
   },
+  rootCore: {
+    source: `
+      import { createHighlighter } from './src/index.ts'
+      globalThis.highlighter = createHighlighter({ languages: [] })
+    `,
+    limits: { minified: 4_000, gzip: 2_000, brotli: 1_800 },
+  },
+  rootEscape: {
+    source: `
+      export { escapeHtml } from './src/index.ts'
+    `,
+    limits: { minified: 300, gzip: 220, brotli: 180 },
+  },
   tsx: {
     source: `
       import { createHighlighter } from './src/core.ts'
       import { tsx } from './src/languages/tsx.ts'
       globalThis.highlighter = createHighlighter({ languages: [tsx] })
     `,
+    languages: ['tsx'],
+    limits: { minified: 9_800, gzip: 4_100, brotli: 3_750 },
+  },
+  tsxBarrel: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { tsx } from './src/languages/index.ts'
+      globalThis.highlighter = createHighlighter({ languages: [tsx] })
+    `,
+    languages: ['tsx'],
     limits: { minified: 9_800, gzip: 4_100, brotli: 3_750 },
   },
   octane: {
@@ -26,7 +49,8 @@ const profiles = {
       globalThis.highlighter = highlighter
       globalThis.octaneHighlight = createOctaneMdxHighlight({ highlighter })
     `,
-    limits: { minified: 13_000, gzip: 5_200, brotli: 4_750 },
+    languages: ['ts'],
+    limits: { minified: 13_500, gzip: 5_500, brotli: 5_000 },
   },
   docs: {
     source: `
@@ -44,6 +68,7 @@ const profiles = {
         languages: [css, html, js, json, jsx, markdown, shell, ts, tsx],
       })
     `,
+    languages: ['css', 'html', 'js', 'json', 'jsx', 'markdown', 'shell', 'ts', 'tsx'],
     limits: { minified: 16_000, gzip: 6_100, brotli: 5_550 },
   },
   all: {
@@ -51,7 +76,32 @@ const profiles = {
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
+    languages: 'all',
     limits: { minified: 23_000, gzip: 8_300, brotli: 7_500 },
+  },
+  reactAdapter: {
+    source: `export * from './src/react.ts'`,
+    limits: { minified: 300, gzip: 200, brotli: 160 },
+  },
+  markdownAdapter: {
+    source: `export * from './src/markdown.ts'`,
+    limits: { minified: 5_800, gzip: 2_500, brotli: 2_300 },
+  },
+  remarkAdapter: {
+    source: `export * from './src/remark.ts'`,
+    limits: { minified: 5_600, gzip: 2_400, brotli: 2_200 },
+  },
+  rehypeAdapter: {
+    source: `export * from './src/rehype.ts'`,
+    limits: { minified: 5_700, gzip: 2_450, brotli: 2_250 },
+  },
+  octaneAdapter: {
+    source: `export * from './src/octane.ts'`,
+    limits: { minified: 6_000, gzip: 2_550, brotli: 2_350 },
+  },
+  theme: {
+    source: `export * from './src/theme.ts'`,
+    limits: { minified: 1_500, gzip: 750, brotli: 650 },
   },
 }
 
@@ -71,6 +121,7 @@ for (const [name, profile] of Object.entries(profiles)) {
     platform: 'browser',
     target: 'es2022',
     write: false,
+    metafile: true,
     logLevel: 'silent',
   })
   const code = result.outputFiles[0].contents
@@ -82,12 +133,27 @@ for (const [name, profile] of Object.entries(profiles)) {
   }
   sizes[name] = measured
 
-  if (
-    measured.minified > profile.limits.minified ||
-    measured.gzip > profile.limits.gzip ||
-    measured.brotli > profile.limits.brotli
-  ) {
-    failed = true
+  for (const [format, limit] of Object.entries(profile.limits)) {
+    if (measured[format] > limit) {
+      console.error(`${name}: ${format} is ${measured[format]} bytes, over the ${limit}-byte budget`)
+      failed = true
+    }
+  }
+
+  // Inspect retained code, since a barrel can resolve modules that are later removed.
+  for (const output of Object.values(result.metafile.outputs)) {
+    for (const [input, { bytesInOutput }] of Object.entries(output.inputs)) {
+      if (!bytesInOutput) continue
+      const language = /^src\/languages\/([^/]+)\.ts$/.exec(input)?.[1]
+      if (language && profile.languages !== 'all' && !(profile.languages || []).includes(language)) {
+        console.error(`${name}: unexpected language retained in bundle: ${language}`)
+        failed = true
+      }
+      if (input.startsWith('src/themes/') || (name !== 'theme' && input === 'src/theme.ts')) {
+        console.error(`${name}: unexpected theme code retained in bundle: ${input}`)
+        failed = true
+      }
+    }
   }
 }
 

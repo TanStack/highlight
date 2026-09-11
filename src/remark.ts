@@ -1,4 +1,5 @@
 import type { Highlighter, HighlightDecoration } from './core.js'
+import { tokenizeCodeFence } from './internal/code-fence.js'
 import {
   codeFenceToHast,
   renderCodeFence,
@@ -66,12 +67,8 @@ export function remarkCodeNodeToMdast(
   node: RemarkCodeNode,
   options: RemarkHighlightOptions,
 ): RemarkHighlightedCodeNode {
-  const rendered = renderCodeFence(createInput(node, options), options.highlighter)
-  const hast = tokensToHast(rendered.tokens, rendered.lang, {
-    decorations: rendered.decorations,
-    lineNumbers: rendered.lineNumbers,
-    title: rendered.title,
-  })
+  const rendered = tokenizeCodeFence(createInput(node, options), options.highlighter)
+  const hast = tokensToHast(rendered.tokens, rendered.lang, rendered)
 
   return {
     type: 'highlightedCode',
@@ -81,7 +78,7 @@ export function remarkCodeNodeToMdast(
       hProperties: hast.properties,
       hChildren: hast.children,
       syntaxHighlight: {
-        copyText: rendered.copyText,
+        copyText: rendered.code,
         lang: rendered.lang,
         title: rendered.title,
       },

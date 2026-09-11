@@ -1,5 +1,4 @@
 import fs from 'node:fs'
-import { performance } from 'node:perf_hooks'
 import { brotliCompressSync, gzipSync } from 'node:zlib'
 import { build } from 'esbuild'
 import { highlight as sugarHighlight } from 'sugar-high'
@@ -8,6 +7,7 @@ import { js } from '../dist/languages/js.js'
 import { jsx } from '../dist/languages/jsx.js'
 import { ts } from '../dist/languages/ts.js'
 import { tsx } from '../dist/languages/tsx.js'
+import { measureRuntime } from './benchmark-utils.mjs'
 
 const allFixtures = JSON.parse(
   fs.readFileSync('test/generated/tanstack-doc-fixtures.json', 'utf8'),
@@ -42,6 +42,7 @@ console.log(
       fixtures: fixtures.length,
       iterations,
       blocks: fixtures.length * iterations,
+      timing: 'Median of three samples after two warmup passes',
       runtime: { ours, sugarHigh: sugar },
       bundle: { ours: oursBundle, sugarHigh: sugarBundle },
     },
@@ -51,15 +52,12 @@ console.log(
 )
 
 function measure(highlight) {
-  let htmlBytes = 0
-  const start = performance.now()
-  for (let iteration = 0; iteration < iterations; iteration++) {
-    for (const fixture of fixtures) htmlBytes += highlight(fixture).length
-  }
-  return {
-    elapsedMs: Number((performance.now() - start).toFixed(2)),
-    htmlKiB: Math.round(htmlBytes / 1024),
-  }
+  return measureRuntime({
+    fixtures,
+    run: highlight,
+    targetBlocks: 5_000,
+    outputBytes: (html) => Buffer.byteLength(html),
+  })
 }
 
 async function measureBundle(contents) {

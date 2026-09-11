@@ -20,6 +20,8 @@ type RehypeHighlightOptions = {
 
 Callbacks receive the original `pre` node. Language names are read from a `language-*` class on the child `code` element.
 
+Fence titles, annotations, and line numbers are read from the child code node's `data.meta`, as emitted by `mdast-util-to-hast`. A callback title or explicit `lineNumbers` option overrides metadata.
+
 ## `rehypeHighlightCodeBlocks`
 
 ```ts
@@ -55,5 +57,7 @@ function rehypePreCodeToHast(
 ```
 
 Converts one eligible `pre` node. It returns `undefined` when the node is already highlighted or does not contain a direct `code` child. Descendant text is concatenated and trailing whitespace is removed before highlighting.
+
+Existing attributes, classes, and plugin data on the `pre` and `code` elements are preserved.
 
 See [Markdown Pipelines](../guides/markdown-pipelines) for choosing between the Remark and Rehype integrations.
