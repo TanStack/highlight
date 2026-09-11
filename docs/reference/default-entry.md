@@ -43,7 +43,7 @@ Returns the canonical registered language name for a name or alias. Names are tr
 function listLanguages(): Array<HighlightLanguage>
 ```
 
-Returns the 27 canonical language names registered in `defaultHighlighter`.
+Returns the 29 canonical language names registered in `defaultHighlighter`.
 
 ### `tokenize`
 
