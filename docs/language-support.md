@@ -16,6 +16,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Dockerfile | `dockerfile` | `docker` | Common directives, variables, commands |
 | EJS | `ejs` | - | HTML plus optional JavaScript delegation |
 | Env | `env` | `dotenv` | Properties, values, comments |
+| Go | `go` | `golang` | Raw strings, runes, comments, declarations |
 | HTML | `html` | `htm`, `xml`, `angular-html` | Optional JavaScript/TypeScript and CSS delegation |
 | HTTP | `http` | - | Methods, headers, protocol, paths |
 | JavaScript | `js` | `javascript`, `mjs`, `cjs`, `js-vue` | Templates, interpolation, regex literals |

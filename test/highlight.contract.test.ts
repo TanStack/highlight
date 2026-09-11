@@ -28,10 +28,16 @@ describe('language inventory', () => {
 
   it('lists the normalized support targets once', () => {
     const languages = listLanguages()
+    const fixtureLanguages = new Set(
+      languageFixtures.map((fixture) => fixture.normalized),
+    )
     expect(new Set(languages).size).toBe(languages.length)
 
     for (const fixture of languageFixtures) {
       expect(languages).toContain(fixture.normalized)
+    }
+    for (const language of languages) {
+      expect(fixtureLanguages, `missing representative fixture for ${language}`).toContain(language)
     }
   })
 })
@@ -82,6 +88,7 @@ describe('output contract', () => {
   it('keeps comment markers inside strings and quotes inside comments', () => {
     const cases = [
       ['ts', `const url = "https://example.com" // "comment"`],
+      ['go', `url := "https://go.dev" // "comment"`],
       ['python', `value = "# not a comment" # "comment"`],
       ['shell', `echo "# not a comment" # "comment"`],
       ['yaml', `url: "https://example.com/#hash" # "comment"`],

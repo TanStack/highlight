@@ -30,6 +30,35 @@ export function Counter() @{
     ],
   },
   {
+    lang: 'golang',
+    normalized: 'go',
+    code: `package main
+
+import "fmt"
+
+type Greeter struct {
+  Name string
+}
+
+func (g Greeter) Greet() {
+  count := 2
+  url := \`https://go.dev\`
+  initial := 'G'
+  fmt.Println(url, initial, g.Name, count, true) // greet
+}`,
+    expectedClasses: [
+      'th-keyword',
+      'th-string',
+      'th-type',
+      'th-function',
+      'th-property',
+      'th-number',
+      'th-literal',
+      'th-comment',
+      'th-operator',
+    ],
+  },
+  {
     lang: 'tsx',
     normalized: 'tsx',
     code: `import { useState } from 'react'\n\ntype Props = { name: string }\n\nexport function Greeting({ name }: Props) {\n  const [count, setCount] = useState(0)\n  return <button className=\"primary\" onClick={() => setCount(count + 1)}>{name}</button>\n}`,
