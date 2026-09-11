@@ -122,7 +122,7 @@
     "version": "pnpm run skills:sync-version"
   },
   "devDependencies": {
-    "@changesets/cli": "3.0.2",
+    "@changesets/cli": "2.31.1",
     "@tanstack/intent": "^0.3.6",
     "@types/node": "^26.0.0",
     "esbuild": "^0.28.1",
