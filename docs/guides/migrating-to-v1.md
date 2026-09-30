@@ -16,7 +16,7 @@ Within 1.x, exported entry points, documented argument and return shapes, the me
 
 Parser corrections are patch releases. They may change which existing semantic class is assigned to a token, or split and join adjacent token spans. Exact token boundaries, complete HTML snapshots and syntax coloring are not frozen. Source preservation and escaped output remain required.
 
-New languages, themes, optional settings and token classes are minor releases. Consumers of `HighlightTokenClass` should tolerate additional semantic classes, for example with a default branch when choosing presentation. Removing a class or changing an existing class's meaning requires a major release.
+New languages, themes and optional settings are minor releases. `HighlightTokenClass` is a closed public union, so adding or removing a token class requires a major release to preserve exhaustive TypeScript consumers. Changing an existing class's meaning also requires a major release.
 
 Custom language definitions and theme selectors are trusted application configuration. The renderer escapes code and decoration attributes; it does not sanitize arbitrary CSS supplied to theme helpers. Synchronous highlighting is intended for documentation-sized blocks. Applications accepting unbounded input should enforce their own size limit or isolate work off the UI thread.
 
