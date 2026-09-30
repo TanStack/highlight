@@ -215,10 +215,12 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Registration | Minified | Gzip | Brotli |
 | --- | ---: | ---: | ---: |
 | Core, no languages | 3.84 KB | 1.82 KB | 1.66 KB |
-| Core + TSX | 9.46 KB | 4.03 KB | 3.66 KB |
-| Octane MDX + TypeScript | 13.21 KB | 5.37 KB | 4.90 KB |
-| Nine-language docs set | 15.39 KB | 5.97 KB | 5.44 KB |
-| All 30 languages | 30.08 KB | 10.61 KB | 9.56 KB |
+| Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
+| Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
+| Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
+| All 30 languages | 30.72 KB | 10.77 KB | 9.79 KB |
+
+The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 
 On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks, using the median of three runs after warmup:
 
