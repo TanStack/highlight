@@ -7,7 +7,7 @@ const keywords =
 const semanticPatterns = [
   {
     className: 'property' as const,
-    regex: /(?:\.|\?\.)([A-Za-z_$][\w$]*)/g,
+    regex: /(?<!\.)\.([A-Za-z_$][\w$]*)/g,
     group: 1,
   },
 
@@ -162,11 +162,10 @@ function collectScriptInitialRanges(
       objectBraces.pop()
     } else if (objectBraces.at(-1) && /[A-Za-z_$]/.test(character)) {
       const before = previousCodeIndex(code, index, ranges)
-      if (code[before] === '{' || code[before] === ',') {
+      if ('{,;'.includes(code[before] || '\0')) {
         let end = index + 1
         while (end < limit && /[\w$]/.test(code[end])) end++
-        let after = end
-        while (after < limit && /\s/.test(code[after])) after++
+        const after = end + (code.slice(end).match(/^(?:\s|\/\*[\s\S]*?\*\/|\/\/[^\n]*(?:\n|$))*/)?.[0].length || 0)
         if (code[after] === ':') {
           ranges.push({ start: index, end, className: 'property' })
           index = end

@@ -524,3 +524,16 @@ it('keeps property context across comments, destructuring, and embedded objects'
     expect(tokens.some(token => token.value === 'default' && token.className === 'property'), code).toBe(true)
   }
 })
+
+
+it('distinguishes spreads and property separators', () => {
+  const literals = highlighter.tokenize('const x = { ...null, ...undefined }; x?.default', { lang: 'ts' }).tokens
+  for (const name of ['null', 'undefined']) {
+    expect(literals.some(token => token.value === name && token.className === 'literal')).toBe(true)
+  }
+  expect(literals.some(token => token.value === 'default' && token.className === 'property')).toBe(true)
+  const properties = highlighter.tokenize('type X = { default: string; get: number }; const x = { default /* comment */ : true, get // comment\n : 1 }', { lang: 'ts' }).tokens
+  expect(properties.filter(token => token.value === 'get' && token.className === 'property')).toHaveLength(2)
+  expect(properties.filter(token => token.value === 'default' && token.className === 'property')).toHaveLength(2)
+  expect(properties.filter(token => token.className === 'comment')).toHaveLength(2)
+})
