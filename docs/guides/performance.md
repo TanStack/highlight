@@ -15,8 +15,8 @@ CI measures selective browser bundles and highlighting performance on real docum
 | Core | None | 1.82 KB | 2.0 KB |
 | TSX | TSX | 4.26 KB | 4.35 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.59 KB | 5.7 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.20 KB | 6.2 KB |
-| All | All 30 definitions | 10.77 KB | 10.8 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.20 KB | 6.3 KB |
+| All | All 30 definitions | 10.77 KB | 10.9 KB |
 
 KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
 
@@ -75,3 +75,5 @@ Context-aware fixes are welcome when they solve common docs code. A change shoul
 - Generated HTML size when output structure changes
 
 The correct response to a crossed budget is to inspect the behavior and architecture. Budgets can move when a measured quality improvement justifies the bytes, but the tradeoff must be explicit.
+
+The 1.0 property-context correction adds roughly 230 gzip bytes to the TSX profile without changing core. Local Node 26 gzip results differ slightly from CI compression: the CI docs profile is 6,217 bytes and all languages is 10,838 bytes. Their budgets are 6,300 and 10,900 bytes respectively, retaining a small explicit margin.

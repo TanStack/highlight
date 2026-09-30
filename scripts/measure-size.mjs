@@ -69,7 +69,7 @@ const profiles = {
       })
     `,
     languages: ['css', 'html', 'js', 'json', 'jsx', 'markdown', 'shell', 'ts', 'tsx'],
-    limits: { minified: 16_100, gzip: 6_200, brotli: 5_700 },
+    limits: { minified: 16_100, gzip: 6_300, brotli: 5_700 },
   },
   php: {
     source: `
@@ -104,7 +104,7 @@ const profiles = {
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 30_800, gzip: 10_800, brotli: 9_800 },
+    limits: { minified: 30_800, gzip: 10_900, brotli: 9_800 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,
