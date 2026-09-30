@@ -31,6 +31,7 @@ This is not an editor parser or a TextMate engine. It is a deliberately small do
 ## Documentation
 
 - [Overview](docs/overview.md)
+- [Migrating to v1 and compatibility policy](docs/guides/migrating-to-v1.md)
 - [Installation](docs/installation.md)
 - [Quick Start](docs/quick-start.md)
 - [Comparison](docs/comparison.md)

@@ -25,3 +25,37 @@ jobs:
         uses: TanStack/config/.github/setup@e4b48f16568324f76f467aa4c2aac2f05db632c3
       - name: Verify
         run: pnpm run verify
+
+      - name: Pack runtime artifact
+        run: mkdir -p runtime-package && npm pack --ignore-scripts --pack-destination runtime-package
+      - name: Upload runtime artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: highlight-runtime
+          path: runtime-package/*.tgz
+
+  runtime:
+    needs: verify
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22, 24, 26]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: highlight-runtime
+          path: runtime-package
+      - name: Install packed package and verify runtime
+        run: |
+          mkdir consumer
+          cd consumer
+          npm init -y
+          npm install --ignore-scripts --no-audit --no-fund ../runtime-package/*.tgz
+          node ../scripts/test-runtime.mjs

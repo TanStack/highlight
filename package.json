@@ -118,8 +118,9 @@
     "skills:check-version": "node scripts/sync-skill-version.mjs --check",
     "skills:sync-version": "node scripts/sync-skill-version.mjs",
     "typecheck": "tsc --noEmit",
-    "verify": "pnpm run typecheck && pnpm run build && pnpm run test:docs && pnpm run test:skills && pnpm run lint:package && pnpm run test:package && pnpm run test && pnpm run size && pnpm run bench",
-    "version": "pnpm run skills:sync-version"
+    "verify": "pnpm run typecheck && pnpm run build && pnpm run test:docs && pnpm run test:skills && pnpm run lint:package && pnpm run test:package && pnpm run test:packed && pnpm run test && pnpm run size && pnpm run bench",
+    "version": "pnpm run skills:sync-version",
+    "test:packed": "node scripts/test-packed.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "2.31.1",

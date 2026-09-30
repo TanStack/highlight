@@ -12,6 +12,7 @@
         { "label": "Overview", "to": "overview" },
         { "label": "Installation", "to": "installation" },
         { "label": "Quick Start", "to": "quick-start" },
+        { "label": "Migrating to v1", "to": "guides/migrating-to-v1" },
         { "label": "Comparison", "to": "comparison" }
       ]
     },
