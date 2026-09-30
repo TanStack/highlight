@@ -29,7 +29,7 @@ const profiles = {
       globalThis.highlighter = createHighlighter({ languages: [tsx] })
     `,
     languages: ['tsx'],
-    limits: { minified: 9_800, gzip: 4_100, brotli: 3_750 },
+    limits: { minified: 10_200, gzip: 4_350, brotli: 4_000 },
   },
   tsxBarrel: {
     source: `
@@ -38,7 +38,7 @@ const profiles = {
       globalThis.highlighter = createHighlighter({ languages: [tsx] })
     `,
     languages: ['tsx'],
-    limits: { minified: 9_800, gzip: 4_100, brotli: 3_750 },
+    limits: { minified: 10_200, gzip: 4_350, brotli: 4_000 },
   },
   octane: {
     source: `
@@ -50,7 +50,7 @@ const profiles = {
       globalThis.octaneHighlight = createOctaneMdxHighlight({ highlighter })
     `,
     languages: ['ts'],
-    limits: { minified: 13_500, gzip: 5_500, brotli: 5_000 },
+    limits: { minified: 14_000, gzip: 5_700, brotli: 5_250 },
   },
   docs: {
     source: `
@@ -69,7 +69,7 @@ const profiles = {
       })
     `,
     languages: ['css', 'html', 'js', 'json', 'jsx', 'markdown', 'shell', 'ts', 'tsx'],
-    limits: { minified: 16_000, gzip: 6_100, brotli: 5_550 },
+    limits: { minified: 16_100, gzip: 6_300, brotli: 5_700 },
   },
   php: {
     source: `
@@ -104,7 +104,7 @@ const profiles = {
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 30_500, gzip: 10_800, brotli: 9_800 },
+    limits: { minified: 30_800, gzip: 10_900, brotli: 9_800 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,

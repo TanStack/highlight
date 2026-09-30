@@ -24,10 +24,10 @@ The suite protects the package's actual product boundary: valid code commonly pu
 | Profile | Languages | Gzip budget |
 | --- | --- | ---: |
 | Core | None | 2.0 KB |
-| TSX | TSX | 4.1 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.5 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.1 KB |
-| All | All 30 definitions | 10.8 KB |
+| TSX | TSX | 4.35 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.7 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.3 KB |
+| All | All 30 definitions | 10.9 KB |
 
 The selective profiles are the primary product metric. The all-language profile protects the convenience entry from unbounded growth. Bundle graphs reject unexpected language or theme code. Package tests repeat isolation checks through public exports after building.
 
@@ -39,4 +39,4 @@ The selective profiles are the primary product metric. The all-language profile 
 
 ## Deliberate Omissions
 
-The package does not maintain compiler conformance suites, malformed-input fuzzing, ReDoS corpora, editor state tests, or exact parity snapshots against another highlighter. Those would optimize for a broader parser product than this library intends to become.
+Installed-package checks include bounded malformed strings, repeated delimiters, Unicode and escaping under a process timeout. They are a regression guard, not a proof of arbitrary-input complexity. The package does not maintain compiler conformance suites, unbounded fuzzing, a comprehensive ReDoS corpus, editor state tests, or exact parity snapshots against another highlighter. Those would optimize for a broader parser product than this library intends to become.

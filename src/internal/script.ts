@@ -5,6 +5,12 @@ const keywords =
   'abstract|as|asserts|async|await|break|case|catch|class|const|continue|debugger|declare|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|infer|instanceof|interface|is|keyof|let|module|namespace|new|of|override|package|private|protected|public|readonly|return|satisfies|set|static|super|switch|this|throw|try|type|typeof|using|var|while|with|yield'
 
 const semanticPatterns = [
+  {
+    className: 'property' as const,
+    regex: /(?<!\.)\.([A-Za-z_$][\w$]*)/g,
+    group: 1,
+  },
+
   { className: 'function' as const, regex: /@[A-Za-z_$][\w$]*/g },
   {
     className: 'keyword' as const,
@@ -33,11 +39,6 @@ const semanticPatterns = [
     className: 'type' as const,
     regex:
       /\b(?:Array|Record|Promise|Readonly|Set|Map|WeakMap|WeakSet|string|number|boolean|bigint|symbol|object|unknown|never|void|any|[A-Z][A-Za-z0-9_$]*)\b/g,
-  },
-  {
-    className: 'property' as const,
-    regex: /(?:\.|\?\.)([A-Za-z_$][\w$]*)/g,
-    group: 1,
   },
 ] as const
 
@@ -68,6 +69,7 @@ function collectScriptInitialRanges(
   limit = code.length,
   tagBody = false,
 ) {
+  const objectBraces: Array<boolean> = []
   const expressions: Array<number> = []
   let jsxDepth = 0
 
@@ -144,6 +146,31 @@ function collectScriptInitialRanges(
         ranges.push({ start: index, end, className: 'literal' })
         index = end
         continue
+      }
+    }
+
+    if (character === '{') {
+      const before = previousCodeIndex(code, index, ranges)
+      let wordStart = before
+      while (wordStart >= 0 && /[\w$]/.test(code[wordStart])) wordStart--
+      const word = code.slice(wordStart + 1, before + 1)
+      objectBraces.push(
+        '=(:,['.includes(code[before] || '\0') ||
+          /^(?:return|yield|const|let|var)$/.test(word),
+      )
+    } else if (character === '}') {
+      objectBraces.pop()
+    } else if (objectBraces.at(-1) && /[A-Za-z_$]/.test(character)) {
+      const before = previousCodeIndex(code, index, ranges)
+      if ('{,;'.includes(code[before] || '\0')) {
+        let end = index + 1
+        while (end < limit && /[\w$]/.test(code[end])) end++
+        const after = end + (code.slice(end).match(/^(?:\s|\/\*[\s\S]*?\*\/|\/\/[^\n]*(?:\n|$))*/)?.[0].length || 0)
+        if (code[after] === ':') {
+          ranges.push({ start: index, end, className: 'property' })
+          index = end
+          continue
+        }
       }
     }
 
@@ -432,4 +459,25 @@ function findQuotedEnd(
 function findLineEnd(code: string, start: number) {
   const end = code.indexOf('\n', start)
   return end < 0 ? code.length : end
+}
+
+// Comments do not change the syntactic position of a property or opening brace.
+function previousCodeIndex(code: string, index: number, ranges: Array<TokenRange>) {
+  let before = index - 1
+  let rangeIndex = ranges.length - 1
+  while (before >= 0) {
+    if (/\s/.test(code[before])) {
+      before--
+      continue
+    }
+    const range = ranges[rangeIndex]
+    if (range && range.end > before) {
+      rangeIndex--
+      if (range.className === 'comment' && range.start <= before) {
+        before = range.start - 1
+        continue
+      }
+    } else break
+  }
+  return before
 }

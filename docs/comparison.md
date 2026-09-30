@@ -73,3 +73,5 @@ Choose another tool when you need:
 - Semantic tokens from a language service
 
 Run `pnpm run compare:sugar-high` and `pnpm run compare:shiki` to reproduce the repository's comparisons.
+
+These recorded comparison timings precede the 1.0 property-context correction. Run the comparison scripts for current measurements; see the performance guide for current bundle sizes.

@@ -485,3 +485,55 @@ function classesInRange(
 function reconstruct(result: ReturnType<typeof highlighter.tokenize>) {
   return result.tokens.map((token) => token.value).join('')
 }
+
+describe('JavaScript property names', () => {
+  it('classifies keyword and literal property names without changing values', () => {
+    for (const lang of ['js', 'ts', 'jsx', 'tsx']) {
+      const code = 'const x = { default: true, async: false, get: 3, true: null, nested: { return: 1 } }; x.default; x?.async'
+      const tokens = highlighter.tokenize(code, { lang }).tokens
+      expect(tokens.map(token => token.value).join('')).toBe(code)
+      for (const name of ['default', 'async', 'get', 'true', 'nested', 'return']) {
+        expect(tokens.some(token => token.value === name && token.className === 'property'), `${lang}: ${name}`).toBe(true)
+      }
+      expect(tokens.some(token => token.value === 'true' && token.className === 'literal')).toBe(true)
+    }
+  })
+
+  it('preserves switch defaults, accessors, modifiers, labels, strings and comments', () => {
+    const code = 'switch (x) { default: break }; const x = { get value() { return true }, async run() {} }; label: while (true) { break label }; "x.default"; // x.default'
+    const tokens = highlighter.tokenize(code, { lang: 'ts' }).tokens
+    for (const name of ['switch', 'default', 'break', 'get', 'return', 'async', 'while']) {
+      expect(tokens.some(token => token.value === name && token.className === 'keyword'), name).toBe(true)
+    }
+    expect(tokens.some(token => token.value === '"x.default"' && token.className === 'string')).toBe(true)
+    expect(tokens.some(token => token.value === '// x.default' && token.className === 'comment')).toBe(true)
+  })
+})
+
+
+it('keeps property context across comments, destructuring, and embedded objects', () => {
+  for (const code of [
+    'const x = /* comment */ { /* comment */ default: true }',
+    'const { default: value, get: read } = source',
+    'const x = { run() { switch (x) { default: return { default: true } } } }',
+    'const x = `value ${({ default: true }).default}`',
+    'type X = { default: string; get: number }',
+  ]) {
+    const tokens = highlighter.tokenize(code, { lang: 'ts' }).tokens
+    expect(tokens.map(token => token.value).join('')).toBe(code)
+    expect(tokens.some(token => token.value === 'default' && token.className === 'property'), code).toBe(true)
+  }
+})
+
+
+it('distinguishes spreads and property separators', () => {
+  const literals = highlighter.tokenize('const x = { ...null, ...undefined }; x?.default', { lang: 'ts' }).tokens
+  for (const name of ['null', 'undefined']) {
+    expect(literals.some(token => token.value === name && token.className === 'literal')).toBe(true)
+  }
+  expect(literals.some(token => token.value === 'default' && token.className === 'property')).toBe(true)
+  const properties = highlighter.tokenize('type X = { default: string; get: number }; const x = { default /* comment */ : true, get // comment\n : 1 }', { lang: 'ts' }).tokens
+  expect(properties.filter(token => token.value === 'get' && token.className === 'property')).toHaveLength(2)
+  expect(properties.filter(token => token.value === 'default' && token.className === 'property')).toHaveLength(2)
+  expect(properties.filter(token => token.className === 'comment')).toHaveLength(2)
+})
