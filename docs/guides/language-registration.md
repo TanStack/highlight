@@ -4,7 +4,7 @@ title: Language Registration
 
 # Language Registration
 
-Language registration is the main bundle-size control in TanStack Highlight.
+Imports determine which language modules can reach your bundle; registration determines which of those languages the highlighter can use. Import definitions from direct subpaths and register the languages your content needs. Removing a definition from the registry does not guarantee that a bundler removes its imported module.
 
 ## Create a selective highlighter
 
@@ -92,7 +92,7 @@ export const highlighter = createHighlighter({
 })
 ```
 
-There is no benefit to creating one per block. The registry is immutable after construction and safe to reuse across server requests and client renders.
+Reuse the highlighter across blocks and server requests to avoid rebuilding its name and alias maps. There is no API for adding registrations after construction; create another highlighter when the language set changes. Language definitions are retained by reference, so keep their tokenizers unchanged and free of request-specific state.
 
 ## Aggregate imports
 

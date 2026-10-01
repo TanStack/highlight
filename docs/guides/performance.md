@@ -10,15 +10,17 @@ CI measures selective browser bundles and highlighting performance on real docum
 
 `pnpm run size` builds seventeen browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
 
-| Profile | Registered languages | Current gzip | CI budget |
+The gzip results below are a local 1.0.0 measurement from 2026-10-01 using Node 26.3.1 and esbuild 0.28.1. Compression results can vary with the toolchain.
+
+| Profile | Registered languages | Measured gzip | CI budget |
 | --- | --- | ---: | ---: |
 | Core | None | 1.82 KB | 2.0 KB |
-| TSX | TSX | 4.26 KB | 4.35 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.59 KB | 5.7 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.20 KB | 6.3 KB |
-| All | All 30 definitions | 10.77 KB | 10.9 KB |
+| TSX | TSX | 4.29 KB | 4.35 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.62 KB | 5.7 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.22 KB | 6.3 KB |
+| All | All 30 definitions | 10.79 KB | 10.9 KB |
 
-KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
+KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper measured 691 gzip bytes in the same run.
 
 Selective profiles are the primary metric. The all-language profile exists to prevent convenience-entry growth from becoming invisible.
 
@@ -28,7 +30,7 @@ The committed corpus contains 334 real code fences sampled from TanStack documen
 
 `pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C++, CMake, and PHP samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
-A local before-and-after review used the same minified bundle settings, fixtures, and benchmark harness on macOS arm64 with Node 24.15.0:
+A historical before-and-after review of the 0.0.11 optimization used the same minified bundle settings, fixtures, and benchmark harness on macOS arm64 with Node 24.15.0:
 
 | Workload | Blocks | Before | After |
 | --- | ---: | ---: | ---: |
@@ -38,7 +40,7 @@ A local before-and-after review used the same minified bundle settings, fixtures
 | 1,000-line numbered blocks | 50 | 358 ms | 68 ms |
 | 1,000-line decorated blocks | 50 | 426 ms | 150 ms |
 
-Generated HTML byte totals were unchanged. The core avoids rescanning earlier tokens for each line, and HAST adapters skip HTML serialization. Highlighter bundles grew by 41 to 173 gzip bytes across the five profiles, while root helper imports and theme CSS generation became smaller. The Octane gzip budget increased from 5.2 KB to 5.5 KB to accommodate correct fence metadata and attribute preservation.
+Generated HTML byte totals were unchanged. The core avoids rescanning earlier tokens for each line, and HAST adapters skip HTML serialization. Highlighter bundles grew by 41 to 173 gzip bytes across the five profiles, while root helper imports and theme CSS generation became smaller. At that time, the Octane gzip budget increased from 5.2 KB to 5.5 KB to accommodate correct fence metadata and attribute preservation. The current budget is in the bundle profile table above.
 
 ## Comparison scripts
 
@@ -76,4 +78,4 @@ Context-aware fixes are welcome when they solve common docs code. A change shoul
 
 The correct response to a crossed budget is to inspect the behavior and architecture. Budgets can move when a measured quality improvement justifies the bytes, but the tradeoff must be explicit.
 
-The 1.0 property-context correction adds roughly 230 gzip bytes to the TSX profile without changing core. Local Node 26 gzip results differ slightly from CI compression: the CI docs profile is 6,217 bytes and all languages is 10,838 bytes. Their budgets are 6,300 and 10,900 bytes respectively, retaining a small explicit margin.
+The 1.0 property-context correction increased the measured TSX bundle without changing core. Use `pnpm run size` to check the current profile sizes and their remaining budget margins rather than relying on an earlier run.

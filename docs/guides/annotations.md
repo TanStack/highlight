@@ -4,7 +4,7 @@ title: Annotations
 
 # Annotations
 
-Annotations add application classes and data to lines or exact source ranges without changing the token stream.
+Annotations add application classes and data to lines or exact source ranges without changing the token stream. Your application supplies the selections and messages; Highlight does not analyze code for errors or infer changes.
 
 ## Line decorations
 
@@ -59,7 +59,7 @@ This adds `th-code--line-numbers`, line wrappers, and `data-line`. Base theme CS
 
 ## Try annotations
 
-The rendered block combines line numbers, a focused line, and an exact character-range diagnostic.
+The rendered block combines line numbers, a focused line, and an error annotation on a character range. The example supplies the identifier range and message directly.
 
 ```ts group=highlight-annotations file=/src/main.ts entry env=client
 import { createHighlighter } from '@tanstack/highlight/core'
@@ -107,7 +107,7 @@ code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size
 .hint { margin: 12px 4px 0; color: color-mix(in srgb, currentColor 70%, transparent); font-size: 13px; }`
 
   document.head.append(style)
-  output.innerHTML = `${result.html}<p class="hint">Hover the underlined identifier to read its diagnostic.</p>`
+  output.innerHTML = `${result.html}<p class="hint">Hover the underlined identifier to read the supplied error message.</p>`
 
   const diagnostic = output.querySelector<HTMLElement>('.is-error')
   if (diagnostic) diagnostic.title = diagnostic.dataset.message ?? ''

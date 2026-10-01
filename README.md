@@ -76,7 +76,7 @@ import { highlight } from '@tanstack/highlight'
 const result = highlight(`const value = 'docs'`, { lang: 'ts' })
 ```
 
-Unknown languages fall back to escaped plaintext.
+Unknown languages use the configured fallback, which defaults to escaped plaintext.
 
 ## SSR And Client
 
@@ -210,17 +210,17 @@ Each language is available from `@tanstack/highlight/languages/<name>`. The aggr
 
 ## Size And Speed
 
-Local browser bundles, minified with esbuild and compressed independently. KB uses 1,000 bytes:
+Local browser bundles for 1.0.0, measured on 2026-10-01 with Node 26.3.1 and esbuild 0.28.1, minified and compressed independently. KB uses 1,000 bytes:
 
 | Registration | Minified | Gzip | Brotli |
 | --- | ---: | ---: | ---: |
 | Core, no languages | 3.84 KB | 1.82 KB | 1.66 KB |
-| Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
-| Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
-| Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
-| All 30 languages | 30.72 KB | 10.77 KB | 9.79 KB |
+| Core + TSX | 10.16 KB | 4.29 KB | 3.93 KB |
+| Octane MDX + TypeScript | 13.91 KB | 5.62 KB | 5.21 KB |
+| Nine-language docs set | 16.09 KB | 6.22 KB | 5.68 KB |
+| All 30 languages | 30.77 KB | 10.79 KB | 9.79 KB |
 
-The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
+The comparisons below were measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings and output sizes.
 
 On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks, using the median of three runs after warmup:
 

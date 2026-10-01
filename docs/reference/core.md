@@ -44,7 +44,7 @@ type TokenizerContext = {
 }
 ```
 
-Passed to language tokenizers for opt-in embedded-language delegation. Recursive calls are capped at 24 levels.
+Passed to language tokenizers for opt-in embedded-language delegation. The initial call has depth zero; delegated calls beyond depth 24 return no token ranges.
 
 ### `defineLanguage`
 
@@ -65,7 +65,9 @@ function createHighlighter(options: {
 }): Highlighter
 ```
 
-Builds an immutable highlighter interface from the supplied registrations. The default fallback name is `plaintext`. An unregistered language, including an unregistered fallback, is rendered as escaped plain text.
+Builds a highlighter with name and alias maps from the supplied registrations. There is no method for adding registrations later. The returned object and language definitions are not frozen; keep shared definitions unchanged.
+
+The default fallback name is `plaintext`. Unknown language names resolve to the configured fallback and use its tokenizer if registered. An unregistered fallback produces escaped plain text under that fallback name.
 
 Duplicate canonical names or aliases use the last registration encountered.
 
@@ -124,7 +126,7 @@ type RenderedCodeBlockData = {
 }
 ```
 
-`renderCodeBlockData` trims trailing whitespace before creating every field.
+`renderCodeBlockData` applies `code.trimEnd()` before generating `copyText`, `htmlMarkup`, and `tokens`. It preserves the supplied `title` and normalizes `lang`.
 
 ## Tokens
 
@@ -141,7 +143,7 @@ type HighlightToken = {
 }
 ```
 
-Untyped source segments omit `className`. Concatenating every `value` always reconstructs the input exactly.
+Untyped source segments omit `className`. Concatenating every `value` reconstructs the string passed to tokenization. For block-data and fence helpers, that string has already had trailing whitespace removed.
 
 ## Decorations
 
