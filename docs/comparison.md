@@ -11,8 +11,8 @@ Syntax highlighters solve different problems. The smallest correct choice is the
 | Choose | Best fit | Main tradeoff |
 | --- | --- | --- |
 | **TanStack Highlight** | Blogs and docs that know their languages, need SSR/client parity, and value small HTML and selective imports | Focused heuristics instead of editor-grade grammars |
-| **Sugar High** | The smallest practical JavaScript/TypeScript/JSX experience | Narrower language set and much more generated markup in our fixture comparison |
-| **Shiki** | VS Code-like accuracy, TextMate grammars, and broad language/theme compatibility | Much larger runtime and asynchronous setup |
+| **Sugar High** | Compact JavaScript/TypeScript/JSX highlighting | Narrower language set and much more generated markup in our fixture comparison |
+| **Shiki** | VS Code-like accuracy, TextMate grammars, and broad language/theme compatibility | Grammar and engine setup; costs depend on the selected bundle and engine |
 | **highlight.js** | Broad language coverage and optional automatic detection | Larger modular core and detection/parser work not needed by known-language docs |
 | **Prism** | Mature grammar ecosystem and plugin integrations | Grammar composition and plugin architecture add more surface than this use case needs |
 | **speed-highlight** | Small, modular, class-based highlighting across browser and terminal use cases | Different grammar/output model and fewer docs-specific adapters |
@@ -40,6 +40,8 @@ Syntax highlighters solve different problems. The smallest correct choice is the
 
 ## Measured overlap with Sugar High
 
+The recorded comparisons below precede the 1.0 property-context correction. Run `pnpm run compare:sugar-high` and `pnpm run compare:shiki` for results from your checkout; see [Bundle Size and Performance](guides/performance) for current size profiles.
+
 The repository compares its installed Sugar High version against the overlapping JavaScript, TypeScript, JSX, and TSX fixture set. Timings are the median of three samples after two warmup passes. Bundle KB uses 1,000 bytes; HTML sizes count UTF-8 bytes.
 
 | | Bundle gzip | 5,040-block runtime | Generated HTML |
@@ -47,7 +49,7 @@ The repository compares its installed Sugar High version against the overlapping
 | TanStack Highlight | 4.11 KB | 78 ms | 6.7 MiB |
 | Sugar High 1.2.1 | 3.28 KB | 377 ms | 44.8 MiB |
 
-Sugar High wins raw JavaScript bundle size. TanStack Highlight spends about 830 additional gzip bytes on its registry, class-based output, decorations, and broader context handling, then produces substantially less HTML in this corpus.
+In this recorded profile, Sugar High's gzip bundle is about 830 bytes smaller, while TanStack Highlight produces less HTML. The profile includes Highlight's registry, class-based output, decorations, and context handling; it does not isolate the cost of each feature.
 
 ## Measured overlap with Shiki
 
@@ -73,5 +75,3 @@ Choose another tool when you need:
 - Semantic tokens from a language service
 
 Run `pnpm run compare:sugar-high` and `pnpm run compare:shiki` to reproduce the repository's comparisons.
-
-These recorded comparison timings precede the 1.0 property-context correction. Run the comparison scripts for current measurements; see the performance guide for current bundle sizes.

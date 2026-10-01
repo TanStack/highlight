@@ -98,7 +98,7 @@ export const result = highlighter.highlight(
 
 Line coordinates are one-based and inclusive; decorations activate `th-line` wrappers even without line numbers.
 
-### Attach exact source diagnostics
+### Render application-supplied diagnostics
 
 ```ts
 import { highlighter } from './highlight'
@@ -121,7 +121,7 @@ export const result = highlighter.highlight(code, {
 })
 ```
 
-Character ranges use zero-based, end-exclusive UTF-16 offsets.
+Character ranges use zero-based, end-exclusive UTF-16 offsets. The application supplies the range and diagnostic message; Highlight does not perform diagnostic analysis.
 
 ### Own font styles and annotation presentation in CSS
 

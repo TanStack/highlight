@@ -13,7 +13,7 @@ The suite protects the package's actual product boundary: valid code commonly pu
 - Every token stream reconstructs its source byte for byte.
 - Focused regressions cover context-sensitive failures such as TSX generics, nested template interpolation, regular expressions, Python triple strings, shell heredocs, YAML fragments and block scalars, and markup embeddings.
 - HTML uses one escaped `<pre><code>` tree with no inline style attributes.
-- Unknown languages fall back to plaintext.
+- Unknown languages use the configured fallback, which defaults to plaintext.
 - Remark and rehype produce structured nodes and do not require raw HTML.
 - Every public ESM subpath imports directly from the packed package shape.
 

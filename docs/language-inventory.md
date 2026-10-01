@@ -4,14 +4,14 @@ title: Language Inventory
 
 # TanStack Docs Language Inventory
 
-Generated from local markdown and MDX files in:
+This recorded inventory was generated from local Markdown and MDX files in:
 
 - Sibling repositories under `../*/docs`
 - The sibling `../tanstack.com` repository
 
 The scan parses fenced code blocks statefully, so closing fences are not counted as plaintext blocks. Hidden directories and this `highlight` package are ignored.
 
-Scanned files: `2940`
+Scanned files in this snapshot: `2940`. Counts depend on the sibling checkouts and are not a current inventory of every TanStack repository. Run `pnpm run scan:languages` from a checkout with the source repositories available to produce a new inventory.
 
 Generated real-code fixtures:
 
