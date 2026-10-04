@@ -24,11 +24,13 @@ import { mermaid } from './languages/mermaid.js'
 import { nginx } from './languages/nginx.js'
 import { php } from './languages/php.js'
 import { plaintext } from './languages/plaintext.js'
+import { powershell } from './languages/powershell.js'
 import { python } from './languages/python.js'
 import { scheme } from './languages/scheme.js'
 import { shell } from './languages/shell.js'
 import { sql } from './languages/sql.js'
 import { svelte } from './languages/svelte.js'
+import { swift } from './languages/swift.js'
 import { toml } from './languages/toml.js'
 import { ts } from './languages/ts.js'
 import { tsrx } from './languages/tsrx.js'
@@ -56,11 +58,13 @@ export type HighlightLanguage =
   | 'nginx'
   | 'php'
   | 'plaintext'
+  | 'powershell'
   | 'python'
   | 'scheme'
   | 'shell'
   | 'sql'
   | 'svelte'
+  | 'swift'
   | 'toml'
   | 'ts'
   | 'tsrx'
@@ -128,11 +132,13 @@ export const allLanguages = [
   nginx,
   php,
   plaintext,
+  powershell,
   python,
   scheme,
   shell,
   sql,
   svelte,
+  swift,
   toml,
   ts,
   tsrx,

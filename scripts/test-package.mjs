@@ -95,6 +95,13 @@ const isolatedBundles = [
     source: `import { createHighlighter } from '@tanstack/highlight/core'; import { tsx } from '${entry}'; globalThis.highlighter = createHighlighter({ languages: [tsx] })`,
     languages: ['tsx'],
   })),
+  ...['swift', 'powershell'].flatMap((language) => [
+    `@tanstack/highlight/languages/${language}`, '@tanstack/highlight/languages',
+  ].map((entry) => ({
+    name: `${entry} ${language}`,
+    source: `import { createHighlighter } from '@tanstack/highlight/core'; import { ${language} } from '${entry}'; globalThis.highlighter = createHighlighter({ languages: [${language}] })`,
+    languages: [language],
+  }))),
   ...['react', 'markdown', 'remark', 'rehype', 'octane'].map((entry) => ({
     name: `${entry} adapter`,
     source: `export * from '@tanstack/highlight/${entry}'`,

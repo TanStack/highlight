@@ -8,7 +8,7 @@ CI measures selective browser bundles and highlighting performance on real docum
 
 ## Bundle profiles
 
-`pnpm run size` builds seventeen browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
+`pnpm run size` builds nineteen browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
 
 | Profile | Registered languages | Current gzip | CI budget |
 | --- | --- | ---: | ---: |
@@ -16,9 +16,13 @@ CI measures selective browser bundles and highlighting performance on real docum
 | TSX | TSX | 4.26 KB | 4.35 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.59 KB | 5.7 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.20 KB | 6.3 KB |
-| All | All 30 definitions | 10.77 KB | 10.9 KB |
+| Swift | Swift | 3.36 KB | 3.55 KB |
+| PowerShell | PowerShell | 3.27 KB | 3.55 KB |
+| All | All 32 definitions | 12.43 KB | 12.7 KB |
 
 KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
+
+Adding Swift and PowerShell raises the all-language gzip bundle from 10.77 KB to 12.43 KB. Their isolated bundles are 3.36 KB and 3.27 KB gzip including core; existing selective budgets are unchanged.
 
 Selective profiles are the primary metric. The all-language profile exists to prevent convenience-entry growth from becoming invisible.
 
@@ -26,7 +30,7 @@ Selective profiles are the primary metric. The all-language profile exists to pr
 
 The committed corpus contains 334 real code fences sampled from TanStack documentation, with up to twenty samples per normalized language.
 
-`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C++, CMake, and PHP samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
+`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C++, CMake, PHP, Swift, and PowerShell samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
 A local before-and-after review used the same minified bundle settings, fixtures, and benchmark harness on macOS arm64 with Node 24.15.0:
 

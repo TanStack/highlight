@@ -29,11 +29,13 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Nginx | `nginx` | - | Directives, variables, URLs, comments |
 | PHP | `php` | - | PHP tags, attributes, quoted strings, heredoc/nowdoc, optional HTML delegation |
 | Plaintext | `plaintext` | `text`, `txt`, `-->` | Escaping only |
+| PowerShell | `powershell` | `pwsh`, `ps1` | Here-strings, escaped quotes, variables, cmdlets, type literals, word operators |
 | Python | `python` | `py` | Triple strings, prefixes, decorators, comments |
 | Scheme | `scheme` | `scm`, `racket` | Comments, strings, forms, literals |
 | Shell | `shell` | `bash`, `sh`, `zsh`, `cmd`, `console` | Heredocs, parameter expansion, comment boundaries |
 | SQL | `sql` | - | Strings, comments, common SQL clauses |
 | Svelte | `svelte` | - | Markup plus optional script/style and expression delegation |
+| Swift | `swift` | - | Nested comments, raw/multiline strings, extended regex delimiters, attributes, concurrency keywords |
 | TOML | `toml` | - | Strings, comments, tables, properties |
 | TypeScript | `ts` | `typescript`, `angular-ts` | JavaScript scanner plus TypeScript keywords/types |
 | TSRX | `tsrx` | `octane` | TypeScript, contextual JSX, Octane component shorthand and template directives |

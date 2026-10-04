@@ -98,13 +98,18 @@ const profiles = {
     languages: ['cmake'],
     limits: { minified: 6_000, gzip: 2_800, brotli: 2_600 },
   },
+  ...Object.fromEntries(['swift', 'powershell'].map((language) => [language, {
+    source: `import { createHighlighter } from './src/core.ts'; import { ${language} } from './src/languages/${language}.ts'; globalThis.highlighter = createHighlighter({ languages: [${language}] })`,
+    languages: [language],
+    limits: { minified: 7_700, gzip: 3_550, brotli: 3_300 },
+  }])),
   all: {
     source: `
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 30_800, gzip: 10_900, brotli: 9_800 },
+    limits: { minified: 36_400, gzip: 12_700, brotli: 11_600 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,

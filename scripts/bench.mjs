@@ -56,6 +56,14 @@ try {
       outputBytes: htmlBytes,
       targetBlocks: 10_000,
     },
+    ...Object.fromEntries([
+      ['swift', 'Observatory.swift'], ['powershell', 'Get-StationReport.ps1'],
+    ].map(([rawLang, file]) => [rawLang, {
+      fixtures: [{ rawLang, code: fs.readFileSync(`test/showcases/${file}`, 'utf8') }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 2_000,
+    }])),
     cpp: {
       fixtures: [{ rawLang: 'cpp', code: '#include <vector>\nconstexpr auto text = R"tag(// raw text)tag";\nint main() { std::vector<int> values{1, 2, 3}; return values.size(); }' }],
       run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),

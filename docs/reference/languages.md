@@ -40,11 +40,13 @@ const highlighter = createHighlighter({
 | `nginx` | `@tanstack/highlight/languages/nginx` | None |
 | `php` | `@tanstack/highlight/languages/php` | None |
 | `plaintext` | `@tanstack/highlight/languages/plaintext` | `text`, `txt`, `-->` |
+| `powershell` | `@tanstack/highlight/languages/powershell` | `pwsh`, `ps1` |
 | `python` | `@tanstack/highlight/languages/python` | `py` |
 | `scheme` | `@tanstack/highlight/languages/scheme` | `scm`, `racket` |
 | `shell` | `@tanstack/highlight/languages/shell` | `bash`, `sh`, `zsh`, `cmd`, `console` |
 | `sql` | `@tanstack/highlight/languages/sql` | None |
 | `svelte` | `@tanstack/highlight/languages/svelte` | None |
+| `swift` | `@tanstack/highlight/languages/swift` | None |
 | `toml` | `@tanstack/highlight/languages/toml` | None |
 | `ts` | `@tanstack/highlight/languages/ts` | `typescript`, `angular-ts` |
 | `tsrx` | `@tanstack/highlight/languages/tsrx` | `octane` |
@@ -52,6 +54,8 @@ const highlighter = createHighlighter({
 | `vue` | `@tanstack/highlight/languages/vue` | None |
 | `yaml` | `@tanstack/highlight/languages/yaml` | `yml` |
 
-`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `php`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
+`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `php`, `plaintext`, `powershell`, `python`, `scheme`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
 
 See the [language support matrix](../language-support) for the context-aware behavior and current scope of each registration.
+
+Swift supports nested comments, raw and multiline strings, extended regex literals (`#/…/#`), attributes, concurrency keywords, numeric bases, and common types. PowerShell supports comments, quoted and here-strings, scoped/braced/splat variables, cmdlet names, parameters, type literals, and word operators. String interpolation stays within the string token in both languages; these lightweight definitions do not parse expressions or resolve symbols. Bare Swift regex literals and full PowerShell command/argument context are outside their scope.

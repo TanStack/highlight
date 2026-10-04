@@ -34,6 +34,7 @@
         { "label": "React Integration", "to": "guides/react" },
         { "label": "Octane Integration", "to": "guides/octane" },
         { "label": "Custom Languages", "to": "guides/custom-languages" },
+        { "label": "Swift and PowerShell", "to": "guides/swift-and-powershell" },
         { "label": "Bundle Size and Performance", "to": "guides/performance" }
       ]
     },

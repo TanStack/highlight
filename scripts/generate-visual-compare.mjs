@@ -9,7 +9,13 @@ import { githubLightTheme } from '../dist/themes/github-light.js'
 const fixtureFile = 'test/generated/tanstack-doc-fixtures.json'
 const outFile = process.argv[2] || 'artifacts/shiki-comparison.html'
 const fixtureData = JSON.parse(fs.readFileSync(fixtureFile, 'utf8'))
-const fixtures = selectFixtures(fixtureData.fixtures)
+const fixtures = selectFixtures([
+  ...[['swift', 'Observatory.swift'], ['powershell', 'Get-StationReport.ps1']].map(([lang, file]) => ({
+    lang, rawLang: lang, file: `test/showcases/${file}`, line: 1,
+    code: fs.readFileSync(`test/showcases/${file}`, 'utf8'),
+  })),
+  ...fixtureData.fixtures,
+])
 const shikiHighlighter = await shiki.createHighlighter({
   themes: ['github-light', 'aurora-x'],
   langs: ['plaintext'],
