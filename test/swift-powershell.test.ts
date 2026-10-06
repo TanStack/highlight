@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { createHighlighter } from '../src/core'
 import { normalizeLanguage } from '../src/index'
@@ -39,6 +40,22 @@ describe('Swift documentation syntax', () => {
       const code = `let pattern = ${text}\nlet ready = true`
       expect(classes(code, text, 'swift')).toEqual(['string'])
       expect(classes(code, 'true', 'swift')).toEqual(['literal'])
+    }
+  })
+  it('skips long rejected hash runs outside strings and inside interpolation', () => {
+    const hashes = '#'.repeat(100_000)
+    for (const code of [hashes, `${hashes}x\nlet ready = true`, `"Value: \\(${hashes}x)"\nlet ready = true`]) {
+      const result = highlighter.tokenize(code, { lang: 'swift' })
+      expect(result.tokens.map((token) => token.value).join('')).toBe(code)
+      if (code.includes('true')) expect(classes(code, 'true', 'swift')).toEqual(['literal'])
+      if (code.startsWith('"')) expect(classes(code, code.split('\n')[0], 'swift')).toEqual(['string'])
+      else expect(result.tokens.filter((token) => token.className === 'string')).toEqual([])
+    }
+  }, 1000)
+  it('preserves raw strings and regexes after long hash delimiters', () => {
+    const hashes = '#'.repeat(256)
+    for (const text of [`${hashes}"value"${hashes}`, `${hashes}/value/${hashes}`]) {
+      expect(classes(`let value = ${text}\nlet ready = true`, text, 'swift')).toEqual(['string'])
     }
   })
   it('recognizes concurrency, attributes, types, numeric bases and ranges', () => {
@@ -100,4 +117,10 @@ it('registers default aliases, isolates imports and delegates Markdown fences', 
   for (const [lang, source, text] of [['swift', 'actor Cache {}', 'actor'], ['pwsh', 'Get-Item $HOME', 'Get-Item']]) {
     expect(classes(`\`\`\`${lang}\n${source}\n\`\`\``, text, 'markdown')).toEqual([lang === 'swift' ? 'keyword' : 'command'])
   }
+})
+
+it('keeps the PowerShell guide identical to its canonical showcase', () => {
+  const guide = readFileSync(new URL('../docs/guides/swift-and-powershell.md', import.meta.url), 'utf8')
+  const showcase = readFileSync(new URL('./showcases/Get-StationReport.ps1', import.meta.url), 'utf8')
+  expect(guide.match(/```powershell\n([\s\S]*?)\n```/)?.[1]).toBe(showcase.trimEnd())
 })

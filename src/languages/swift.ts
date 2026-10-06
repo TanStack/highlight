@@ -40,6 +40,8 @@ function collectSwiftLexicalRanges(code: string) {
     } else {
       end = stringEnd(code, index)
     }
+    // A negative end skips a rejected raw delimiter without emitting a token.
+    if (end < 0) { index = -end; continue }
     if (end > start) {
       ranges.push({ start, end, className })
       index = end
@@ -64,7 +66,7 @@ function stringEnd(code: string, start: number, depth = 0): number {
   while (code[index] === '#') index++
   const hashes = code.slice(start, index)
   const regex = Boolean(hashes) && code[index] === '/'
-  if (code[index] !== '"' && !regex) return start
+  if (code[index] !== '"' && !regex) return hashes ? -index : start
   const quote = regex ? '/' : code.startsWith('"""', index) ? '"""' : '"'
   index += quote.length
   const close = quote + hashes
@@ -78,7 +80,8 @@ function stringEnd(code: string, start: number, depth = 0): number {
         index++
         while (index < code.length && balance) {
           const nested = code.startsWith('/*', index) ? commentEnd(code, index) : stringEnd(code, index, depth + 1)
-          if (nested > index) index = nested
+          if (nested < 0) index = -nested
+          else if (nested > index) index = nested
           else if (code.startsWith('//', index)) {
             while (index < code.length && !/[\r\n]/.test(code[index])) index++
           } else {

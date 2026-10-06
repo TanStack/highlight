@@ -215,10 +215,10 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Registration | Minified | Gzip | Brotli |
 | --- | ---: | ---: | ---: |
 | Core, no languages | 3.84 KB | 1.82 KB | 1.66 KB |
-| Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
-| Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
-| Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
-| All 32 languages | 36.13 KB | 12.43 KB | 11.26 KB |
+| Core + TSX | 10.16 KB | 4.29 KB | 3.93 KB |
+| Octane MDX + TypeScript | 13.91 KB | 5.62 KB | 5.21 KB |
+| Nine-language docs set | 16.09 KB | 6.22 KB | 5.68 KB |
+| All 32 languages | 36.17 KB | 12.45 KB | 11.27 KB |
 
 The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 

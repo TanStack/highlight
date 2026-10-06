@@ -84,8 +84,7 @@ function Get-StationReport {
     param(
         [Parameter(Mandatory)]
         [ValidateSet('coast', 'ridge')]
-        [string[]] $Station,
-        [int] $Limit = 5
+        [string[]] $Station
     )
 
     begin {
