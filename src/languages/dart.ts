@@ -5,7 +5,7 @@ const patterns = [
   { className: 'attr', regex: /@[A-Za-z_$][\w$]*/g },
   // Named-argument and record labels; the lookbehind keeps ternaries plain.
   { className: 'property', regex: /(?<![\w$])(?=[a-z_$])(?<=[(,{]\s*)(?!default:)[\w$]+(?=:)/g },
-  { className: 'keyword', regex: /(?<![\w$.])(?:(?:async|sync|yield)\*|abstract|as|async|await|break|case|catch|class|const|continue|default|do|else|enum|export|extends|final|finally|for|if|implements|import|in|is|new|operator|rethrow|return|static|super|switch|this|throw|try|typedef|var|while|with|yield)(?![\w$])/g },
+  { className: 'keyword', regex: /(?<![\w$.])(?:(?:async|sync|yield)\*|abstract|as|assert|async|await|break|case|catch|class|const|continue|default|do|else|enum|export|extends|final|finally|for|if|implements|import|in|is|new|operator|rethrow|return|static|super|switch|this|throw|try|typedef|var|while|with|yield)(?![\w$])/g },
   // Built-in and contextual words are keywords only when another word, string or `(` follows.
   { className: 'keyword', regex: /(?<![\w$.])(?:base|covariant|deferred|extension|external|factory|get|hide|interface|late|library|mixin|on|part|required|sealed|set|show|when)(?=\s+(?!i[ns]\b)[\w$'"(])/g },
   { className: 'literal', regex: /(?<![\w$.])(?:true|false|null)(?![\w$])/g },

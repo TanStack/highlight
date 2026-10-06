@@ -81,6 +81,7 @@ describe('Java documentation syntax', () => {
     expect(classes(showcase, '// drop everything')).toEqual(['comment'])
     expect(classes(showcase, 'var entry')).toEqual(['keyword', undefined])
     expect(classes(showcase, 'null ||')).toEqual(['literal', undefined, 'operator'])
+    expect(classes(showcase, 'hit when hit')).toEqual([undefined, 'keyword', undefined])
     expect(classes(showcase, '0x1F')).toEqual(['number'])
     expect(classes(showcase, '-> "hit')).toEqual(['operator', undefined, 'string'])
     expect(classes(showcase, '"""\n                    Nothing')).toEqual(['string'])
@@ -163,7 +164,7 @@ describe('Java documentation syntax', () => {
   })
 
   it('treats modern contextual keywords only in keyword position', () => {
-    const code = 'non-sealed class A {}\nrecord Point(int x, int y) {}\nvar list = record.items();\nint var = 1;\nObject o = obj instanceof String s ? s : null;\nRunnable r = () -> super.run();'
+    const code = 'non-sealed class A {}\nrecord Point(int x, int y) {}\nvar list = record.items();\nint var = 1;\nObject o = obj instanceof String s ? s : null;\nRunnable r = () -> super.run();\nint when = 1;\nfoo(when);\nthis.when = when.toString();'
     expect(classes(code, 'non-sealed')).toEqual(['keyword'])
     expect(classes(code, 'record Point')).toEqual(['keyword', undefined, 'type'])
     expect(classes(code, 'var list')).toEqual(['keyword', undefined])
@@ -171,6 +172,9 @@ describe('Java documentation syntax', () => {
     expect(classes(code, 'var = 1')).toEqual([undefined, 'operator', undefined, 'number'])
     expect(classes(code, 'instanceof String s')).toEqual(['keyword', undefined, 'type', undefined])
     expect(classes(code, '() -> super')).toEqual([undefined, 'operator', undefined, 'keyword'])
+    expect(classes(code, 'int when = 1')).toEqual(['type', undefined, 'operator', undefined, 'number'])
+    expect(classes(code, 'foo(when)')).toEqual(['function', undefined])
+    expect(classes(code, 'this.when = when.toString()')).toEqual(['keyword', undefined, 'property', undefined, 'operator', undefined, 'function', undefined])
   })
 
   it('handles module declarations and import paths', () => {

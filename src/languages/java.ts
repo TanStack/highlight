@@ -16,7 +16,7 @@ const patterns: Array<Pattern> = [
   },
   {
     className: 'keyword',
-    regex: /\b(?:abstract|assert|break|case|catch|class|const|continue|default|do|else|enum|extends|final|finally|for|goto|if|implements|import|instanceof|interface|native|new|non-sealed|package|permits|private|protected|public|return|sealed|static|strictfp|super|switch|synchronized|this|throws?|transient|try|volatile|while)\b|\b(?:record|var|yield)\b(?=[ \t]+[\w"'(!-])|^[ \t]*(?:(?:open[ \t]+)?module|requires(?:[ \t]+transitive)?|exports|opens|uses|provides)\b(?=[ \t]+[A-Za-z_])/gm,
+    regex: /\b(?:abstract|assert|break|case|catch|class|const|continue|default|do|else|enum|extends|final|finally|for|goto|if|implements|import|instanceof|interface|native|new|non-sealed|package|permits|private|protected|public|return|sealed|static|strictfp|super|switch|synchronized|this|throws?|transient|try|volatile|while)\b|\b(?:record|var|when|yield)\b(?=[ \t]+[\w"'(!-])|^[ \t]*(?:(?:open[ \t]+)?module|requires(?:[ \t]+transitive)?|exports|opens|uses|provides)\b(?=[ \t]+[A-Za-z_])/gm,
   },
   { className: 'literal', regex: /\b(?:true|false|null)\b/g },
   { className: 'type', regex: /\b(?:boolean|byte|char|double|float|int|long|short|void)\b/g },

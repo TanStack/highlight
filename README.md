@@ -218,7 +218,7 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
 | Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
 | Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
-| All 38 languages | 49.98 KB | 16.82 KB | 15.20 KB |
+| All 38 languages | 49.99 KB | 16.82 KB | 15.19 KB |
 
 The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 

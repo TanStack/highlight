@@ -126,7 +126,7 @@ class _CounterPageState extends State<CounterPage> {
   })
 
   it('classifies annotations, keywords, literals, and types', () => {
-    const code = `@Deprecated('use x')\n@pragma('vm:entry-point')\nlate final bool? ok = true;\nvoid Function(int) cb;\nNever fail() => throw null;\nextension StringX on String {}\nenum color { red }\nfinal ok = x is! Foo;\nconst MAX_SIZE = 1;`
+    const code = `@Deprecated('use x')\n@pragma('vm:entry-point')\nlate final bool? ok = true;\nvoid Function(int) cb;\nNever fail() => throw null;\nextension StringX on String {}\nenum color { red }\nfinal ok = x is! Foo;\nconst MAX_SIZE = 1;\nconst Foo({required this.count}) : assert(count >= 0);\nvoid check() { assert(x != null, 'msg'); }`
     expect(classes(code, "@Deprecated('use x')")).toEqual(['attr', _, 'string', _])
     expect(classes(code, "@pragma('vm:entry-point')")).toEqual(['attr', _, 'string', _])
     expect(classes(code, 'late final bool? ok = true')).toEqual(['keyword', _, 'keyword', _, 'type', 'operator', _, 'operator', _, 'literal'])
@@ -136,6 +136,8 @@ class _CounterPageState extends State<CounterPage> {
     expect(classes(code, 'enum color')).toEqual(['keyword', _, 'type'])
     expect(classes(code, 'is! Foo')).toEqual(['keyword', 'operator', _, 'type'])
     expect(classes(code, 'MAX_SIZE')).toEqual([_])
+    expect(classes(code, ': assert(count >= 0)')).toEqual(['operator', _, 'keyword', _, 'operator', _, 'number', _])
+    expect(classes(code, "assert(x != null, 'msg')")).toEqual(['keyword', _, 'operator', _, 'literal', _, 'string', _])
   })
 
   it('separates numbers from cascades, spreads, and member access', () => {
