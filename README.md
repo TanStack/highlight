@@ -195,7 +195,7 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Gruvbox Dark, Gr
 
 ## Languages
 
-`apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `php`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
+`apache`, `cmake`, `cpp`, `csharp`, `css`, `dart`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `java`, `js`, `json`, `jsx`, `kotlin`, `lua`, `markdown`, `mermaid`, `nginx`, `perl`, `php`, `plaintext`, `python`, `ruby`, `rust`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
 
 Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
 
@@ -218,7 +218,7 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
 | Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
 | Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
-| All 30 languages | 30.72 KB | 10.77 KB | 9.79 KB |
+| All 38 languages | 49.98 KB | 16.82 KB | 15.20 KB |
 
 The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 

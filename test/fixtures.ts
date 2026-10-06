@@ -27,6 +27,54 @@ export const languageFixtures: Array<LanguageFixture> = [
     expectedClasses: ['th-command', 'th-number', 'th-literal', 'th-keyword', 'th-string', 'th-variable', 'th-comment'],
   },
   {
+    lang: 'c#',
+    normalized: 'csharp',
+    code: 'using System;\n[Serializable]\npublic record Point(int X, int Y);\nvar name = "world"; // greet\nConsole.WriteLine($"Hello {name}", 42);',
+    expectedClasses: ['th-keyword', 'th-type', 'th-string', 'th-comment', 'th-function', 'th-number', 'th-operator'],
+  },
+  {
+    lang: 'dart',
+    normalized: 'dart',
+    code: `import 'package:flutter/material.dart';\n@override\nWidget build(BuildContext context) {\n  final count = 42; // total\n  return Text('Hello $name', key: null);\n}`,
+    expectedClasses: ['th-keyword', 'th-string', 'th-type', 'th-function', 'th-number', 'th-operator', 'th-comment'],
+  },
+  {
+    lang: 'java',
+    normalized: 'java',
+    code: 'import java.util.List;\n@Override\npublic String greet(String name) {\n  int count = 42; // total\n  return "Hello " + name;\n}',
+    expectedClasses: ['th-keyword', 'th-type', 'th-function', 'th-number', 'th-operator', 'th-comment', 'th-string'],
+  },
+  {
+    lang: 'kt',
+    normalized: 'kotlin',
+    code: 'import kotlin.math.max\n@JvmStatic\nfun greet(name: String): String {\n  val count = 42 // total\n  return "Hello ${name}"\n}',
+    expectedClasses: ['th-keyword', 'th-function', 'th-type', 'th-number', 'th-operator', 'th-comment', 'th-string'],
+  },
+  {
+    lang: 'lua',
+    normalized: 'lua',
+    code: 'local function greet(name)\n  -- say hello\n  local count = 42\n  return "Hello " .. name, nil\nend\nprint(greet("world"))',
+    expectedClasses: ['th-keyword', 'th-function', 'th-comment', 'th-number', 'th-operator', 'th-string', 'th-literal'],
+  },
+  {
+    lang: 'pl',
+    normalized: 'perl',
+    code: 'use strict;\nmy $name = "world";\nmy @items = (1, 2, 42); # list\nsub greet { return "Hello $_[0]"; }\nprint greet($name) if $name =~ /wor/;',
+    expectedClasses: ['th-keyword', 'th-variable', 'th-operator', 'th-string', 'th-number', 'th-comment', 'th-function'],
+  },
+  {
+    lang: 'rb',
+    normalized: 'ruby',
+    code: `require 'json'\nclass Greeter\n  def greet(name) # say hello\n    "Hello #{name}" * 42\n  end\nend`,
+    expectedClasses: ['th-keyword', 'th-string', 'th-type', 'th-function', 'th-comment', 'th-operator', 'th-number'],
+  },
+  {
+    lang: 'rs',
+    normalized: 'rust',
+    code: 'use std::fmt;\n#[derive(Debug)]\nstruct Point { x: i32 }\nfn main() {\n    let count = 42; // total\n    println!("Hello {}", count);\n}',
+    expectedClasses: ['th-keyword', 'th-type', 'th-function', 'th-number', 'th-operator', 'th-comment', 'th-string'],
+  },
+  {
     lang: 'octane',
     normalized: 'tsrx',
     code: `import { useState } from 'octane'

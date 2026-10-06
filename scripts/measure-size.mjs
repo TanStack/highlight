@@ -98,13 +98,85 @@ const profiles = {
     languages: ['cmake'],
     limits: { minified: 6_000, gzip: 2_800, brotli: 2_600 },
   },
+  csharp: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { csharp } from './src/languages/csharp.ts'
+      globalThis.highlighter = createHighlighter({ languages: [csharp] })
+    `,
+    languages: ['csharp'],
+    limits: { minified: 7_950, gzip: 3_750, brotli: 3_450 },
+  },
+  dart: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { dart } from './src/languages/dart.ts'
+      globalThis.highlighter = createHighlighter({ languages: [dart] })
+    `,
+    languages: ['dart'],
+    limits: { minified: 7_000, gzip: 3_250, brotli: 3_000 },
+  },
+  java: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { java } from './src/languages/java.ts'
+      globalThis.highlighter = createHighlighter({ languages: [java] })
+    `,
+    languages: ['java'],
+    limits: { minified: 6_550, gzip: 3_100, brotli: 2_850 },
+  },
+  kotlin: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { kotlin } from './src/languages/kotlin.ts'
+      globalThis.highlighter = createHighlighter({ languages: [kotlin] })
+    `,
+    languages: ['kotlin'],
+    limits: { minified: 7_450, gzip: 3_500, brotli: 3_250 },
+  },
+  lua: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { lua } from './src/languages/lua.ts'
+      globalThis.highlighter = createHighlighter({ languages: [lua] })
+    `,
+    languages: ['lua'],
+    limits: { minified: 5_650, gzip: 2_750, brotli: 2_550 },
+  },
+  perl: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { perl } from './src/languages/perl.ts'
+      globalThis.highlighter = createHighlighter({ languages: [perl] })
+    `,
+    languages: ['perl'],
+    limits: { minified: 7_850, gzip: 3_750, brotli: 3_500 },
+  },
+  ruby: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { ruby } from './src/languages/ruby.ts'
+      globalThis.highlighter = createHighlighter({ languages: [ruby] })
+    `,
+    languages: ['ruby'],
+    limits: { minified: 7_700, gzip: 3_650, brotli: 3_350 },
+  },
+  rust: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { rust } from './src/languages/rust.ts'
+      globalThis.highlighter = createHighlighter({ languages: [rust] })
+    `,
+    languages: ['rust'],
+    limits: { minified: 6_800, gzip: 3_200, brotli: 2_950 },
+  },
   all: {
     source: `
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 30_800, gzip: 10_900, brotli: 9_800 },
+    limits: { minified: 50_400, gzip: 17_100, brotli: 15_500 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,
