@@ -8,7 +8,7 @@ CI measures selective browser bundles and highlighting performance on real docum
 
 ## Bundle profiles
 
-`pnpm run size` builds seventeen browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
+`pnpm run size` builds twenty-five browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
 
 | Profile | Registered languages | Current gzip | CI budget |
 | --- | --- | ---: | ---: |
@@ -16,7 +16,7 @@ CI measures selective browser bundles and highlighting performance on real docum
 | TSX | TSX | 4.26 KB | 4.35 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.59 KB | 5.7 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.20 KB | 6.3 KB |
-| All | All 30 definitions | 10.77 KB | 10.9 KB |
+| All | All 38 definitions | 16.82 KB | 17.1 KB |
 
 KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
 
@@ -26,7 +26,7 @@ Selective profiles are the primary metric. The all-language profile exists to pr
 
 The committed corpus contains 334 real code fences sampled from TanStack documentation, with up to twenty samples per normalized language.
 
-`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C++, CMake, and PHP samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
+`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C#, C++, CMake, Dart, Java, Kotlin, Lua, Perl, PHP, Ruby, and Rust samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
 A local before-and-after review used the same minified bundle settings, fixtures, and benchmark harness on macOS arm64 with Node 24.15.0:
 
@@ -76,4 +76,4 @@ Context-aware fixes are welcome when they solve common docs code. A change shoul
 
 The correct response to a crossed budget is to inspect the behavior and architecture. Budgets can move when a measured quality improvement justifies the bytes, but the tradeoff must be explicit.
 
-The 1.0 property-context correction adds roughly 230 gzip bytes to the TSX profile without changing core. Local Node 26 gzip results differ slightly from CI compression: the CI docs profile is 6,217 bytes and all languages is 10,838 bytes. Their budgets are 6,300 and 10,900 bytes respectively, retaining a small explicit margin.
+The 1.0 property-context correction adds roughly 230 gzip bytes to the TSX profile without changing core. Local Node 26 gzip results differ slightly from CI compression: the CI docs profile is 6,217 bytes against a 6,300-byte budget, and the all-language budget keeps a comparable allowance above its local measurement.
