@@ -116,6 +116,12 @@ try {
       observe: (result) => result.html.length,
       targetBlocks: 10_000,
     },
+    swift: {
+      fixtures: [{ rawLang: 'swift', code: '@available(iOS 15, *)\nlet greeting = "Hi \\(user.name) \\(dict["key"] ?? "none")"\nlet raw = #"C:\\path "quoted" \\#(name)"#\n/* outer /* nested */ comment */\n#if DEBUG\nlet n = 0x1F + 1_000 + 1.5e3\n#endif' }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 10_000,
+    },
     tokenize: {
       fixtures,
       run: (fixture) => tokenize(fixture.code, { lang: fixture.rawLang }),

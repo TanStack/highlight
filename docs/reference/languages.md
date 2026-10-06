@@ -53,6 +53,7 @@ const highlighter = createHighlighter({
 | `shell` | `@tanstack/highlight/languages/shell` | `bash`, `sh`, `zsh`, `cmd`, `console` |
 | `sql` | `@tanstack/highlight/languages/sql` | None |
 | `svelte` | `@tanstack/highlight/languages/svelte` | None |
+| `swift` | `@tanstack/highlight/languages/swift` | None |
 | `toml` | `@tanstack/highlight/languages/toml` | None |
 | `ts` | `@tanstack/highlight/languages/ts` | `typescript`, `angular-ts` |
 | `tsrx` | `@tanstack/highlight/languages/tsrx` | `octane` |
@@ -60,6 +61,6 @@ const highlighter = createHighlighter({
 | `vue` | `@tanstack/highlight/languages/vue` | None |
 | `yaml` | `@tanstack/highlight/languages/yaml` | `yml` |
 
-`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `csharp`, `css`, `dart`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `java`, `js`, `json`, `jsx`, `kotlin`, `lua`, `markdown`, `mermaid`, `nginx`, `perl`, `php`, `plaintext`, `python`, `ruby`, `rust`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
+`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `csharp`, `css`, `dart`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `java`, `js`, `json`, `jsx`, `kotlin`, `lua`, `markdown`, `mermaid`, `nginx`, `perl`, `php`, `plaintext`, `python`, `ruby`, `rust`, `scheme`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
 
 See the [language support matrix](../language-support) for the context-aware behavior and current scope of each registration.

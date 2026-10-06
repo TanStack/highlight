@@ -37,6 +37,7 @@ import { scheme } from './languages/scheme.js'
 import { shell } from './languages/shell.js'
 import { sql } from './languages/sql.js'
 import { svelte } from './languages/svelte.js'
+import { swift } from './languages/swift.js'
 import { toml } from './languages/toml.js'
 import { ts } from './languages/ts.js'
 import { tsrx } from './languages/tsrx.js'
@@ -77,6 +78,7 @@ export type HighlightLanguage =
   | 'shell'
   | 'sql'
   | 'svelte'
+  | 'swift'
   | 'toml'
   | 'ts'
   | 'tsrx'
@@ -157,6 +159,7 @@ export const allLanguages = [
   shell,
   sql,
   svelte,
+  swift,
   toml,
   ts,
   tsrx,

@@ -36,6 +36,7 @@ Import only the definitions the application registers.
 | Shell | `shell` | `@tanstack/highlight/languages/shell` | `bash`, `sh`, `zsh`, `cmd`, `console` |
 | SQL | `sql` | `@tanstack/highlight/languages/sql` | - |
 | Svelte | `svelte` | `@tanstack/highlight/languages/svelte` | - |
+| Swift | `swift` | `@tanstack/highlight/languages/swift` | - |
 | TOML | `toml` | `@tanstack/highlight/languages/toml` | - |
 | TypeScript | `ts` | `@tanstack/highlight/languages/ts` | `typescript`, `angular-ts` |
 | TSRX | `tsrx` | `@tanstack/highlight/languages/tsrx` | `octane` |

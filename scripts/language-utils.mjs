@@ -34,6 +34,7 @@ export const supportedLanguages = [
   'shell',
   'sql',
   'svelte',
+  'swift',
   'toml',
   'ts',
   'tsrx',
