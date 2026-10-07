@@ -42,6 +42,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Shell | `shell` | `bash`, `sh`, `zsh`, `cmd`, `console` | Heredocs, parameter expansion, comment boundaries |
 | SQL | `sql` | - | Strings, comments, common SQL clauses |
 | Svelte | `svelte` | - | Markup plus optional script/style and expression delegation |
+| Swift | `swift` | - | Interpolated, multi-line, and raw strings with nested quotes, regex literals vs division, nested block comments, contextual keywords, attributes and directives |
 | TOML | `toml` | - | Strings, comments, tables, properties |
 | TypeScript | `ts` | `typescript`, `angular-ts` | JavaScript scanner plus TypeScript keywords/types |
 | TSRX | `tsrx` | `octane` | TypeScript, contextual JSX, Octane component shorthand and template directives |

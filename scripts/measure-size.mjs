@@ -170,13 +170,22 @@ const profiles = {
     languages: ['rust'],
     limits: { minified: 6_800, gzip: 3_200, brotli: 2_950 },
   },
+  swift: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { swift } from './src/languages/swift.ts'
+      globalThis.highlighter = createHighlighter({ languages: [swift] })
+    `,
+    languages: ['swift'],
+    limits: { minified: 7_450, gzip: 3_550, brotli: 3_250 },
+  },
   all: {
     source: `
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 50_400, gzip: 17_100, brotli: 15_500 },
+    limits: { minified: 53_150, gzip: 18_000, brotli: 16_200 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,

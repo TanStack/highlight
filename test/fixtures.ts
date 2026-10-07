@@ -75,6 +75,12 @@ export const languageFixtures: Array<LanguageFixture> = [
     expectedClasses: ['th-keyword', 'th-type', 'th-function', 'th-number', 'th-operator', 'th-comment', 'th-string'],
   },
   {
+    lang: 'swift',
+    normalized: 'swift',
+    code: 'import Foundation\n@MainActor\nfunc greet(name: String) -> String {\n    let count = 42 // total\n    return "Hello \\(name)"\n}',
+    expectedClasses: ['th-keyword', 'th-type', 'th-attr', 'th-function', 'th-number', 'th-operator', 'th-comment', 'th-string'],
+  },
+  {
     lang: 'octane',
     normalized: 'tsrx',
     code: `import { useState } from 'octane'
