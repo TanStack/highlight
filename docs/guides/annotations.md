@@ -44,7 +44,7 @@ const result = highlighter.highlight(code, {
 })
 ```
 
-The renderer splits token boundaries as needed and wraps the selected text with `th-decoration` plus your classes. Overlapping decorations remain valid nested HTML.
+The renderer splits token boundaries as needed and wraps the selected text with `th-decoration` plus your classes. Overlapping decorations remain valid nested HTML. Offsets must be integers with `start < end`; invalid ranges are ignored, and ranges extending outside the source are clipped.
 
 ## Line numbers
 
