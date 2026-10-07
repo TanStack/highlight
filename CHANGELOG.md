@@ -1,5 +1,12 @@
 # @tanstack/highlight
 
+## 1.1.0
+
+### Minor Changes
+
+- 49c2ba6: Add isolated Java, Kotlin, Rust, Ruby, C#, Dart, Lua, and Perl language definitions. Core and existing selective bundles are unchanged.
+- 0b8d429: Add an isolated Swift language definition. Core and existing selective bundles are unchanged.
+
 ## 1.0.0
 
 ### Major Changes
