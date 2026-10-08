@@ -9,7 +9,7 @@ description: >
 metadata:
   type: core
   library: '@tanstack/highlight'
-  library_version: '1.0.0'
+  library_version: '1.1.0'
 requires:
   - 'configure-selective-highlighting'
 sources:
