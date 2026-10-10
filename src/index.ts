@@ -30,6 +30,7 @@ import { nginx } from './languages/nginx.js'
 import { perl } from './languages/perl.js'
 import { php } from './languages/php.js'
 import { plaintext } from './languages/plaintext.js'
+import { powershell } from './languages/powershell.js'
 import { python } from './languages/python.js'
 import { ruby } from './languages/ruby.js'
 import { rust } from './languages/rust.js'
@@ -71,6 +72,7 @@ export type HighlightLanguage =
   | 'perl'
   | 'php'
   | 'plaintext'
+  | 'powershell'
   | 'python'
   | 'ruby'
   | 'rust'
@@ -152,6 +154,7 @@ export const allLanguages = [
   perl,
   php,
   plaintext,
+  powershell,
   python,
   ruby,
   rust,

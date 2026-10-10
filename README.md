@@ -36,6 +36,7 @@ This is not an editor parser or a TextMate engine. It is a deliberately small do
 - [Quick Start](docs/quick-start.md)
 - [Comparison](docs/comparison.md)
 - [Language Support](docs/language-support.md)
+- [PowerShell Showcase](docs/guides/powershell.md)
 - [Octane Integration](docs/guides/octane.md)
 - [Guides](docs/guides/language-registration.md)
 - [API Reference](docs/reference/index.md)
@@ -218,7 +219,8 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
 | Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
 | Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
-| All 39 languages | 52.74 KB | 17.73 KB | 15.93 KB |
+| PowerShell + core | 7.19 KB | 3.25 KB | 3.01 KB |
+| All 40 languages | 55.38 KB | 18.47 KB | 16.65 KB |
 
 The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 

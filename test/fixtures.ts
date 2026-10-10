@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import type { HighlightLanguage } from '../src/index'
 
 export type LanguageFixture = {
@@ -8,6 +9,11 @@ export type LanguageFixture = {
 }
 
 export const languageFixtures: Array<LanguageFixture> = [
+  {
+    lang: 'pwsh', normalized: 'powershell',
+    code: readFileSync(new URL('./showcases/Get-StationReport.ps1', import.meta.url), 'utf8'),
+    expectedClasses: ['th-keyword', 'th-type', 'th-variable', 'th-string', 'th-comment', 'th-literal', 'th-command', 'th-number', 'th-function', 'th-operator', 'th-property'],
+  },
   {
     lang: 'php',
     normalized: 'php',

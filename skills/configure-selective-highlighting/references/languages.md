@@ -29,6 +29,7 @@ Import only the definitions the application registers.
 | Perl | `perl` | `@tanstack/highlight/languages/perl` | `pl` |
 | PHP | `php` | `@tanstack/highlight/languages/php` | - |
 | Plaintext | `plaintext` | `@tanstack/highlight/languages/plaintext` | `text`, `txt`, `-->` |
+| PowerShell | `powershell` | `@tanstack/highlight/languages/powershell` | `pwsh`, `ps1` |
 | Python | `python` | `@tanstack/highlight/languages/python` | `py` |
 | Ruby | `ruby` | `@tanstack/highlight/languages/ruby` | `rb` |
 | Rust | `rust` | `@tanstack/highlight/languages/rust` | `rs` |

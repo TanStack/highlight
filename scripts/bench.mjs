@@ -56,6 +56,12 @@ try {
       outputBytes: htmlBytes,
       targetBlocks: 10_000,
     },
+    powershell: {
+      fixtures: [{ rawLang: 'powershell', code: fs.readFileSync('test/showcases/Get-StationReport.ps1', 'utf8') }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 2_000,
+    },
     cpp: {
       fixtures: [{ rawLang: 'cpp', code: '#include <vector>\nconstexpr auto text = R"tag(// raw text)tag";\nint main() { std::vector<int> values{1, 2, 3}; return values.size(); }' }],
       run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
