@@ -25,6 +25,18 @@ describe('PowerShell documentation syntax', () => {
     }
     expect(classes('`${x}', '${x}')).not.toContain('variable')
   })
+  it('protects escaped unbraced variables and literals', () => {
+    for (const [text, className] of [
+      ['$HOME', 'variable'], ['$env:HOME', 'variable'], ['$?', 'variable'],
+      ['$$', 'variable'], ['$true', 'literal'], ['$false', 'literal'], ['$null', 'literal'],
+    ]) {
+      expect(classes('Write-Output escaped`' + text, text)).not.toContain(className)
+      expect(classes('Write-Output ' + text, text)).toEqual([className])
+      expect(classes('Write-Output ``' + text, text)).toEqual([className])
+    }
+    expect(classes('Write-Output "escaped`$HOME"', '"escaped`$HOME"')).toEqual(['string'])
+    expect(classes('Write-Output `', '`')).toEqual(['string'])
+  })
   it('keeps member names out of keywords while preserving statements', () => {
     for (const text of ['End', 'Process', 'Begin', 'Data']) {
       expect(classes(`$job.${text}`, text)).toEqual(['property'])

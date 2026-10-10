@@ -27,8 +27,8 @@ function collectPowerShellLexicalRanges(code: string) {
     const start = index
     let end = index
     let className: TokenRange['className'] = 'string'
-    if (code[index] === '`') { index += 2; continue }
-    if (code.startsWith('${', index)) {
+    if (code[index] === '`') end = Math.min(index + 2, code.length)
+    else if (code.startsWith('${', index)) {
       end = index + 2
       while (end < code.length && code[end] !== '}') {
         end += code[end] === '`' ? 2 : 1
