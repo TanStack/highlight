@@ -1,97 +1,88 @@
 import { defineLanguage, type TokenRange } from '../core.js'
-import { patternTokenizer } from '../internal/patterns.js'
+import { collectPatternRanges } from '../internal/patterns.js'
+
+const patterns = [
+  { className: 'meta', regex: /^#!.*|#\w+/gm },
+  { className: 'attr', regex: /@\w+/g },
+  { className: 'variable', regex: /\$\w+/g },
+  // Argument and parameter labels; the lookbehind keeps ternaries and switch cases plain.
+  { className: 'property', regex: /\b(?=[a-z]\w*:)(?<=[(,]\s*(?:\w+[ \t]+)?)\w+/g },
+  // Contextual words are keywords only before declarations, types, or as accessors.
+  {
+    className: 'keyword',
+    regex: /(?<!`)\b(?:(?<!\.)(?:associatedtype|as|async|await|break|case|catch|class|continue|convenience|default|defer|deinit|didSet|distributed|do|else|enum|extension|fallthrough|fileprivate|for|func|guard|if|import|in|indirect|inout|internal|is|let|mutating|nonisolated|nonmutating|operator|override|precedencegroup|private|protocol|public|repeat|rethrows|return|static|struct|subscript|switch|throw|throws|try|typealias|unowned|var|where|while|willSet)|init|self|Self|super)\b|(?<![\w.`])(?:macro(?=[ \t]+[A-Za-z_]\w*[(<])|(?:open|package|optional|dynamic|final|lazy|weak|required|prefix|infix|postfix|actor|macro|some|any|each|isolated|consuming|borrowing|sending)(?=[ \t]+(?:[a-z]{3}|[A-Z([]))|[gs]et(?=[ \t]*[{}]|[ \t]+[a-z]|\(\w+\)[ \t]*\{)|(?<=\()set(?=\)))/g,
+  },
+  { className: 'literal', regex: /(?<![.`])\b(?:true|false|nil)\b/g },
+  { className: 'type', regex: /\b(?:class|struct|enum|protocol|extension|actor|typealias|associatedtype)\s+(\w+)/g, group: 1 },
+  { className: 'type', regex: /\b[A-Z][A-Z\d_]*[a-z]\w*/g },
+  { className: 'function', regex: /\b(?:func|macro)\s+(\w+)/g, group: 1 },
+  { className: 'function', regex: /\b[a-z_]\w*(?=\()|(?<=^[ \t]*\.)[a-z_]\w*(?=[ \t]*\{)|(?<=\.)[a-z_]\w*(?=[ \t]*\{[ \t]*(?:!?[$[]|[\w, ]+ in\b))/gm },
+  { className: 'number', regex: /(?<!\w|[^.]\.)(?:0[xob][\da-f_]+(?:(?:\.[\da-f_]+)?p[+-]?\d+)?|\d[\d_]*(?:\.\d[\d_]*)?(?:e[+-]?\d[\d_]*)?)(?!\w|\.\d)/gi },
+  { className: 'property', regex: /(?<!\.)\.([A-Za-z_]\w*)/g, group: 1 },
+  { className: 'operator', regex: /\.\.[.<]|[-+*/%&|^~!<>=?]+/g },
+] satisfies Parameters<typeof collectPatternRanges>[1]
+
+// `(?<!#)` keeps runs of `#` from being retried at every position.
+const quote = /(?<!#)(#*)("(?:"")?)/y
 
 export const swift = defineLanguage({
   name: 'swift',
-  tokenize: patternTokenizer([
-    { collect: collectSwiftLexicalRanges },
-    { className: 'meta', regex: /#(?:if|elseif|else|endif|available|unavailable|selector|keyPath|sourceLocation|warning|error|fileID|filePath|file|line|column|function)\b/g },
-    { className: 'attr', regex: /@[A-Za-z_]\w*/g },
-    { className: 'variable', regex: /\$(?:\d+|[A-Za-z_]\w*)/g },
-    { className: 'literal', regex: /\b(?:true|false|nil)\b/g },
-    { className: 'keyword', regex: /\b(?:actor|any|as|associatedtype|async|await|borrowing|break|case|catch|class|consuming|continue|convenience|copy|default|defer|deinit|didSet|distributed|do|dynamic|each|else|enum|extension|fallthrough|fileprivate|final|for|func|get|guard|if|import|indirect|infix|init|inout|internal|in|is|isolated|lazy|let|mutating|nonisolated|nonmutating|open|operator|optional|override|package|postfix|precedencegroup|prefix|private|protocol|public|repeat|required|rethrows|return|self|set|some|static|struct|subscript|super|switch|throw|throws|try|typealias|unowned|var|weak|where|while|willSet)\b/g },
-    { className: 'type', regex: /\b(?:actor|class|enum|protocol|struct|typealias)\s+([\p{L}_][\p{L}\p{N}_]*)/gu, group: 1 },
-    { className: 'type', regex: /\b(?:Any|AnyObject|Array|Bool|Character|Dictionary|Double|Float|Int(?:8|16|32|64)?|Never|Optional|Result|Self|Set|String|UInt(?:8|16|32|64)?|Void)\b/g },
-    { className: 'function', regex: /[\p{L}_][\p{L}\p{N}_]*(?=\s*\()/gu },
-    { className: 'number', regex: /(?:(?<![\w.])|(?<=\.\.))(?:0[xX][\da-fA-F_]+(?:\.[\da-fA-F_]+)?[pP][+-]?[\d_]+|0[xX][\da-fA-F_]+|0[bB][01_]+|0[oO][0-7_]+|\d[\d_]*(?:\.(?!\.)[\d_]+)?(?:[eE][+-]?[\d_]+)?)(?!\w)/g },
-    { className: 'property', regex: /\.([\p{L}_][\p{L}\p{N}_]*)/gu, group: 1 },
-    { className: 'operator', regex: /\.{3}|\.\.<|->|[+\-*/%=!<>?&|^~]+/g },
-  ]),
+  tokenize(code) {
+    const ranges: Array<TokenRange> = []
+    // Comments; string openers (closed by stringEnd); `#/…/#` regexes, multi-line only when `#/` ends
+    // the line and running to the line (or input) end when unterminated so retries stay linear;
+    // bare `/re/` only where an operand is expected, never across lines.
+    const lexical = /(\/\/.*|\/\*)|(?<!#)(?:(#*")|(#+)\/(?:\n[^]*?(?:\/\3|(?![^]))|.*?(?:\/\3|$)))|\/(?<=(?:[=(,:[{]|\b(?:return|case))[ \t]*\/)(?![\s/*])(?:\\.|[^\\\n/])+(?<!\s)\//gm
+    let match: RegExpExecArray | null
+    while ((match = lexical.exec(code))) {
+      const comment = match[1]
+      let end = lexical.lastIndex
+      if (comment === '/*') {
+        for (let depth = 1; depth && end < code.length;) {
+          const step = code.startsWith('/*', end) ? 1 : code.startsWith('*/', end) ? -1 : 0
+          depth += step
+          end += step ? 2 : 1
+        }
+      } else if (match[2]) end = stringEnd(code, match.index)
+      ranges.push({ start: match.index, end, className: comment ? 'comment' : 'string' })
+      lexical.lastIndex = end
+    }
+    return collectPatternRanges(code, patterns, ranges)
+  },
 })
 
-function collectSwiftLexicalRanges(code: string) {
-  const ranges: Array<TokenRange> = []
-  for (let index = 0; index < code.length;) {
-    const start = index
-    let end = index
-    let className: TokenRange['className'] = 'string'
-    if (code.startsWith('//', index)) {
-      end = index + 2
-      while (end < code.length && !/[\r\n]/.test(code[end])) end++
-      className = 'comment'
-    } else if (code.startsWith('/*', index)) {
-      end = commentEnd(code, index)
-      className = 'comment'
-    } else if (code[index] === '`') {
-      const close = code.indexOf('`', index + 1)
-      end = close < 0 ? code.length : close + 1
-      // Shield raw identifiers from keyword and literal patterns.
-      className = 'variable'
+// Each frame is the text that closes it: an open string's delimiter, or the `)`s that still close
+// a `\( )` hole, so quotes and parens inside holes nest.
+function stringEnd(code: string, index: number) {
+  const stack: Array<string> = []
+  let open: RegExpExecArray | null
+  do {
+    const top = stack.at(-1) ?? ')'
+    const hole = top[0] === ')'
+    const char = code[index]
+    quote.lastIndex = index
+    if (hole && (open = quote.exec(code))) {
+      stack.push(open[2] + open[1])
+      index = quote.lastIndex
+    } else if (char === '\n' && !(hole ? stack.at(-2)! : top).startsWith('"""')) {
+      // A line break ends every single-line string, and the holes inside it, down to the nearest `"""`.
+      while (stack.length && !stack.at(-1)!.startsWith('"""')) stack.pop()
+      if (stack.length) index++
+    } else if (hole) {
+      if (char === '(') stack.push(stack.pop() + ')')
+      else if (char === ')' && stack.pop()!.length > 1) stack.push(top.slice(1))
+      index++
+    } else if (code.startsWith(top, index)) {
+      stack.pop()
+      index += top.length
     } else {
-      end = stringEnd(code, index)
-    }
-    // A negative end skips a rejected raw delimiter without emitting a token.
-    if (end < 0) { index = -end; continue }
-    if (end > start) {
-      ranges.push({ start, end, className })
-      index = end
-    } else index++
-  }
-  return ranges
-}
-
-function commentEnd(code: string, start: number) {
-  let depth = 1
-  let index = start + 2
-  while (index < code.length && depth) {
-    if (code.startsWith('/*', index)) { depth++; index += 2 }
-    else if (code.startsWith('*/', index)) { depth--; index += 2 }
-    else index++
-  }
-  return index
-}
-
-function stringEnd(code: string, start: number, depth = 0): number {
-  let index = start
-  while (code[index] === '#') index++
-  const hashes = code.slice(start, index)
-  const regex = Boolean(hashes) && code[index] === '/'
-  if (code[index] !== '"' && !regex) return hashes ? -index : start
-  const quote = regex ? '/' : code.startsWith('"""', index) ? '"""' : '"'
-  index += quote.length
-  const close = quote + hashes
-  const escape = regex ? '\\' : '\\' + hashes
-  while (index < code.length) {
-    if (code.startsWith(close, index)) return index + close.length
-    if (code.startsWith(escape, index)) {
-      index += escape.length
-      if (!regex && code[index] === '(' && depth < 24) {
-        let balance = 1
-        index++
-        while (index < code.length && balance) {
-          const nested = code.startsWith('/*', index) ? commentEnd(code, index) : stringEnd(code, index, depth + 1)
-          if (nested < 0) index = -nested
-          else if (nested > index) index = nested
-          else if (code.startsWith('//', index)) {
-            while (index < code.length && !/[\r\n]/.test(code[index])) index++
-          } else {
-            if (code[index] === '(') balance++
-            if (code[index] === ')') balance--
-            index++
-          }
-        }
+      const hashes = top.replace(/"+/, '')
+      if (char === '\\' && code.startsWith(hashes, index + 1)) {
+        index += hashes.length + 1
+        if (code[index] === '(') stack.push(')')
+        if (code[index] !== '\n') index++
       } else index++
-    } else index++
-  }
-  return code.length
+    }
+  } while (stack.length && index < code.length)
+  return Math.min(index, code.length)
 }

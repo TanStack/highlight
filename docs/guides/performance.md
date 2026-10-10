@@ -8,21 +8,19 @@ CI measures selective browser bundles and highlighting performance on real docum
 
 ## Bundle profiles
 
-`pnpm run size` builds nineteen browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
+`pnpm run size` builds twenty-seven browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
 
 | Profile | Registered languages | Current gzip | CI budget |
 | --- | --- | ---: | ---: |
 | Core | None | 1.82 KB | 2.0 KB |
-| TSX | TSX | 4.29 KB | 4.35 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.62 KB | 5.7 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.22 KB | 6.3 KB |
-| Swift | Swift | 3.38 KB | 3.55 KB |
-| PowerShell | PowerShell | 3.27 KB | 3.55 KB |
-| All | All 32 definitions | 12.45 KB | 12.7 KB |
+| TSX | TSX | 4.26 KB | 4.35 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.59 KB | 5.7 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.20 KB | 6.3 KB |
+| All | All 40 definitions | 18.47 KB | 18.75 KB |
 
-KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 691 gzip bytes.
+KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
 
-Adding Swift and PowerShell raises the all-language gzip bundle from 10.77 KB to 12.45 KB. Their isolated bundles are 3.38 KB and 3.27 KB gzip including core; existing selective budgets are unchanged.
+PowerShell plus core measures 3,252 gzip bytes. Adding PowerShell and correcting short Swift macro declarations grows the all-language entry from 17,681 to 18,471 gzip bytes (+790), measured under identical Node 26.11.1 tooling. The Swift selective profile grows by 13 gzip bytes and stays within its existing budget. All 24 unrelated profiles and their budgets are unchanged; only the all-language budget increases.
 
 Selective profiles are the primary metric. The all-language profile exists to prevent convenience-entry growth from becoming invisible.
 
@@ -30,7 +28,7 @@ Selective profiles are the primary metric. The all-language profile exists to pr
 
 The committed corpus contains 334 real code fences sampled from TanStack documentation, with up to twenty samples per normalized language.
 
-`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C++, CMake, PHP, Swift, and PowerShell samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
+`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C#, C++, CMake, Dart, Java, Kotlin, Lua, Perl, PHP, PowerShell, Ruby, Rust, and Swift samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
 A local before-and-after review used the same minified bundle settings, fixtures, and benchmark harness on macOS arm64 with Node 24.15.0:
 
@@ -80,4 +78,4 @@ Context-aware fixes are welcome when they solve common docs code. A change shoul
 
 The correct response to a crossed budget is to inspect the behavior and architecture. Budgets can move when a measured quality improvement justifies the bytes, but the tradeoff must be explicit.
 
-The 1.0 property-context correction adds roughly 230 gzip bytes to the TSX profile without changing core. Current local Node 26.10.0 measurements are 6,220 gzip bytes for the docs profile and 12,449 bytes for all languages. Their CI budgets are 6,300 and 12,700 bytes respectively, retaining a small explicit margin. CI measurements may differ slightly with the compression runtime.
+The 1.0 property-context correction adds roughly 230 gzip bytes to the TSX profile without changing core. Local Node 26 gzip results differ slightly from CI compression: the CI docs profile is 6,217 bytes against a 6,300-byte budget, and the all-language budget keeps a comparable allowance above its local measurement.

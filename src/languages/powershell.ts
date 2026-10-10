@@ -7,9 +7,9 @@ export const powershell = defineLanguage({
   tokenize: patternTokenizer([
     { collect: collectPowerShellLexicalRanges },
     { className: 'literal', regex: /\$(?:true|false|null)\b/gi },
-    { className: 'variable', regex: /\$\{(?:`[\s\S]|[^}`])*\}|[$@](?:[\p{L}\p{N}_?]+:)?[\p{L}\p{N}_?]+|\$[$^]/gu },
+    { className: 'variable', regex: /[$@](?:[\p{L}\p{N}_?]+:)?[\p{L}\p{N}_?]+|\$[$^]/gu },
     { className: 'type', regex: /\[(?:[A-Za-z_]\w*\.)*[A-Za-z_]\w*(?:\[\])?\]/g },
-    { className: 'keyword', regex: /(?<![\w-])(?:begin|break|catch|class|clean|continue|data|do|dynamicparam|else|elseif|end|enum|exit|filter|finally|for|foreach|function|if|in|param|process|return|switch|throw|trap|try|until|using|while|workflow|parallel|sequence|inlinescript)(?![\w-])/gi },
+    { className: 'keyword', regex: /(?<![\w.-])(?:begin|break|catch|class|clean|continue|data|do|dynamicparam|else|elseif|end|enum|exit|filter|finally|for|foreach|function|if|in|param|process|return|switch|throw|trap|try|until|using|while|workflow|parallel|sequence|inlinescript)(?![\w-])/gi },
     { className: 'function', regex: /\b(?:function|filter|class|enum)\s+([A-Za-z_][\w-]*)/gi, group: 1 },
     { className: 'command', regex: /(?<![\w-])[A-Za-z]+-[A-Za-z][\w-]*\b/g },
     { className: 'operator', regex: /-(?:(?:[ci])?(?:eq|ne|gt|ge|lt|le|like|notlike|match|notmatch|contains|notcontains|in|notin|replace|split)|and|or|xor|not|band|bor|bxor|bnot|shl|shr|join|isnot|is|as|f)\b/gi },

@@ -36,6 +36,7 @@ This is not an editor parser or a TextMate engine. It is a deliberately small do
 - [Quick Start](docs/quick-start.md)
 - [Comparison](docs/comparison.md)
 - [Language Support](docs/language-support.md)
+- [PowerShell Showcase](docs/guides/powershell.md)
 - [Octane Integration](docs/guides/octane.md)
 - [Guides](docs/guides/language-registration.md)
 - [API Reference](docs/reference/index.md)
@@ -195,7 +196,7 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Gruvbox Dark, Gr
 
 ## Languages
 
-`apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `php`, `plaintext`, `powershell`, `python`, `scheme`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
+`apache`, `cmake`, `cpp`, `csharp`, `css`, `dart`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `java`, `js`, `json`, `jsx`, `kotlin`, `lua`, `markdown`, `mermaid`, `nginx`, `perl`, `php`, `plaintext`, `python`, `ruby`, `rust`, `scheme`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
 
 Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
 
@@ -215,10 +216,11 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Registration | Minified | Gzip | Brotli |
 | --- | ---: | ---: | ---: |
 | Core, no languages | 3.84 KB | 1.82 KB | 1.66 KB |
-| Core + TSX | 10.16 KB | 4.29 KB | 3.93 KB |
-| Octane MDX + TypeScript | 13.91 KB | 5.62 KB | 5.21 KB |
-| Nine-language docs set | 16.09 KB | 6.22 KB | 5.68 KB |
-| All 32 languages | 36.17 KB | 12.45 KB | 11.27 KB |
+| Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
+| Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
+| Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
+| PowerShell + core | 7.19 KB | 3.25 KB | 3.01 KB |
+| All 40 languages | 55.38 KB | 18.47 KB | 16.65 KB |
 
 The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 

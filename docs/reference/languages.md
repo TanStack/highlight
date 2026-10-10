@@ -24,7 +24,9 @@ const highlighter = createHighlighter({
 | `apache` | `@tanstack/highlight/languages/apache` | None |
 | `cmake` | `@tanstack/highlight/languages/cmake` | None |
 | `cpp` | `@tanstack/highlight/languages/cpp` | `c++`, `cc`, `cxx`, `hpp`, `hxx` |
+| `csharp` | `@tanstack/highlight/languages/csharp` | `c#`, `cs` |
 | `css` | `@tanstack/highlight/languages/css` | None |
+| `dart` | `@tanstack/highlight/languages/dart` | None |
 | `diff` | `@tanstack/highlight/languages/diff` | `patch` |
 | `dockerfile` | `@tanstack/highlight/languages/dockerfile` | `docker` |
 | `ejs` | `@tanstack/highlight/languages/ejs` | None |
@@ -32,16 +34,22 @@ const highlighter = createHighlighter({
 | `go` | `@tanstack/highlight/languages/go` | `golang` |
 | `html` | `@tanstack/highlight/languages/html` | `htm`, `xml`, `angular-html` |
 | `http` | `@tanstack/highlight/languages/http` | None |
+| `java` | `@tanstack/highlight/languages/java` | None |
 | `js` | `@tanstack/highlight/languages/js` | `javascript`, `mjs`, `cjs`, `js-vue` |
 | `json` | `@tanstack/highlight/languages/json` | `jsonc`, `json5` |
 | `jsx` | `@tanstack/highlight/languages/jsx` | None |
+| `kotlin` | `@tanstack/highlight/languages/kotlin` | `kt`, `kts` |
+| `lua` | `@tanstack/highlight/languages/lua` | None |
 | `markdown` | `@tanstack/highlight/languages/markdown` | `md` |
 | `mermaid` | `@tanstack/highlight/languages/mermaid` | None |
 | `nginx` | `@tanstack/highlight/languages/nginx` | None |
+| `perl` | `@tanstack/highlight/languages/perl` | `pl` |
 | `php` | `@tanstack/highlight/languages/php` | None |
 | `plaintext` | `@tanstack/highlight/languages/plaintext` | `text`, `txt`, `-->` |
 | `powershell` | `@tanstack/highlight/languages/powershell` | `pwsh`, `ps1` |
 | `python` | `@tanstack/highlight/languages/python` | `py` |
+| `ruby` | `@tanstack/highlight/languages/ruby` | `rb` |
+| `rust` | `@tanstack/highlight/languages/rust` | `rs` |
 | `scheme` | `@tanstack/highlight/languages/scheme` | `scm`, `racket` |
 | `shell` | `@tanstack/highlight/languages/shell` | `bash`, `sh`, `zsh`, `cmd`, `console` |
 | `sql` | `@tanstack/highlight/languages/sql` | None |
@@ -54,8 +62,6 @@ const highlighter = createHighlighter({
 | `vue` | `@tanstack/highlight/languages/vue` | None |
 | `yaml` | `@tanstack/highlight/languages/yaml` | `yml` |
 
-`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `php`, `plaintext`, `powershell`, `python`, `scheme`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
+`@tanstack/highlight/languages` re-exports `apache`, `cmake`, `cpp`, `csharp`, `css`, `dart`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `java`, `js`, `json`, `jsx`, `kotlin`, `lua`, `markdown`, `mermaid`, `nginx`, `perl`, `php`, `plaintext`, `powershell`, `python`, `ruby`, `rust`, `scheme`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`. The barrel is convenient but individual subpaths make bundle intent explicit.
 
 See the [language support matrix](../language-support) for the context-aware behavior and current scope of each registration.
-
-Swift supports nested comments, raw and multiline strings, extended regex literals (`#/…/#`), attributes, concurrency keywords, numeric bases, and common types. PowerShell supports comments, quoted and here-strings, scoped/braced/splat variables, cmdlet names, parameters, type literals, and word operators. String interpolation stays within the string token in both languages; these lightweight definitions do not parse expressions or resolve symbols. Bare Swift regex literals and full PowerShell command/argument context are outside their scope.

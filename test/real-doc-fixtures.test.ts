@@ -11,7 +11,7 @@ type DocFixture = {
 }
 
 const fixtures = fixtureData.fixtures as Array<DocFixture>
-const languagesWithoutRealDocFixtures = new Set(['go', 'cpp', 'cmake', 'php', 'swift', 'powershell'])
+const languagesWithoutRealDocFixtures = new Set(['go', 'cpp', 'cmake', 'php', 'csharp', 'dart', 'java', 'kotlin', 'lua', 'perl', 'ruby', 'rust', 'swift', 'powershell'])
 
 describe('real TanStack docs fixtures', () => {
   it('covers normalized language targets available in TanStack docs', () => {

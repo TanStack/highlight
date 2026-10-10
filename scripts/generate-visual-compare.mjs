@@ -9,13 +9,7 @@ import { githubLightTheme } from '../dist/themes/github-light.js'
 const fixtureFile = 'test/generated/tanstack-doc-fixtures.json'
 const outFile = process.argv[2] || 'artifacts/shiki-comparison.html'
 const fixtureData = JSON.parse(fs.readFileSync(fixtureFile, 'utf8'))
-const fixtures = selectFixtures([
-  ...[['swift', 'Observatory.swift'], ['powershell', 'Get-StationReport.ps1']].map(([lang, file]) => ({
-    lang, rawLang: lang, file: `test/showcases/${file}`, line: 1,
-    code: fs.readFileSync(`test/showcases/${file}`, 'utf8'),
-  })),
-  ...fixtureData.fixtures,
-])
+const fixtures = selectFixtures(fixtureData.fixtures)
 const shikiHighlighter = await shiki.createHighlighter({
   themes: ['github-light', 'aurora-x'],
   langs: ['plaintext'],
@@ -90,6 +84,8 @@ function normalizeShikiLanguage(lang) {
     'js-vue': 'javascript',
     jsonc: 'json',
     md: 'markdown',
+    pwsh: 'powershell',
+    ps1: 'powershell',
     sh: 'bash',
     shell: 'bash',
     text: 'plaintext',
@@ -102,8 +98,14 @@ function normalizeShikiLanguage(lang) {
 }
 
 function selectFixtures(fixtures) {
-  const selected = []
-  const seen = new Set()
+  const selected = [{
+    lang: 'powershell',
+    rawLang: 'powershell',
+    file: 'test/showcases/Get-StationReport.ps1',
+    line: 1,
+    code: fs.readFileSync('test/showcases/Get-StationReport.ps1', 'utf8'),
+  }]
+  const seen = new Set(['powershell'])
 
   for (const fixture of fixtures) {
     if (seen.has(fixture.lang)) continue
@@ -213,6 +215,13 @@ function buildHtml(samples) {
     .dark .th-code {
       background: #0d1117;
       color: #e6edf3;
+    }
+    .dark .shiki, .dark .shiki span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
     }
     .missing-shiki {
       border: 1px dashed var(--panel-border);

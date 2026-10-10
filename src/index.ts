@@ -8,7 +8,9 @@ import {
 import { apache } from './languages/apache.js'
 import { cmake } from './languages/cmake.js'
 import { cpp } from './languages/cpp.js'
+import { csharp } from './languages/csharp.js'
 import { css } from './languages/css.js'
+import { dart } from './languages/dart.js'
 import { diff } from './languages/diff.js'
 import { dockerfile } from './languages/dockerfile.js'
 import { ejs } from './languages/ejs.js'
@@ -16,16 +18,22 @@ import { env } from './languages/env.js'
 import { go } from './languages/go.js'
 import { html } from './languages/html.js'
 import { http } from './languages/http.js'
+import { java } from './languages/java.js'
 import { js } from './languages/js.js'
 import { json } from './languages/json.js'
 import { jsx } from './languages/jsx.js'
+import { kotlin } from './languages/kotlin.js'
+import { lua } from './languages/lua.js'
 import { markdown } from './languages/markdown.js'
 import { mermaid } from './languages/mermaid.js'
 import { nginx } from './languages/nginx.js'
+import { perl } from './languages/perl.js'
 import { php } from './languages/php.js'
 import { plaintext } from './languages/plaintext.js'
 import { powershell } from './languages/powershell.js'
 import { python } from './languages/python.js'
+import { ruby } from './languages/ruby.js'
+import { rust } from './languages/rust.js'
 import { scheme } from './languages/scheme.js'
 import { shell } from './languages/shell.js'
 import { sql } from './languages/sql.js'
@@ -42,7 +50,9 @@ export type HighlightLanguage =
   | 'apache'
   | 'cmake'
   | 'cpp'
+  | 'csharp'
   | 'css'
+  | 'dart'
   | 'diff'
   | 'dockerfile'
   | 'ejs'
@@ -50,16 +60,22 @@ export type HighlightLanguage =
   | 'go'
   | 'html'
   | 'http'
+  | 'java'
   | 'js'
   | 'json'
   | 'jsx'
+  | 'kotlin'
+  | 'lua'
   | 'markdown'
   | 'mermaid'
   | 'nginx'
+  | 'perl'
   | 'php'
   | 'plaintext'
   | 'powershell'
   | 'python'
+  | 'ruby'
+  | 'rust'
   | 'scheme'
   | 'shell'
   | 'sql'
@@ -116,7 +132,9 @@ export const allLanguages = [
   apache,
   cmake,
   cpp,
+  csharp,
   css,
+  dart,
   diff,
   dockerfile,
   ejs,
@@ -124,16 +142,22 @@ export const allLanguages = [
   go,
   html,
   http,
+  java,
   js,
   json,
   jsx,
+  kotlin,
+  lua,
   markdown,
   mermaid,
   nginx,
+  perl,
   php,
   plaintext,
   powershell,
   python,
+  ruby,
+  rust,
   scheme,
   shell,
   sql,
