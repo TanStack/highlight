@@ -4,6 +4,7 @@ Import only the definitions the application registers.
 
 | Language | Export | Direct import | Aliases |
 | --- | --- | --- | --- |
+| ABAP | `abap` | `@tanstack/highlight/languages/abap` | - |
 | Apache | `apache` | `@tanstack/highlight/languages/apache` | - |
 | CMake | `cmake` | `@tanstack/highlight/languages/cmake` | - |
 | C++ | `cpp` | `@tanstack/highlight/languages/cpp` | `c++`, `cc`, `cxx`, `hpp`, `hxx` |

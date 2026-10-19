@@ -10,6 +10,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 
 | Language | Export | Aliases | Context-aware behavior |
 | --- | --- | --- | --- |
+| ABAP | `abap` | - | First-column `*` comments, doubled-delimiter literals, string templates with tokenized `{ }` holes, case-insensitive and hyphenated keywords, field symbols, pragmas, component selectors |
 | Apache | `apache` | - | Directives, tags, comments |
 | CMake | `cmake` | - | Bracket strings/comments, nested variables, generator expressions |
 | C++ | `cpp` | `c++`, `cc`, `cxx`, `hpp`, `hxx` | Raw and prefixed strings, character literals, preprocessor directives, digit separators |

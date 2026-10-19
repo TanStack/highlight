@@ -5,6 +5,7 @@ import {
   type HighlightTokenResult as CoreHighlightTokenResult,
   type RenderedCodeBlockData as CoreRenderedCodeBlockData,
 } from './core.js'
+import { abap } from './languages/abap.js'
 import { apache } from './languages/apache.js'
 import { cmake } from './languages/cmake.js'
 import { cpp } from './languages/cpp.js'
@@ -46,6 +47,7 @@ import { vue } from './languages/vue.js'
 import { yaml } from './languages/yaml.js'
 
 export type HighlightLanguage =
+  | 'abap'
   | 'apache'
   | 'cmake'
   | 'cpp'
@@ -127,6 +129,7 @@ export {
 } from './core.js'
 
 export const allLanguages = [
+  abap,
   apache,
   cmake,
   cpp,
