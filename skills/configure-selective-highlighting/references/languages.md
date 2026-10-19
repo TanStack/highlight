@@ -5,6 +5,7 @@ Import only the definitions the application registers.
 | Language | Export | Direct import | Aliases |
 | --- | --- | --- | --- |
 | Apache | `apache` | `@tanstack/highlight/languages/apache` | - |
+| C | `c` | `@tanstack/highlight/languages/c` | `h` |
 | CMake | `cmake` | `@tanstack/highlight/languages/cmake` | - |
 | C++ | `cpp` | `@tanstack/highlight/languages/cpp` | `c++`, `cc`, `cxx`, `hpp`, `hxx` |
 | C# | `csharp` | `@tanstack/highlight/languages/csharp` | `c#`, `cs` |

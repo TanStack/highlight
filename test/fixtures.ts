@@ -15,6 +15,12 @@ export const languageFixtures: Array<LanguageFixture> = [
     expectedClasses: ['th-meta', 'th-attr', 'th-keyword', 'th-function', 'th-type', 'th-variable', 'th-string', 'th-operator', 'th-number', 'th-comment', 'th-literal'],
   },
   {
+    lang: 'h',
+    normalized: 'c',
+    code: '#include <stdio.h>\nstruct point { int x; };\nint main(void) { const char *s = "hello"; return s[0] == 0x41; } // done',
+    expectedClasses: ['th-meta', 'th-string', 'th-keyword', 'th-type', 'th-function', 'th-number', 'th-operator', 'th-comment'],
+  },
+  {
     lang: 'c++',
     normalized: 'cpp',
     code: '#include <iostream>\nstruct Point { int x = 42; };\nint main() { std::cout << "hello"; return 0; } // output',

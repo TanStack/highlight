@@ -11,6 +11,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Language | Export | Aliases | Context-aware behavior |
 | --- | --- | --- | --- |
 | Apache | `apache` | - | Directives, tags, comments |
+| C | `c` | `h` | Prefixed strings, character literals, preprocessor directives, C11 and C23 keywords, digit separators; C++-only words stay plain |
 | CMake | `cmake` | - | Bracket strings/comments, nested variables, generator expressions |
 | C++ | `cpp` | `c++`, `cc`, `cxx`, `hpp`, `hxx` | Raw and prefixed strings, character literals, preprocessor directives, digit separators |
 | C# | `csharp` | `c#`, `cs` | Verbatim, interpolated, and raw strings with nested quotes, character literals, preprocessor directives, line-leading and parameter attributes, contextual and LINQ keywords |
