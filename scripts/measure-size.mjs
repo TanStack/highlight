@@ -179,13 +179,22 @@ const profiles = {
     languages: ['swift'],
     limits: { minified: 7_450, gzip: 3_550, brotli: 3_250 },
   },
+  powershell: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { powershell } from './src/languages/powershell.ts'
+      globalThis.highlighter = createHighlighter({ languages: [powershell] })
+    `,
+    languages: ['powershell'],
+    limits: { minified: 7_400, gzip: 3_400, brotli: 3_150 },
+  },
   all: {
     source: `
       import { defaultHighlighter } from './src/index.ts'
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 53_150, gzip: 18_000, brotli: 16_200 },
+    limits: { minified: 55_800, gzip: 18_750, brotli: 16_900 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,

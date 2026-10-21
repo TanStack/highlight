@@ -33,6 +33,7 @@
         { "label": "SSR and Client Rendering", "to": "guides/ssr-and-client" },
         { "label": "React Integration", "to": "guides/react" },
         { "label": "Octane Integration", "to": "guides/octane" },
+        { "label": "PowerShell Showcase", "to": "guides/powershell" },
         { "label": "Custom Languages", "to": "guides/custom-languages" },
         { "label": "Bundle Size and Performance", "to": "guides/performance" }
       ]
