@@ -15,6 +15,12 @@ export const languageFixtures: Array<LanguageFixture> = [
     expectedClasses: ['th-meta', 'th-attr', 'th-keyword', 'th-function', 'th-type', 'th-variable', 'th-string', 'th-operator', 'th-number', 'th-comment', 'th-literal'],
   },
   {
+    lang: 'ABAP',
+    normalized: 'abap',
+    code: '* Report header\nCLASS lcl_app DEFINITION.\n  PUBLIC SECTION.\n    METHODS run RETURNING VALUE(result) TYPE i.\nENDCLASS.\nDATA(text) = |Count: { lines( items ) }|. " inline\nresult = 42 + lo_app->count ##NEEDED.',
+    expectedClasses: ['th-comment', 'th-keyword', 'th-type', 'th-function', 'th-string', 'th-number', 'th-operator', 'th-property', 'th-meta'],
+  },
+  {
     lang: 'c++',
     normalized: 'cpp',
     code: '#include <iostream>\nstruct Point { int x = 42; };\nint main() { std::cout << "hello"; return 0; } // output',

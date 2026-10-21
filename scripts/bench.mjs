@@ -56,6 +56,12 @@ try {
       outputBytes: htmlBytes,
       targetBlocks: 10_000,
     },
+    abap: {
+      fixtures: [{ rawLang: 'abap', code: '* Header\nCLASS lcl_app DEFINITION INHERITING FROM /bobf/cl_base.\n  PUBLIC SECTION.\n    CLASS-METHODS create RETURNING VALUE(result) TYPE REF TO lcl_app.\nENDCLASS.\nLOOP AT lt_rows ASSIGNING FIELD-SYMBOL(<ls_row>).\n  DATA(text) = |Row { <ls_row>-id } of { lines( lt_rows ) }|. " note\n  lv_sum = lv_sum + <ls_row>-amount * 2 ##NEEDED.\nENDLOOP.' }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 10_000,
+    },
     cpp: {
       fixtures: [{ rawLang: 'cpp', code: '#include <vector>\nconstexpr auto text = R"tag(// raw text)tag";\nint main() { std::vector<int> values{1, 2, 3}; return values.size(); }' }],
       run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
