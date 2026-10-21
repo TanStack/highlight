@@ -27,6 +27,14 @@ describe('C documentation syntax', () => {
     expect(classes(code, 'u8"utf"')).toEqual(['string'])
   })
 
+  it('ends unterminated strings at the line end and keeps escaped line continuations', () => {
+    const code = 'const char *open = "unterminated;\nint count = 1;\nconst char *joined = "first \\\nsecond";'
+    expect(classes(code, '"unterminated;')).toEqual(['string'])
+    expect(classes(code, 'int')).toEqual(['type'])
+    expect(classes(code, '1')).toEqual(['number'])
+    expect(classes(code, '"first \\\nsecond"')).toEqual(['string'])
+  })
+
   it('keeps C++-only words plain because C allows them as identifiers', () => {
     const code = 'int new = 1;\nstruct node *class = this_node(template, namespace);\nint this = new + 1;'
     for (const word of ['new', 'namespace', 'template']) {

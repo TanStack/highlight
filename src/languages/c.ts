@@ -8,7 +8,7 @@ export const c = defineLanguage({
   tokenize: patternTokenizer([
     {
       className: (match) => match[0].startsWith('/') ? 'comment' : 'string',
-      regex: /\/\/(?:\\\r?\n|[^\n])*|\/\*[\s\S]*?\*\/|(?:u8|u|U|L)?"(?:\\[\s\S]|[^"\\])*"|(?<![\w'])(?:u8|u|U|L)?'(?:\\.|[^'\\\r\n])*'/g,
+      regex: /\/\/(?:\\\r?\n|[^\n])*|\/\*[\s\S]*?\*\/|(?:u8|u|U|L)?"(?:\\[\s\S]|[^"\\\r\n])*"?|(?<![\w'])(?:u8|u|U|L)?'(?:\\.|[^'\\\r\n])*'/g,
     },
     { className: 'string', regex: /^[ \t]*#[ \t]*(?:include|embed)[ \t]*(<[^>\r\n]+>)/gm, group: 1 },
     { className: 'meta', regex: /^[ \t]*(#[ \t]*[A-Za-z_]\w*)/gm, group: 1 },
