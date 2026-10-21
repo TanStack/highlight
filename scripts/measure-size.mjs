@@ -80,6 +80,15 @@ const profiles = {
     languages: ['php'],
     limits: { minified: 8_000, gzip: 3_700, brotli: 3_400 },
   },
+  c: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { c } from './src/languages/c.ts'
+      globalThis.highlighter = createHighlighter({ languages: [c] })
+    `,
+    languages: ['c'],
+    limits: { minified: 6_250, gzip: 2_950, brotli: 2_750 },
+  },
   cpp: {
     source: `
       import { createHighlighter } from './src/core.ts'
@@ -185,7 +194,7 @@ const profiles = {
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 53_150, gzip: 18_000, brotli: 16_200 },
+    limits: { minified: 54_600, gzip: 18_150, brotli: 16_450 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,

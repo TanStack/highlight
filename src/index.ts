@@ -6,6 +6,7 @@ import {
   type RenderedCodeBlockData as CoreRenderedCodeBlockData,
 } from './core.js'
 import { apache } from './languages/apache.js'
+import { c } from './languages/c.js'
 import { cmake } from './languages/cmake.js'
 import { cpp } from './languages/cpp.js'
 import { csharp } from './languages/csharp.js'
@@ -47,6 +48,7 @@ import { yaml } from './languages/yaml.js'
 
 export type HighlightLanguage =
   | 'apache'
+  | 'c'
   | 'cmake'
   | 'cpp'
   | 'csharp'
@@ -128,6 +130,7 @@ export {
 
 export const allLanguages = [
   apache,
+  c,
   cmake,
   cpp,
   csharp,

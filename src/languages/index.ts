@@ -1,4 +1,5 @@
 export { apache } from './apache.js'
+export { c } from './c.js'
 export { cmake } from './cmake.js'
 export { cpp } from './cpp.js'
 export { csharp } from './csharp.js'
