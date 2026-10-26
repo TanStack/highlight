@@ -1,3 +1,4 @@
+import additionalFixtures from './generated/additional-language-fixtures.json'
 import { describe, expect, it } from 'vitest'
 import { highlight, listLanguages, normalizeLanguage } from '../src/index'
 import fixtureData from './generated/tanstack-doc-fixtures.json'
@@ -11,7 +12,7 @@ type DocFixture = {
 }
 
 const fixtures = fixtureData.fixtures as Array<DocFixture>
-const languagesWithoutRealDocFixtures = new Set(['go', 'cpp', 'cmake', 'php', 'csharp', 'dart', 'java', 'kotlin', 'lua', 'perl', 'ruby', 'rust', 'swift'])
+const languagesWithoutRealDocFixtures = new Set([...additionalFixtures.map((fixture) => fixture.name), 'go', 'cpp', 'cmake', 'php', 'csharp', 'dart', 'java', 'kotlin', 'lua', 'perl', 'ruby', 'rust', 'swift'])
 
 describe('real TanStack docs fixtures', () => {
   it('covers normalized language targets available in TanStack docs', () => {

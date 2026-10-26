@@ -1,0 +1,946 @@
+[
+  {
+    "name": "ada",
+    "aliases": [],
+    "code": "procedure Hello is\nbegin\n  Put_Line(\"-- hello\"); -- note\nend Hello;",
+    "checks": [
+      [
+        "procedure",
+        "keyword"
+      ],
+      [
+        "\"-- hello\"",
+        "string"
+      ],
+      [
+        "-- note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "applescript",
+    "aliases": [
+      "osascript"
+    ],
+    "code": "tell application \"Finder\"\n  display dialog \"Hello\" -- note\nend tell",
+    "checks": [
+      [
+        "tell",
+        "keyword"
+      ],
+      [
+        "\"Finder\"",
+        "string"
+      ],
+      [
+        "-- note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "c",
+    "aliases": [
+      "h"
+    ],
+    "code": "#include <stdio.h>\nint main(void) { printf(\"/* text */\"); return 42; } // note",
+    "checks": [
+      [
+        "int",
+        "type"
+      ],
+      [
+        "return",
+        "keyword"
+      ],
+      [
+        "\"/* text */\"",
+        "string"
+      ],
+      [
+        "42",
+        "number"
+      ]
+    ]
+  },
+  {
+    "name": "clojure",
+    "aliases": [
+      "clj",
+      "edn"
+    ],
+    "code": "(defn greet [name] (str \"Hello\" name)) ; note\n{:enabled true}",
+    "checks": [
+      [
+        "defn",
+        "keyword"
+      ],
+      [
+        "\"Hello\"",
+        "string"
+      ],
+      [
+        ":enabled",
+        "literal"
+      ],
+      [
+        "; note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "crystal",
+    "aliases": [
+      "cr"
+    ],
+    "code": "class Greeter\n  def hello\n    puts \"hello\" # note\n  end\nend",
+    "checks": [
+      [
+        "class",
+        "keyword"
+      ],
+      [
+        "def",
+        "keyword"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ],
+      [
+        "# note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "d",
+    "aliases": [],
+    "code": "module hello;\n/+ outer /+ inner +/ tail +/\nvoid main() { auto text = \"hello\"; }",
+    "checks": [
+      [
+        "module",
+        "keyword"
+      ],
+      [
+        "/+ outer /+ inner +/ tail +/",
+        "comment"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "pascal",
+    "aliases": [
+      "pas",
+      "delphi",
+      "dpr"
+    ],
+    "code": "program Hello;\nbegin\n  writeln('it''s hello'); { note }\nend.",
+    "checks": [
+      [
+        "program",
+        "keyword"
+      ],
+      [
+        "'it''s hello'",
+        "string"
+      ],
+      [
+        "{ note }",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "elixir",
+    "aliases": [
+      "ex",
+      "exs"
+    ],
+    "code": "defmodule Hello do\n  def greet(name), do: \"Hello\" # note\nend\n:ok",
+    "checks": [
+      [
+        "defmodule",
+        "keyword"
+      ],
+      [
+        "\"Hello\"",
+        "string"
+      ],
+      [
+        ":ok",
+        "literal"
+      ],
+      [
+        "# note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "elm",
+    "aliases": [],
+    "code": "module Main exposing (main)\n{- outer {- inner -} tail -}\nmain = if True then \"hello\" else \"bye\"",
+    "checks": [
+      [
+        "module",
+        "keyword"
+      ],
+      [
+        "if",
+        "keyword"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ],
+      [
+        "{- outer {- inner -} tail -}",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "erlang",
+    "aliases": [
+      "erl"
+    ],
+    "code": "-module(hello).\ngreet(Name) -> case Name of \"Ada\" -> true; _ -> false end. % note",
+    "checks": [
+      [
+        "case",
+        "keyword"
+      ],
+      [
+        "true",
+        "literal"
+      ],
+      [
+        "\"Ada\"",
+        "string"
+      ],
+      [
+        "% note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "fortran",
+    "aliases": [
+      "f90",
+      "f95",
+      "f03",
+      "f08"
+    ],
+    "code": "program hello\n  implicit none\n  print *, 'hello ! text' ! note\nend program hello",
+    "checks": [
+      [
+        "program",
+        "keyword"
+      ],
+      [
+        "'hello ! text'",
+        "string"
+      ],
+      [
+        "! note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "fsharp",
+    "aliases": [
+      "fs",
+      "f#",
+      "fsx"
+    ],
+    "code": "let greet name = printfn \"hello %s\" name\n(* outer (* inner *) tail *)",
+    "checks": [
+      [
+        "let",
+        "keyword"
+      ],
+      [
+        "\"hello %s\"",
+        "string"
+      ],
+      [
+        "(* outer (* inner *) tail *)",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "glsl",
+    "aliases": [],
+    "code": "#version 330 core\nuniform vec3 color;\nvoid main() { if (true) discard; } // note",
+    "checks": [
+      [
+        "uniform",
+        "keyword"
+      ],
+      [
+        "vec3",
+        "type"
+      ],
+      [
+        "discard",
+        "keyword"
+      ],
+      [
+        "// note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "graphql",
+    "aliases": [
+      "gql"
+    ],
+    "code": "query User($id: ID!) { user(id: $id) { name } } # note\n\"\"\"description\"\"\"",
+    "checks": [
+      [
+        "query",
+        "keyword"
+      ],
+      [
+        "$id",
+        "variable"
+      ],
+      [
+        "# note",
+        "comment"
+      ],
+      [
+        "\"\"\"description\"\"\"",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "groovy",
+    "aliases": [],
+    "code": "def greet(name) { return \"Hello\" } // note",
+    "checks": [
+      [
+        "def",
+        "keyword"
+      ],
+      [
+        "return",
+        "keyword"
+      ],
+      [
+        "\"Hello\"",
+        "string"
+      ],
+      [
+        "// note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "haskell",
+    "aliases": [
+      "hs"
+    ],
+    "code": "module Main where\n{- outer {- inner -} tail -}\nmain = if True then putStrLn \"hello\" else pure ()",
+    "checks": [
+      [
+        "module",
+        "keyword"
+      ],
+      [
+        "if",
+        "keyword"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ],
+      [
+        "{- outer {- inner -} tail -}",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "ini",
+    "aliases": [
+      "cfg"
+    ],
+    "code": "[server]\nhost = \"localhost;still string\"\nport = 8080\n; note",
+    "checks": [
+      [
+        "[server]",
+        "meta"
+      ],
+      [
+        "host",
+        "property"
+      ],
+      [
+        "\"localhost;still string\"",
+        "string"
+      ],
+      [
+        "; note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "julia",
+    "aliases": [
+      "jl"
+    ],
+    "code": "function greet(name)\n  #= outer #= inner =# tail =#\n  println(\"hello\", name)\nend",
+    "checks": [
+      [
+        "function",
+        "keyword"
+      ],
+      [
+        "#= outer #= inner =# tail =#",
+        "comment"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "lisp",
+    "aliases": [
+      "commonlisp",
+      "cl"
+    ],
+    "code": "(defun greet (name) (format t \"Hello ~a\" name)) ; note\n:ready",
+    "checks": [
+      [
+        "defun",
+        "keyword"
+      ],
+      [
+        "\"Hello ~a\"",
+        "string"
+      ],
+      [
+        "; note",
+        "comment"
+      ],
+      [
+        ":ready",
+        "literal"
+      ]
+    ]
+  },
+  {
+    "name": "makefile",
+    "aliases": [
+      "make",
+      "mk",
+      "mak"
+    ],
+    "code": "CC := cc\n.PHONY: all\nall: main.c\n\t$(CC) -o app main.c # note",
+    "checks": [
+      [
+        "CC",
+        "property"
+      ],
+      [
+        "all",
+        "function"
+      ],
+      [
+        "$(CC)",
+        "variable"
+      ],
+      [
+        "# note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "matlab",
+    "aliases": [],
+    "code": "function y = square(x)\ny = x.^2; % note\ndisp('hello');\nend",
+    "checks": [
+      [
+        "function",
+        "keyword"
+      ],
+      [
+        "2",
+        "number"
+      ],
+      [
+        "% note",
+        "comment"
+      ],
+      [
+        "'hello'",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "nix",
+    "aliases": [
+      "nixos"
+    ],
+    "code": "let name = \"hello\"; in { inherit name; enabled = true; } # note",
+    "checks": [
+      [
+        "let",
+        "keyword"
+      ],
+      [
+        "inherit",
+        "keyword"
+      ],
+      [
+        "true",
+        "literal"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "objectivec",
+    "aliases": [
+      "objc",
+      "obj-c",
+      "objective-c",
+      "mm"
+    ],
+    "code": "@interface Greeter : NSObject\n@end\nNSString *text = @\"hello\"; // note",
+    "checks": [
+      [
+        "@interface",
+        "keyword"
+      ],
+      [
+        "@end",
+        "keyword"
+      ],
+      [
+        "@\"hello\"",
+        "string"
+      ],
+      [
+        "// note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "ocaml",
+    "aliases": [
+      "ml"
+    ],
+    "code": "let greet name = Printf.printf \"hello %s\" name\n(* outer (* inner *) tail *)",
+    "checks": [
+      [
+        "let",
+        "keyword"
+      ],
+      [
+        "\"hello %s\"",
+        "string"
+      ],
+      [
+        "(* outer (* inner *) tail *)",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "powershell",
+    "aliases": [
+      "pwsh",
+      "ps1",
+      "ps"
+    ],
+    "code": "function Greet { param($name) Write-Host \"hello $name\" } # note",
+    "checks": [
+      [
+        "function",
+        "keyword"
+      ],
+      [
+        "$name",
+        "variable"
+      ],
+      [
+        "Write-Host",
+        "command"
+      ],
+      [
+        "\"hello $name\"",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "protobuf",
+    "aliases": [
+      "proto"
+    ],
+    "code": "syntax = \"proto3\";\nmessage User { string name = 1; repeated int32 ids = 2; } // note",
+    "checks": [
+      [
+        "message",
+        "keyword"
+      ],
+      [
+        "\"proto3\"",
+        "string"
+      ],
+      [
+        "string",
+        "type"
+      ],
+      [
+        "// note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "r",
+    "aliases": [],
+    "code": "greet <- function(name) { paste(\"hello\", name) } # note\nready <- TRUE",
+    "checks": [
+      [
+        "function",
+        "keyword"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ],
+      [
+        "TRUE",
+        "literal"
+      ],
+      [
+        "# note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "scala",
+    "aliases": [
+      "sc"
+    ],
+    "code": "object Hello {\n /* outer /* inner */ tail */\n val name = \"hello\"\n def greet() = name\n}",
+    "checks": [
+      [
+        "object",
+        "keyword"
+      ],
+      [
+        "val",
+        "keyword"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ],
+      [
+        "/* outer /* inner */ tail */",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "scss",
+    "aliases": [],
+    "code": "$color: red;\n@mixin theme { .card { color: $color; content: \"// text\"; } } // note",
+    "checks": [
+      [
+        "$color",
+        "variable"
+      ],
+      [
+        "@mixin",
+        "meta"
+      ],
+      [
+        ".card",
+        "selector"
+      ],
+      [
+        "\"// text\"",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "less",
+    "aliases": [],
+    "code": "@color: red;\n.card { color: @color; content: \"/* text */\"; } // note",
+    "checks": [
+      [
+        "@color",
+        "variable"
+      ],
+      [
+        ".card",
+        "selector"
+      ],
+      [
+        "\"/* text */\"",
+        "string"
+      ],
+      [
+        "// note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "verilog",
+    "aliases": [
+      "v",
+      "sv",
+      "svh"
+    ],
+    "code": "module hello(input logic clk);\n  logic [7:0] count = 8'hFF; // note\nendmodule",
+    "checks": [
+      [
+        "module",
+        "keyword"
+      ],
+      [
+        "8'hFF",
+        "number"
+      ],
+      [
+        "// note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "vhdl",
+    "aliases": [],
+    "code": "entity hello is\n  port(clk : in std_logic); -- note\nend hello;",
+    "checks": [
+      [
+        "entity",
+        "keyword"
+      ],
+      [
+        "port",
+        "keyword"
+      ],
+      [
+        "-- note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "vbnet",
+    "aliases": [
+      "vb"
+    ],
+    "code": "Module Hello\n Sub Main()\n  Console.WriteLine(\"say \"\"hello\"\"\") ' note\n End Sub\nEnd Module",
+    "checks": [
+      [
+        "Module",
+        "keyword"
+      ],
+      [
+        "\"say \"\"hello\"\"\"",
+        "string"
+      ],
+      [
+        "' note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "latex",
+    "aliases": [
+      "tex"
+    ],
+    "code": "\\documentclass{article}\n\\begin{document}\nHello $x + 1$ % note\n\\end{document}",
+    "checks": [
+      [
+        "\\documentclass",
+        "keyword"
+      ],
+      [
+        "% note",
+        "comment"
+      ],
+      [
+        "1",
+        "number"
+      ]
+    ]
+  },
+  {
+    "name": "coffeescript",
+    "aliases": [
+      "coffee",
+      "cson"
+    ],
+    "code": "square = (x) -> x * x\nif yes then console.log \"hello\" # note",
+    "checks": [
+      [
+        "if",
+        "keyword"
+      ],
+      [
+        "yes",
+        "literal"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ],
+      [
+        "# note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "batch",
+    "aliases": [
+      "bat",
+      "dos"
+    ],
+    "code": "@echo off\nREM note\nif exist \"file.txt\" echo %PATH%",
+    "checks": [
+      [
+        "if",
+        "keyword"
+      ],
+      [
+        "\"file.txt\"",
+        "string"
+      ],
+      [
+        "%PATH%",
+        "variable"
+      ],
+      [
+        "REM note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "properties",
+    "aliases": [
+      "java-properties"
+    ],
+    "code": "# note\nserver.port=8080\nwelcome=hello",
+    "checks": [
+      [
+        "# note",
+        "comment"
+      ],
+      [
+        "server.port",
+        "property"
+      ],
+      [
+        "hello",
+        "string"
+      ]
+    ]
+  },
+  {
+    "name": "wat",
+    "aliases": [
+      "wasm"
+    ],
+    "code": "(module (; outer (; inner ;) tail ;)\n (func $add (param $x i32) (result i32) local.get $x))",
+    "checks": [
+      [
+        "module",
+        "keyword"
+      ],
+      [
+        "$add",
+        "variable"
+      ],
+      [
+        "(; outer (; inner ;) tail ;)",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "x86asm",
+    "aliases": [
+      "asm",
+      "nasm"
+    ],
+    "code": "section .text\nglobal _start\n_start:\n mov eax, 1 ; note\n ret",
+    "checks": [
+      [
+        "mov",
+        "keyword"
+      ],
+      [
+        "eax",
+        "type"
+      ],
+      [
+        "1",
+        "number"
+      ],
+      [
+        "; note",
+        "comment"
+      ]
+    ]
+  },
+  {
+    "name": "awk",
+    "aliases": [],
+    "code": "BEGIN { print \"hello\" }\n$1 ~ /abc/ { print $2 } # note",
+    "checks": [
+      [
+        "BEGIN",
+        "keyword"
+      ],
+      [
+        "\"hello\"",
+        "string"
+      ],
+      [
+        "/abc/",
+        "string"
+      ],
+      [
+        "$2",
+        "variable"
+      ]
+    ]
+  }
+]

@@ -32,6 +32,7 @@
   "files": [
     "dist",
     "LICENSE",
+    "NOTICE.md",
     "README.md",
     "skills",
     "!skills/_artifacts"
