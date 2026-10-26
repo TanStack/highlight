@@ -5,6 +5,7 @@ import {
   renderNodesToHtml,
   renderTokens,
   type HighlightRenderNode,
+  type HighlightRangeDecoration,
   type HighlightToken,
   type TokenRange,
 } from '../src/core'
@@ -66,6 +67,65 @@ describe('rendering', () => {
     }))
     expect(textContent(renderTokens(tokens, { lineNumbers: true }))).toBe(code)
     expect(reads).toBeLessThan(code.length * 8)
+  })
+
+  it.each([false, true])(
+    'ignores invalid decoration offsets without changing source or valid ranges (lineNumbers: %s)',
+    (lineNumbers) => {
+      const code = 'a😀\r\nbc\ndef'
+      const tokens: Array<HighlightToken> = [
+        { value: 'a😀\r\nb', className: 'string' },
+        { value: 'c\ndef', className: 'keyword' },
+      ]
+      const valid: ReadonlyArray<HighlightRangeDecoration> = [
+        { range: [-5, 1], className: 'first' },
+        { range: [3, code.length + 5], className: 'rest' },
+      ]
+      const invalid: ReadonlyArray<HighlightRangeDecoration> = [
+        { range: [NaN, 1] },
+        { range: [2, NaN] },
+        { range: [-Infinity, 3] },
+        { range: [1, Infinity] },
+        { range: [1.5, 4] },
+        { range: [1, 4.5] },
+        { range: [5, 2] },
+        { range: [2, 2] },
+      ]
+
+      const expected = renderTokens(tokens, { lineNumbers, decorations: valid })
+      if (!lineNumbers) {
+        expect(renderNodesToHtml(expected)).toBe(
+          '<span class="th-decoration first"><span class="th-token th-string">a</span></span>' +
+          '<span class="th-token th-string">😀</span>' +
+          '<span class="th-decoration rest"><span class="th-token th-string">\r\nb</span></span>' +
+          '<span class="th-decoration rest"><span class="th-token th-keyword">c\ndef</span></span>',
+        )
+      }
+      for (const decoration of invalid) {
+        const actual = renderTokens(tokens, {
+          lineNumbers,
+          decorations: [decoration, ...valid],
+        })
+        expect(textContent(actual), String(decoration.range)).toBe(code)
+        expect(actual, String(decoration.range)).toEqual(expected)
+      }
+    },
+  )
+
+  it('preserves an own __proto__ line metadata key and later values', () => {
+    const data = Object.fromEntries([
+      ['__proto__', '<&"'],
+      ['constructor', 'before'],
+    ])
+    const nodes = renderTokens([{ value: 'x' }], {
+      decorations: [
+        { lines: 1, data },
+        { lines: 1, data: { constructor: 'after' } },
+      ],
+    })
+    expect(renderNodesToHtml(nodes)).toBe(
+      '<span class="th-line" data-__proto__="&lt;&amp;&quot;" data-constructor="after" data-line="1">x</span>',
+    )
   })
 
   it('escapes source text and public render node attributes', () => {

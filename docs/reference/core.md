@@ -159,7 +159,7 @@ type HighlightRangeDecoration = {
 }
 ```
 
-The range uses zero-based, end-exclusive UTF-16 offsets.
+The range uses zero-based, end-exclusive UTF-16 offsets. Both offsets must be integers with `start < end`; otherwise the decoration is ignored. Ranges extending outside the source are clipped to its bounds.
 
 ### `HighlightLineDecoration`
 
