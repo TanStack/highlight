@@ -369,6 +369,16 @@ let package = Package(
     expect(classes(code, '.testTarget(name:')).toEqual([undefined, 'function', undefined, 'property', undefined])
   })
 
+  it('recognizes macro declarations with short names', () => {
+    for (const name of ['m', 'm<T>']) {
+      const code = `public macro ${name}() = #externalMacro(module: "M", type: "T")`
+      expect(classes(code, 'macro')).toEqual(['keyword'])
+      expect(classes(code, '#externalMacro')).toEqual(['meta'])
+    }
+    expect(classes('let macro = value', 'macro')).not.toContain('keyword')
+    expect(classes('value.macro()', 'macro')).toEqual(['function'])
+  })
+
   it('registers only the swift name', () => {
     expect(highlighter.normalizeLanguage('swift')).toBe('swift')
     expect(createHighlighter({ languages: [] }).normalizeLanguage('swift')).toBe('plaintext')
