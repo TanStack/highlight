@@ -5,6 +5,7 @@ export const r = /* @__PURE__ */ simpleLanguage({
   name: "r",
   wordCharacters: "\\w.$",
   aliases: [],
+  numberSuffix: '[Li]?',
   comments: /#[^\r\n]*/,
   strings: /"(?:\\[\s\S]|[^"\\])*(?:"|(?![\s\S]))|\'(?:\\[\s\S]|[^\'\\])*(?:\'|(?![\s\S]))|`[^`]*(?:`|(?![\s\S]))/,
   keywords: "function if in break next repeat else for while",

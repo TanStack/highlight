@@ -46,7 +46,9 @@ const docs = JSON.parse(fs.readFileSync(new URL('../test/generated/tanstack-doc-
 if (process.argv[3]) {
   const directory = path.join(process.argv[3], 'packages/highlights/benchmark/fixtures')
   for (const file of fs.readdirSync(directory).filter((name) => name.endsWith('.txt'))) {
-    docs.push({ file, lang: file.split('.')[1], code: fs.readFileSync(path.join(directory, file), 'utf8') })
+    const code = fs.readFileSync(path.join(directory, file), 'utf8')
+    if (code.startsWith('version https://git-lfs')) throw new Error(`Missing LFS fixture: ${file}`)
+    docs.push({ file, lang: file.split('.')[1], code })
   }
 }
 docs.push({ file: 'unicode-crlf', lang: 'ts', code: 'const café = "🌈 & <你好>";\r\n// İ é 日本語\r\n' })

@@ -1,4 +1,6 @@
-# Pierre Highlights vs TanStack Highlight
+# Pierre Highlights vs TanStack Highlight, pre-change baseline
+
+These measurements use TanStack 1.1.0 before the language expansion and rendering changes. They are not measurements of the current release. See [the expansion report](../language-expansion/README.md) for the updated bundle sizes, registry, and matched-output rendering comparison.
 
 Measured October 25, 2026, America/Denver, on an Apple M5 Pro. Pierre 0.2.0, TanStack 1.1.0, Shiki 4.3.1. Node 24.15.0 and Bun 1.3.14.
 
@@ -56,7 +58,7 @@ The Node large-TypeScript case puts Pierre at about **297× Shiki**, close to it
 
 Pierre uses handwritten WAT lexers, contextual state, SIMD scans that inspect 16 bytes at a time, and a direct HTML emitter. Adjacent output with the same style is merged. Its [architecture documentation](https://github.com/pierrecomputer/pierre/blob/2f47ca269a849b98aa479cc68515972e202f08a2/packages/highlights/ARCHITECTURE.md) explicitly says it emits output without a syntax tree.
 
-TanStack's HTML path builds token ranges, normalizes them, creates token strings, builds render nodes, then serializes HTML. Those intermediate allocations are a plausible optimization target, but this review did not profile how much time each stage contributes. A dedicated direct HTML path is worth investigating before considering an engine rewrite. The existing API also promises tokens, so an HTML-only path would need to preserve that distinction.
+TanStack 1.1.0's HTML path builds token ranges, normalizes them, creates token strings, builds render nodes, then serializes HTML. Those intermediate allocations are a plausible optimization target, but this review did not profile how much time each stage contributes. A dedicated direct HTML path is worth investigating before considering an engine rewrite. The current implementation now skips render nodes for plain HTML blocks while preserving the token-returning API. Token creation remains part of that contract.
 
 ## Size and language coverage
 
@@ -84,7 +86,7 @@ Both also preserve source text through HTML generation across 303 cases: 290 sup
 
 ## Reproduce
 
-From this repository, with dependencies installed:
+To reproduce this baseline, use TanStack source revision `0541f2fdc7f96fb6245c82c739f0d816afdb670a` in a separate checkout, copy the comparison scripts from this release into it, and install its dependencies. Running against current source produces new measurements:
 
 ```sh
 npm run build
@@ -96,6 +98,6 @@ bun scripts/compare-pierre.mjs /tmp/highlight-direct-bench/node_modules/@pierre/
 node scripts/probe-pierre.mjs /tmp/highlight-direct-bench/node_modules/@pierre/highlights /tmp/highlight-pierre-review > reports/pierre/probes.json
 ```
 
-The upstream checkout uses Git LFS for some assets, so install Git LFS if needed. The benchmark rejects fixture pointer files. TanStack source revision: `0541f2fdc7f96fb6245c82c739f0d816afdb670a`. Scripts and results were added locally without changing the library implementation or dependencies.
+The upstream checkout uses Git LFS for some assets, so install Git LFS if needed. The benchmark rejects fixture pointer files. TanStack source revision: `0541f2fdc7f96fb6245c82c739f0d816afdb670a`. The recorded comparison predates the implementation changes in this release.
 
 Pierre npm tarball integrity: `sha512-hTpcOU1EzDAP4bYtEhxmMu2jwMvtkUydRUBUpWMSHTs3dw0IaC3Ld5ansMy18L0GE3b6Vfl2OGkLK+pWWpnBmw==`.

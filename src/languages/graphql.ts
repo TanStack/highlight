@@ -8,6 +8,5 @@ export const graphql = /* @__PURE__ */ simpleLanguage({
   strings: /"""[\s\S]*?(?:"""|(?![\s\S]))|"(?:\\[\s\S]|[^"\\])*(?:"|(?![\s\S]))/,
   keywords: "query mutation subscription type input schema directive interface union scalar fragment enum on",
   literals: "true false null",
-  insensitive: true,
   beforeWords: [{ className: 'variable', regex: /\$[A-Za-z_]\w*/g }, { className: 'attr', regex: /@[A-Za-z_]\w*/g }],
 })

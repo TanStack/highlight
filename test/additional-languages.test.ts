@@ -7,6 +7,33 @@ import fixtures from './generated/additional-language-fixtures.json'
 import docs from './generated/tanstack-doc-fixtures.json'
 import legacyLanguages from './generated/legacy-language-aliases.json'
 
+it('keeps GraphQL operation keywords case-sensitive', () => {
+  const tokens = highlight('type Query { id: ID } query { id }', { lang: 'graphql' }).tokens
+  expect(tokens).toContainEqual({ value: 'query', className: 'keyword' })
+  expect(tokens.some((token) => token.value === 'Query' && token.className === 'keyword')).toBe(false)
+})
+
+it('distinguishes stylesheet selectors from declaration values', () => {
+  for (const lang of ['scss', 'less']) {
+    const tokens = highlight('.card { a:hover { color: #fff; } }', { lang }).tokens
+    expect(tokens).toContainEqual({ value: '.card', className: 'selector' })
+    expect(tokens).toContainEqual({ value: 'color', className: 'property' })
+    expect(tokens.some((token) => token.value === '#fff' && token.className === 'selector')).toBe(false)
+    expect(tokens.some((token) => token.value === 'a' && token.className === 'property')).toBe(false)
+  }
+})
+
+it('consumes numeric suffixes for languages that support them', () => {
+  for (const [lang, value] of [
+    ['c', '1.0f'], ['c', '10UL'], ['glsl', '5u'], ['objectivec', '10L'],
+    ['scala', '10L'], ['groovy', '1.0G'], ['d', '10UL'], ['fsharp', '10UL'],
+    ['r', '10L'], ['fortran', '1.0_dp'],
+  ]) {
+    expect(highlight(value, { lang }).tokens, `${lang}: ${value}`).toEqual([{ value, className: 'number' }])
+  }
+  expect(highlight('1.0f', { lang: 'graphql' }).tokens).toEqual([{ value: '1.0f', className: undefined }])
+})
+
 it('preserves every pre-expansion language name and alias', () => {
   for (const { name, aliases } of legacyLanguages) {
     const language = (definitions as Record<string, LanguageDefinition>)[name]

@@ -4,6 +4,7 @@ import { simpleLanguage, cComments, quotedStrings } from '../internal/simple-lan
 export const c = /* @__PURE__ */ simpleLanguage({
   name: "c",
   aliases: ["h"],
+  numberSuffix: '[uUlLfF]*',
   comments: cComments,
   strings: quotedStrings,
   keywords: "asm auto break case continue default do else enum extern for fortran goto if inline register restrict return sizeof typeof typeof_unqual struct switch typedef union volatile while _Alignas _Alignof _Atomic _Generic _Noreturn _Static_assert _Thread_local alignas alignof noreturn static_assert thread_local _Pragma",

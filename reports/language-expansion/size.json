@@ -190,9 +190,9 @@
     }
   },
   "all": {
-    "minified": 82094,
-    "gzip": 27753,
-    "brotli": 24607,
+    "minified": 82552,
+    "gzip": 27980,
+    "brotli": 24848,
     "limits": {
       "minified": 83000,
       "gzip": 28000,
@@ -260,48 +260,8 @@
     }
   },
   "ada": {
-    "minified": 6515,
-    "gzip": 3091,
-    "brotli": 2761,
-    "limits": {
-      "minified": 8500,
-      "gzip": 4000,
-      "brotli": 3700
-    }
-  },
-  "applescript": {
-    "minified": 6676,
-    "gzip": 3181,
-    "brotli": 2832,
-    "limits": {
-      "minified": 8500,
-      "gzip": 4000,
-      "brotli": 3700
-    }
-  },
-  "c": {
-    "minified": 6807,
-    "gzip": 3187,
-    "brotli": 2895,
-    "limits": {
-      "minified": 8500,
-      "gzip": 4000,
-      "brotli": 3700
-    }
-  },
-  "clojure": {
-    "minified": 6356,
-    "gzip": 2982,
-    "brotli": 2718,
-    "limits": {
-      "minified": 8500,
-      "gzip": 4000,
-      "brotli": 3700
-    }
-  },
-  "crystal": {
-    "minified": 6525,
-    "gzip": 3088,
+    "minified": 6564,
+    "gzip": 3113,
     "brotli": 2793,
     "limits": {
       "minified": 8500,
@@ -309,10 +269,50 @@
       "brotli": 3700
     }
   },
+  "applescript": {
+    "minified": 6725,
+    "gzip": 3202,
+    "brotli": 2862,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "c": {
+    "minified": 6881,
+    "gzip": 3223,
+    "brotli": 2935,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "clojure": {
+    "minified": 6405,
+    "gzip": 3001,
+    "brotli": 2740,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "crystal": {
+    "minified": 6574,
+    "gzip": 3111,
+    "brotli": 2821,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
   "d": {
-    "minified": 6830,
-    "gzip": 3251,
-    "brotli": 2928,
+    "minified": 6906,
+    "gzip": 3289,
+    "brotli": 2971,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -320,9 +320,9 @@
     }
   },
   "pascal": {
-    "minified": 7054,
-    "gzip": 3364,
-    "brotli": 2988,
+    "minified": 7103,
+    "gzip": 3386,
+    "brotli": 3017,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -330,9 +330,9 @@
     }
   },
   "elixir": {
-    "minified": 6539,
-    "gzip": 3041,
-    "brotli": 2779,
+    "minified": 6588,
+    "gzip": 3063,
+    "brotli": 2796,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -340,9 +340,9 @@
     }
   },
   "elm": {
-    "minified": 6243,
-    "gzip": 2891,
-    "brotli": 2648,
+    "minified": 6292,
+    "gzip": 2911,
+    "brotli": 2670,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -350,9 +350,9 @@
     }
   },
   "erlang": {
-    "minified": 6350,
-    "gzip": 2960,
-    "brotli": 2710,
+    "minified": 6399,
+    "gzip": 2981,
+    "brotli": 2731,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -360,9 +360,9 @@
     }
   },
   "fortran": {
-    "minified": 7890,
-    "gzip": 3695,
-    "brotli": 3281,
+    "minified": 7965,
+    "gzip": 3728,
+    "brotli": 3335,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -370,9 +370,9 @@
     }
   },
   "fsharp": {
-    "minified": 6585,
-    "gzip": 3105,
-    "brotli": 2803,
+    "minified": 6687,
+    "gzip": 3160,
+    "brotli": 2858,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -380,9 +380,9 @@
     }
   },
   "glsl": {
-    "minified": 7360,
-    "gzip": 3465,
-    "brotli": 3142,
+    "minified": 7432,
+    "gzip": 3498,
+    "brotli": 3171,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -390,9 +390,9 @@
     }
   },
   "graphql": {
-    "minified": 6241,
-    "gzip": 2896,
-    "brotli": 2641,
+    "minified": 6275,
+    "gzip": 2909,
+    "brotli": 2654,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -400,9 +400,9 @@
     }
   },
   "groovy": {
-    "minified": 6530,
-    "gzip": 3070,
-    "brotli": 2781,
+    "minified": 6608,
+    "gzip": 3107,
+    "brotli": 2814,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -410,9 +410,9 @@
     }
   },
   "haskell": {
-    "minified": 6362,
-    "gzip": 2975,
-    "brotli": 2733,
+    "minified": 6411,
+    "gzip": 2993,
+    "brotli": 2745,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -420,9 +420,9 @@
     }
   },
   "ini": {
-    "minified": 6191,
-    "gzip": 2858,
-    "brotli": 2623,
+    "minified": 6240,
+    "gzip": 2881,
+    "brotli": 2644,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -430,9 +430,9 @@
     }
   },
   "julia": {
-    "minified": 6670,
-    "gzip": 3177,
-    "brotli": 2884,
+    "minified": 6719,
+    "gzip": 3198,
+    "brotli": 2908,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -440,9 +440,9 @@
     }
   },
   "lisp": {
-    "minified": 6438,
-    "gzip": 3017,
-    "brotli": 2754,
+    "minified": 6487,
+    "gzip": 3038,
+    "brotli": 2772,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -450,9 +450,9 @@
     }
   },
   "makefile": {
-    "minified": 6415,
-    "gzip": 2982,
-    "brotli": 2715,
+    "minified": 6464,
+    "gzip": 3003,
+    "brotli": 2738,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -460,9 +460,9 @@
     }
   },
   "matlab": {
-    "minified": 6310,
-    "gzip": 2942,
-    "brotli": 2687,
+    "minified": 6359,
+    "gzip": 2964,
+    "brotli": 2705,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -470,9 +470,9 @@
     }
   },
   "nix": {
-    "minified": 6170,
-    "gzip": 2851,
-    "brotli": 2620,
+    "minified": 6219,
+    "gzip": 2871,
+    "brotli": 2637,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -480,9 +480,9 @@
     }
   },
   "objectivec": {
-    "minified": 7554,
-    "gzip": 3679,
-    "brotli": 3260,
+    "minified": 7628,
+    "gzip": 3714,
+    "brotli": 3309,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -490,9 +490,9 @@
     }
   },
   "ocaml": {
-    "minified": 6458,
-    "gzip": 3037,
-    "brotli": 2760,
+    "minified": 6507,
+    "gzip": 3059,
+    "brotli": 2773,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -500,9 +500,9 @@
     }
   },
   "powershell": {
-    "minified": 6506,
-    "gzip": 3037,
-    "brotli": 2763,
+    "minified": 6555,
+    "gzip": 3060,
+    "brotli": 2783,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -510,9 +510,9 @@
     }
   },
   "protobuf": {
-    "minified": 6337,
-    "gzip": 2965,
-    "brotli": 2686,
+    "minified": 6386,
+    "gzip": 2986,
+    "brotli": 2707,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -520,9 +520,9 @@
     }
   },
   "r": {
-    "minified": 6243,
-    "gzip": 2897,
-    "brotli": 2647,
+    "minified": 6313,
+    "gzip": 2927,
+    "brotli": 2676,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -530,9 +530,9 @@
     }
   },
   "scala": {
-    "minified": 6490,
-    "gzip": 3046,
-    "brotli": 2760,
+    "minified": 6564,
+    "gzip": 3080,
+    "brotli": 2795,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -540,9 +540,9 @@
     }
   },
   "scss": {
-    "minified": 6251,
-    "gzip": 2879,
-    "brotli": 2639,
+    "minified": 6570,
+    "gzip": 3012,
+    "brotli": 2758,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -550,9 +550,9 @@
     }
   },
   "less": {
-    "minified": 6250,
-    "gzip": 2876,
-    "brotli": 2624,
+    "minified": 6569,
+    "gzip": 3012,
+    "brotli": 2759,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -560,9 +560,9 @@
     }
   },
   "verilog": {
-    "minified": 8093,
-    "gzip": 3799,
-    "brotli": 3423,
+    "minified": 8142,
+    "gzip": 3821,
+    "brotli": 3426,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -570,9 +570,9 @@
     }
   },
   "vhdl": {
-    "minified": 6852,
-    "gzip": 3278,
-    "brotli": 2904,
+    "minified": 6901,
+    "gzip": 3298,
+    "brotli": 2935,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -580,9 +580,9 @@
     }
   },
   "vbnet": {
-    "minified": 7070,
-    "gzip": 3381,
-    "brotli": 3023,
+    "minified": 7119,
+    "gzip": 3403,
+    "brotli": 3043,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -590,9 +590,9 @@
     }
   },
   "latex": {
-    "minified": 6049,
-    "gzip": 2791,
-    "brotli": 2550,
+    "minified": 6098,
+    "gzip": 2812,
+    "brotli": 2578,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -600,9 +600,9 @@
     }
   },
   "coffeescript": {
-    "minified": 6500,
-    "gzip": 3048,
-    "brotli": 2768,
+    "minified": 6549,
+    "gzip": 3070,
+    "brotli": 2789,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -610,9 +610,9 @@
     }
   },
   "batch": {
-    "minified": 6192,
-    "gzip": 2900,
-    "brotli": 2650,
+    "minified": 6241,
+    "gzip": 2924,
+    "brotli": 2673,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -620,9 +620,9 @@
     }
   },
   "properties": {
-    "minified": 6117,
-    "gzip": 2814,
-    "brotli": 2575,
+    "minified": 6166,
+    "gzip": 2834,
+    "brotli": 2600,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -630,9 +630,9 @@
     }
   },
   "wat": {
-    "minified": 6432,
-    "gzip": 2991,
-    "brotli": 2732,
+    "minified": 6481,
+    "gzip": 3014,
+    "brotli": 2758,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -640,9 +640,9 @@
     }
   },
   "x86asm": {
-    "minified": 6618,
-    "gzip": 3163,
-    "brotli": 2864,
+    "minified": 6667,
+    "gzip": 3183,
+    "brotli": 2887,
     "limits": {
       "minified": 8500,
       "gzip": 4000,
@@ -650,9 +650,9 @@
     }
   },
   "awk": {
-    "minified": 6224,
-    "gzip": 2884,
-    "brotli": 2632,
+    "minified": 6273,
+    "gzip": 2905,
+    "brotli": 2656,
     "limits": {
       "minified": 8500,
       "gzip": 4000,

@@ -11,9 +11,9 @@ Minified browser ESM with esbuild, default gzip. Values are bytes, and include c
 | Core | 1820 | 1893 | 73 |
 | TSX only | 4322 | 4389 | 67 |
 | Nine-language docs set | 6240 | 6310 | 70 |
-| All languages | 17726 | 27753 | 10027 |
+| All languages | 17726 | 27980 | 10254 |
 
-The new language profiles range from 2791 to 3799 gzip bytes including core. Each has a 4,000-byte gzip ceiling. Every language is checked through direct and barrel imports, with the bundle graph required to exclude sibling languages. No runtime dependencies or Wasm were added.
+The new language profiles range from 2812 to 3821 gzip bytes including core. Each has a 4,000-byte gzip ceiling. Every language is checked through direct and barrel imports, with the bundle graph required to exclude sibling languages. No runtime dependencies or Wasm were added.
 
 The all-language profile gets a separate 28 KB gzip budget. Core-dependent profiles allow up to 200 additional minified bytes and 100 additional compressed bytes for the rendering improvements. Unchanged helper and adapter budgets remain in place.
 
@@ -46,7 +46,7 @@ The existing `cmd` alias remains mapped to `shell`. The new Windows Batch defini
 
 The suite covers representative source and expected token kinds for all 40 additions, aliases, truncated and Unicode input, lexical edge cases, deep comment nesting, and HTML escaping. All docs snippets are compared against render-tree serialization. Package checks inspect both direct and barrel bundles for every language, and the packed package is tested against bounded hostile input.
 
-Verified: 304 tests, type checking, build, documentation and skill validation, package lint, 166 public import bundle checks, packed-package runtime checks, all 66 size profiles, and all 20 benchmark profiles.
+Verified: 307 tests, type checking, build, documentation and skill validation, package lint, 166 public import bundle checks, packed-package runtime checks, all 66 size profiles, and all 20 benchmark profiles.
 
 Run from the repository:
 

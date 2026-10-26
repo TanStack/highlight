@@ -22,6 +22,7 @@ export function simpleLanguage<const Name extends string>(options: {
   nestedComments?: ReadonlyArray<readonly [string, string]>
   beforeWords?: ReadonlyArray<Pattern>
   rules?: ReadonlyArray<Pattern>
+  numberSuffix?: string
   numbers?: RegExp | false
 }) {
   const flags = options.insensitive ? 'gmi' : 'gm'
@@ -74,6 +75,6 @@ export function simpleLanguage<const Name extends string>(options: {
     if (words) patterns.push({ className, regex: new RegExp(`(?<![${wordCharacters}])(?:${words.split(/\s+/).map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})(?![${wordCharacters}])`, flags) })
   }
   patterns.push(...options.rules || [])
-  if (options.numbers !== false) patterns.push({ className: 'number', regex: options.numbers || /(?<![\w.])(?:0[xX][\da-fA-F]+|0[bB][01]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d[\d_]*)?)(?!\w)/g })
+  if (options.numbers !== false) patterns.push({ className: 'number', regex: options.numbers || new RegExp(String.raw`(?<![\w.])(?:0[xX][\da-fA-F]+|0[bB][01]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d[\d_]*)?)${options.numberSuffix || ''}(?![\w.])`, 'g') })
   return defineLanguage({ name: options.name, aliases: options.aliases, tokenize: patternTokenizer(patterns) })
 }
