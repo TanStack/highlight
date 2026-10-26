@@ -1,0 +1,662 @@
+{
+  "core": {
+    "minified": 4026,
+    "gzip": 1893,
+    "brotli": 1724,
+    "limits": {
+      "minified": 4200,
+      "gzip": 2100,
+      "brotli": 1900
+    }
+  },
+  "rootCore": {
+    "minified": 4026,
+    "gzip": 1896,
+    "brotli": 1729,
+    "limits": {
+      "minified": 4200,
+      "gzip": 2100,
+      "brotli": 1900
+    }
+  },
+  "rootEscape": {
+    "minified": 162,
+    "gzip": 152,
+    "brotli": 113,
+    "limits": {
+      "minified": 300,
+      "gzip": 220,
+      "brotli": 180
+    }
+  },
+  "tsx": {
+    "minified": 10340,
+    "gzip": 4389,
+    "brotli": 4006,
+    "limits": {
+      "minified": 10400,
+      "gzip": 4450,
+      "brotli": 4100
+    }
+  },
+  "tsxBarrel": {
+    "minified": 10340,
+    "gzip": 4387,
+    "brotli": 3988,
+    "limits": {
+      "minified": 10400,
+      "gzip": 4450,
+      "brotli": 4100
+    }
+  },
+  "octane": {
+    "minified": 14093,
+    "gzip": 5716,
+    "brotli": 5229,
+    "limits": {
+      "minified": 14200,
+      "gzip": 5800,
+      "brotli": 5350
+    }
+  },
+  "docs": {
+    "minified": 16271,
+    "gzip": 6310,
+    "brotli": 5768,
+    "limits": {
+      "minified": 16300,
+      "gzip": 6400,
+      "brotli": 5800
+    }
+  },
+  "php": {
+    "minified": 8102,
+    "gzip": 3637,
+    "brotli": 3333,
+    "limits": {
+      "minified": 8200,
+      "gzip": 3800,
+      "brotli": 3500
+    }
+  },
+  "cpp": {
+    "minified": 6531,
+    "gzip": 3100,
+    "brotli": 2832,
+    "limits": {
+      "minified": 6700,
+      "gzip": 3200,
+      "brotli": 3000
+    }
+  },
+  "cmake": {
+    "minified": 5851,
+    "gzip": 2721,
+    "brotli": 2488,
+    "limits": {
+      "minified": 6200,
+      "gzip": 2900,
+      "brotli": 2700
+    }
+  },
+  "csharp": {
+    "minified": 7967,
+    "gzip": 3707,
+    "brotli": 3385,
+    "limits": {
+      "minified": 8150,
+      "gzip": 3850,
+      "brotli": 3550
+    }
+  },
+  "dart": {
+    "minified": 6991,
+    "gzip": 3222,
+    "brotli": 2956,
+    "limits": {
+      "minified": 7200,
+      "gzip": 3350,
+      "brotli": 3100
+    }
+  },
+  "java": {
+    "minified": 6565,
+    "gzip": 3070,
+    "brotli": 2802,
+    "limits": {
+      "minified": 6750,
+      "gzip": 3200,
+      "brotli": 2950
+    }
+  },
+  "kotlin": {
+    "minified": 7446,
+    "gzip": 3444,
+    "brotli": 3171,
+    "limits": {
+      "minified": 7650,
+      "gzip": 3600,
+      "brotli": 3350
+    }
+  },
+  "lua": {
+    "minified": 5689,
+    "gzip": 2696,
+    "brotli": 2480,
+    "limits": {
+      "minified": 5850,
+      "gzip": 2850,
+      "brotli": 2650
+    }
+  },
+  "perl": {
+    "minified": 7872,
+    "gzip": 3702,
+    "brotli": 3442,
+    "limits": {
+      "minified": 8050,
+      "gzip": 3850,
+      "brotli": 3600
+    }
+  },
+  "ruby": {
+    "minified": 7730,
+    "gzip": 3594,
+    "brotli": 3313,
+    "limits": {
+      "minified": 7900,
+      "gzip": 3750,
+      "brotli": 3450
+    }
+  },
+  "rust": {
+    "minified": 6808,
+    "gzip": 3124,
+    "brotli": 2888,
+    "limits": {
+      "minified": 7000,
+      "gzip": 3300,
+      "brotli": 3050
+    }
+  },
+  "swift": {
+    "minified": 7478,
+    "gzip": 3485,
+    "brotli": 3198,
+    "limits": {
+      "minified": 7650,
+      "gzip": 3650,
+      "brotli": 3350
+    }
+  },
+  "all": {
+    "minified": 82552,
+    "gzip": 27980,
+    "brotli": 24848,
+    "limits": {
+      "minified": 83000,
+      "gzip": 28000,
+      "brotli": 25000
+    }
+  },
+  "reactAdapter": {
+    "minified": 234,
+    "gzip": 162,
+    "brotli": 127,
+    "limits": {
+      "minified": 300,
+      "gzip": 200,
+      "brotli": 160
+    }
+  },
+  "markdownAdapter": {
+    "minified": 5183,
+    "gzip": 2335,
+    "brotli": 2170,
+    "limits": {
+      "minified": 5800,
+      "gzip": 2500,
+      "brotli": 2300
+    }
+  },
+  "remarkAdapter": {
+    "minified": 5055,
+    "gzip": 2198,
+    "brotli": 2037,
+    "limits": {
+      "minified": 5600,
+      "gzip": 2400,
+      "brotli": 2200
+    }
+  },
+  "rehypeAdapter": {
+    "minified": 5372,
+    "gzip": 2322,
+    "brotli": 2148,
+    "limits": {
+      "minified": 5700,
+      "gzip": 2450,
+      "brotli": 2250
+    }
+  },
+  "octaneAdapter": {
+    "minified": 5655,
+    "gzip": 2424,
+    "brotli": 2242,
+    "limits": {
+      "minified": 6000,
+      "gzip": 2550,
+      "brotli": 2350
+    }
+  },
+  "theme": {
+    "minified": 1359,
+    "gzip": 695,
+    "brotli": 586,
+    "limits": {
+      "minified": 1500,
+      "gzip": 750,
+      "brotli": 650
+    }
+  },
+  "ada": {
+    "minified": 6564,
+    "gzip": 3113,
+    "brotli": 2793,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "applescript": {
+    "minified": 6725,
+    "gzip": 3202,
+    "brotli": 2862,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "c": {
+    "minified": 6881,
+    "gzip": 3223,
+    "brotli": 2935,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "clojure": {
+    "minified": 6405,
+    "gzip": 3001,
+    "brotli": 2740,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "crystal": {
+    "minified": 6574,
+    "gzip": 3111,
+    "brotli": 2821,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "d": {
+    "minified": 6906,
+    "gzip": 3289,
+    "brotli": 2971,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "pascal": {
+    "minified": 7103,
+    "gzip": 3386,
+    "brotli": 3017,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "elixir": {
+    "minified": 6588,
+    "gzip": 3063,
+    "brotli": 2796,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "elm": {
+    "minified": 6292,
+    "gzip": 2911,
+    "brotli": 2670,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "erlang": {
+    "minified": 6399,
+    "gzip": 2981,
+    "brotli": 2731,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "fortran": {
+    "minified": 7965,
+    "gzip": 3728,
+    "brotli": 3335,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "fsharp": {
+    "minified": 6687,
+    "gzip": 3160,
+    "brotli": 2858,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "glsl": {
+    "minified": 7432,
+    "gzip": 3498,
+    "brotli": 3171,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "graphql": {
+    "minified": 6275,
+    "gzip": 2909,
+    "brotli": 2654,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "groovy": {
+    "minified": 6608,
+    "gzip": 3107,
+    "brotli": 2814,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "haskell": {
+    "minified": 6411,
+    "gzip": 2993,
+    "brotli": 2745,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "ini": {
+    "minified": 6240,
+    "gzip": 2881,
+    "brotli": 2644,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "julia": {
+    "minified": 6719,
+    "gzip": 3198,
+    "brotli": 2908,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "lisp": {
+    "minified": 6487,
+    "gzip": 3038,
+    "brotli": 2772,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "makefile": {
+    "minified": 6464,
+    "gzip": 3003,
+    "brotli": 2738,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "matlab": {
+    "minified": 6359,
+    "gzip": 2964,
+    "brotli": 2705,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "nix": {
+    "minified": 6219,
+    "gzip": 2871,
+    "brotli": 2637,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "objectivec": {
+    "minified": 7628,
+    "gzip": 3714,
+    "brotli": 3309,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "ocaml": {
+    "minified": 6507,
+    "gzip": 3059,
+    "brotli": 2773,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "powershell": {
+    "minified": 6555,
+    "gzip": 3060,
+    "brotli": 2783,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "protobuf": {
+    "minified": 6386,
+    "gzip": 2986,
+    "brotli": 2707,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "r": {
+    "minified": 6313,
+    "gzip": 2927,
+    "brotli": 2676,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "scala": {
+    "minified": 6564,
+    "gzip": 3080,
+    "brotli": 2795,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "scss": {
+    "minified": 6570,
+    "gzip": 3012,
+    "brotli": 2758,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "less": {
+    "minified": 6569,
+    "gzip": 3012,
+    "brotli": 2759,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "verilog": {
+    "minified": 8142,
+    "gzip": 3821,
+    "brotli": 3426,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "vhdl": {
+    "minified": 6901,
+    "gzip": 3298,
+    "brotli": 2935,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "vbnet": {
+    "minified": 7119,
+    "gzip": 3403,
+    "brotli": 3043,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "latex": {
+    "minified": 6098,
+    "gzip": 2812,
+    "brotli": 2578,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "coffeescript": {
+    "minified": 6549,
+    "gzip": 3070,
+    "brotli": 2789,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "batch": {
+    "minified": 6241,
+    "gzip": 2924,
+    "brotli": 2673,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "properties": {
+    "minified": 6166,
+    "gzip": 2834,
+    "brotli": 2600,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "wat": {
+    "minified": 6481,
+    "gzip": 3014,
+    "brotli": 2758,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "x86asm": {
+    "minified": 6667,
+    "gzip": 3183,
+    "brotli": 2887,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  },
+  "awk": {
+    "minified": 6273,
+    "gzip": 2905,
+    "brotli": 2656,
+    "limits": {
+      "minified": 8500,
+      "gzip": 4000,
+      "brotli": 3700
+    }
+  }
+}

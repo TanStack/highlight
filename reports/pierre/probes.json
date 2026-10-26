@@ -1,0 +1,358 @@
+{
+  "caveat": "Small hand-selected diagnostic probes, not an accuracy ranking. Token categories differ; accepted categories are explicit.",
+  "results": [
+    {
+      "name": "object property named like a keyword",
+      "lang": "ts",
+      "code": "const obj = { return: 1 }; obj.return;",
+      "text": "return",
+      "occurrence": 1,
+      "expected": [
+        "property"
+      ],
+      "start": 31,
+      "tanstack": {
+        "kinds": [
+          "property"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "property"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "object property named like a literal",
+      "lang": "ts",
+      "code": "const obj = { true: 1 }; obj.true;",
+      "text": "true",
+      "occurrence": 1,
+      "expected": [
+        "property"
+      ],
+      "start": 29,
+      "tanstack": {
+        "kinds": [
+          "property"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "property"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "regex after return",
+      "lang": "js",
+      "code": "function f() { return /a+b/g; }",
+      "text": "a+b",
+      "expected": [
+        "literal",
+        "string.regex"
+      ],
+      "start": 23,
+      "tanstack": {
+        "kinds": [
+          "literal"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "string.regex"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "division",
+      "lang": "js",
+      "code": "const value = left / right / scale;",
+      "text": "right",
+      "expected": [
+        "none",
+        "variable"
+      ],
+      "start": 21,
+      "tanstack": {
+        "kinds": [
+          "none"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "variable"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "template expression boolean after regex brace",
+      "lang": "js",
+      "code": "const message = `match ${/}/.test(value) ? true : false} done`",
+      "text": "true",
+      "expected": [
+        "literal",
+        "boolean"
+      ],
+      "start": 43,
+      "tanstack": {
+        "kinds": [
+          "literal"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "boolean"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "nested Rust block comment",
+      "lang": "rust",
+      "code": "/* outer /* inner */ still comment */ let x = 1;",
+      "text": "still comment",
+      "expected": [
+        "comment"
+      ],
+      "start": 21,
+      "tanstack": {
+        "kinds": [
+          "comment"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "comment"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "Rust raw string",
+      "lang": "rust",
+      "code": "let text = r##\"quote \" // text\"##;",
+      "text": "// text",
+      "expected": [
+        "string"
+      ],
+      "start": 23,
+      "tanstack": {
+        "kinds": [
+          "string"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "string"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "Python f-string expression",
+      "lang": "python",
+      "code": "message = f\"Hello {user.name.upper()}\"",
+      "text": "upper",
+      "expected": [
+        "function",
+        "function.method"
+      ],
+      "start": 29,
+      "tanstack": {
+        "kinds": [
+          "string"
+        ],
+        "passed": false
+      },
+      "pierre": {
+        "kinds": [
+          "string"
+        ],
+        "passed": false
+      }
+    },
+    {
+      "name": "C++ raw string",
+      "lang": "cpp",
+      "code": "auto text = R\"tag(// not a comment)tag\";",
+      "text": "// not a comment",
+      "expected": [
+        "string"
+      ],
+      "start": 18,
+      "tanstack": {
+        "kinds": [
+          "string"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "string"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "shell quoted heredoc",
+      "lang": "bash",
+      "code": "cat <<'EOF'\n# literal text\nEOF\necho done",
+      "text": "# literal text",
+      "expected": [
+        "string"
+      ],
+      "start": 12,
+      "tanstack": {
+        "kinds": [
+          "string"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "string"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "embedded HTML script",
+      "lang": "html",
+      "code": "<script>const value = true;</script>",
+      "text": "true",
+      "expected": [
+        "literal",
+        "boolean"
+      ],
+      "start": 22,
+      "tanstack": {
+        "kinds": [
+          "literal"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "boolean"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "HTML script closing boundary",
+      "lang": "html",
+      "code": "<script>// comment</script><p>after</p>",
+      "text": "p",
+      "occurrence": 2,
+      "expected": [
+        "tag"
+      ],
+      "start": 28,
+      "tanstack": {
+        "kinds": [
+          "tag"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "tag"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "TypeScript generic type parameter",
+      "lang": "ts",
+      "code": "function identity<T>(value: T): T { return value }",
+      "text": "T",
+      "expected": [
+        "type"
+      ],
+      "start": 18,
+      "tanstack": {
+        "kinds": [
+          "type"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "type"
+        ],
+        "passed": true
+      }
+    },
+    {
+      "name": "JSX component name",
+      "lang": "tsx",
+      "code": "const view = <MyComponent enabled={true} />;",
+      "text": "MyComponent",
+      "expected": [
+        "tag",
+        "tag.component.jsx",
+        "tag.jsx",
+        "type"
+      ],
+      "start": 14,
+      "tanstack": {
+        "kinds": [
+          "tag"
+        ],
+        "passed": true
+      },
+      "pierre": {
+        "kinds": [
+          "tag.component.jsx"
+        ],
+        "passed": true
+      }
+    }
+  ],
+  "preservation": {
+    "tested": 303,
+    "failures": []
+  },
+  "languages": {
+    "pierreIncludingPlain": 81,
+    "tanstackIncludingPlain": 39,
+    "tanstackUnsupportedByPierre": [
+      "apache",
+      "ejs",
+      "env",
+      "http",
+      "mermaid",
+      "nginx"
+    ]
+  },
+  "bundles": {
+    "note": "Browser ESM, esbuild minification, gzip defaults. Pierre includes embedded Wasm and GitHub Dark theme; TanStack emits classes and excludes external CSS.",
+    "tanstackAll": {
+      "minifiedBytes": 52778,
+      "gzipBytes": 17743,
+      "brotliBytes": 15965
+    },
+    "tanstackTsx": {
+      "minifiedBytes": 10168,
+      "gzipBytes": 4328,
+      "brotliBytes": 3932
+    },
+    "pierreHtml": {
+      "minifiedBytes": 265759,
+      "gzipBytes": 115989,
+      "brotliBytes": 98903
+    }
+  }
+}

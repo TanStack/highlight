@@ -191,8 +191,19 @@ export function createHighlighter({
 
   function highlight(code: string, options: HighlightOptions = {}): HighlightResult {
     const result = tokenize(code, options)
-    const children = renderTokens(result.tokens, options)
-    const innerHtml = renderNodesToHtml(children)
+    // Plain blocks do not need an intermediate render tree. Keep the same
+    // token result and escaping contract as the decorated rendering path.
+    let innerHtml = ''
+    if (!options.lineNumbers && !options.decorations?.length) {
+      for (const token of result.tokens) {
+        const value = escapeHtml(token.value)
+        innerHtml += token.className
+          ? `<span class="th-token th-${escapeHtml(token.className)}">${value}</span>`
+          : value
+      }
+    } else {
+      innerHtml = renderNodesToHtml(renderTokens(result.tokens, options))
+    }
 
     return {
       ...result,
@@ -320,7 +331,9 @@ const htmlEscapes: Record<string, string> = {
 }
 
 export function escapeHtml(value: string) {
-  return value.replace(/[&<>"']/g, (character) => htmlEscapes[character])
+  return /[&<>"']/.test(value)
+    ? value.replace(/[&<>"']/g, (character) => htmlEscapes[character])
+    : value
 }
 
 function normalizeName(value: string) {

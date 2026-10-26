@@ -19,21 +19,21 @@ The suite protects the package's actual product boundary: valid code commonly pu
 
 ## Size Profiles
 
-`pnpm run size` checks twenty-six independent browser profiles, including root helpers, language barrel imports, adapters, and themes. Each has minified, gzip, and Brotli budgets. The main highlighter profiles are:
+`pnpm run size` checks 66 independent browser profiles, including root helpers, language barrel imports, adapters, and themes. Each has minified, gzip, and Brotli budgets. The main highlighter profiles are:
 
 | Profile | Languages | Gzip budget |
 | --- | --- | ---: |
-| Core | None | 2.0 KB |
-| TSX | TSX | 4.35 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.7 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.3 KB |
-| All | All 39 definitions | 18.0 KB |
+| Core | None | 2.10 KB |
+| TSX | TSX | 4.45 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.80 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.40 KB |
+| All | All 79 definitions | 28.00 KB |
 
-The selective profiles are the primary product metric. The all-language profile protects the convenience entry from unbounded growth. Bundle graphs reject unexpected language or theme code. Package tests repeat isolation checks through public exports after building.
+The selective profiles are the primary product metric. The all-language profile protects the convenience entry from unbounded growth. Bundle graphs reject unexpected language or theme code. Package tests check every language through its direct export and a named barrel import after building. Each of the 40 new lexical definitions has its own size profile, representative sample, source reconstruction checks, and truncated-input checks.
 
 ## Throughput
 
-`pnpm run bench` measures highlighting, tokenization, Markdown, HAST, line numbers, long numbered blocks, long decorated blocks, and dedicated C#, C++, CMake, Dart, Java, Kotlin, Lua, Perl, PHP, Ruby, Rust, and Swift samples. Timings use the median of three samples after two warmup passes. Each profile has a 1.2 second CI budget; the main highlighting profile processes at least 10,000 blocks.
+`pnpm run bench` measures highlighting, tokenization, Markdown, HAST, line numbers, long numbered blocks, long decorated blocks, the 40 additional language fixtures, and dedicated C#, C++, CMake, Dart, Java, Kotlin, Lua, Perl, PHP, Ruby, Rust, and Swift samples. Timings use the median of three samples after two warmup passes. Each profile has a 1.2 second CI budget; the main highlighting profile processes at least 10,000 blocks.
 
 `pnpm run compare:sugar-high` compares the overlapping JS/TS/JSX/TSX use case. `pnpm run compare:shiki` compares all supported fixtures. These are directional measurements, not claims of equivalent grammar depth.
 
