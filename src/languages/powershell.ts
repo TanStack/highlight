@@ -3,7 +3,7 @@ import { patternTokenizer } from '../internal/patterns.js'
 
 export const powershell = defineLanguage({
   name: 'powershell',
-  aliases: ['pwsh', 'ps1'],
+  aliases: ['pwsh', 'ps1', 'ps'],
   tokenize: patternTokenizer([
     { collect: collectPowerShellLexicalRanges },
     { className: 'literal', regex: /\$(?:true|false|null)\b/gi },

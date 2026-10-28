@@ -30,7 +30,6 @@ import { nginx } from './languages/nginx.js'
 import { perl } from './languages/perl.js'
 import { php } from './languages/php.js'
 import { plaintext } from './languages/plaintext.js'
-import { powershell } from './languages/powershell.js'
 import { python } from './languages/python.js'
 import { ruby } from './languages/ruby.js'
 import { rust } from './languages/rust.js'
@@ -46,47 +45,48 @@ import { tsx } from './languages/tsx.js'
 import { vue } from './languages/vue.js'
 import { yaml } from './languages/yaml.js'
 
-export type HighlightLanguage =
-  | 'apache'
-  | 'cmake'
-  | 'cpp'
-  | 'csharp'
-  | 'css'
-  | 'dart'
-  | 'diff'
-  | 'dockerfile'
-  | 'ejs'
-  | 'env'
-  | 'go'
-  | 'html'
-  | 'http'
-  | 'java'
-  | 'js'
-  | 'json'
-  | 'jsx'
-  | 'kotlin'
-  | 'lua'
-  | 'markdown'
-  | 'mermaid'
-  | 'nginx'
-  | 'perl'
-  | 'php'
-  | 'plaintext'
-  | 'powershell'
-  | 'python'
-  | 'ruby'
-  | 'rust'
-  | 'scheme'
-  | 'shell'
-  | 'sql'
-  | 'svelte'
-  | 'swift'
-  | 'toml'
-  | 'ts'
-  | 'tsrx'
-  | 'tsx'
-  | 'vue'
-  | 'yaml'
+import { ada } from './languages/ada.js'
+import { applescript } from './languages/applescript.js'
+import { awk } from './languages/awk.js'
+import { batch } from './languages/batch.js'
+import { c } from './languages/c.js'
+import { clojure } from './languages/clojure.js'
+import { coffeescript } from './languages/coffeescript.js'
+import { crystal } from './languages/crystal.js'
+import { d } from './languages/d.js'
+import { elixir } from './languages/elixir.js'
+import { elm } from './languages/elm.js'
+import { erlang } from './languages/erlang.js'
+import { fortran } from './languages/fortran.js'
+import { fsharp } from './languages/fsharp.js'
+import { glsl } from './languages/glsl.js'
+import { graphql } from './languages/graphql.js'
+import { groovy } from './languages/groovy.js'
+import { haskell } from './languages/haskell.js'
+import { ini } from './languages/ini.js'
+import { julia } from './languages/julia.js'
+import { latex } from './languages/latex.js'
+import { less } from './languages/less.js'
+import { lisp } from './languages/lisp.js'
+import { makefile } from './languages/makefile.js'
+import { matlab } from './languages/matlab.js'
+import { nix } from './languages/nix.js'
+import { objectivec } from './languages/objectivec.js'
+import { ocaml } from './languages/ocaml.js'
+import { pascal } from './languages/pascal.js'
+import { powershell } from './languages/powershell.js'
+import { properties } from './languages/properties.js'
+import { protobuf } from './languages/protobuf.js'
+import { r } from './languages/r.js'
+import { scala } from './languages/scala.js'
+import { scss } from './languages/scss.js'
+import { vbnet } from './languages/vbnet.js'
+import { verilog } from './languages/verilog.js'
+import { vhdl } from './languages/vhdl.js'
+import { wat } from './languages/wat.js'
+import { x86asm } from './languages/x86asm.js'
+
+export type HighlightLanguage = (typeof allLanguages)[number]['name']
 
 export type HighlightResult = Omit<CoreHighlightResult, 'lang'> & {
   lang: HighlightLanguage
@@ -129,36 +129,70 @@ export {
 } from './core.js'
 
 export const allLanguages = [
+  ada,
   apache,
+  applescript,
+  awk,
+  batch,
+  c,
+  clojure,
   cmake,
+  coffeescript,
   cpp,
+  crystal,
   csharp,
   css,
+  d,
   dart,
   diff,
   dockerfile,
   ejs,
+  elixir,
+  elm,
   env,
+  erlang,
+  fortran,
+  fsharp,
+  glsl,
   go,
+  graphql,
+  groovy,
+  haskell,
   html,
   http,
+  ini,
   java,
   js,
   json,
   jsx,
+  julia,
   kotlin,
+  latex,
+  less,
+  lisp,
   lua,
+  makefile,
   markdown,
+  matlab,
   mermaid,
   nginx,
+  nix,
+  objectivec,
+  ocaml,
+  pascal,
   perl,
   php,
   plaintext,
   powershell,
+  properties,
+  protobuf,
   python,
+  r,
   ruby,
   rust,
+  scala,
   scheme,
+  scss,
   shell,
   sql,
   svelte,
@@ -167,7 +201,12 @@ export const allLanguages = [
   ts,
   tsrx,
   tsx,
+  vbnet,
+  verilog,
+  vhdl,
   vue,
+  wat,
+  x86asm,
   yaml,
 ] as const
 

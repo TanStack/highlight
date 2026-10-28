@@ -4,7 +4,7 @@ title: PowerShell Showcase
 
 # PowerShell Showcase
 
-Register PowerShell directly for report and automation examples. The `pwsh` and `ps1` aliases normalize to `powershell` when it is registered.
+Register PowerShell directly for report and automation examples. The `pwsh`, `ps1`, and `ps` aliases normalize to `powershell` when it is registered.
 
 ```ts
 import { createHighlighter } from '@tanstack/highlight/core'

@@ -1,0 +1,220 @@
+[
+  {
+    "name": "apache",
+    "aliases": []
+  },
+  {
+    "name": "cmake",
+    "aliases": []
+  },
+  {
+    "name": "cpp",
+    "aliases": [
+      "c++",
+      "cc",
+      "cxx",
+      "hpp",
+      "hxx"
+    ]
+  },
+  {
+    "name": "csharp",
+    "aliases": [
+      "c#",
+      "cs"
+    ]
+  },
+  {
+    "name": "css",
+    "aliases": []
+  },
+  {
+    "name": "dart",
+    "aliases": []
+  },
+  {
+    "name": "diff",
+    "aliases": [
+      "patch"
+    ]
+  },
+  {
+    "name": "dockerfile",
+    "aliases": [
+      "docker"
+    ]
+  },
+  {
+    "name": "ejs",
+    "aliases": []
+  },
+  {
+    "name": "env",
+    "aliases": [
+      "dotenv"
+    ]
+  },
+  {
+    "name": "go",
+    "aliases": [
+      "golang"
+    ]
+  },
+  {
+    "name": "html",
+    "aliases": [
+      "htm",
+      "xml",
+      "angular-html"
+    ]
+  },
+  {
+    "name": "http",
+    "aliases": []
+  },
+  {
+    "name": "java",
+    "aliases": []
+  },
+  {
+    "name": "js",
+    "aliases": [
+      "javascript",
+      "mjs",
+      "cjs",
+      "js-vue"
+    ]
+  },
+  {
+    "name": "json",
+    "aliases": [
+      "jsonc",
+      "json5"
+    ]
+  },
+  {
+    "name": "jsx",
+    "aliases": []
+  },
+  {
+    "name": "kotlin",
+    "aliases": [
+      "kt",
+      "kts"
+    ]
+  },
+  {
+    "name": "lua",
+    "aliases": []
+  },
+  {
+    "name": "markdown",
+    "aliases": [
+      "md"
+    ]
+  },
+  {
+    "name": "mermaid",
+    "aliases": []
+  },
+  {
+    "name": "nginx",
+    "aliases": []
+  },
+  {
+    "name": "perl",
+    "aliases": [
+      "pl"
+    ]
+  },
+  {
+    "name": "php",
+    "aliases": []
+  },
+  {
+    "name": "plaintext",
+    "aliases": [
+      "text",
+      "txt",
+      "-->"
+    ]
+  },
+  {
+    "name": "python",
+    "aliases": [
+      "py"
+    ]
+  },
+  {
+    "name": "ruby",
+    "aliases": [
+      "rb"
+    ]
+  },
+  {
+    "name": "rust",
+    "aliases": [
+      "rs"
+    ]
+  },
+  {
+    "name": "scheme",
+    "aliases": [
+      "scm",
+      "racket"
+    ]
+  },
+  {
+    "name": "shell",
+    "aliases": [
+      "bash",
+      "sh",
+      "zsh",
+      "cmd",
+      "console"
+    ]
+  },
+  {
+    "name": "sql",
+    "aliases": []
+  },
+  {
+    "name": "svelte",
+    "aliases": []
+  },
+  {
+    "name": "swift",
+    "aliases": []
+  },
+  {
+    "name": "toml",
+    "aliases": []
+  },
+  {
+    "name": "ts",
+    "aliases": [
+      "typescript",
+      "angular-ts"
+    ]
+  },
+  {
+    "name": "tsrx",
+    "aliases": [
+      "octane"
+    ]
+  },
+  {
+    "name": "tsx",
+    "aliases": []
+  },
+  {
+    "name": "vue",
+    "aliases": []
+  },
+  {
+    "name": "yaml",
+    "aliases": [
+      "yml"
+    ]
+  }
+]

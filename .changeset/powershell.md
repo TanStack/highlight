@@ -2,4 +2,4 @@
 "@tanstack/highlight": minor
 ---
 
-Add isolated PowerShell highlighting with pwsh and ps1 aliases and selective imports.
+Improve PowerShell highlighting for strings, variables, operators, parameters, and type literals.
