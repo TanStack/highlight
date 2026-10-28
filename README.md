@@ -218,7 +218,7 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 | Core + TSX | 10.34 KB | 4.39 KB | 4.01 KB |
 | Octane MDX + TypeScript | 14.09 KB | 5.72 KB | 5.23 KB |
 | Nine-language docs set | 16.27 KB | 6.31 KB | 5.77 KB |
-| All 79 languages | 82.09 KB | 27.75 KB | 24.61 KB |
+| All 79 languages | 84.52 KB | 28.58 KB | 25.38 KB |
 
 Ordinary HTML blocks skip the intermediate render tree and only escape text when needed. A local comparison of identical output measured 20% less time for the docs corpus in Node and 27% less in Bun, adding 73 gzip bytes to core and 67 to the TSX bundle. [Measurements and reproduction](reports/language-expansion/README.md).
 

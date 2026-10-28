@@ -16,7 +16,7 @@ CI measures selective browser bundles and highlighting performance on real docum
 | TSX | TSX | 4.39 KB | 4.45 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.72 KB | 5.80 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.31 KB | 6.40 KB |
-| All | All 79 definitions | 27.75 KB | 28.00 KB |
+| All | All 79 definitions | 28.58 KB | 28.80 KB |
 
 KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
 
@@ -26,7 +26,7 @@ Selective profiles are the primary metric. The all-language profile exists to pr
 
 The committed corpus contains 334 real code fences sampled from TanStack documentation, with up to twenty samples per normalized language.
 
-`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, the 40 additional language fixtures, and dedicated C#, C++, CMake, Dart, Java, Kotlin, Lua, Perl, PHP, Ruby, Rust, and Swift samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
+`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, the 40 additional language fixtures, and dedicated C#, C++, CMake, Dart, Java, Kotlin, Lua, Perl, PHP, PowerShell, Ruby, Rust, and Swift samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
 The 40 added definitions each cost 2.8 to 3.8 KB gzip including core. Each stays below a 4 KB gzip budget. Every definition is tested through both its direct subpath and a named barrel import, and unrelated language code must be absent from the resulting bundle.
 

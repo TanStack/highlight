@@ -65,7 +65,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Perl | `perl` | `pl` | Sigil and special variables, quote-like operators with nested delimiters, regex vs division, heredocs, POD blocks |
 | PHP | `php` | - | PHP tags, attributes, quoted strings, heredoc/nowdoc, optional HTML delegation |
 | Plaintext | `plaintext` | `text`, `txt`, `-->` | Escaping only |
-| PowerShell | `powershell` | `pwsh`, `ps1`, `ps` | Here-strings, variables, commands, block comments |
+| PowerShell | `powershell` | `pwsh`, `ps1`, `ps` | Quoted and here-strings, nested expandable expressions, scoped/braced/splat variables, cmdlets, parameters, type literals, case-insensitive keywords and operators |
 | Protocol Buffers | `protobuf` | `proto` | Message and service declarations, scalar types, comments |
 | Python | `python` | `py` | Triple strings, prefixes, decorators, comments |
 | R | `r` | None | Strings, backtick names, literals, comments |

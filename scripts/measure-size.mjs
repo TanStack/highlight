@@ -186,7 +186,7 @@ const profiles = {
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 83_000, gzip: 28_000, brotli: 25_000 },
+    limits: { minified: 85_000, gzip: 28_800, brotli: 25_600 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,
