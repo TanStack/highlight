@@ -76,7 +76,7 @@ The current fixture set stores up to twenty sampled code fences per normalized l
 | `jsx` | `jsx` |
 | `js` | `js`, `javascript`, `js-vue` |
 | `shell` | `bash`, `sh`, `shell` |
-| `json` | `json`, `jsonc` |
+| `json` | `json`, `jsonc`, `jsonl` |
 | `plaintext` | `plaintext`, `text`, `txt`, `-->` |
 | `vue` | `vue` |
 | `svelte` | `svelte` |
