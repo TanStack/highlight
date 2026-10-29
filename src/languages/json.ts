@@ -3,7 +3,7 @@ import { patternTokenizer } from '../internal/patterns.js'
 
 export const json = defineLanguage({
   name: 'json',
-  aliases: ['jsonc', 'json5'],
+  aliases: ['jsonc', 'json5', 'jsonl'],
   tokenize: patternTokenizer([
     {
       className: (match) =>

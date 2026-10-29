@@ -293,4 +293,10 @@ func (g Greeter) Greet() {
     code: `(define (square x)\n  (* x x))`,
     expectedClasses: ['th-keyword', 'th-function'],
   },
+  {
+    lang: "jsonl",
+    normalized: "json",
+    code: `{ \"name\": \"tanstack\", \"private\": true }\n{ \"name\": \"CI\", \"on\": { \"push\": { \"branches\": [\"main\"] } } }`,
+    expectedClasses: ["th-property", "th-string", "th-literal"],
+  }
 ]
