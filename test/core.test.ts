@@ -305,3 +305,28 @@ it('reads each range class once before a later getter mutates the original range
   ])
   expect(reads).toBe(1)
 })
+
+it.each(['object', 'tokenizeFunction', 'hasLanguageFunction', 'mutation'])('keeps tokenizer contexts independent across calls: %s', (mode) => {
+  const seen = new WeakSet<object>()
+  const highlighter = createHighlighter({ languages: [
+    { name: 'inner', aliases: ['inner-alias'], tokenize: () => [] },
+    { name: 'custom', tokenize(code, context) {
+      let fresh: boolean
+      if (mode === 'mutation') {
+        fresh = context.hasLanguage('inner-alias')
+        context.hasLanguage = () => false
+      } else {
+        const key = mode === 'object' ? context
+          : mode === 'tokenizeFunction' ? context.tokenize : context.hasLanguage
+        fresh = !seen.has(key)
+        seen.add(key)
+      }
+      return [{ start: 0, end: code.length, className: fresh ? 'keyword' : 'string' }]
+    } },
+  ] })
+  for (let call = 0; call < 2; call++) {
+    expect(highlighter.highlight('x', { lang: 'custom' }).tokens).toEqual([
+      { className: 'keyword', value: 'x' },
+    ])
+  }
+})
