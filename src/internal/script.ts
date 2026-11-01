@@ -135,17 +135,18 @@ function collectScriptInitialRanges(
     } else if (character === '}') {
       objectBraces.pop()
     } else if (objectBraces.at(-1) && /[A-Za-z_$]/.test(character)) {
+      let end = index + 1
+      while (end < limit && /[\w$]/.test(code[end])) end++
       const before = previousCodeIndex(code, index, ranges)
       if ('{,;'.includes(code[before] || '\0')) {
-        let end = index + 1
-        while (end < limit && /[\w$]/.test(code[end])) end++
         const after = end + (code.slice(end).match(/^(?:\s|\/\*[\s\S]*?\*\/|\/\/[^\n]*(?:\n|$))*/)?.[0].length || 0)
         if (code[after] === ':') {
           ranges.push({ start: index, end, className: 'property' })
-          index = end
-          continue
         }
       }
+      // Identifier characters cannot contain a lexical delimiter.
+      index = end
+      continue
     }
 
     if (!jsx) {
