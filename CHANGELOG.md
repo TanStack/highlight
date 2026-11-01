@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.3
+
+### Patch Changes
+
+- c133368: Reduce repeated identifier scanning inside JavaScript and TypeScript object expressions.
+
 ## 1.2.2
 
 ### Patch Changes
