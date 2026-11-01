@@ -386,7 +386,8 @@ function isTypeParameter(
 }
 
 function isRegexStart(code: string, index: number) {
-  const before = code.slice(0, index).trimEnd()
+  // Keep the longest keyword, instanceof, plus its preceding word boundary.
+  const before = code.slice(0, index).trimEnd().slice(-11)
   if (!before) return true
   if (/\b(?:case|delete|in|instanceof|of|return|throw|typeof|void|yield)$/.test(before)) {
     return true
