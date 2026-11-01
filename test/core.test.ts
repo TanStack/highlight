@@ -16,7 +16,7 @@ function textContent(nodes: ReadonlyArray<HighlightRenderNode>): string {
 }
 
 describe('rendering', () => {
-  it.each(['', '\n', '\n\n', 'a\n', 'a\r\nb\r\n', 'a\n\nb', '😀\ntext'])(
+  it.each(['', '\n', '\n\n', 'a\n', 'a\r\nb\r\n', 'a\n\nb', '😀\ntext', 'a\rb\n\u2028\u2029\u0000', 'x'.repeat(65_536) + '\nlast\n'])(
     'preserves line boundaries and source text for %j',
     (code) => {
       // Include empty tokens and a token spanning the entire block.
