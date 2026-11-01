@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.5
+
+### Patch Changes
+
+- 01e5bf0: Avoid repeatedly scanning impossible tag endings in malformed markup while preserving comment, template and inner-tag recovery.
+
 ## 1.2.4
 
 ### Patch Changes

@@ -8,7 +8,7 @@ description: >
 metadata:
   type: core
   library: '@tanstack/highlight'
-  library_version: '1.2.4'
+  library_version: '1.2.5'
 sources:
   - 'TanStack/highlight:docs/guides/themes.md'
   - 'TanStack/highlight:docs/guides/annotations.md'
