@@ -7,5 +7,5 @@ export const ini = /* @__PURE__ */ simpleLanguage({
   comments: /^[ \t]*[;#][^\r\n]*|(?<=[ \t]);[^\r\n]*/,
   strings: quotedStrings,
   insensitive: true,
-  beforeWords: [{ className: 'meta', regex: /^\s*\[[^\]\r\n]+\]/gm }, { className: 'property', regex: /^[ \t]*[^\s=;#\[\]\r\n][^=\r\n]*?(?=[ \t]*=)/gm }],
+  beforeWords: [[/^\s*\[[^\]\r\n]+\]/gm, 'meta'], [/^[ \t]*[^\s=;#\[\]\r\n][^=\r\n]*?(?=[ \t]*=)/gm, 'property']],
 })

@@ -1,26 +1,21 @@
+import { blockCommentEnd } from '../internal/nested-comment.js'
 import { defineLanguage, type HighlightTokenClass, type TokenRange } from '../core.js'
 import { collectPatternRanges } from '../internal/patterns.js'
 
 const patterns = [
-  { className: 'meta', regex: /^#!(?!\s*\[).*/g },
-  { className: 'attr', regex: /#!?\[\s*[A-Za-z_][\w:]*/g },
-  { className: 'function', regex: /\bmacro_rules!|\b[A-Za-z_]\w*!(?=\s*[([{])/g },
-  {
-    className: 'keyword',
-    regex: /\b(?<!r#)(?:as|async|await|break|const|continue|crate|dyn|else|enum|extern|fn|for|if|impl|in|let|loop|match|mod|move|mut|pub|ref|return|self|static|struct|super|trait|type|unsafe|use|where|while|yield|union(?=\s+[A-Za-z_]))\b/g,
-  },
-  { className: 'literal', regex: /\b(?:true|false)\b/g },
-  { className: 'type', regex: /\b(?:struct|enum|trait|type|union)\s+([A-Za-z_]\w*)/g, group: 1 },
-  { className: 'type', regex: /\b(?:[iu](?:8|16|32|64|128|size)|f32|f64|bool|char|str|[A-Z][A-Z\d_]*[a-z]\w*)\b/g },
-  { className: 'function', regex: /\bfn\s+([A-Za-z_]\w*)/g, group: 1 },
-  { className: 'function', regex: /\b[A-Za-z_]\w*(?=\s*\(|::<)/g },
-  { className: 'variable', regex: /\$[A-Za-z_]\w*/g },
-  {
-    className: 'number',
-    regex: /(?<!\w|(?<!\.)\.)(?:0x[\da-fA-F_]+|0o[0-7_]+|0b[01_]+|\d[\d_]*(?:\.(?![.\w])|(?:\.\d[\d_]*)?(?:[eE][+-]?_*\d[\d_]*)?))(?:[iu](?:8|16|32|64|128|size)|f32|f64)?(?!\w)/g,
-  },
-  { className: 'property', regex: /(?<!\.)\.([A-Za-z_]\w*)/g, group: 1 },
-  { className: 'operator', regex: /=>|->|::|\.\.[.=]?|<<=?|>>=?|&&|\|\||[+\-*/%&|^!<>=]=?|\?/g },
+  [/^#!(?!\s*\[).*/g, 'meta'],
+  [/#!?\[\s*[A-Za-z_][\w:]*/g, 'attr'],
+  [/\bmacro_rules!|\b[A-Za-z_]\w*!(?=\s*[([{])/g, 'function'],
+  [/\b(?<!r#)(?:as|async|await|break|const|continue|crate|dyn|else|enum|extern|fn|for|if|impl|in|let|loop|match|mod|move|mut|pub|ref|return|self|static|struct|super|trait|type|unsafe|use|where|while|yield|union(?=\s+[A-Za-z_]))\b/g, 'keyword'],
+  [/\b(?:true|false)\b/g, 'literal'],
+  [/\b(?:struct|enum|trait|type|union)\s+([A-Za-z_]\w*)/g, 'type', 1],
+  [/\b(?:[iu](?:8|16|32|64|128|size)|f32|f64|bool|char|str|[A-Z][A-Z\d_]*[a-z]\w*)\b/g, 'type'],
+  [/\bfn\s+([A-Za-z_]\w*)/g, 'function', 1],
+  [/\b[A-Za-z_]\w*(?=\s*\(|::<)/g, 'function'],
+  [/\$[A-Za-z_]\w*/g, 'variable'],
+  [/(?<!\w|(?<!\.)\.)(?:0x[\da-fA-F_]+|0o[0-7_]+|0b[01_]+|\d[\d_]*(?:\.(?![.\w])|(?:\.\d[\d_]*)?(?:[eE][+-]?_*\d[\d_]*)?))(?:[iu](?:8|16|32|64|128|size)|f32|f64)?(?!\w)/g, 'number'],
+  [/(?<!\.)\.([A-Za-z_]\w*)/g, 'property', 1],
+  [/=>|->|::|\.\.[.=]?|<<=?|>>=?|&&|\|\||[+\-*/%&|^!<>=]=?|\?/g, 'operator'],
 ] satisfies Parameters<typeof collectPatternRanges>[1]
 
 const charLiteral = /'(?:\\(?:u\{[\da-fA-F_]*\}|x[\da-fA-F]{2}|[^\n])|[^\\'\n\r])'/uy
@@ -45,13 +40,7 @@ function scanRust(code: string) {
       end = code.indexOf('\n', start)
       if (end < 0) end = code.length
     } else if (token === '/*') {
-      // Block comments nest.
-      const delimiter = /\/\*|\*\//g
-      delimiter.lastIndex = start + 2
-      let depth = 1
-      let next: RegExpExecArray | null
-      while (depth && (next = delimiter.exec(code))) depth += next[0] === '/*' ? 1 : -1
-      if (!depth) end = delimiter.lastIndex
+      end = blockCommentEnd(code, start + 2)
     } else if (token.endsWith("'")) {
       className = 'string'
       charLiteral.lastIndex = start + token.length - 1

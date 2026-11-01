@@ -4,11 +4,11 @@ import { patternTokenizer } from '../internal/patterns.js'
 export const cmake = defineLanguage({
   name: 'cmake',
   tokenize: patternTokenizer([
-    { collect: collectLexicalRanges },
-    { className: 'keyword', regex: /\b(?:if|elseif|else|endif|foreach|endforeach|while|endwhile|function|endfunction|macro|endmacro|block|endblock|return|break|continue)(?=\s*\()/gi },
-    { className: 'command', regex: /\b[A-Za-z_]\w*(?=\s*\()/g },
-    { className: 'literal', regex: /\b(?:ON|OFF|TRUE|FALSE|YES|NO|Y|N|IGNORE|NOTFOUND)\b/g },
-    { className: 'number', regex: /\b\d+(?:\.\d+)*\b/g },
+    collectLexicalRanges,
+    [/\b(?:if|elseif|else|endif|foreach|endforeach|while|endwhile|function|endfunction|macro|endmacro|block|endblock|return|break|continue)(?=\s*\()/gi, 'keyword'],
+    [/\b[A-Za-z_]\w*(?=\s*\()/g, 'command'],
+    [/\b(?:ON|OFF|TRUE|FALSE|YES|NO|Y|N|IGNORE|NOTFOUND)\b/g, 'literal'],
+    [/\b\d+(?:\.\d+)*\b/g, 'number'],
   ]),
 })
 

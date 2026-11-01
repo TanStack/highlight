@@ -7,5 +7,5 @@ export const makefile = /* @__PURE__ */ simpleLanguage({
   comments: /(?<!\\)#[^\r\n]*/,
   strings: quotedStrings,
   keywords: "define endef undefine ifdef ifndef ifeq ifneq else endif include -include sinclude override export unexport private vpath",
-  beforeWords: [{ className: 'variable', regex: /\$\([^()]*\)|\$\{[^{}]*\}|\$[@<^?*%+|]/g }, { className: 'property', regex: /^[ \t]*[\w.-]+(?=[ \t]*[:?+!]?=)/gm }, { className: 'meta', regex: /^\.\w+(?=:)/gm }, { className: 'function', regex: /^[\w./%-]+(?=[ \t]*:(?!=))/gm }],
+  beforeWords: [[/\$\([^()]*\)|\$\{[^{}]*\}|\$[@<^?*%+|]/g, 'variable'], [/^[ \t]*[\w.-]+(?=[ \t]*[:?+!]?=)/gm, 'property'], [/^\.\w+(?=:)/gm, 'meta'], [/^[\w./%-]+(?=[ \t]*:(?!=))/gm, 'function']],
 })

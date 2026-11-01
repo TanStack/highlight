@@ -7,6 +7,6 @@ export const properties = /* @__PURE__ */ simpleLanguage({
   comments: /^[ \t]*[#!][^\r\n]*/,
   strings: /(?!)/,
   insensitive: true,
-  beforeWords: [{ className: 'property', regex: /^[ \t]*(?:\\[^\r\n]|[^\s=:\\#!])+(?=[ \t=:])/gm }, { className: 'string', regex: /(?<=[=:])[^\r\n]+/g }],
+  beforeWords: [[/^[ \t]*(?:\\[^\r\n]|[^\s=:\\#!])+(?=[ \t=:])/gm, 'property'], [/(?<=[=:])[^\r\n]+/g, 'string']],
   numbers: false,
 })

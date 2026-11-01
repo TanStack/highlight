@@ -6,7 +6,7 @@ export const awk = /* @__PURE__ */ simpleLanguage({
   aliases: [],
   comments: /#[^\r\n]*/,
   strings: /"(?:\\[^\r\n]|[^"\\\r\n])*(?:"|(?![\s\S]))|(?<=~[ \t]*)\/(?:\\.|[^/\\\r\n])*\//,
-  keywords: "BEGIN END if else while do for in break continue delete next nextfile function func exit",
-  beforeWords: [{ className: 'variable', regex: /\$(?:\d+|[A-Za-z_]\w*)/g }],
-  rules: [{ className: 'function', regex: /\b[A-Za-z_]\w*(?=\s*\()/g }],
+  keywords: "BEGIN END break continue delete do else exit for func function if in next nextfile while",
+  beforeWords: [[/\$(?:\d+|[A-Za-z_]\w*)/g, 'variable']],
+  rules: [[/\b[A-Za-z_]\w*(?=\s*\()/g, 'function']],
 })

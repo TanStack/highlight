@@ -2,40 +2,20 @@ import { defineLanguage, type TokenRange } from '../core.js'
 import { collectPatternRanges } from '../internal/patterns.js'
 
 const patterns = [
-  {
-    className: 'attr',
-    regex: /(?:^[ \t]*|[(,] *)\[[ \t]*(?:[a-z]+: *)?([A-Z]\w*)(?=[ \t]*[\](,])/gm,
-    group: 1,
-  },
-  {
-    className: 'keyword',
-    regex: /(?<!@)\b(?:abstract|and|as|ascending|await|base|break|case|catch|checked|class|const|continue|default|delegate|descending|do|else|enum|event|explicit|extern|finally|fixed|for|foreach|global|goto|if|implicit|in|interface|internal|is|lock|managed|nameof|namespace|new|not|notnull|operator|or|orderby|out|override|params|private|protected|public|readonly|ref|return|sealed|sizeof|stackalloc|static|struct|switch|this|throw|try|typeof|unchecked|unmanaged|unsafe|using|var|virtual|volatile|when|where|while|with|yield)\b/g,
-  },
-  { className: 'keyword', regex: /\b(?:get|set|init|add|remove)\b(?=\s*(?:[;{]|=>))/g },
+  [/(?:^[ \t]*|[(,] *)\[[ \t]*(?:[a-z]+: *)?([A-Z]\w*)(?=[ \t]*[\](,])/gm, 'attr', 1],
+  [/(?<!@)\b(?:abstract|and|as|ascending|await|base|break|case|catch|checked|class|const|continue|default|delegate|descending|do|else|enum|event|explicit|extern|finally|fixed|for|foreach|global|goto|if|implicit|in|interface|internal|is|lock|managed|nameof|namespace|new|not|notnull|operator|or|orderby|out|override|params|private|protected|public|readonly|ref|return|sealed|sizeof|stackalloc|static|struct|switch|this|throw|try|typeof|unchecked|unmanaged|unsafe|using|var|virtual|volatile|when|where|while|with|yield)\b/g, 'keyword'],
+  [/\b(?:get|set|init|add|remove)\b(?=\s*(?:[;{]|=>))/g, 'keyword'],
   // Contextual words are keywords only when another word follows, as in `record Person` or `select u`.
-  {
-    className: 'keyword',
-    regex: /\b(?:async|by|equals|file|from|group|into|join|let|on|partial|record|required|scoped|select)\b(?=\s+(?!(?:in|is|as)\b)[\w@(])/g,
-  },
-  { className: 'literal', regex: /\b(?:true|false|null)\b/g },
-  {
-    className: 'type',
-    regex: /\b(?:bool|byte|char|decimal|double|dynamic|float|int|long|nint|nuint|object|sbyte|short|string|uint|ulong|ushort|void)\b/g,
-  },
-  { className: 'type', regex: /\b(?:class|struct|interface|enum|record(?:\s+struct)?|new|using(?:\s+static)?|namespace)\s+([A-Za-z_][\w.]*)/g, group: 1 },
-  { className: 'type', regex: /\busing\s+\w+\s*=\s*([A-Za-z_][\w.]*)/g, group: 1 },
-  { className: 'function', regex: /\b[A-Za-z_]\w*(?=\s*\(|<(?:[\w\s,.?[\]]|<[\w\s,.?[\]]{0,40}>){0,40}>\s*\()/g },
-  { className: 'property', regex: /(?<!\.)\.[ \t]*([A-Za-z_]\w*)/g, group: 1 },
-  {
-    className: (match) => match[1] ? 'property' : 'type',
-    regex: /\b[A-Z][A-Z\d_]*[a-z]\w*(?=(\s*(?:=[^=>]|\{\s*(?:get|set|init)\b)|(?<=[{,(]\s*\w+)\s*:[^:]|(?<=[\w>?\]] +\w+)\s*=>)?)/g,
-  },
-  {
-    className: 'number',
-    regex: /(?:^|\.\.|[^\w.])((?:0[xX][\da-fA-F_]+|0[bB][01_]+|(?:\d[\d_]*(?:\.\d[\d_]*)?|\.\d[\d_]*)(?:[eE][+-]?\d[\d_]*)?)(?:[uUlL]{1,2}|[fFdDmM])?)(?!\w|\.\d)/g,
-    group: 1,
-  },
-  { className: 'operator', regex: /=>|\?\?=?|\?\.|::|\.\.|->|<<=?|>>>?=?|\+\+|--|&&|\|\||[+\-*/%&|^!<>=]=?|[~?:]/g },
+  [/\b(?:async|by|equals|file|from|group|into|join|let|on|partial|record|required|scoped|select)\b(?=\s+(?!(?:in|is|as)\b)[\w@(])/g, 'keyword'],
+  [/\b(?:true|false|null)\b/g, 'literal'],
+  [/\b(?:bool|byte|char|decimal|double|dynamic|float|int|long|nint|nuint|object|sbyte|short|string|uint|ulong|ushort|void)\b/g, 'type'],
+  [/\b(?:class|struct|interface|enum|record(?:\s+struct)?|new|using(?:\s+static)?|namespace)\s+([A-Za-z_][\w.]*)/g, 'type', 1],
+  [/\busing\s+\w+\s*=\s*([A-Za-z_][\w.]*)/g, 'type', 1],
+  [/\b[A-Za-z_]\w*(?=\s*\(|<(?:[\w\s,.?[\]]|<[\w\s,.?[\]]{0,40}>){0,40}>\s*\()/g, 'function'],
+  [/(?<!\.)\.[ \t]*([A-Za-z_]\w*)/g, 'property', 1],
+  [/\b[A-Z][A-Z\d_]*[a-z]\w*(?=(\s*(?:=[^=>]|\{\s*(?:get|set|init)\b)|(?<=[{,(]\s*\w+)\s*:[^:]|(?<=[\w>?\]] +\w+)\s*=>)?)/g, (match) => match[1] ? 'property' : 'type'],
+  [/(?:^|\.\.|[^\w.])((?:0[xX][\da-fA-F_]+|0[bB][01_]+|(?:\d[\d_]*(?:\.\d[\d_]*)?|\.\d[\d_]*)(?:[eE][+-]?\d[\d_]*)?)(?:[uUlL]{1,2}|[fFdDmM])?)(?!\w|\.\d)/g, 'number', 1],
+  [/=>|\?\?=?|\?\.|::|\.\.|->|<<=?|>>>?=?|\+\+|--|&&|\|\||[+\-*/%&|^!<>=]=?|[~?:]/g, 'operator'],
 ] satisfies Parameters<typeof collectPatternRanges>[1]
 
 export const csharp = defineLanguage({

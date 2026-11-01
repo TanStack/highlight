@@ -12,10 +12,10 @@ export const yaml = defineLanguage({
     return collectPatternRanges(
       code,
       [
-        { className: 'property', regex: /^[ \t-]*([A-Za-z0-9_.-]+)(?=\s*:)/gm, group: 1 },
-        { collect: collectYamlValues },
-        { className: 'literal', regex: /\b(?:false|null|true|yes|no|on|off|~)\b/gi },
-        { className: 'number', regex: /\b\d+(?:\.\d+)?\b/g },
+        [/^[ \t-]*([A-Za-z0-9_.-]+)(?=\s*:)/gm, 'property', 1],
+        collectYamlValues,
+        [/\b(?:false|null|true|yes|no|on|off|~)\b/gi, 'literal'],
+        [/\b\d+(?:\.\d+)?\b/g, 'number'],
       ],
       lexical,
     )

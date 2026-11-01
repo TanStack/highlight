@@ -12,11 +12,11 @@ export const markdown = defineLanguage({
     return collectPatternRanges(
       code,
       [
-        { className: 'heading', regex: /^#{1,6}\s.*$/gm },
-        { className: 'heading', regex: /^.+\n(?:=+|-+)\s*$/gm },
-        { className: 'code-inline', regex: /`[^`\n]+`/g },
-        { className: 'link', regex: /!?\[[^\]]+\]\([^)]+\)/g },
-        { className: 'meta', regex: /^\s{0,3}(?:>|[-*+] |\d+\. )/gm },
+        [/^#{1,6}\s.*$/gm, 'heading'],
+        [/^.+\n(?:=+|-+)\s*$/gm, 'heading'],
+        [/`[^`\n]+`/g, 'code-inline'],
+        [/!?\[[^\]]+\]\([^)]+\)/g, 'link'],
+        [/^\s{0,3}(?:>|[-*+] |\d+\. )/gm, 'meta'],
       ],
       collectFencedCode(code, context),
     )
