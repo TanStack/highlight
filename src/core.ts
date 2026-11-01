@@ -406,11 +406,7 @@ function normalizeTokenRanges(
     if (start >= end) continue
     if (start < previousStart) sorted = false
     previousStart = start
-    ranges.push(
-      candidate.start < 0 || candidate.end > codeLength
-        ? { className: candidate.className, start, end }
-        : candidate,
-    )
+    ranges.push({ className: candidate.className, start, end })
   }
   if (!sorted) ranges.sort((a, b) => a.start - b.start)
 

@@ -272,12 +272,36 @@ it('keeps boundary edges private when a range getter renders recursively', () =>
 
 it('normalizes decoration keys before direct HTML emission', () => {
   const data = Object.fromEntries([['camelCase', '<&'], ['A\0B', '"'], ['Kſİ😀', "'"], ['__proto__', 'own']])
-  const options = { lineNumbers: true, decorations: [{ range: [0, 1] as const, className: 'focus', data }] }
+  const options = { lineNumbers: true, decorations: [{ range: [0, 1] as const, className: 'focus', data }, { lines: 1, data: { lineCamelCase: '<&' } }] }
   const expected = renderNodesToHtml(renderTokens([{ value: 'x' }], options))
   const highlighter = createHighlighter({ languages: [] })
   expect(highlighter.highlight('x', options).html).toBe(`<pre class="th-code th-code--plaintext th-code--line-numbers" data-language="plaintext"><code>${expected}</code></pre>`)
   expect(expected).toContain('data-camel-case="&lt;&amp;"')
+  expect(expected).toContain('data-line-camel-case="&lt;&amp;"')
   expect(expected).toContain('data--a--b="&quot;"')
   expect(expected).toContain('data------="&#39;"')
   expect(expected).toContain('data-__proto__="own"')
+})
+
+
+it('snapshots range classes before inspecting later ranges', () => {
+  const later = { start: 3, end: 6, className: 'string' as const }
+  const highlighter = createHighlighter({ languages: [{ name: 'live-ranges', tokenize: () => [
+    { start: 0, end: 1, get className() { later.end = 2; return 'keyword' as const } }, later,
+  ] }] })
+  const result = highlighter.highlight('abcdef', { lang: 'live-ranges' })
+  expect(result.tokens).toEqual([{ className: 'keyword', value: 'a' }, { value: 'bcdef' }])
+  expect(result.tokens.map(token => token.value).join('')).toBe('abcdef')
+})
+
+it('reads each range class once before a later getter mutates the original range', () => {
+  let reads = 0
+  const first = { start: 0, end: 1, get className() { reads++; return 'keyword' as const } }
+  const highlighter = createHighlighter({ languages: [{ name: 'live-ranges', tokenize: () => [first,
+    { start: 3, end: 6, get className() { first.end = 0; return 'string' as const } },
+  ] }] })
+  expect(highlighter.tokenize('abcdef', { lang: 'live-ranges' }).tokens).toEqual([
+    { className: 'keyword', value: 'a' }, { value: 'bc' }, { className: 'string', value: 'def' },
+  ])
+  expect(reads).toBe(1)
 })
