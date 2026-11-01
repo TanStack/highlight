@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.4
+
+### Patch Changes
+
+- 81b6d79: Use native newline search when rendering line numbers and line decorations, reducing the scan cost for long source lines while preserving line boundaries and escaping.
+
 ## 1.2.3
 
 ### Patch Changes
