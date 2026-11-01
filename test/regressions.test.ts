@@ -537,3 +537,13 @@ it('distinguishes spreads and property separators', () => {
   expect(properties.filter(token => token.value === 'default' && token.className === 'property')).toHaveLength(2)
   expect(properties.filter(token => token.className === 'comment')).toHaveLength(2)
 })
+
+it.each(['js', 'ts', 'jsx', 'tsx'])('keeps regex keyword boundaries after long prefixes in %s', (lang) => {
+  const prefix = 'const value = numerator / denominator;\n'.repeat(300)
+  for (const [boundary, expected] of [[' ', true], ['é', true], ['x', false], ['_', false], ['0', false]]) {
+    const code = `${prefix}${boundary}instanceof \u2028\ufeff /abc/; value / abc / other`
+    const tokens = highlighter.tokenize(code, { lang }).tokens
+    expect(tokens.map(token => token.value).join('')).toBe(code)
+    expect(tokens.some(token => token.className === 'literal' && token.value === '/abc/')).toBe(expected)
+  }
+})
