@@ -491,8 +491,8 @@ function renderTokenSlice<T>(
 
 function getLineStarts(code: string) {
   const starts = [0]
-  for (let index = 0; index < code.length; index++) {
-    if (code[index] === '\n' && index + 1 < code.length) starts.push(index + 1)
+  for (let index = code.indexOf('\n'); index >= 0 && index + 1 < code.length; index = code.indexOf('\n', index + 1)) {
+    starts.push(index + 1)
   }
   return starts
 }
