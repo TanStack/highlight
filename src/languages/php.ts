@@ -2,17 +2,17 @@ import { defineLanguage, type TokenRange } from '../core.js'
 import { collectPatternRanges, offsetRanges } from '../internal/patterns.js'
 
 const patterns = [
-  { className: 'variable', regex: /\$[A-Za-z_\x80-\uffff][\w\x80-\uffff]*/g },
-  { className: 'attr', regex: /#\[\s*([\\A-Za-z_][\\\w]*)/g, group: 1 },
-  { className: 'function', regex: /(?:\?->|->|::)\s*([A-Za-z_]\w*)(?=\s*\()/g, group: 1 },
-  { className: 'property', regex: /(?:\?->|->|::)\s*([A-Za-z_][\w]*)/g, group: 1 },
-  { className: 'keyword', regex: /\b(?:abstract|and|as|break|callable|case|catch|class|clone|const|continue|declare|default|die|do|echo|else|elseif|empty|enddeclare|endfor|endforeach|endif|endswitch|endwhile|enum|eval|exit|extends|final|finally|fn|for|foreach|function|global|goto|if|implements|include|include_once|instanceof|insteadof|interface|isset|list|match|namespace|new|or|print|private|protected|public|readonly|require|require_once|return|static|switch|throw|trait|try|unset|use|var|while|xor|yield|from)\b/gi },
-  { className: 'literal', regex: /\b(?:true|false|null|__CLASS__|__DIR__|__FILE__|__FUNCTION__|__LINE__|__METHOD__|__NAMESPACE__|__TRAIT__)\b/gi },
-  { className: 'type', regex: /\b(?:array|bool|float|int|iterable|mixed|never|object|parent|self|string|void)\b/gi },
-  { className: 'type', regex: /\b(?:class|enum|interface|trait|new|extends|implements|instanceof)\s+([\\A-Za-z_][\\\w]*)/gi, group: 1 },
-  { className: 'function', regex: /\b[A-Za-z_][\w]*(?=\s*\()/g },
-  { className: 'number', regex: /(?:^|[^\w.])((?:0[xX][\da-fA-F](?:_?[\da-fA-F])*|0[bB][01](?:_?[01])*|0[oO][0-7](?:_?[0-7])*|(?:\d(?:_?\d)*(?:\.(?:\d(?:_?\d)*)?)?|\.\d(?:_?\d)*)(?:[eE][+-]?\d(?:_?\d)*)?))(?![\w.])/g, group: 1 },
-  { className: 'operator', regex: /\?->|\?\?=?|<=>|===|!==|=>|->|::|\*\*=?|<<=?|>>=?|&&|\|\||\+\+|--|[+\-*/%.&|^!<>=]=?|[~?:@]/g },
+  [/\$[A-Za-z_\x80-\uffff][\w\x80-\uffff]*/g, 'variable'],
+  [/#\[\s*([\\A-Za-z_][\\\w]*)/g, 'attr', 1],
+  [/(?:\?->|->|::)\s*([A-Za-z_]\w*)(?=\s*\()/g, 'function', 1],
+  [/(?:\?->|->|::)\s*([A-Za-z_][\w]*)/g, 'property', 1],
+  [/\b(?:abstract|and|as|break|callable|case|catch|class|clone|const|continue|declare|default|die|do|echo|else|elseif|empty|enddeclare|endfor|endforeach|endif|endswitch|endwhile|enum|eval|exit|extends|final|finally|fn|for|foreach|function|global|goto|if|implements|include|include_once|instanceof|insteadof|interface|isset|list|match|namespace|new|or|print|private|protected|public|readonly|require|require_once|return|static|switch|throw|trait|try|unset|use|var|while|xor|yield|from)\b/gi, 'keyword'],
+  [/\b(?:true|false|null|__CLASS__|__DIR__|__FILE__|__FUNCTION__|__LINE__|__METHOD__|__NAMESPACE__|__TRAIT__)\b/gi, 'literal'],
+  [/\b(?:array|bool|float|int|iterable|mixed|never|object|parent|self|string|void)\b/gi, 'type'],
+  [/\b(?:class|enum|interface|trait|new|extends|implements|instanceof)\s+([\\A-Za-z_][\\\w]*)/gi, 'type', 1],
+  [/\b[A-Za-z_][\w]*(?=\s*\()/g, 'function'],
+  [/(?:^|[^\w.])((?:0[xX][\da-fA-F](?:_?[\da-fA-F])*|0[bB][01](?:_?[01])*|0[oO][0-7](?:_?[0-7])*|(?:\d(?:_?\d)*(?:\.(?:\d(?:_?\d)*)?)?|\.\d(?:_?\d)*)(?:[eE][+-]?\d(?:_?\d)*)?))(?![\w.])/g, 'number', 1],
+  [/\?->|\?\?=?|<=>|===|!==|=>|->|::|\*\*=?|<<=?|>>=?|&&|\|\||\+\+|--|[+\-*/%.&|^!<>=]=?|[~?:@]/g, 'operator'],
 ] satisfies Parameters<typeof collectPatternRanges>[1]
 
 export const php = defineLanguage({
@@ -32,11 +32,11 @@ export const php = defineLanguage({
         ranges.push({ start: tag.index, end: start, className: 'meta' })
       }
       const scanned = scanPhp(code, start)
-      ranges.push(...offsetRanges(collectPatternRanges(
-        code.slice(start, scanned.end),
-        patterns,
-        offsetRanges(scanned.ranges, -start),
-      ), start))
+      const initial = shiftOwnedRanges(scanned.ranges, -start)
+      const collected = collectPatternRanges(
+        code.slice(start, scanned.end), patterns, initial, undefined, initial,
+      )
+      ranges.push(...shiftOwnedRanges(collected, start))
       start = scanned.end
       if (start === code.length) break
       ranges.push({ start, end: start + 2, className: 'meta' })
@@ -122,4 +122,13 @@ function stringEnd(code: string, start: number, quote: string): number {
     index++
   }
   return code.length
+}
+
+// scanPhp creates these ranges for this call, no caller-owned ranges are changed.
+function shiftOwnedRanges(ranges: Array<TokenRange>, offset: number) {
+  for (const range of ranges) {
+    range.start += offset
+    range.end += offset
+  }
+  return ranges
 }

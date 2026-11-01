@@ -1,5 +1,6 @@
+import { compiledWordLanguage as simpleLanguage } from '../internal/word-language.js'
 // Vocabulary adapted from Highlight.js 11.11.1, see NOTICE.md.
-import { simpleLanguage } from '../internal/simple-language.js'
+
 
 export const haskell = /* @__PURE__ */ simpleLanguage({
   name: "haskell",

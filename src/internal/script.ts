@@ -5,41 +5,15 @@ const keywords =
   'abstract|as|asserts|async|await|break|case|catch|class|const|continue|debugger|declare|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|infer|instanceof|interface|is|keyof|let|module|namespace|new|of|override|package|private|protected|public|readonly|return|satisfies|set|static|super|switch|this|throw|try|type|typeof|using|var|while|with|yield'
 
 const semanticPatterns = [
-  {
-    className: 'property' as const,
-    regex: /(?<!\.)\.([A-Za-z_$][\w$]*)/g,
-    group: 1,
-  },
+  [/(?<!\.)\.([A-Za-z_$][\w$]*)/g, 'property' as const, 1],
 
-  { className: 'function' as const, regex: /@[A-Za-z_$][\w$]*/g },
-  {
-    className: 'keyword' as const,
-    regex: new RegExp(`\\b(?:${keywords})\\b`, 'g'),
-  },
-  {
-    className: 'literal' as const,
-    regex: /\b(?:false|null|true|undefined|NaN|Infinity)\b/g,
-  },
-  {
-    className: 'number' as const,
-    regex:
-      /\b(?:0x[\da-f](?:_?[\da-f])*n?|0b[01](?:_?[01])*n?|0o[0-7](?:_?[0-7])*n?|\d(?:_?\d)*(?:\.\d(?:_?\d)*)?(?:e[+-]?\d(?:_?\d)*)?n?)\b/gi,
-  },
-  {
-    className: 'function' as const,
-    regex: /\bfunction\s*\*?\s*([A-Za-z_$][\w$]*)/g,
-    group: 1,
-  },
-  {
-    className: 'function' as const,
-    regex: /(^|[^.A-Za-z0-9_$])([A-Za-z_$][\w$]*)(?=\s*\()/g,
-    group: 2,
-  },
-  {
-    className: 'type' as const,
-    regex:
-      /\b(?:Array|Record|Promise|Readonly|Set|Map|WeakMap|WeakSet|string|number|boolean|bigint|symbol|object|unknown|never|void|any|[A-Z][A-Za-z0-9_$]*)\b/g,
-  },
+  [/@[A-Za-z_$][\w$]*/g, 'function' as const],
+  [new RegExp(`\\b(?:${keywords})\\b`, 'g'), 'keyword' as const],
+  [/\b(?:false|null|true|undefined|NaN|Infinity)\b/g, 'literal' as const],
+  [/\b(?:0x[\da-f](?:_?[\da-f])*n?|0b[01](?:_?[01])*n?|0o[0-7](?:_?[0-7])*n?|\d(?:_?\d)*(?:\.\d(?:_?\d)*)?(?:e[+-]?\d(?:_?\d)*)?n?)\b/gi, 'number' as const],
+  [/\bfunction\s*\*?\s*([A-Za-z_$][\w$]*)/g, 'function' as const, 1],
+  [/(^|[^.A-Za-z0-9_$])([A-Za-z_$][\w$]*)(?=\s*\()/g, 'function' as const, 2],
+  [/\b(?:Array|Record|Promise|Readonly|Set|Map|WeakMap|WeakSet|string|number|boolean|bigint|symbol|object|unknown|never|void|any|[A-Z][A-Za-z0-9_$]*)\b/g, 'type' as const],
 ] as const
 
 export function collectScriptRanges(

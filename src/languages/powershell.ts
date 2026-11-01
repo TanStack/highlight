@@ -8,5 +8,5 @@ export const powershell = /* @__PURE__ */ simpleLanguage({
   strings: /@"\r?\n[\s\S]*?^"@|@\'\r?\n[\s\S]*?^\'@|"(?:`[\s\S]|[^"`])*(?:"|(?![\s\S]))|\'(?:\'\'|[^\'])*(?:\'|(?![\s\S]))/,
   keywords: "function class enum using configuration if else foreach return do while until elseif begin for trap data dynamicparam end break throw param continue finally in switch exit filter try process catch hidden static parameter",
   insensitive: true,
-  beforeWords: [{ className: 'command', regex: /\b[A-Za-z]+-[A-Za-z][\w-]*/g }, { className: 'literal', regex: /\$(?:true|false|null)\b/gi }, { className: 'variable', regex: /\$(?:\{[^}]*\}|[\w:?]+)/g }],
+  beforeWords: [[/\b[A-Za-z]+-[A-Za-z][\w-]*/g, 'command'], [/\$(?:true|false|null)\b/gi, 'literal'], [/\$(?:\{[^}]*\}|[\w:?]+)/g, 'variable']],
 })

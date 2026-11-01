@@ -6,5 +6,5 @@ export const latex = /* @__PURE__ */ simpleLanguage({
   aliases: ["tex"],
   comments: /(?<!\\)%[^\r\n]*/,
   strings: /\\verb\*?\|[^|\r\n]*\||\\verb\*?\+[^+\r\n]*\+/,
-  beforeWords: [{ className: 'keyword', regex: /\\[A-Za-z@]+\*?|\\[^A-Za-z\r\n]/g }],
+  beforeWords: [[/\\[A-Za-z@]+\*?|\\[^A-Za-z\r\n]/g, 'keyword']],
 })

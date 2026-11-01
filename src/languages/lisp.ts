@@ -1,5 +1,6 @@
+import { nativeCompiledWordLanguage as simpleLanguage } from '../internal/word-language.js'
 // Vocabulary adapted from Highlight.js 11.11.1, see NOTICE.md.
-import { simpleLanguage, doubleStrings } from '../internal/simple-language.js'
+import { doubleStrings } from '../internal/simple-language.js'
 
 export const lisp = /* @__PURE__ */ simpleLanguage({
   name: "lisp",
@@ -7,9 +8,9 @@ export const lisp = /* @__PURE__ */ simpleLanguage({
   aliases: ["commonlisp", "cl"],
   comments: /;[^\r\n]*|#\|[\s\S]*?(?:\|#|(?![\s\S]))/,
   strings: doubleStrings,
-  keywords: "defun defmacro defvar defparameter defconstant defclass defmethod defgeneric lambda let let* if when unless cond case loop do dolist dotimes progn quote function setq setf block return-from catch throw unwind-protect labels flet macrolet eval-when in-package defpackage",
+  keywords: "block case catch cond defclass defconstant defgeneric defmacro defmethod defpackage defparameter defun defvar do dolist dotimes eval-when flet function if in-package labels lambda let let* loop macrolet progn quote return-from setf setq throw unless unwind-protect when",
   literals: "nil t",
   insensitive: true,
   nestedComments: [["#|", "|#"]],
-  beforeWords: [{ className: 'literal', regex: /:[A-Za-z][\w-]*/g }],
+  beforeWords: [[/:[A-Za-z][\w-]*/g, 'literal']],
 })
