@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.6
+
+### Patch Changes
+
+- 48c3f23: Avoid JavaScript argument-count limits when appending large embedded-language token results in markup.
+
 ## 1.2.5
 
 ### Patch Changes
