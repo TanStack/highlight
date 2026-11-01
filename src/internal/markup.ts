@@ -16,6 +16,7 @@ export function collectMarkupRanges(
   const ranges: Array<TokenRange> = []
   const regions: Array<{ end: number; lang: string; start: number }> = []
   let index = 0
+  let lastTagEnd: number | undefined
 
   while ((index = code.indexOf('<', index)) >= 0) {
     if (code.startsWith('<!--', index)) {
@@ -42,7 +43,7 @@ export function collectMarkupRanges(
       continue
     }
 
-    const tagEnd = findTagEnd(code, nameStart + nameMatch[0].length)
+    const tagEnd = findTagEnd(code, nameStart + nameMatch[0].length, lastTagEnd ??= code.lastIndexOf('>'))
     if (tagEnd < 0) {
       index++
       continue
@@ -156,7 +157,8 @@ function collectBraceRegions(
   }
 }
 
-function findTagEnd(code: string, start: number) {
+function findTagEnd(code: string, start: number, lastTagEnd: number) {
+  if (start > lastTagEnd) return -1
   let index = start
   while (index < code.length) {
     if (code[index] === '"' || code[index] === "'") {
