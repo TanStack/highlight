@@ -75,12 +75,10 @@ export function collectMarkupRanges(
 
   for (const region of regions) {
     if (region.start >= region.end || !context.hasLanguage(region.lang)) continue
-    ranges.push(
-      ...offsetRanges(
-        context.tokenize(code.slice(region.start, region.end), region.lang),
-        region.start,
-      ),
-    )
+    for (const range of offsetRanges(
+      context.tokenize(code.slice(region.start, region.end), region.lang),
+      region.start,
+    )) ranges.push(range)
   }
 
   return ranges
