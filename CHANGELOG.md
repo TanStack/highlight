@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.2
+
+### Patch Changes
+
+- a52b8f6: Improve JavaScript and TypeScript highlighting speed for division-heavy code by bounding regex literal context checks.
+
 ## 1.2.1
 
 ### Patch Changes
