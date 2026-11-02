@@ -79,7 +79,9 @@ describe('C documentation syntax', () => {
     for (const type of ['_Float16', '_Float32x', '_Decimal96', '_Decimal128x', 'complex', 'imaginary']) {
       expect(classes(`${type} value;`, type)).toEqual(['type'])
     }
-    expect(classes('_Pragma("once")', '_Pragma')).toEqual(['keyword'])
+    for (const keyword of ['_Pragma', 'asm', 'fortran']) {
+      expect(classes(`${keyword}("once")`, keyword)).toEqual(['keyword'])
+    }
   })
 
   it('recognizes hexadecimal fractions without a leading digit', () => {
