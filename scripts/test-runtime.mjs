@@ -8,6 +8,7 @@ const require = createRequire(`${process.cwd()}/consumer.cjs`)
 const entry = require.resolve('@tanstack/highlight')
 const root = new URL('../', `file://${entry}`)
 const pkg = JSON.parse(readFileSync(new URL('package.json', root), 'utf8'))
+assert.match(readFileSync(new URL('NOTICE.md', root), 'utf8'), /BSD 3-Clause License/)
 const entries = Object.keys(pkg.exports).flatMap(key => {
   if (!key.includes('*')) return [key === '.' ? pkg.name : pkg.name + key.slice(1)]
   const directory = key.slice(2, key.indexOf('*'))

@@ -5,10 +5,10 @@ export const shell = defineLanguage({
   name: 'shell',
   aliases: ['bash', 'sh', 'zsh', 'cmd', 'console'],
   tokenize: patternTokenizer([
-    { collect: collectShellLexicalRanges },
-    { className: 'variable', regex: /\$[A-Za-z_][A-Za-z0-9_]*|\b[A-Z_][A-Z0-9_]*(?==)/g },
-    { className: 'keyword', regex: /\b(?:case|do|done|elif|else|esac|export|fi|for|function|if|in|select|then|time|until|while)\b/g },
-    { className: 'command', regex: /(^|[\n;|&])\s*([A-Za-z0-9_./-]+)(?=\s|$)/g, group: 2 },
+    collectShellLexicalRanges,
+    [/\$[A-Za-z_][A-Za-z0-9_]*|\b[A-Z_][A-Z0-9_]*(?==)/g, 'variable'],
+    [/\b(?:case|do|done|elif|else|esac|export|fi|for|function|if|in|select|then|time|until|while)\b/g, 'keyword'],
+    [/(^|[\n;|&])\s*([A-Za-z0-9_./-]+)(?=\s|$)/g, 'command', 2],
   ]),
 })
 
