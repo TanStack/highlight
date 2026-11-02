@@ -3,7 +3,10 @@ import { createHighlighter } from '../src/core'
 import { scss } from '../src/languages/scss'
 import { less } from '../src/languages/less'
 
-it.each([scss, less])('keeps $name statement cursors isolated during nested highlighting', (language) => {
+it.each([scss, less].flatMap(language => [
+  { language, matcher: '[^{};]+' },
+  { language, matcher: '[.#][A-Za-z_][\\w-]*' },
+]))('keeps $language.name cursors isolated during nested $matcher matching', ({ language, matcher }) => {
   const highlighter = createHighlighter({ languages: [language] })
   const code = '.outer #id { color: red; }'
   const expected = highlighter.highlight(code, { lang: language.name })
@@ -15,7 +18,7 @@ it.each([scss, less])('keeps $name statement cursors isolated during nested high
   let inside = false
   RegExp.prototype.exec = function (input: string) {
     const match = Reflect.apply(original, this, [input])
-    if (!inside && !nested && this.source === '[^{};]+' && match?.index === 0) {
+    if (!inside && !nested && this.source === matcher && match?.index === 0) {
       inside = true
       try {
         const result = highlighter.highlight('.inner { width: 2px; }', { lang: language.name })
