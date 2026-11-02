@@ -1,5 +1,12 @@
 # @tanstack/highlight
 
+## 1.2.10
+
+### Patch Changes
+
+- 94fb0b2: Keep optional language scanners moving when regex instrumentation reenters tokenization.
+- 4ca857c: Reduce temporary allocations when highlighting SCSS and LESS stylesheets.
+
 ## 1.2.9
 
 ### Patch Changes
