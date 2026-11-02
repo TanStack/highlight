@@ -56,10 +56,10 @@ export function createSimpleTokenizer(options: SimpleLanguageOptions, wordPatter
     let match: RegExpExecArray | null;
     while ((match = lexical.exec(code))) {
         if (!match[0].length) {
-            lexical.lastIndex++;
+            lexical.lastIndex = match.index + 1;
             continue;
         }
-        let end = lexical.lastIndex;
+        let end = match.index + match[0].length;
         if (match[1] !== undefined) {
             for (const [open, close] of runtime.nestedComments || []) {
                 if (!code.startsWith(open, match.index))
@@ -82,10 +82,10 @@ export function createSimpleTokenizer(options: SimpleLanguageOptions, wordPatter
                     }
                 }
                 end = cursor;
-                lexical.lastIndex = end;
                 break;
             }
         }
+        lexical.lastIndex = end;
         ranges.push({ start: match.index, end, className: match[1] !== undefined ? 'comment' : 'string' });
     }
     return ranges;
