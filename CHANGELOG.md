@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.9
+
+### Patch Changes
+
+- b32f26d: Scan YAML block scalar indentation without constructing prefix matches.
+
 ## 1.2.8
 
 ### Patch Changes
