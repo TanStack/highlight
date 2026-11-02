@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.7
+
+### Patch Changes
+
+- 08125a1: Handle large highlighted Markdown code fences without exceeding the JavaScript argument limit.
+
 ## 1.2.6
 
 ### Patch Changes
