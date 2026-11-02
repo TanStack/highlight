@@ -75,6 +75,19 @@ describe('C documentation syntax', () => {
     expect(classes('node->next = ptr;', '->')).toEqual(['operator'])
   })
 
+  it('keeps existing extended numeric type names', () => {
+    for (const type of ['_Float16', '_Float32x', '_Decimal96', '_Decimal128x', 'complex', 'imaginary']) {
+      expect(classes(`${type} value;`, type)).toEqual(['type'])
+    }
+    expect(classes('_Pragma("once")', '_Pragma')).toEqual(['keyword'])
+  })
+
+  it('recognizes hexadecimal fractions without a leading digit', () => {
+    for (const number of ['0x.8p0', '0X.8P+2F']) {
+      expect(classes(`double value = ${number};`, number)).toEqual(['number'])
+    }
+  })
+
   it('registers only the requested aliases', () => {
     for (const name of ['c', 'h', 'C', 'H']) {
       expect(highlighter.normalizeLanguage(name)).toBe('c')

@@ -1,3 +1,4 @@
+import additionalFixtures from './generated/additional-language-fixtures.json'
 import type { HighlightLanguage } from '../src/index'
 
 export type LanguageFixture = {
@@ -8,17 +9,17 @@ export type LanguageFixture = {
 }
 
 export const languageFixtures: Array<LanguageFixture> = [
+  ...additionalFixtures.map((fixture) => ({
+    lang: fixture.name,
+    normalized: fixture.name as HighlightLanguage,
+    code: fixture.code,
+    expectedClasses: [...new Set(fixture.checks.map(([, kind]) => `th-${kind}`))],
+  })),
   {
     lang: 'php',
     normalized: 'php',
     code: '<?php\n#[Route("/hello")]\nfunction greet(string $name): string { return "Hello " . $name; }\n$count = 42; // count\n$ready = true;',
     expectedClasses: ['th-meta', 'th-attr', 'th-keyword', 'th-function', 'th-type', 'th-variable', 'th-string', 'th-operator', 'th-number', 'th-comment', 'th-literal'],
-  },
-  {
-    lang: 'h',
-    normalized: 'c',
-    code: '#include <stdio.h>\nstruct point { int x; };\nint main(void) { const char *s = "hello"; return s[0] == 0x41; } // done',
-    expectedClasses: ['th-meta', 'th-string', 'th-keyword', 'th-type', 'th-function', 'th-number', 'th-operator', 'th-comment'],
   },
   {
     lang: 'c++',

@@ -1,0 +1,317 @@
+{
+  "node": "v24.15.0",
+  "platform": "darwin/arm64",
+  "timing": "Median of three samples after two warmup passes",
+  "profiles": {
+    "highlight": {
+      "fixtures": 334,
+      "iterations": 30,
+      "blocks": 10020,
+      "outputUnits": 11527530,
+      "elapsedMs": 92.68,
+      "samplesMs": [
+        102.62,
+        92.68,
+        91.04
+      ],
+      "blocksPerMs": 108.11,
+      "htmlBytes": 11545080,
+      "htmlKiB": 11274,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "cpp": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 9180000,
+      "elapsedMs": 51.87,
+      "samplesMs": [
+        52.05,
+        51.58,
+        51.87
+      ],
+      "blocksPerMs": 192.8,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "cmake": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 6670000,
+      "elapsedMs": 29.09,
+      "samplesMs": [
+        29.17,
+        29.09,
+        28.46
+      ],
+      "blocksPerMs": 343.73,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "csharp": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 12070000,
+      "elapsedMs": 76.88,
+      "samplesMs": [
+        78.58,
+        76.88,
+        76.33
+      ],
+      "blocksPerMs": 130.07,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "dart": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 10580000,
+      "elapsedMs": 80.31,
+      "samplesMs": [
+        80.99,
+        80.31,
+        79.59
+      ],
+      "blocksPerMs": 124.52,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "java": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 10430000,
+      "elapsedMs": 58.04,
+      "samplesMs": [
+        58.64,
+        58.04,
+        58.04
+      ],
+      "blocksPerMs": 172.29,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "kotlin": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 10760000,
+      "elapsedMs": 65.99,
+      "samplesMs": [
+        67.49,
+        65.99,
+        65.97
+      ],
+      "blocksPerMs": 151.55,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "lua": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 8500000,
+      "elapsedMs": 42.87,
+      "samplesMs": [
+        42.85,
+        43.15,
+        42.87
+      ],
+      "blocksPerMs": 233.24,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "perl": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 13600000,
+      "elapsedMs": 103.38,
+      "samplesMs": [
+        105.25,
+        103.38,
+        103.18
+      ],
+      "blocksPerMs": 96.73,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "ruby": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 10860000,
+      "elapsedMs": 67.28,
+      "samplesMs": [
+        68.22,
+        67.28,
+        67.08
+      ],
+      "blocksPerMs": 148.64,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "rust": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 14850000,
+      "elapsedMs": 78.61,
+      "samplesMs": [
+        78.61,
+        78.43,
+        81.52
+      ],
+      "blocksPerMs": 127.22,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "swift": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 10950000,
+      "elapsedMs": 78.3,
+      "samplesMs": [
+        80.12,
+        78.3,
+        78.02
+      ],
+      "blocksPerMs": 127.72,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "tokenize": {
+      "fixtures": 334,
+      "iterations": 30,
+      "blocks": 10020,
+      "outputUnits": 330360,
+      "elapsedMs": 68.3,
+      "samplesMs": [
+        70.83,
+        68.3,
+        68.06
+      ],
+      "blocksPerMs": 146.7,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "markdown": {
+      "fixtures": 334,
+      "iterations": 30,
+      "blocks": 10020,
+      "outputUnits": 10787370,
+      "elapsedMs": 102.73,
+      "samplesMs": [
+        103.53,
+        102.73,
+        101.96
+      ],
+      "blocksPerMs": 97.53,
+      "htmlBytes": 10804920,
+      "htmlKiB": 10552,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "hast": {
+      "fixtures": 334,
+      "iterations": 15,
+      "blocks": 5010,
+      "outputUnits": 165030,
+      "elapsedMs": 40.3,
+      "samplesMs": [
+        40.46,
+        39.66,
+        40.3
+      ],
+      "blocksPerMs": 124.33,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "php": {
+      "fixtures": 1,
+      "iterations": 10000,
+      "blocks": 10000,
+      "outputUnits": 10210000,
+      "elapsedMs": 82.61,
+      "samplesMs": [
+        85.2,
+        82.61,
+        80.59
+      ],
+      "blocksPerMs": 121.05,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "lineNumbers": {
+      "fixtures": 334,
+      "iterations": 15,
+      "blocks": 5010,
+      "outputUnits": 8700750,
+      "elapsedMs": 74.89,
+      "samplesMs": [
+        76.6,
+        74.4,
+        74.89
+      ],
+      "blocksPerMs": 66.9,
+      "htmlBytes": 8709525,
+      "htmlKiB": 8505,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "longLineNumbers": {
+      "fixtures": 1,
+      "iterations": 50,
+      "blocks": 50,
+      "outputUnits": 8288250,
+      "elapsedMs": 51.59,
+      "samplesMs": [
+        56.4,
+        51.59,
+        50.26
+      ],
+      "blocksPerMs": 0.97,
+      "htmlBytes": 8288250,
+      "htmlKiB": 8094,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "longDecorated": {
+      "fixtures": 1,
+      "iterations": 50,
+      "blocks": 50,
+      "outputUnits": 10149900,
+      "elapsedMs": 126.18,
+      "samplesMs": [
+        134.21,
+        126.18,
+        125.92
+      ],
+      "blocksPerMs": 0.4,
+      "htmlBytes": 10149900,
+      "htmlKiB": 9912,
+      "maxElapsedMs": 1200,
+      "passed": true
+    },
+    "additionalLanguages": {
+      "fixtures": 40,
+      "iterations": 250,
+      "blocks": 10000,
+      "outputUnits": 4276750,
+      "elapsedMs": 23.41,
+      "samplesMs": [
+        25.05,
+        23.41,
+        22.87
+      ],
+      "blocksPerMs": 427.1,
+      "maxElapsedMs": 1200,
+      "passed": true
+    }
+  }
+}

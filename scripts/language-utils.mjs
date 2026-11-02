@@ -45,6 +45,7 @@ export const supportedLanguages = [
 ]
 
 const aliases = {
+  c: 'c',
   h: 'c',
   'c++': 'cpp',
   cc: 'cpp',

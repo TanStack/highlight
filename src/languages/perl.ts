@@ -2,14 +2,14 @@ import { defineLanguage, type HighlightTokenClass, type TokenRange } from '../co
 import { collectPatternRanges } from '../internal/patterns.js'
 
 const patterns = [
-  { className: 'property', regex: /\b[A-Za-z_]\w*(?=\s*=>)|(?<=[$+\w\]}]\{|->\{)-?[A-Za-z_]\w*(?=\})/g },
-  { className: 'function', regex: /(?<=->|\bsub\s+)[A-Za-z_][\w:]*/g },
-  { className: 'type', regex: /(?<=\b(?:package|use|no|require)\s+)(?!v\d)[A-Za-z_]\w*(?:::\w+)*|\b[A-Z]\w*(?:::\w+)*(?=\s*->)/g },
-  { className: 'keyword', regex: /\b(?:my|our|local|state|sub|package|use|no|require|if|elsif|else|unless|while|until|for(?:each)?|do|last|next|redo|return|and|or|not|xor|cmp|eq|ne|lt|gt|le|ge|x|eval|try|catch|finally|BEGIN|END)\b/g },
-  { className: 'literal', regex: /\b(?:undef|__PACKAGE__|__FILE__|__LINE__|__SUB__)\b/g },
-  { className: 'function', regex: /\b(?:print|say|die|bless)\b|\b[A-Za-z_]\w*(?=\s*\()/g },
-  { className: 'number', regex: /(?<![\w$]|(?<!\.)\.)(?:0[xXbBoO][\da-fA-F_]+|v\d+(?:\.\d+)+|(?:\d[\d_]*(?:\.\d[\d_]*)?|(?<!\.)\.\d[\d_]*)(?:[eE][+-]?\d+)?)(?!\w|\.\d)/g },
-  { className: 'operator', regex: /<=>|->|=>|::|\.\.\.|[=!]~|([-+*/%.&|^<>])\1?=?|[!=]=?|[~?:\\]/g },
+  [/\b[A-Za-z_]\w*(?=\s*=>)|(?<=[$+\w\]}]\{|->\{)-?[A-Za-z_]\w*(?=\})/g, 'property'],
+  [/(?<=->|\bsub\s+)[A-Za-z_][\w:]*/g, 'function'],
+  [/(?<=\b(?:package|use|no|require)\s+)(?!v\d)[A-Za-z_]\w*(?:::\w+)*|\b[A-Z]\w*(?:::\w+)*(?=\s*->)/g, 'type'],
+  [/\b(?:my|our|local|state|sub|package|use|no|require|if|elsif|else|unless|while|until|for(?:each)?|do|last|next|redo|return|and|or|not|xor|cmp|eq|ne|lt|gt|le|ge|x|eval|try|catch|finally|BEGIN|END)\b/g, 'keyword'],
+  [/\b(?:undef|__PACKAGE__|__FILE__|__LINE__|__SUB__)\b/g, 'literal'],
+  [/\b(?:print|say|die|bless)\b|\b[A-Za-z_]\w*(?=\s*\()/g, 'function'],
+  [/(?<![\w$]|(?<!\.)\.)(?:0[xXbBoO][\da-fA-F_]+|v\d+(?:\.\d+)+|(?:\d[\d_]*(?:\.\d[\d_]*)?|(?<!\.)\.\d[\d_]*)(?:[eE][+-]?\d+)?)(?!\w|\.\d)/g, 'number'],
+  [/<=>|->|=>|::|\.\.\.|[=!]~|([-+*/%.&|^<>])\1?=?|[!=]=?|[~?:\\]/g, 'operator'],
 ] satisfies Parameters<typeof collectPatternRanges>[1]
 
 export const perl = defineLanguage({

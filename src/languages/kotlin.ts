@@ -1,20 +1,18 @@
+import { blockCommentEnd } from '../internal/nested-comment.js'
 import { defineLanguage, type TokenRange } from '../core.js'
 import { collectPatternRanges } from '../internal/patterns.js'
 
 const patterns = [
-  { className: 'attr', regex: /(?<![\w@])@(?:[a-z]+:)?[A-Za-z_][\w.]*/g },
-  {
-    className: 'keyword',
-    regex: /(?<!\.)(?:\bas\?|!(?:in|is)\b|\b(?:abstract|as|break|by|catch|class|companion|const|constructor|continue|crossinline|do|else|external|final|finally|for|fun|if|import|in|infix|init|inline|interface|internal|is|lateinit|noinline|object|operator|override|package|private|protected|public|reified|return|sealed|super|suspend|tailrec|this|throw|try|typealias|val|var|vararg|when|where|while)\b)/g,
-  },
-  { className: 'keyword', regex: /(?<!\.)\b(?:data|value|enum|annotation|inner|open|expect|actual)(?=[ \t]+(?:[a-z]+[ \t]+){0,3}(?:class|fun|val|var|interface|object|constructor)\b)|(?<![\w.])(?:get(?=\(\)\s*[:={])|set(?=\(\w+\)\s*[:={]))|(?<=\b(?:private|protected|internal)[ \t]+)set\b|\bout(?=\s+[A-Z])/g },
-  { className: 'literal', regex: /\b(?:true|false|null)\b/g },
-  { className: 'type', regex: /\b(?:class|interface|object|typealias)\s+(\w+)/g, group: 1 },
-  { className: 'function', regex: /\b[A-Za-z_]\w*(?=\s*\()|\b[a-z_]\w*(?=(?:<[\w.?*, ]*(?:<[\w.?*, ]*>[\w.?*, ]*)?>)?[ \t]*[({])|(?<=^[ \t]*|[{=][ \t]*)[A-Z][A-Z\d_]*[a-z]\w*(?=[ \t]*\{)/gm },
-  { className: 'type', regex: /\b[A-Z][A-Z\d_]*[a-z]\w*/g },
-  { className: 'number', regex: /(?<!\w|[^.]\.)(?:0[xX][\da-fA-F_]+|0[bB][01_]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d[\d_]*)?)(?:[fF]|L|[uU]L?)?(?!\w|\.\d)/g },
-  { className: 'property', regex: /\.\s*([A-Za-z_]\w*)/g, group: 1 },
-  { className: 'operator', regex: /===|!==|\?[.:]|!!|\.\.<?|->|::|&&|\|\||\+\+|--|[+\-*/%!<>=]=?/g },
+  [/(?<![\w@])@(?:[a-z]+:)?[A-Za-z_][\w.]*/g, 'attr'],
+  [/(?<!\.)(?:\bas\?|!(?:in|is)\b|\b(?:abstract|as|break|by|catch|class|companion|const|constructor|continue|crossinline|do|else|external|final|finally|for|fun|if|import|in|infix|init|inline|interface|internal|is|lateinit|noinline|object|operator|override|package|private|protected|public|reified|return|sealed|super|suspend|tailrec|this|throw|try|typealias|val|var|vararg|when|where|while)\b)/g, 'keyword'],
+  [/(?<!\.)\b(?:data|value|enum|annotation|inner|open|expect|actual)(?=[ \t]+(?:[a-z]+[ \t]+){0,3}(?:class|fun|val|var|interface|object|constructor)\b)|(?<![\w.])(?:get(?=\(\)\s*[:={])|set(?=\(\w+\)\s*[:={]))|(?<=\b(?:private|protected|internal)[ \t]+)set\b|\bout(?=\s+[A-Z])/g, 'keyword'],
+  [/\b(?:true|false|null)\b/g, 'literal'],
+  [/\b(?:class|interface|object|typealias)\s+(\w+)/g, 'type', 1],
+  [/\b[A-Za-z_]\w*(?=\s*\()|\b[a-z_]\w*(?=(?:<[\w.?*, ]*(?:<[\w.?*, ]*>[\w.?*, ]*)?>)?[ \t]*[({])|(?<=^[ \t]*|[{=][ \t]*)[A-Z][A-Z\d_]*[a-z]\w*(?=[ \t]*\{)/gm, 'function'],
+  [/\b[A-Z][A-Z\d_]*[a-z]\w*/g, 'type'],
+  [/(?<!\w|[^.]\.)(?:0[xX][\da-fA-F_]+|0[bB][01_]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d[\d_]*)?)(?:[fF]|L|[uU]L?)?(?!\w|\.\d)/g, 'number'],
+  [/\.\s*([A-Za-z_]\w*)/g, 'property', 1],
+  [/===|!==|\?[.:]|!!|\.\.<?|->|::|&&|\|\||\+\+|--|[+\-*/%!<>=]=?/g, 'operator'],
 ] satisfies Parameters<typeof collectPatternRanges>[1]
 
 export const kotlin = defineLanguage({
@@ -31,10 +29,7 @@ export const kotlin = defineLanguage({
       let end = lexical.lastIndex
       let className: TokenRange['className'] = token[0] === '/' ? 'comment' : 'string'
       if (token === '/*') {
-        const nested = /\/\*|\*\//g
-        nested.lastIndex = end
-        for (let depth = 1; depth && (match = nested.exec(code));) depth += match[0] === '/*' ? 1 : -1
-        end = match ? nested.lastIndex : code.length
+        end = blockCommentEnd(code, end)
       } else if (token[0] === '`') {
         if (!match[1]) {
           occupied.fill(1, from, end)

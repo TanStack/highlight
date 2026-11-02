@@ -5,8 +5,8 @@ export const diff = defineLanguage({
   name: 'diff',
   aliases: ['patch'],
   tokenize: patternTokenizer([
-    { className: 'meta', regex: /^(?:@@|diff |index |--- |\+\+\+ ).*$/gm },
-    { className: 'deleted', regex: /^-.*$/gm },
-    { className: 'inserted', regex: /^\+.*$/gm },
+    [/^(?:@@|diff |index |--- |\+\+\+ ).*$/gm, 'meta'],
+    [/^-.*$/gm, 'deleted'],
+    [/^\+.*$/gm, 'inserted'],
   ]),
 })

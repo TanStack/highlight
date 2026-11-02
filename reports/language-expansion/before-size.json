@@ -1,0 +1,262 @@
+{
+  "core": {
+    "minified": 3844,
+    "gzip": 1820,
+    "brotli": 1664,
+    "limits": {
+      "minified": 4000,
+      "gzip": 2000,
+      "brotli": 1800
+    }
+  },
+  "rootCore": {
+    "minified": 3844,
+    "gzip": 1822,
+    "brotli": 1666,
+    "limits": {
+      "minified": 4000,
+      "gzip": 2000,
+      "brotli": 1800
+    }
+  },
+  "rootEscape": {
+    "minified": 143,
+    "gzip": 140,
+    "brotli": 105,
+    "limits": {
+      "minified": 300,
+      "gzip": 220,
+      "brotli": 180
+    }
+  },
+  "tsx": {
+    "minified": 10158,
+    "gzip": 4322,
+    "brotli": 3927,
+    "limits": {
+      "minified": 10200,
+      "gzip": 4350,
+      "brotli": 4000
+    }
+  },
+  "tsxBarrel": {
+    "minified": 10158,
+    "gzip": 4321,
+    "brotli": 3937,
+    "limits": {
+      "minified": 10200,
+      "gzip": 4350,
+      "brotli": 4000
+    }
+  },
+  "octane": {
+    "minified": 13911,
+    "gzip": 5647,
+    "brotli": 5210,
+    "limits": {
+      "minified": 14000,
+      "gzip": 5700,
+      "brotli": 5250
+    }
+  },
+  "docs": {
+    "minified": 16089,
+    "gzip": 6240,
+    "brotli": 5684,
+    "limits": {
+      "minified": 16100,
+      "gzip": 6300,
+      "brotli": 5700
+    }
+  },
+  "php": {
+    "minified": 7920,
+    "gzip": 3564,
+    "brotli": 3262,
+    "limits": {
+      "minified": 8000,
+      "gzip": 3700,
+      "brotli": 3400
+    }
+  },
+  "cpp": {
+    "minified": 6349,
+    "gzip": 3027,
+    "brotli": 2781,
+    "limits": {
+      "minified": 6500,
+      "gzip": 3100,
+      "brotli": 2900
+    }
+  },
+  "cmake": {
+    "minified": 5669,
+    "gzip": 2652,
+    "brotli": 2429,
+    "limits": {
+      "minified": 6000,
+      "gzip": 2800,
+      "brotli": 2600
+    }
+  },
+  "csharp": {
+    "minified": 7785,
+    "gzip": 3636,
+    "brotli": 3333,
+    "limits": {
+      "minified": 7950,
+      "gzip": 3750,
+      "brotli": 3450
+    }
+  },
+  "dart": {
+    "minified": 6809,
+    "gzip": 3151,
+    "brotli": 2888,
+    "limits": {
+      "minified": 7000,
+      "gzip": 3250,
+      "brotli": 3000
+    }
+  },
+  "java": {
+    "minified": 6383,
+    "gzip": 2997,
+    "brotli": 2738,
+    "limits": {
+      "minified": 6550,
+      "gzip": 3100,
+      "brotli": 2850
+    }
+  },
+  "kotlin": {
+    "minified": 7264,
+    "gzip": 3373,
+    "brotli": 3098,
+    "limits": {
+      "minified": 7450,
+      "gzip": 3500,
+      "brotli": 3250
+    }
+  },
+  "lua": {
+    "minified": 5507,
+    "gzip": 2621,
+    "brotli": 2426,
+    "limits": {
+      "minified": 5650,
+      "gzip": 2750,
+      "brotli": 2550
+    }
+  },
+  "perl": {
+    "minified": 7690,
+    "gzip": 3632,
+    "brotli": 3356,
+    "limits": {
+      "minified": 7850,
+      "gzip": 3750,
+      "brotli": 3500
+    }
+  },
+  "ruby": {
+    "minified": 7548,
+    "gzip": 3524,
+    "brotli": 3246,
+    "limits": {
+      "minified": 7700,
+      "gzip": 3650,
+      "brotli": 3350
+    }
+  },
+  "rust": {
+    "minified": 6626,
+    "gzip": 3051,
+    "brotli": 2820,
+    "limits": {
+      "minified": 6800,
+      "gzip": 3200,
+      "brotli": 2950
+    }
+  },
+  "swift": {
+    "minified": 7296,
+    "gzip": 3414,
+    "brotli": 3125,
+    "limits": {
+      "minified": 7450,
+      "gzip": 3550,
+      "brotli": 3250
+    }
+  },
+  "all": {
+    "minified": 52735,
+    "gzip": 17726,
+    "brotli": 15932,
+    "limits": {
+      "minified": 53150,
+      "gzip": 18000,
+      "brotli": 16200
+    }
+  },
+  "reactAdapter": {
+    "minified": 234,
+    "gzip": 162,
+    "brotli": 127,
+    "limits": {
+      "minified": 300,
+      "gzip": 200,
+      "brotli": 160
+    }
+  },
+  "markdownAdapter": {
+    "minified": 5164,
+    "gzip": 2322,
+    "brotli": 2144,
+    "limits": {
+      "minified": 5800,
+      "gzip": 2500,
+      "brotli": 2300
+    }
+  },
+  "remarkAdapter": {
+    "minified": 5055,
+    "gzip": 2198,
+    "brotli": 2039,
+    "limits": {
+      "minified": 5600,
+      "gzip": 2400,
+      "brotli": 2200
+    }
+  },
+  "rehypeAdapter": {
+    "minified": 5372,
+    "gzip": 2322,
+    "brotli": 2148,
+    "limits": {
+      "minified": 5700,
+      "gzip": 2450,
+      "brotli": 2250
+    }
+  },
+  "octaneAdapter": {
+    "minified": 5655,
+    "gzip": 2424,
+    "brotli": 2242,
+    "limits": {
+      "minified": 6000,
+      "gzip": 2550,
+      "brotli": 2350
+    }
+  },
+  "theme": {
+    "minified": 1359,
+    "gzip": 695,
+    "brotli": 586,
+    "limits": {
+      "minified": 1500,
+      "gzip": 750,
+      "brotli": 650
+    }
+  }
+}

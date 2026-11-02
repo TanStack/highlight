@@ -12,10 +12,10 @@ export const yaml = defineLanguage({
     return collectPatternRanges(
       code,
       [
-        { className: 'property', regex: /^[ \t-]*([A-Za-z0-9_.-]+)(?=\s*:)/gm, group: 1 },
-        { collect: collectYamlValues },
-        { className: 'literal', regex: /\b(?:false|null|true|yes|no|on|off|~)\b/gi },
-        { className: 'number', regex: /\b\d+(?:\.\d+)?\b/g },
+        [/^[ \t-]*([A-Za-z0-9_.-]+)(?=\s*:)/gm, 'property', 1],
+        collectYamlValues,
+        [/\b(?:false|null|true|yes|no|on|off|~)\b/gi, 'literal'],
+        [/\b\d+(?:\.\d+)?\b/g, 'number'],
       ],
       lexical,
     )
@@ -35,7 +35,8 @@ function collectYamlBlockScalars(code: string) {
       const lineEnd = code.indexOf('\n', end)
       const next = lineEnd < 0 ? code.length : lineEnd
       const line = code.slice(end, next)
-      if (line.trim() && (line.match(/^\s*/)?.[0].length || 0) <= indentation) break
+      const content = line.trimStart()
+      if (content && line.length - content.length <= indentation) break
       end = lineEnd < 0 ? code.length : lineEnd + 1
     }
     if (end > start + 1) ranges.push({ start: start + 1, end, className: 'string' })
