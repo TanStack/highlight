@@ -2,7 +2,7 @@ import { expect, test } from 'vitest'
 import { createHighlighter } from '../src/core'
 import { glsl } from '../src/languages/glsl'
 
-test('keeps the optional lexical cursor moving when regex instrumentation reenters tokenization', () => {
+test.each(['before', 'after'] as const)('keeps the optional lexical cursor moving when instrumentation reenters %s exec', (timing) => {
   const highlighter = createHighlighter({ languages: [glsl] })
   const outer = '/* outer */ float value = 1.0; // done'
   const inner = '/* inner */ float nested = 2.0; // done'
@@ -15,14 +15,17 @@ test('keeps the optional lexical cursor moving when regex instrumentation reente
   let actual: typeof expected | undefined
   try {
     RegExp.prototype.exec = function (code: string) {
-      const match = original.call(this, code)
-      if (match && code === outer && !busy) {
+      const reenter = () => {
+        if (code !== outer || busy) return
         // Bound the negative control so a stuck cached cursor fails without hanging Vitest.
         if (++calls > 256) throw new Error('Optional lexical cursor did not advance')
         busy = true
         try { nested.push(highlighter.tokenize(inner, { lang: 'glsl' })) }
         finally { busy = false }
       }
+      if (timing === 'before') reenter()
+      const match = original.call(this, code)
+      if (timing === 'after' && match) reenter()
       return match
     }
     actual = highlighter.tokenize(outer, { lang: 'glsl' })
