@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.8
+
+### Patch Changes
+
+- b1891d2: Handle large template interpolations in JavaScript, TypeScript, JSX and TSX without exceeding the JavaScript argument limit.
+
 ## 1.2.7
 
 ### Patch Changes
