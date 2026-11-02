@@ -265,12 +265,10 @@ function collectTemplateRanges(
       const end = findInterpolationEnd(code, index + 2)
       const expressionEnd = end < 0 ? code.length : end
       const expression = code.slice(index + 2, expressionEnd)
-      ranges.push(
-        ...offsetRanges(
-          collectScriptRanges(expression, jsx, jsxAtLineStart),
-          index + 2,
-        ),
-      )
+      for (const range of offsetRanges(
+        collectScriptRanges(expression, jsx, jsxAtLineStart),
+        index + 2,
+      )) ranges.push(range)
 
       if (end < 0) return code.length
       ranges.push({ start: end, end: end + 1, className: 'operator' })
