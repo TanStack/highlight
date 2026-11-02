@@ -8,5 +8,5 @@ export const batch = /* @__PURE__ */ simpleLanguage({
   strings: doubleStrings,
   keywords: "if else goto for in do call exit not exist errorlevel defined equ neq lss leq gtr geq",
   insensitive: true,
-  beforeWords: [{ className: 'variable', regex: /%[^%\r\n]+%|![^!\r\n]+!|%[0-9*]|%%[A-Za-z]/g }],
+  beforeWords: [[/%[^%\r\n]+%|![^!\r\n]+!|%[0-9*]|%%[A-Za-z]/g, 'variable']],
 })

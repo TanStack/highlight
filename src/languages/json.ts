@@ -5,17 +5,12 @@ export const json = defineLanguage({
   name: 'json',
   aliases: ['jsonc', 'json5', 'jsonl'],
   tokenize: patternTokenizer([
-    {
-      className: (match) =>
-        match[0].startsWith('//') || match[0].startsWith('/*')
-          ? 'comment'
-          : match[1]
+    [/\/\/[^\n]*|\/\*[\s\S]*?\*\/|("(?:\\.|[^"\\])*")(?=\s*:)|"(?:\\.|[^"\\])*"/g, (match) => match[0].startsWith('//') || match[0].startsWith('/*')
+        ? 'comment'
+        : match[1]
             ? 'property'
-            : 'string',
-      regex:
-        /\/\/[^\n]*|\/\*[\s\S]*?\*\/|("(?:\\.|[^"\\])*")(?=\s*:)|"(?:\\.|[^"\\])*"/g,
-    },
-    { className: 'literal', regex: /\b(?:false|null|true)\b/g },
-    { className: 'number', regex: /-?\b\d+(?:\.\d+)?(?:e[+-]?\d+)?\b/gi },
+            : 'string'],
+    [/\b(?:false|null|true)\b/g, 'literal'],
+    [/-?\b\d+(?:\.\d+)?(?:e[+-]?\d+)?\b/gi, 'number'],
   ]),
 })

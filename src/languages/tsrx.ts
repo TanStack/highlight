@@ -27,6 +27,6 @@ export const tsrx = defineLanguage({
       ) range.className = 'keyword'
     }
 
-    return collectPatternRanges(code, [{ className: 'keyword', regex: /@\{/g }], ranges)
+    return collectPatternRanges(code, [[/@\{/g, 'keyword']], ranges)
   },
 })

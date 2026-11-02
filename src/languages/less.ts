@@ -8,5 +8,5 @@ export const less = /* @__PURE__ */ simpleLanguage({
   comments: cComments,
   strings: quotedStrings,
   insensitive: true,
-  beforeWords: [{ className: 'variable', regex: /@[\w-]+/g }, { className: 'meta', regex: /@[\w-]+/g }, stylesheetWords],
+  beforeWords: [[/@[\w-]+/g, 'variable'], [/@[\w-]+/g, 'meta'], stylesheetWords],
 })
