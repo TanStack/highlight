@@ -52,41 +52,46 @@ export function createSimpleTokenizer(options: SimpleLanguageOptions, wordPatter
   const runtime = owned ? { nestedComments: options.nestedComments } : options
   const collectLexicalRanges = function (code: string) {
     const ranges: Array<TokenRange> = [];
-    lexical.lastIndex = 0;
-    let match: RegExpExecArray | null;
-    while ((match = lexical.exec(code))) {
-        if (!match[0].length) {
-            lexical.lastIndex++;
-            continue;
-        }
-        let end = lexical.lastIndex;
-        if (match[1] !== undefined) {
-            for (const [open, close] of runtime.nestedComments || []) {
-                if (!code.startsWith(open, match.index))
-                    continue;
-                let cursor = match.index + open.length;
-                let depth = 1;
-                // Walk once rather than repeatedly searching the remaining suffix
-                // for an opener while unwinding many nested closing delimiters.
-                while (depth && cursor < code.length) {
-                    if (code.startsWith(open, cursor)) {
-                        depth++;
-                        cursor += open.length;
-                    }
-                    else if (code.startsWith(close, cursor)) {
-                        depth--;
-                        cursor += close.length;
-                    }
-                    else {
-                        cursor++;
-                    }
-                }
-                end = cursor;
-                lexical.lastIndex = end;
-                break;
-            }
-        }
-        ranges.push({ start: match.index, end, className: match[1] !== undefined ? 'comment' : 'string' });
+    const previousLastIndex = lexical.lastIndex;
+    try {
+      lexical.lastIndex = 0;
+      let match: RegExpExecArray | null;
+      while ((match = lexical.exec(code))) {
+          if (!match[0].length) {
+              lexical.lastIndex = match.index + 1;
+              continue;
+          }
+          let end = match.index + match[0].length;
+          if (match[1] !== undefined) {
+              for (const [open, close] of runtime.nestedComments || []) {
+                  if (!code.startsWith(open, match.index))
+                      continue;
+                  let cursor = match.index + open.length;
+                  let depth = 1;
+                  // Walk once rather than repeatedly searching the remaining suffix
+                  // for an opener while unwinding many nested closing delimiters.
+                  while (depth && cursor < code.length) {
+                      if (code.startsWith(open, cursor)) {
+                          depth++;
+                          cursor += open.length;
+                      }
+                      else if (code.startsWith(close, cursor)) {
+                          depth--;
+                          cursor += close.length;
+                      }
+                      else {
+                          cursor++;
+                      }
+                  }
+                  end = cursor;
+                  break;
+              }
+          }
+          lexical.lastIndex = end;
+          ranges.push({ start: match.index, end, className: match[1] !== undefined ? 'comment' : 'string' });
+      }
+    } finally {
+      lexical.lastIndex = previousLastIndex;
     }
     return ranges;
 }
