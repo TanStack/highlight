@@ -12,11 +12,11 @@ export const markdown = defineLanguage({
     return collectPatternRanges(
       code,
       [
-        { className: 'heading', regex: /^#{1,6}\s.*$/gm },
-        { className: 'heading', regex: /^.+\n(?:=+|-+)\s*$/gm },
-        { className: 'code-inline', regex: /`[^`\n]+`/g },
-        { className: 'link', regex: /!?\[[^\]]+\]\([^)]+\)/g },
-        { className: 'meta', regex: /^\s{0,3}(?:>|[-*+] |\d+\. )/gm },
+        [/^#{1,6}\s.*$/gm, 'heading'],
+        [/^.+\n(?:=+|-+)\s*$/gm, 'heading'],
+        [/`[^`\n]+`/g, 'code-inline'],
+        [/!?\[[^\]]+\]\([^)]+\)/g, 'link'],
+        [/^\s{0,3}(?:>|[-*+] |\d+\. )/gm, 'meta'],
       ],
       collectFencedCode(code, context),
     )
@@ -46,7 +46,7 @@ function collectFencedCode(code: string, context: TokenizerContext) {
       : []
 
     ranges.push({ start: match.index, end: contentStart, className: 'meta' })
-    ranges.push(...fillCodeRange(contentStart + 1, contentEnd, embedded))
+    fillCodeRange(contentStart + 1, contentEnd, embedded, ranges)
     if (close) ranges.push({ start: close.index, end: close.index + close[0].length, className: 'meta' })
 
     opening.lastIndex = close ? close.index + close[0].length : code.length
@@ -59,8 +59,8 @@ function fillCodeRange(
   start: number,
   end: number,
   embedded: ReadonlyArray<TokenRange>,
+  ranges: Array<TokenRange>,
 ) {
-  const ranges: Array<TokenRange> = []
   let index = start
   for (const range of embedded) {
     if (range.start > index) ranges.push({ start: index, end: range.start, className: 'code-inline' })
@@ -68,5 +68,4 @@ function fillCodeRange(
     index = range.end
   }
   if (index < end) ranges.push({ start: index, end, className: 'code-inline' })
-  return ranges
 }

@@ -68,7 +68,7 @@ const result = highlighter.highlight(`const node = <Button />`, {
 
 `html` does not import script or style languages. Registering `js`, `ts`, or `css` enables delegation for matching embedded regions without increasing the standalone HTML module.
 
-For convenience, the root entry contains every shipped language:
+For convenience, the root entry contains every shipped language. Use selective registration above when browser size matters:
 
 ```ts
 import { highlight } from '@tanstack/highlight'
@@ -195,9 +195,9 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Gruvbox Dark, Gr
 
 ## Languages
 
-`apache`, `cmake`, `cpp`, `csharp`, `css`, `dart`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `java`, `js`, `json`, `jsx`, `kotlin`, `lua`, `markdown`, `mermaid`, `nginx`, `perl`, `php`, `plaintext`, `python`, `ruby`, `rust`, `scheme`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
+`ada`, `apache`, `applescript`, `awk`, `batch`, `c`, `clojure`, `cmake`, `coffeescript`, `cpp`, `crystal`, `csharp`, `css`, `d`, `dart`, `diff`, `dockerfile`, `ejs`, `elixir`, `elm`, `env`, `erlang`, `fortran`, `fsharp`, `glsl`, `go`, `graphql`, `groovy`, `haskell`, `html`, `http`, `ini`, `java`, `js`, `json`, `jsx`, `julia`, `kotlin`, `latex`, `less`, `lisp`, `lua`, `makefile`, `markdown`, `matlab`, `mermaid`, `nginx`, `nix`, `objectivec`, `ocaml`, `pascal`, `perl`, `php`, `plaintext`, `powershell`, `properties`, `protobuf`, `python`, `r`, `ruby`, `rust`, `scala`, `scheme`, `scss`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vbnet`, `verilog`, `vhdl`, `vue`, `wat`, `x86asm`, `yaml`.
 
-Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
+All 79 definitions are independently importable. Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
 
 ## Output Contract
 
@@ -214,13 +214,15 @@ Local browser bundles, minified with esbuild and compressed independently. KB us
 
 | Registration | Minified | Gzip | Brotli |
 | --- | ---: | ---: | ---: |
-| Core, no languages | 3.84 KB | 1.82 KB | 1.66 KB |
-| Core + TSX | 10.11 KB | 4.26 KB | 3.90 KB |
-| Octane MDX + TypeScript | 13.86 KB | 5.59 KB | 5.17 KB |
-| Nine-language docs set | 16.04 KB | 6.20 KB | 5.66 KB |
-| All 39 languages | 52.74 KB | 17.73 KB | 15.93 KB |
+| Core, no languages | 4.03 KB | 1.89 KB | 1.72 KB |
+| Core + TSX | 10.34 KB | 4.39 KB | 4.01 KB |
+| Octane MDX + TypeScript | 14.09 KB | 5.72 KB | 5.23 KB |
+| Nine-language docs set | 16.27 KB | 6.31 KB | 5.77 KB |
+| All 79 languages | 82.09 KB | 27.75 KB | 24.61 KB |
 
-The following comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
+Ordinary HTML blocks skip the intermediate render tree and only escape text when needed. A local comparison of identical output measured 20% less time for the docs corpus in Node and 27% less in Bun, adding 73 gzip bytes to core and 67 to the TSX bundle. [Measurements and reproduction](reports/language-expansion/README.md).
+
+The following external-library comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 
 On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks, using the median of three runs after warmup:
 

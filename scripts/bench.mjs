@@ -175,6 +175,13 @@ try {
       targetBlocks: 50,
     },
   }
+  const additional = JSON.parse(fs.readFileSync('test/generated/additional-language-fixtures.json', 'utf8'))
+  profiles.additionalLanguages = {
+    fixtures: additional,
+    run: (fixture) => highlight(fixture.code, { lang: fixture.name }),
+    observe: (result) => result.html.length,
+    targetBlocks: 10_000,
+  }
   const results = Object.fromEntries(Object.entries(profiles).map(([name, profile]) => [
     name,
     measureRuntime({ ...profile, maxElapsedMs: 1_200 }),

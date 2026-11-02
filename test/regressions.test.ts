@@ -537,3 +537,34 @@ it('distinguishes spreads and property separators', () => {
   expect(properties.filter(token => token.value === 'default' && token.className === 'property')).toHaveLength(2)
   expect(properties.filter(token => token.className === 'comment')).toHaveLength(2)
 })
+
+it.each(['js', 'ts', 'jsx', 'tsx'])('keeps regex keyword boundaries after long prefixes in %s', (lang) => {
+  const prefix = 'const value = numerator / denominator;\n'.repeat(300)
+  for (const [boundary, expected] of [[' ', true], ['é', true], ['x', false], ['_', false], ['0', false]]) {
+    const code = `${prefix}${boundary}instanceof \u2028\ufeff /abc/; value / abc / other`
+    const tokens = highlighter.tokenize(code, { lang }).tokens
+    expect(tokens.map(token => token.value).join('')).toBe(code)
+    expect(tokens.some(token => token.className === 'literal' && token.value === '/abc/')).toBe(expected)
+  }
+})
+
+it.each(['js', 'ts', 'jsx', 'tsx'])('keeps lexical delimiters after object identifiers in %s', (lang) => {
+  const component = lang.endsWith('x') ? 'component: <Panel value={identifierValue} />,' : ''
+  const code = `const result = {
+    longPropertyName /* gap */: identifierValue + otherIdentifier,
+    methodName() { return { nestedProperty: identifierValue }; },
+    template: \`value \${compute({ innerProperty: identifierValue })}\`,
+    regex: /}/g,
+    ...spreadIdentifier,
+    $dollar_key: identifierValue,
+    ${component}
+  };`
+  const tokens = highlighter.tokenize(code, { lang }).tokens
+  expect(tokens.map(token => token.value).join('')).toBe(code)
+  for (const key of ['longPropertyName', 'nestedProperty', 'innerProperty', '$dollar_key']) {
+    expect(tokens.some(token => token.className === 'property' && token.value === key)).toBe(true)
+  }
+  expect(tokens.some(token => token.className === 'function' && token.value === 'methodName')).toBe(true)
+  expect(tokens.some(token => token.className === 'literal' && token.value === '/}/g')).toBe(true)
+  if (component) expect(tokens.some(token => token.className === 'tag' && token.value === 'Panel')).toBe(true)
+})

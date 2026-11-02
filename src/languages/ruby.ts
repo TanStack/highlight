@@ -2,18 +2,18 @@ import { defineLanguage, type TokenRange } from '../core.js'
 import { collectPatternRanges } from '../internal/patterns.js'
 
 const patterns = [
-  { className: 'variable', regex: /@@?[A-Za-z_]\w*|\$(?:\w+|[^\s\w])/g },
-  { className: 'string', regex: /(?<![\w:]):[A-Za-z_]\w*[?!]?/g },
-  { className: 'property', regex: /(?<![\w:.])[A-Za-z_]\w*[?!]?(?=:(?!:))/g },
-  { className: 'function', regex: /\bdef\s+(?:self\.)?([A-Za-z_]\w*[?!=]?|[-+*/%<=>!~^&|[\]]+)/g, group: 1 },
-  { className: 'keyword', regex: /(?<![.:@$])\b(?:alias|and|begin|break|case|class|def|defined\?|do|else|elsif|end|ensure|for|if|in|module|next|not|or|redo|rescue|retry|return|super|then|undef|unless|until|when|while|yield|attr_(?:accessor|reader|writer)|extend|include|prepend|private|protected|public|raise|require(?:_relative)?)(?![\w?!])/g },
-  { className: 'literal', regex: /(?<![.:@$])\b(?:nil|true|false|self|__(?:FILE|LINE)__)(?![\w?!])/g },
-  { className: 'type', regex: /\b(?:class|module)\s+([A-Z]\w*)/g, group: 1 },
-  { className: 'type', regex: /\b[A-Z][A-Z\d_]*[a-z]\w*/g },
-  { className: 'function', regex: /\b[A-Za-z_]\w*[?!]?(?=\()/g },
-  { className: 'property', regex: /(?<!\.)\.([A-Za-z_]\w*[?!]?)/g, group: 1 },
-  { className: 'number', regex: /(?<![\w@$]|(?<!\.)\.)(?:0[xXbBoO][\da-fA-F_]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d+)?)r?i?(?!\w|\.\d)/g },
-  { className: 'operator', regex: /<=>|===?|=~|!~|\*\*=?|&\.|\|\|=?|&&=?|->|=>|\.\.\.?|::|<<=?|>>=?|!=|[+\-*/%&^<>=]=?|(?<!\w)[!?~]/g },
+  [/@@?[A-Za-z_]\w*|\$(?:\w+|[^\s\w])/g, 'variable'],
+  [/(?<![\w:]):[A-Za-z_]\w*[?!]?/g, 'string'],
+  [/(?<![\w:.])[A-Za-z_]\w*[?!]?(?=:(?!:))/g, 'property'],
+  [/\bdef\s+(?:self\.)?([A-Za-z_]\w*[?!=]?|[-+*/%<=>!~^&|[\]]+)/g, 'function', 1],
+  [/(?<![.:@$])\b(?:alias|and|begin|break|case|class|def|defined\?|do|else|elsif|end|ensure|for|if|in|module|next|not|or|redo|rescue|retry|return|super|then|undef|unless|until|when|while|yield|attr_(?:accessor|reader|writer)|extend|include|prepend|private|protected|public|raise|require(?:_relative)?)(?![\w?!])/g, 'keyword'],
+  [/(?<![.:@$])\b(?:nil|true|false|self|__(?:FILE|LINE)__)(?![\w?!])/g, 'literal'],
+  [/\b(?:class|module)\s+([A-Z]\w*)/g, 'type', 1],
+  [/\b[A-Z][A-Z\d_]*[a-z]\w*/g, 'type'],
+  [/\b[A-Za-z_]\w*[?!]?(?=\()/g, 'function'],
+  [/(?<!\.)\.([A-Za-z_]\w*[?!]?)/g, 'property', 1],
+  [/(?<![\w@$]|(?<!\.)\.)(?:0[xXbBoO][\da-fA-F_]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d+)?)r?i?(?!\w|\.\d)/g, 'number'],
+  [/<=>|===?|=~|!~|\*\*=?|&\.|\|\|=?|&&=?|->|=>|\.\.\.?|::|<<=?|>>=?|!=|[+\-*/%&^<>=]=?|(?<!\w)[!?~]/g, 'operator'],
 ] satisfies Parameters<typeof collectPatternRanges>[1]
 
 export const ruby = defineLanguage({
