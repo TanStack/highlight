@@ -37,7 +37,7 @@ export function collectPatternRanges(
       while ((match = regex.exec(code))) {
         const value = match[group]
         if (!value) {
-          if (!match[0]) regex.lastIndex++
+          if (!match[0]) regex.lastIndex += code.codePointAt(regex.lastIndex)! > 0xffff && /[uv]/.test(regex.flags) ? 2 : 1
           continue
         }
         const offset = group ? match[0].length - value.length : 0
