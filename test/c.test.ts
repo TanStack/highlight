@@ -35,6 +35,11 @@ describe('C documentation syntax', () => {
     expect(classes(code, '"first \\\nsecond"')).toEqual(['string'])
   })
 
+  it('keeps an escaped CRLF continuation inside a string', () => {
+    const string = '"first ' + '\\' + '\r\n' + 'second"'
+    expect(classes(`const char *value = ${string};`, string)).toEqual(['string'])
+  })
+
   it('keeps C++-only words plain because C allows them as identifiers', () => {
     const code = 'int new = 1;\nstruct node *class = this_node(template, namespace);\nint this = new + 1;'
     for (const word of ['new', 'namespace', 'template']) {
