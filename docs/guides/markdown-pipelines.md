@@ -33,7 +33,7 @@ export function Article({ source }: { source: string }) {
 }
 ```
 
-The adapter maps parsed highlighted lines to `th-line--highlighted`, preserves line-number wrappers, escapes source text, and degrades unknown languages to escaped plaintext. It does not import TanStack Markdown or any languages.
+The adapter maps parsed highlighted lines to `th-line--highlighted`, preserves line-number wrappers, escapes source text, and uses the configured fallback for unknown languages. The default fallback is plaintext. It does not import TanStack Markdown or any languages.
 
 Generate theme CSS against Markdown's wrapper classes:
 

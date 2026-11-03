@@ -76,7 +76,7 @@ import { highlight } from '@tanstack/highlight'
 const result = highlight(`const value = 'docs'`, { lang: 'ts' })
 ```
 
-Unknown languages fall back to escaped plaintext.
+Unknown languages use the configured fallback, which defaults to escaped plaintext.
 
 ## SSR And Client
 
@@ -210,17 +210,9 @@ All 79 definitions are independently importable. Each language is available from
 
 ## Size And Speed
 
-Local browser bundles, minified with esbuild and compressed independently. KB uses 1,000 bytes:
+Run `pnpm run size` to measure current minified, gzip and Brotli bundle sizes and check their limits. The profiles cover core, selective language sets, adapters and the default all-language entry.
 
-| Registration | Minified | Gzip | Brotli |
-| --- | ---: | ---: | ---: |
-| Core, no languages | 4.03 KB | 1.89 KB | 1.72 KB |
-| Core + TSX | 10.34 KB | 4.39 KB | 4.01 KB |
-| Octane MDX + TypeScript | 14.09 KB | 5.72 KB | 5.23 KB |
-| Nine-language docs set | 16.27 KB | 6.31 KB | 5.77 KB |
-| All 79 languages | 82.09 KB | 27.75 KB | 24.61 KB |
-
-Ordinary HTML blocks skip the intermediate render tree and only escape text when needed. A local comparison of identical output measured 20% less time for the docs corpus in Node and 27% less in Bun, adding 73 gzip bytes to core and 67 to the TSX bundle. [Measurements and reproduction](reports/language-expansion/README.md).
+HTML highlighting writes strings directly for plain, decorated and numbered blocks. An earlier rendering comparison, before the current scanner and decoration changes, measured 20% less time for the docs corpus in Node and 27% less in Bun. [Recorded measurements and reproduction](reports/language-expansion/README.md).
 
 The following external-library comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 

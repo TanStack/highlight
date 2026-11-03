@@ -12,11 +12,13 @@ A language returns ordered, non-overlapping character ranges with semantic token
 
 ## Context Instead Of A Grammar Runtime
 
-Most languages use priority-ordered regular expressions. Three cases use small stateful scanners because regex-only matching loses necessary context:
+Most languages use priority-ordered regular expressions. Context-sensitive cases use focused scanners, including:
 
 - JavaScript and TypeScript strings, comments, regular expressions, JSX tags, and recursive template interpolation
 - Markup tags, attributes, and embedded script/style regions
 - Shell heredocs and parameter expansions
+- CMake bracket strings, nested variables, and generator expressions
+- PHP tags, strings, and heredoc/nowdoc bodies
 
 This is the package's complexity boundary. It deliberately does not implement TextMate repositories, captures, scopes, backreferences, or a general recursive grammar DSL.
 
