@@ -75,10 +75,10 @@ Themes do not affect highlighted markup.
 
 ## Caching
 
-The highlighter is fast enough for normal docs pages without a cache. For large static builds, cache by package version, language, source, and decoration options if build time becomes material.
+Measure your build before adding a cache. If highlighting takes a material share of build time, cache by package version, language registrations, language, source, decorations, and line-number options.
 
 Do not cache theme variants separately. They share the same HTML.
 
 ## Why no worker?
 
-The docs-sized path is synchronous and usually much cheaper than worker startup and message serialization. A worker is reasonable only for unusually large interactive inputs, which is outside the primary use case.
+The synchronous API does not require a worker. For large interactive inputs, measure how long highlighting blocks the UI thread and consider an input limit or a worker. Worker startup and message serialization add costs of their own.
