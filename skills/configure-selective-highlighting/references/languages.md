@@ -40,7 +40,7 @@ Import only the definitions the application registers.
 | Java properties | `properties` | `@tanstack/highlight/languages/properties` | `java-properties` |
 | Java | `java` | `@tanstack/highlight/languages/java` | - |
 | JavaScript | `js` | `@tanstack/highlight/languages/js` | `javascript`, `mjs`, `cjs`, `js-vue` |
-| JSON | `json` | `@tanstack/highlight/languages/json` | `jsonc`, `json5` |
+| JSON | `json` | `@tanstack/highlight/languages/json` | `jsonc`, `json5`, `jsonl` |
 | JSX | `jsx` | `@tanstack/highlight/languages/jsx` | - |
 | Julia | `julia` | `@tanstack/highlight/languages/julia` | `jl` |
 | Kotlin | `kotlin` | `@tanstack/highlight/languages/kotlin` | `kt`, `kts` |

@@ -70,6 +70,7 @@ const aliases = {
   'js-vue': 'js',
   json5: 'json',
   jsonc: 'json',
+  jsonl: 'json',
   markdown: 'markdown',
   md: 'markdown',
   mjs: 'js',
@@ -90,7 +91,7 @@ export const defaultExclude = new Set(['.git', '.next', 'build', 'coverage', 'di
 export function normalizeLanguage(lang) {
   const normalized = (lang || 'plaintext').trim().toLowerCase()
   if (supportedLanguages.includes(normalized)) return normalized
-  return aliases[normalized] || 'plaintext'
+  return Object.hasOwn(aliases, normalized) ? aliases[normalized] : 'plaintext'
 }
 
 export function collectScanRoots(root) {

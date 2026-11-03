@@ -13,6 +13,24 @@ it('keeps GraphQL operation keywords case-sensitive', () => {
   expect(tokens.some((token) => token.value === 'Query' && token.className === 'keyword')).toBe(false)
 })
 
+it("highlights JSONL identically to lines highlighted by JSON", () => {
+  const code = '{"active":true,"count":42,"label":"hello"}\n{"active":false}';
+  const jsonlTokens = highlight(code, { lang: "json" }).tokens;
+  const jsonsTokens = code
+    .split("\n")
+    .map((c) => highlight(c, { lang: "json" }).tokens);
+
+  expect(jsonlTokens.slice(0, jsonsTokens[0].length - 1)).toEqual(
+    jsonsTokens[0]?.slice(0, -1),
+  );
+  expect(jsonlTokens.slice(jsonsTokens[0].length)).toEqual(
+    jsonsTokens[1].slice(1)
+  );
+  expect(jsonlTokens[jsonsTokens[0].length - 1]).toEqual({
+    value: jsonsTokens[0].at(-1)?.value + "\n" + jsonsTokens[1][0]?.value,
+  });
+});
+
 it('distinguishes stylesheet selectors from declaration values', () => {
   for (const lang of ['scss', 'less']) {
     const tokens = highlight('.card { a:hover { color: #fff; } }', { lang }).tokens
