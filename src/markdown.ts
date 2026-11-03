@@ -1,9 +1,9 @@
+import { renderTokenOutput, type RenderTarget } from './internal/render.js'
 import {
   renderNodesToHtml,
   renderTokens,
   type Highlighter,
   type HighlightDecoration,
-  type HighlightRenderNode,
   type HighlightToken,
   type RenderedCodeBlockData,
 } from './core.js'
@@ -117,26 +117,25 @@ export function tokensToHast(
         type: 'element',
         tagName: 'code',
         properties: {},
-        children: renderTokens(tokens, options).map(renderNodeToHast),
+        children: renderTokenOutput(tokens, options, hastRenderer),
       },
     ],
   }
 }
 
-function renderNodeToHast(node: HighlightRenderNode): HastElement | HastText {
-  if (node.type === 'text') return node
-
-  const properties: Record<string, unknown> = { className: node.classNames }
-  if (node.data) {
-    for (const [key, value] of Object.entries(node.data)) {
-      properties[`data${key[0]?.toUpperCase() || ''}${key.slice(1)}`] = value
+const hastRenderer: RenderTarget<HastElement | HastText> = {
+  text: value => ({ type: 'text', value }),
+  token: (className, child) => ({
+    type: 'element', tagName: 'span',
+    properties: { className: ['th-token', `th-${className}`] }, children: [child],
+  }),
+  element(classNames, data, children) {
+    const properties: Record<string, unknown> = { className: classNames }
+    if (data) {
+      for (const [key, value] of Object.entries(data)) {
+        properties[`data${key[0]?.toUpperCase() || ''}${key.slice(1)}`] = value
+      }
     }
-  }
-
-  return {
-    type: 'element',
-    tagName: 'span',
-    properties,
-    children: node.children.map(renderNodeToHast),
-  }
+    return { type: 'element', tagName: 'span', properties, children }
+  },
 }

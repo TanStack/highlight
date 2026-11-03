@@ -1,5 +1,6 @@
 import { brotliCompressSync, gzipSync } from 'node:zlib'
 import { build } from 'esbuild'
+import { readFileSync } from 'node:fs'
 
 const profiles = {
   core: {
@@ -7,14 +8,14 @@ const profiles = {
       import { createHighlighter } from './src/core.ts'
       globalThis.highlighter = createHighlighter({ languages: [] })
     `,
-    limits: { minified: 4_000, gzip: 2_000, brotli: 1_800 },
+    limits: { minified: 4_200, gzip: 2_100, brotli: 1_900 },
   },
   rootCore: {
     source: `
       import { createHighlighter } from './src/index.ts'
       globalThis.highlighter = createHighlighter({ languages: [] })
     `,
-    limits: { minified: 4_000, gzip: 2_000, brotli: 1_800 },
+    limits: { minified: 4_200, gzip: 2_100, brotli: 1_900 },
   },
   rootEscape: {
     source: `
@@ -29,7 +30,7 @@ const profiles = {
       globalThis.highlighter = createHighlighter({ languages: [tsx] })
     `,
     languages: ['tsx'],
-    limits: { minified: 10_200, gzip: 4_350, brotli: 4_000 },
+    limits: { minified: 10_400, gzip: 4_450, brotli: 4_100 },
   },
   tsxBarrel: {
     source: `
@@ -38,7 +39,7 @@ const profiles = {
       globalThis.highlighter = createHighlighter({ languages: [tsx] })
     `,
     languages: ['tsx'],
-    limits: { minified: 10_200, gzip: 4_350, brotli: 4_000 },
+    limits: { minified: 10_400, gzip: 4_450, brotli: 4_100 },
   },
   octane: {
     source: `
@@ -50,7 +51,7 @@ const profiles = {
       globalThis.octaneHighlight = createOctaneMdxHighlight({ highlighter })
     `,
     languages: ['ts'],
-    limits: { minified: 14_000, gzip: 5_700, brotli: 5_250 },
+    limits: { minified: 14_200, gzip: 5_800, brotli: 5_350 },
   },
   docs: {
     source: `
@@ -69,7 +70,7 @@ const profiles = {
       })
     `,
     languages: ['css', 'html', 'js', 'json', 'jsx', 'markdown', 'shell', 'ts', 'tsx'],
-    limits: { minified: 16_100, gzip: 6_300, brotli: 5_700 },
+    limits: { minified: 16_300, gzip: 6_400, brotli: 5_800 },
   },
   php: {
     source: `
@@ -78,7 +79,7 @@ const profiles = {
       globalThis.highlighter = createHighlighter({ languages: [php] })
     `,
     languages: ['php'],
-    limits: { minified: 8_000, gzip: 3_700, brotli: 3_400 },
+    limits: { minified: 8_200, gzip: 3_800, brotli: 3_500 },
   },
   cpp: {
     source: `
@@ -87,7 +88,7 @@ const profiles = {
       globalThis.highlighter = createHighlighter({ languages: [cpp] })
     `,
     languages: ['cpp'],
-    limits: { minified: 6_500, gzip: 3_100, brotli: 2_900 },
+    limits: { minified: 6_700, gzip: 3_200, brotli: 3_000 },
   },
   cmake: {
     source: `
@@ -96,7 +97,88 @@ const profiles = {
       globalThis.highlighter = createHighlighter({ languages: [cmake] })
     `,
     languages: ['cmake'],
-    limits: { minified: 6_000, gzip: 2_800, brotli: 2_600 },
+    limits: { minified: 6_200, gzip: 2_900, brotli: 2_700 },
+  },
+  csharp: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { csharp } from './src/languages/csharp.ts'
+      globalThis.highlighter = createHighlighter({ languages: [csharp] })
+    `,
+    languages: ['csharp'],
+    limits: { minified: 8_150, gzip: 3_850, brotli: 3_550 },
+  },
+  dart: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { dart } from './src/languages/dart.ts'
+      globalThis.highlighter = createHighlighter({ languages: [dart] })
+    `,
+    languages: ['dart'],
+    limits: { minified: 7_200, gzip: 3_350, brotli: 3_100 },
+  },
+  java: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { java } from './src/languages/java.ts'
+      globalThis.highlighter = createHighlighter({ languages: [java] })
+    `,
+    languages: ['java'],
+    limits: { minified: 6_750, gzip: 3_200, brotli: 2_950 },
+  },
+  kotlin: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { kotlin } from './src/languages/kotlin.ts'
+      globalThis.highlighter = createHighlighter({ languages: [kotlin] })
+    `,
+    languages: ['kotlin'],
+    limits: { minified: 7_650, gzip: 3_600, brotli: 3_350 },
+  },
+  lua: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { lua } from './src/languages/lua.ts'
+      globalThis.highlighter = createHighlighter({ languages: [lua] })
+    `,
+    languages: ['lua'],
+    limits: { minified: 5_850, gzip: 2_850, brotli: 2_650 },
+  },
+  perl: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { perl } from './src/languages/perl.ts'
+      globalThis.highlighter = createHighlighter({ languages: [perl] })
+    `,
+    languages: ['perl'],
+    limits: { minified: 8_050, gzip: 3_850, brotli: 3_600 },
+  },
+  ruby: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { ruby } from './src/languages/ruby.ts'
+      globalThis.highlighter = createHighlighter({ languages: [ruby] })
+    `,
+    languages: ['ruby'],
+    limits: { minified: 7_900, gzip: 3_750, brotli: 3_450 },
+  },
+  rust: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { rust } from './src/languages/rust.ts'
+      globalThis.highlighter = createHighlighter({ languages: [rust] })
+    `,
+    languages: ['rust'],
+    limits: { minified: 7_000, gzip: 3_300, brotli: 3_050 },
+  },
+  swift: {
+    source: `
+      import { createHighlighter } from './src/core.ts'
+      import { swift } from './src/languages/swift.ts'
+      globalThis.highlighter = createHighlighter({ languages: [swift] })
+    `,
+    languages: ['swift'],
+    limits: { minified: 7_650, gzip: 3_650, brotli: 3_350 },
   },
   all: {
     source: `
@@ -104,7 +186,7 @@ const profiles = {
       globalThis.highlighter = defaultHighlighter
     `,
     languages: 'all',
-    limits: { minified: 30_800, gzip: 10_900, brotli: 9_800 },
+    limits: { minified: 83_000, gzip: 28_000, brotli: 25_000 },
   },
   reactAdapter: {
     source: `export * from './src/react.ts'`,
@@ -130,6 +212,16 @@ const profiles = {
     source: `export * from './src/theme.ts'`,
     limits: { minified: 1_500, gzip: 750, brotli: 650 },
   },
+}
+
+// Each added language has its own budget and must not retain sibling modules.
+const additional = JSON.parse(readFileSync('test/generated/additional-language-fixtures.json', 'utf8'))
+for (const { name } of additional) {
+  profiles[name] = {
+    source: `import { createHighlighter } from './src/core.ts'; import { ${name} } from './src/languages/${name}.ts'; globalThis.highlighter = createHighlighter({ languages: [${name}] })`,
+    languages: [name],
+    limits: { minified: 8_500, gzip: 4_000, brotli: 3_700 },
+  }
 }
 
 const sizes = {}

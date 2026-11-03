@@ -1,3 +1,5 @@
+import { renderTokenOutput, normalizeDataKey, type RenderTarget } from './internal/render.js'
+
 export type HighlightTokenClass =
   | 'attr'
   | 'code-inline'
@@ -168,11 +170,14 @@ export function createHighlighter({
         return Boolean(resolved && definitions.has(resolved))
       },
       tokenize(embeddedCode, embeddedLanguage) {
-        return tokenizeRanges(embeddedCode, embeddedLanguage, depth + 1)
+        return normalizeTokenRanges(
+          embeddedCode.length,
+          tokenizeRanges(embeddedCode, embeddedLanguage, depth + 1),
+        )
       },
     }
 
-    return normalizeTokenRanges(code.length, definition.tokenize(code, context))
+    return definition.tokenize(code, context)
   }
 
   function tokenize(
@@ -185,14 +190,25 @@ export function createHighlighter({
     return {
       code,
       lang,
-      tokens: ranges.length ? rangesToTokens(code, ranges) : [{ value: code }],
+      tokens: normalizeTokenRanges(code.length, ranges, code),
     }
   }
 
   function highlight(code: string, options: HighlightOptions = {}): HighlightResult {
     const result = tokenize(code, options)
-    const children = renderTokens(result.tokens, options)
-    const innerHtml = renderNodesToHtml(children)
+    // Plain blocks do not need an intermediate render tree. Keep the same
+    // token result and escaping contract as the decorated rendering path.
+    let innerHtml = ''
+    if (!options.lineNumbers && !options.decorations?.length) {
+      for (const token of result.tokens) {
+        const value = escapeHtml(token.value)
+        innerHtml += token.className
+          ? `<span class="th-token th-${escapeHtml(token.className)}">${value}</span>`
+          : value
+      }
+    } else {
+      innerHtml = concatHtml(renderTokenOutput(result.tokens, options, htmlRenderer))
+    }
 
     return {
       ...result,
@@ -239,54 +255,39 @@ export function createHighlighter({
   }
 }
 
+const nodeRenderer: RenderTarget<HighlightRenderNode> = {
+  text: value => ({ type: 'text', value }),
+  token: (className, child) => ({
+    type: 'element', classNames: ['th-token', `th-${className}`], children: [child],
+  }),
+  element: (classNames, data, children) => ({ type: 'element', classNames, data, children }),
+}
+
+const htmlRenderer: RenderTarget<string> = {
+  text: escapeHtml,
+  token: (className, child) => `<span class="th-token th-${escapeHtml(className)}">${child}</span>`,
+  element(classNames, attributes, children) {
+    const className = escapeHtml(classNames.join(' '))
+    let data = ''
+    // stringifyData and the line wrapper supply normalized attribute names.
+    if (attributes) for (const [key, value] of Object.entries(attributes)) {
+      data += ` data-${key}="${escapeHtml(value)}"`
+    }
+    return `<span${className ? ` class="${className}"` : ''}${data}>${concatHtml(children)}</span>`
+  },
+}
+
+function concatHtml(chunks: ReadonlyArray<string>) {
+  let html = chunks[0] || ''
+  for (let index = 1; index < chunks.length; index++) html += chunks[index]
+  return html
+}
+
 export function renderTokens(
   tokens: ReadonlyArray<HighlightToken>,
   options: Pick<HighlightOptions, 'decorations' | 'lineNumbers'> = {},
 ): Array<HighlightRenderNode> {
-  const rangeDecorations: Array<HighlightRangeDecoration> = []
-  const lineDecorations: Array<HighlightLineDecoration> = []
-  for (const decoration of options.decorations || []) {
-    if (decoration.range) rangeDecorations.push(decoration)
-    else lineDecorations.push(decoration)
-  }
-  const wrapLines = Boolean(options.lineNumbers || lineDecorations.length)
-  const cursor = { index: 0, offset: 0 }
-
-  if (!wrapLines) {
-    return renderTokenSlice(tokens, 0, Infinity, rangeDecorations, cursor)
-  }
-
-  const code = tokens.map((token) => token.value).join('')
-  const nodes: Array<HighlightRenderNode> = []
-  const lineStarts = getLineStarts(code)
-
-  for (let index = 0; index < lineStarts.length; index++) {
-    const line = index + 1
-    const start = lineStarts[index]
-    const nextStart = lineStarts[index + 1] ?? code.length
-    const hasNewline = nextStart > start && code[nextStart - 1] === '\n'
-    const end = hasNewline ? nextStart - 1 : nextStart
-    const active = lineDecorations.filter((decoration) =>
-      includesLine(decoration.lines, line),
-    )
-
-    nodes.push({
-      type: 'element',
-      classNames: [
-        'th-line',
-        ...active.flatMap((decoration) => splitClassNames(decoration.className)),
-      ],
-      data: {
-        ...mergeData(active),
-        line: String(line),
-      },
-      children: renderTokenSlice(tokens, start, end, rangeDecorations, cursor),
-    })
-
-    if (hasNewline) nodes.push({ type: 'text', value: '\n' })
-  }
-
-  return nodes
+  return renderTokenOutput(tokens, options, nodeRenderer)
 }
 
 export function renderNodesToHtml(nodes: ReadonlyArray<HighlightRenderNode>) {
@@ -320,24 +321,39 @@ const htmlEscapes: Record<string, string> = {
 }
 
 export function escapeHtml(value: string) {
-  return value.replace(/[&<>"']/g, (character) => htmlEscapes[character])
+  return /[&<>"']/.test(value)
+    ? value.replace(/[&<>"']/g, (character) => htmlEscapes[character])
+    : value
 }
 
 function normalizeName(value: string) {
   return value.trim().toLowerCase()
 }
 
+// Embedded tokenizers need independent normalized ranges. At the top level,
+// emit tokens directly so valid ranges do not need another object per range.
 function normalizeTokenRanges(
   codeLength: number,
   input: ReadonlyArray<TokenRange>,
-) {
+): Array<TokenRange>
+function normalizeTokenRanges(
+  codeLength: number,
+  input: ReadonlyArray<TokenRange>,
+  code: string,
+): Array<HighlightToken>
+function normalizeTokenRanges(
+  codeLength: number,
+  input: ReadonlyArray<TokenRange>,
+  code?: string,
+): Array<TokenRange | HighlightToken> {
   const ranges: Array<TokenRange> = []
   let sorted = true
   let previousStart = 0
   for (const candidate of input) {
     if (!Number.isInteger(candidate.start) || !Number.isInteger(candidate.end)) continue
-    const start = Math.max(0, Math.min(codeLength, candidate.start))
-    const end = Math.max(0, Math.min(codeLength, candidate.end))
+    // Other out-of-bounds offsets cannot survive the empty-range check.
+    const start = Math.max(0, candidate.start)
+    const end = Math.min(codeLength, candidate.end)
     if (start >= end) continue
     if (start < previousStart) sorted = false
     previousStart = start
@@ -345,153 +361,19 @@ function normalizeTokenRanges(
   }
   if (!sorted) ranges.sort((a, b) => a.start - b.start)
 
+  const result: Array<TokenRange | HighlightToken> = []
   let end = 0
-  let count = 0
   for (const candidate of ranges) {
-    if (candidate.start < end) continue
-    ranges[count++] = candidate
+    const start = Math.max(0, candidate.start)
+    if (start < end) continue
+    if (code !== undefined && start > end) result.push({ value: code.slice(end, start) })
     end = candidate.end
+    result.push(code === undefined
+      ? { className: candidate.className, start, end }
+      : { className: candidate.className, value: code.slice(start, end) })
   }
-  ranges.length = count
-  return ranges
-}
-
-function rangesToTokens(code: string, ranges: ReadonlyArray<TokenRange>) {
-  const tokens: Array<HighlightToken> = []
-  let index = 0
-
-  for (const range of ranges) {
-    if (range.start > index) tokens.push({ value: code.slice(index, range.start) })
-    tokens.push({
-      className: range.className,
-      value: code.slice(range.start, range.end),
-    })
-    index = range.end
+  if (code !== undefined && (end < codeLength || !result.length)) {
+    result.push({ value: code.slice(end) })
   }
-
-  if (index < code.length) tokens.push({ value: code.slice(index) })
-  return tokens
-}
-
-function renderTokenSlice(
-  tokens: ReadonlyArray<HighlightToken>,
-  start: number,
-  end: number,
-  decorations: ReadonlyArray<HighlightRangeDecoration>,
-  cursor: { index: number; offset: number },
-) {
-  const nodes: Array<HighlightRenderNode> = []
-
-  for (; cursor.index < tokens.length; cursor.index++) {
-    const token = tokens[cursor.index]
-    const tokenStart = cursor.offset
-    const tokenEnd = tokenStart + token.value.length
-    const sliceStart = Math.max(start, tokenStart)
-    const sliceEnd = Math.min(end, tokenEnd)
-
-    if (sliceStart < sliceEnd) {
-      let sorted = [sliceStart, sliceEnd]
-      if (decorations.length) {
-        const boundaries = new Set(sorted)
-        for (const decoration of decorations) {
-          const [decorationStart, decorationEnd] = decoration.range
-          if (decorationEnd <= sliceStart || decorationStart >= sliceEnd) continue
-          boundaries.add(Math.max(sliceStart, decorationStart))
-          boundaries.add(Math.min(sliceEnd, decorationEnd))
-        }
-        sorted = [...boundaries].sort((a, b) => a - b)
-      }
-
-      for (let index = 0; index < sorted.length - 1; index++) {
-        const segmentStart = sorted[index]
-        const segmentEnd = sorted[index + 1]
-        let node: HighlightRenderNode = {
-          type: 'text',
-          value: token.value.slice(
-            segmentStart - tokenStart,
-            segmentEnd - tokenStart,
-          ),
-        }
-
-        if (token.className) {
-          node = {
-            type: 'element',
-            classNames: ['th-token', `th-${token.className}`],
-            children: [node],
-          }
-        }
-
-        for (const decoration of decorations) {
-          if (
-            decoration.range[0] > segmentStart ||
-            decoration.range[1] < segmentEnd
-          ) continue
-          node = {
-            type: 'element',
-            classNames: [
-              'th-decoration',
-              ...splitClassNames(decoration.className),
-            ],
-            data: stringifyData(decoration.data),
-            children: [node],
-          }
-        }
-
-        nodes.push(node)
-      }
-    }
-
-    // Keep a token that crosses the line boundary for the next slice.
-    if (tokenEnd > end) break
-    cursor.offset = tokenEnd
-  }
-
-  return nodes
-}
-
-function getLineStarts(code: string) {
-  const starts = [0]
-  for (let index = 0; index < code.length; index++) {
-    if (code[index] === '\n' && index + 1 < code.length) starts.push(index + 1)
-  }
-  return starts
-}
-
-function includesLine(
-  lines: number | readonly [start: number, end: number],
-  line: number,
-) {
-  return typeof lines === 'number'
-    ? lines === line
-    : line >= lines[0] && line <= lines[1]
-}
-
-function mergeData(decorations: ReadonlyArray<HighlightLineDecoration>) {
-  const data: Record<string, string> = {}
-  for (const decoration of decorations) {
-    Object.assign(data, stringifyData(decoration.data))
-  }
-  return data
-}
-
-function stringifyData(data?: HighlightDecorationData) {
-  if (!data) return undefined
-  return Object.fromEntries(
-    Object.entries(data).map(([key, value]) => [
-      normalizeDataKey(key),
-      String(value),
-    ]),
-  )
-}
-
-function normalizeDataKey(value: string) {
-  return toKebabCase(value).replace(/[^a-z0-9_.:-]/gi, '-')
-}
-
-function splitClassNames(className?: string) {
-  return className?.trim().split(/\s+/).filter(Boolean) || []
-}
-
-function toKebabCase(value: string) {
-  return value.replace(/[A-Z]/g, (character) => `-${character.toLowerCase()}`)
+  return result
 }

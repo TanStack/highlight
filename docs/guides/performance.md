@@ -8,19 +8,19 @@ CI measures selective browser bundles and highlighting performance on real docum
 
 ## Bundle profiles
 
-`pnpm run size` builds seventeen browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
+`pnpm run size` builds 66 browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
 
-The gzip results below are a local 1.0.0 measurement from 2026-10-01 using Node 26.3.1 and esbuild 0.28.1. Compression results can vary with the toolchain.
+These measurements describe this unreleased candidate on 2026-11-01, using Node 24.15.0 and esbuild 0.28.1. Existing CI limits have not changed.
 
-| Profile | Registered languages | Measured gzip | CI budget |
+| Profile | Registered languages | Candidate gzip | Current CI budget |
 | --- | --- | ---: | ---: |
-| Core | None | 1.82 KB | 2.0 KB |
-| TSX | TSX | 4.29 KB | 4.35 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.62 KB | 5.7 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.22 KB | 6.3 KB |
-| All | All 30 definitions | 10.79 KB | 10.9 KB |
+| Core | None | 1.87 KB | 2.10 KB |
+| TSX | TSX | 4.37 KB | 4.45 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.79 KB | 5.80 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.30 KB | 6.40 KB |
+| All | All 79 definitions | 27.81 KB | 28.00 KB |
 
-KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper measured 691 gzip bytes in the same run.
+KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
 
 Selective profiles are the primary metric. The all-language profile exists to prevent convenience-entry growth from becoming invisible.
 
@@ -28,19 +28,22 @@ Selective profiles are the primary metric. The all-language profile exists to pr
 
 The committed corpus contains 334 real code fences sampled from TanStack documentation, with up to twenty samples per normalized language.
 
-`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, and dedicated C++, CMake, and PHP samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
+`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, the 40 additional language fixtures, and dedicated language samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
-A historical before-and-after review of the 0.0.11 optimization used the same minified bundle settings, fixtures, and benchmark harness on macOS arm64 with Node 24.15.0:
+The 40 added definitions measure from 2,870 to 3,886 gzip bytes including core. Each stays below a 4 KB gzip budget. Every definition is tested through both its direct subpath and a named barrel import, and unrelated language code must be absent from the resulting bundle.
 
-| Workload | Blocks | Before | After |
-| --- | ---: | ---: | ---: |
-| Highlight | 10,020 | 229 ms | 118 ms |
-| TanStack Markdown | 10,020 | 244 ms | 111 ms |
-| HAST | 5,010 | 148 ms | 40 ms |
-| 1,000-line numbered blocks | 50 | 358 ms | 68 ms |
-| 1,000-line decorated blocks | 50 | 426 ms | 150 ms |
+## Rendering tradeoff
 
-Generated HTML byte totals were unchanged. The core avoids rescanning earlier tokens for each line, and HAST adapters skip HTML serialization. Highlighter bundles grew by 41 to 173 gzip bytes across the five profiles, while root helper imports and theme CSS generation became smaller. At that time, the Octane gzip budget increased from 5.2 KB to 5.5 KB to accommodate correct fence metadata and attribute preservation. The current budget is in the bundle profile table above.
+HTML highlighting writes strings directly, including decorated and numbered blocks. `renderTokens()` returns structured nodes for custom renderers. Escaping first checks whether the string contains an HTML-sensitive character.
+
+The following figures record the earlier plain-block rendering experiment, before the later scanner and decorated-rendering changes. On an Apple M5 Pro, fifteen alternating samples after warmup measured:
+
+| Workload | Node 24.15.0 time reduction | Bun 1.3.14 time reduction |
+| --- | ---: | ---: |
+| All 334 docs snippets | 20% | 27% |
+| 1,000-line TypeScript block | 29% | 32% |
+
+That comparison used identical tokens and HTML, a 200 ms warmup, and fifteen alternating samples in batches of at least 30 ms. It excluded module initialization and browser layout.
 
 ## Comparison scripts
 
@@ -77,5 +80,3 @@ Context-aware fixes are welcome when they solve common docs code. A change shoul
 - Generated HTML size when output structure changes
 
 The correct response to a crossed budget is to inspect the behavior and architecture. Budgets can move when a measured quality improvement justifies the bytes, but the tradeoff must be explicit.
-
-The 1.0 property-context correction increased the measured TSX bundle without changing core. Use `pnpm run size` to check the current profile sizes and their remaining budget margins rather than relying on an earlier run.

@@ -68,7 +68,7 @@ const result = highlighter.highlight(`const node = <Button />`, {
 
 `html` does not import script or style languages. Registering `js`, `ts`, or `css` enables delegation for matching embedded regions without increasing the standalone HTML module.
 
-For convenience, the root entry contains every shipped language:
+For convenience, the root entry contains every shipped language. Use selective registration above when browser size matters:
 
 ```ts
 import { highlight } from '@tanstack/highlight'
@@ -195,9 +195,9 @@ Available themes: Aurora X, Dracula, GitHub Dark, GitHub Light, Gruvbox Dark, Gr
 
 ## Languages
 
-`apache`, `cmake`, `cpp`, `css`, `diff`, `dockerfile`, `ejs`, `env`, `go`, `html`, `http`, `js`, `json`, `jsx`, `markdown`, `mermaid`, `nginx`, `php`, `plaintext`, `python`, `scheme`, `shell`, `sql`, `svelte`, `toml`, `ts`, `tsrx`, `tsx`, `vue`, and `yaml`.
+`ada`, `apache`, `applescript`, `awk`, `batch`, `c`, `clojure`, `cmake`, `coffeescript`, `cpp`, `crystal`, `csharp`, `css`, `d`, `dart`, `diff`, `dockerfile`, `ejs`, `elixir`, `elm`, `env`, `erlang`, `fortran`, `fsharp`, `glsl`, `go`, `graphql`, `groovy`, `haskell`, `html`, `http`, `ini`, `java`, `js`, `json`, `jsx`, `julia`, `kotlin`, `latex`, `less`, `lisp`, `lua`, `makefile`, `markdown`, `matlab`, `mermaid`, `nginx`, `nix`, `objectivec`, `ocaml`, `pascal`, `perl`, `php`, `plaintext`, `powershell`, `properties`, `protobuf`, `python`, `r`, `ruby`, `rust`, `scala`, `scheme`, `scss`, `shell`, `sql`, `svelte`, `swift`, `toml`, `ts`, `tsrx`, `tsx`, `vbnet`, `verilog`, `vhdl`, `vue`, `wat`, `x86asm`, `yaml`.
 
-Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
+All 79 definitions are independently importable. Each language is available from `@tanstack/highlight/languages/<name>`. The aggregate `@tanstack/highlight/languages` entry can tree-shake, while direct subpaths make isolation explicit. Importing only core helpers from the root entry also removes unused language registrations in a compatible bundler.
 
 ## Output Contract
 
@@ -210,17 +210,19 @@ Each language is available from `@tanstack/highlight/languages/<name>`. The aggr
 
 ## Size And Speed
 
-Local browser bundles for 1.0.0, measured on 2026-10-01 with Node 26.3.1 and esbuild 0.28.1, minified and compressed independently. KB uses 1,000 bytes:
+Local browser bundles for this unreleased candidate, measured on 2026-11-01 with Node 24.15.0 and esbuild 0.28.1, minified and compressed independently. KB uses 1,000 bytes:
 
 | Registration | Minified | Gzip | Brotli |
 | --- | ---: | ---: | ---: |
-| Core, no languages | 3.84 KB | 1.82 KB | 1.66 KB |
-| Core + TSX | 10.16 KB | 4.29 KB | 3.93 KB |
-| Octane MDX + TypeScript | 13.91 KB | 5.62 KB | 5.21 KB |
-| Nine-language docs set | 16.09 KB | 6.22 KB | 5.68 KB |
-| All 30 languages | 30.77 KB | 10.79 KB | 9.79 KB |
+| Core, no languages | 3.90 KB | 1.87 KB | 1.71 KB |
+| Core + TSX | 10.08 KB | 4.37 KB | 3.98 KB |
+| Octane MDX + TypeScript | 14.06 KB | 5.79 KB | 5.29 KB |
+| Nine-language docs set | 15.76 KB | 6.30 KB | 5.77 KB |
+| All 79 languages | 78.54 KB | 27.81 KB | 24.86 KB |
 
-The comparisons below were measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings and output sizes.
+HTML highlighting writes strings directly for plain, decorated and numbered blocks. An earlier rendering comparison, before the current scanner and decoration changes, measured 20% less time for the docs corpus in Node and 27% less in Bun. [Recorded measurements and reproduction](reports/language-expansion/README.md).
+
+The following external-library comparison was measured before the 1.0 property-context correction. Re-run the comparison commands below for current timings.
 
 On 80 real JavaScript/TypeScript/JSX/TSX TanStack docs fixtures repeated across 5,040 blocks, using the median of three runs after warmup:
 

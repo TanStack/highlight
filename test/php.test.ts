@@ -116,3 +116,35 @@ describe('PHP documentation syntax', () => {
     expect(classes('<?php echo 42;', '42')).toEqual(['number'])
   })
 })
+
+it('restores PHP coordinates across multiple islands and varying HTML prefixes', () => {
+  for (const length of [0, 1, 30, 1000]) {
+    const code = `<p>${'x'.repeat(length)}</p><?php $s = "inside"; echo 42; ?>middle<?= $next ?>tail`
+    expect(classes(code, '"inside"')).toEqual(['string'])
+    expect(classes(code, '42')).toEqual(['number'])
+    expect(classes(code, '$next')).toEqual(['variable'])
+    const first = highlighter.tokenize(code, { lang: 'php' })
+    const saved = structuredClone(first)
+    highlighter.highlight('<?php /* separate */ $other = 1; ?>', { lang: 'php' })
+    expect(first).toEqual(saved)
+    expect(highlighter.tokenize(code, { lang: 'php' })).toEqual(saved)
+  }
+})
+
+it('keeps borrowed frozen HTML ranges untouched while shifting fresh PHP ranges', () => {
+  const shared = Object.freeze([Object.freeze({ start: 0, end: 1, className: 'tag' as const })])
+  const code = 'a<?php $x = "value"; ?>b'
+  const context = {
+    hasLanguage: (name: string) => name === 'html',
+    tokenize: () => shared as unknown as Array<{ start: number; end: number; className: 'tag' }>,
+  }
+  const first = php.tokenize(code, context)
+  expect(first.filter(range => range.className === 'tag')).toEqual([
+    { start: 0, end: 1, className: 'tag' },
+    { start: code.length - 1, end: code.length, className: 'tag' },
+  ])
+  expect(shared).toEqual([{ start: 0, end: 1, className: 'tag' }])
+  expect(first[0]).not.toBe(shared[0])
+  first[0].start = 99
+  expect(php.tokenize(code, context)[0].start).toBe(0)
+})

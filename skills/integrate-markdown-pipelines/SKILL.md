@@ -8,7 +8,7 @@ description: >
 metadata:
   type: composition
   library: '@tanstack/highlight'
-  library_version: '1.0.0'
+  library_version: '1.2.11'
 requires:
   - 'configure-selective-highlighting'
 sources:
