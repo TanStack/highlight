@@ -14,7 +14,7 @@ it('keeps canonical data keys from disturbing later native capture observers', (
       children: [],
     },
   ]
-  /(seed)/.test('seed')
+  new RegExp('(seed)').test('seed')
   const html = renderNodesToHtml(nodes)
   expect(observations).toEqual(['seed'])
   expect(html).toBe('<span class="th-line" data-line="1">x</span><span class="seed"></span>')
