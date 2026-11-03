@@ -5,11 +5,15 @@ import type { TokenRange } from '../core.js'
 // long unfinished stylesheet. Comments and strings are shielded first.
 export const stylesheetWords: Pattern = function (code) {
     const ranges: Array<TokenRange> = [];
-    for (const statement of code.matchAll(/[^{};]+/g)) {
+    const statements = /[^{};]+/g;
+    let statement: RegExpExecArray | null;
+    while ((statement = statements.exec(code))) {
         const start = statement.index;
         const value = statement[0];
         if (code[start + value.length] === '{') {
-            for (const selector of value.matchAll(/[.#][A-Za-z_][\w-]*/g)) {
+            const selectors = /[.#][A-Za-z_][\w-]*/g;
+            let selector: RegExpExecArray | null;
+            while ((selector = selectors.exec(value))) {
                 ranges.push({ start: start + selector.index, end: start + selector.index + selector[0].length, className: 'selector' });
             }
         }
