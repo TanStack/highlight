@@ -10,17 +10,17 @@ CI measures selective browser bundles and highlighting performance on real docum
 
 `pnpm run size` builds 66 browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
 
-These measurements describe this unreleased candidate on 2026-11-01, using Node 24.15.0 and esbuild 0.28.1. Existing CI limits have not changed.
+The current CI limits for the main registration profiles are:
 
-| Profile | Registered languages | Candidate gzip | Current CI budget |
-| --- | --- | ---: | ---: |
-| Core | None | 1.87 KB | 2.10 KB |
-| TSX | TSX | 4.37 KB | 4.45 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.79 KB | 5.80 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.30 KB | 6.40 KB |
-| All | All 79 definitions | 27.81 KB | 28.00 KB |
+| Profile | Registered languages | Gzip limit |
+| --- | --- | ---: |
+| Core | None | 2.10 KB |
+| TSX | TSX | 4.45 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.80 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.40 KB |
+| All | All 79 definitions | 28.00 KB |
 
-KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
+KB uses 1,000 bytes. Run `pnpm run size` for current measured sizes and every minified, gzip and Brotli limit.
 
 Selective profiles are the primary metric. The all-language profile exists to prevent convenience-entry growth from becoming invisible.
 
@@ -30,7 +30,7 @@ The committed corpus contains 334 real code fences sampled from TanStack documen
 
 `pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, the 40 additional language fixtures, and dedicated language samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
-The 40 added definitions measure from 2,870 to 3,886 gzip bytes including core. Each stays below a 4 KB gzip budget. Every definition is tested through both its direct subpath and a named barrel import, and unrelated language code must be absent from the resulting bundle.
+Each of the 40 added definitions has a 4 KB gzip budget including core. Every definition is tested through both its direct subpath and a named barrel import, and unrelated language code must be absent from the resulting bundle.
 
 ## Rendering tradeoff
 

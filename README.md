@@ -210,15 +210,7 @@ All 79 definitions are independently importable. Each language is available from
 
 ## Size And Speed
 
-Local browser bundles for this unreleased candidate, measured on 2026-11-01 with Node 24.15.0 and esbuild 0.28.1, minified and compressed independently. KB uses 1,000 bytes:
-
-| Registration | Minified | Gzip | Brotli |
-| --- | ---: | ---: | ---: |
-| Core, no languages | 3.90 KB | 1.87 KB | 1.71 KB |
-| Core + TSX | 10.08 KB | 4.37 KB | 3.98 KB |
-| Octane MDX + TypeScript | 14.06 KB | 5.79 KB | 5.29 KB |
-| Nine-language docs set | 15.76 KB | 6.30 KB | 5.77 KB |
-| All 79 languages | 78.54 KB | 27.81 KB | 24.86 KB |
+Run `pnpm run size` to measure current minified, gzip and Brotli bundle sizes and check their limits. The profiles cover core, selective language sets, adapters and the default all-language entry.
 
 HTML highlighting writes strings directly for plain, decorated and numbered blocks. An earlier rendering comparison, before the current scanner and decoration changes, measured 20% less time for the docs corpus in Node and 27% less in Bun. [Recorded measurements and reproduction](reports/language-expansion/README.md).
 
