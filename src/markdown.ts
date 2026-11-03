@@ -82,12 +82,21 @@ export function createTanStackMarkdownHighlighter(
       annotated.decorations.push({ className: 'th-line--highlighted', lines })
     }
 
-    return renderNodesToHtml(
-      renderTokens(result.tokens, {
-        lineNumbers: options.lineNumbers,
-        decorations: annotated.decorations,
-      }),
-    )
+    const tokens = result.tokens
+    const lineNumbers = options.lineNumbers
+    const decorations = annotated.decorations
+    if (!decorations.length || decorations.some((decoration) =>
+      !('lines' in decoration) || typeof decoration.lines !== 'number',
+    )) {
+      return renderNodesToHtml(renderTokens(tokens, { lineNumbers, decorations }))
+    }
+    const nodes = renderTokens(tokens, { lineNumbers: true })
+    // Line N is at index 2 * (N - 1), with newline text nodes between lines.
+    for (const decoration of decorations) {
+      const node = nodes[((decoration as { lines: number }).lines - 1) * 2]
+      if (node?.type === 'element') node.classNames.push(decoration.className!)
+    }
+    return renderNodesToHtml(nodes)
   }
 }
 
