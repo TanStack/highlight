@@ -63,3 +63,24 @@ it('keeps nested HAST rendering independent during decoration data coercion', ()
   }])
   expect(tokens).toEqual([{ value: 'abc', className: 'keyword' }])
 })
+
+
+it.each([false, true])('ignores invalid annotation ranges in direct HAST output (lineNumbers: %s)', lineNumbers => {
+  const tokens: Array<HighlightToken> = [{ value: 'a😀\r\nbc', className: 'string' }]
+  const valid: Array<HighlightDecoration> = [{ range: [0, 1], className: 'focus' }]
+  const expected = tokensToHast(tokens, 'ts', { lineNumbers, decorations: valid })
+  for (const range of [[NaN, 1], [1, Infinity], [1.5, 4], [4, 2], [2, 2]] as const) {
+    expect(tokensToHast(tokens, 'ts', {
+      lineNumbers, decorations: [{ range }, ...valid],
+    }), String(range)).toEqual(expected)
+  }
+})
+
+it('preserves own prototype-named annotation metadata in direct HAST output', () => {
+  const result = tokensToHast([{ value: 'x' }], 'ts', {
+    decorations: [{ lines: 1, data: Object.fromEntries([['__proto__', '<&"']]) }],
+  })
+  const line = (result.children[0] as HastElement).children[0] as HastElement
+  expect(line.properties?.['data__proto__']).toBe('<&"')
+  expect(line.properties && Object.hasOwn(line.properties, 'data__proto__')).toBe(true)
+})
