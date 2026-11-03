@@ -1,4 +1,4 @@
-import { renderTokenOutput, normalizeDataKey, type RenderTarget } from './internal/render.js'
+import { renderTokenOutput, normalizeDataKey, hasIntegerOffsets, type RenderTarget } from './internal/render.js'
 
 export type HighlightTokenClass =
   | 'attr'
@@ -350,7 +350,7 @@ function normalizeTokenRanges(
   let sorted = true
   let previousStart = 0
   for (const candidate of input) {
-    if (!Number.isInteger(candidate.start) || !Number.isInteger(candidate.end)) continue
+    if (!hasIntegerOffsets(candidate.start, candidate.end)) continue
     // Other out-of-bounds offsets cannot survive the empty-range check.
     const start = Math.max(0, candidate.start)
     const end = Math.min(codeLength, candidate.end)
