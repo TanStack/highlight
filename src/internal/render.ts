@@ -149,7 +149,7 @@ function stringifyData(data?: HighlightDecorationData) {
 }
 
 export function normalizeDataKey(value: string) {
-  return value.replace(/[A-Z]/g, (character) => `-${character.toLowerCase()}`).replace(/[^a-z0-9_.:-]/gi, '-')
+  return value === 'line' ? value : value.replace(/[A-Z]/g, (character) => `-${character.toLowerCase()}`).replace(/[^a-z0-9_.:-]/gi, '-')
 }
 
 function splitClassNames(className?: string) {
