@@ -16,7 +16,7 @@ CI measures selective browser bundles and highlighting performance on real docum
 | TSX | TSX | 4.39 KB | 4.45 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.72 KB | 5.80 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.31 KB | 6.40 KB |
-| All | All 79 definitions | 27.75 KB | 28.00 KB |
+| All | All 79 definitions | 27.75 KB | 28.014 KB |
 
 KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
 
