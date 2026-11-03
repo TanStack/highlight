@@ -26,17 +26,16 @@ export const php = defineLanguage({
     while (start < code.length) {
       if (tag) {
         if (tag.index > start && context.hasLanguage('html')) {
-          ranges.push(...offsetRanges(context.tokenize(code.slice(start, tag.index), 'html'), start))
+          for (const range of offsetRanges(context.tokenize(code.slice(start, tag.index), 'html'), start)) ranges.push(range)
         }
         start = tag.index + tag[0].length
         ranges.push({ start: tag.index, end: start, className: 'meta' })
       }
       const scanned = scanPhp(code, start)
-      const initial = shiftOwnedRanges(scanned.ranges, -start)
-      const collected = collectPatternRanges(
-        code.slice(start, scanned.end), patterns, initial, undefined, initial,
+      for (const range of scanned.ranges) ranges.push(range)
+      collectPatternRanges(
+        code.slice(start, scanned.end), patterns, scanned.ranges, undefined, ranges, start,
       )
-      ranges.push(...shiftOwnedRanges(collected, start))
       start = scanned.end
       if (start === code.length) break
       ranges.push({ start, end: start + 2, className: 'meta' })
@@ -45,7 +44,7 @@ export const php = defineLanguage({
       tag = opening.exec(code)
       if (!tag) {
         if (context.hasLanguage('html')) {
-          ranges.push(...offsetRanges(context.tokenize(code.slice(start), 'html'), start))
+          for (const range of offsetRanges(context.tokenize(code.slice(start), 'html'), start)) ranges.push(range)
         }
         break
       }
@@ -124,11 +123,3 @@ function stringEnd(code: string, start: number, quote: string): number {
   return code.length
 }
 
-// scanPhp creates these ranges for this call, no caller-owned ranges are changed.
-function shiftOwnedRanges(ranges: Array<TokenRange>, offset: number) {
-  for (const range of ranges) {
-    range.start += offset
-    range.end += offset
-  }
-  return ranges
-}

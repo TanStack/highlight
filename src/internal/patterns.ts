@@ -20,8 +20,9 @@ export function collectPatternRanges(
   occupied = new Uint8Array(code.length),
   // Internal lexical passes can supply a fresh owned output array.
   ranges: Array<TokenRange> = [...initial],
+  outputOffset = 0,
 ) {
-  for (const range of initial) occupied.fill(1, range.start, range.end)
+  for (const range of initial) occupied.fill(1, range.start - outputOffset, range.end - outputOffset)
   for (const pattern of patterns) {
     if (typeof pattern === 'function') {
       for (const range of pattern(code)) addRange(ranges, occupied, range)
@@ -42,11 +43,15 @@ export function collectPatternRanges(
         }
         const offset = group ? match[0].length - value.length : 0
         const start = match.index + offset
-        addRange(ranges, occupied, {
+        const range = {
           start,
           end: start + value.length,
           className: typeof className === 'function' ? className(match) : className,
-        })
+        }
+        if (addRange(ranges, occupied, range) && outputOffset) {
+          range.start += outputOffset
+          range.end += outputOffset
+        }
       }
     } finally {
       regex.lastIndex = previousLastIndex
