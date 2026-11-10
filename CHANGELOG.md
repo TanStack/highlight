@@ -1,5 +1,14 @@
 # @tanstack/highlight
 
+## 1.2.12
+
+### Patch Changes
+
+- f23d29c: Add JSONL alias to JSON language definition
+- 9c88155: Keep Swift string boundaries stable when regex instrumentation reenters tokenization.
+- 9c88155: Recognize Swift macro declarations with short names while preserving identifiers and member calls.
+- 1e75b89: Ignore non-integer character-range offsets (NaN, infinities, and fractions), plus empty or reversed ranges, so rendering preserves source text and valid annotations. Preserve arbitrary line-decoration data keys.
+
 ## 1.2.11
 
 ### Patch Changes
