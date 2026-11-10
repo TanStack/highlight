@@ -203,11 +203,11 @@ export function createHighlighter({
       for (const token of result.tokens) {
         const value = escapeHtml(token.value)
         innerHtml += token.className
-          ? `<span class="th-token th-${escapeHtml(token.className)}">${value}</span>`
+          ? renderHtmlToken(token.className, value)
           : value
       }
     } else {
-      innerHtml = concatHtml(renderTokenOutput(result.tokens, options, htmlRenderer))
+      innerHtml = renderTokenOutput(result.tokens, options, htmlRenderer).join('')
     }
 
     return {
@@ -263,9 +263,13 @@ const nodeRenderer: RenderTarget<HighlightRenderNode> = {
   element: (classNames, data, children) => ({ type: 'element', classNames, data, children }),
 }
 
+function renderHtmlToken(className: HighlightTokenClass, child: string) {
+  return `<span class="th-token th-${escapeHtml(className)}">${child}</span>`
+}
+
 const htmlRenderer: RenderTarget<string> = {
   text: escapeHtml,
-  token: (className, child) => `<span class="th-token th-${escapeHtml(className)}">${child}</span>`,
+  token: renderHtmlToken,
   element(classNames, attributes, children) {
     const className = escapeHtml(classNames.join(' '))
     let data = ''
@@ -273,14 +277,8 @@ const htmlRenderer: RenderTarget<string> = {
     if (attributes) for (const [key, value] of Object.entries(attributes)) {
       data += ` data-${key}="${escapeHtml(value)}"`
     }
-    return `<span${className ? ` class="${className}"` : ''}${data}>${concatHtml(children)}</span>`
+    return `<span${className ? ` class="${className}"` : ''}${data}>${children.join('')}</span>`
   },
-}
-
-function concatHtml(chunks: ReadonlyArray<string>) {
-  let html = chunks[0] || ''
-  for (let index = 1; index < chunks.length; index++) html += chunks[index]
-  return html
 }
 
 export function renderTokens(
@@ -364,13 +362,13 @@ function normalizeTokenRanges(
   const result: Array<TokenRange | HighlightToken> = []
   let end = 0
   for (const candidate of ranges) {
-    const start = Math.max(0, candidate.start)
+    const { start, className } = candidate
     if (start < end) continue
     if (code !== undefined && start > end) result.push({ value: code.slice(end, start) })
     end = candidate.end
     result.push(code === undefined
-      ? { className: candidate.className, start, end }
-      : { className: candidate.className, value: code.slice(start, end) })
+      ? candidate
+      : { className, value: code.slice(start, end) })
   }
   if (code !== undefined && (end < codeLength || !result.length)) {
     result.push({ value: code.slice(end) })

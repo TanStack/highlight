@@ -14,12 +14,12 @@ export function renderTokenOutput<T>(
   const rangeDecorations: Array<HighlightRangeDecoration> = []
   const lineDecorations: Array<HighlightLineDecoration> = []
   for (const decoration of options.decorations || []) {
-    if (decoration.range) {
-      const [start, end] = decoration.range
-      if (hasIntegerOffsets(start, end) && start < end) {
-        rangeDecorations.push(decoration)
-      }
-    } else lineDecorations.push(decoration)
+    if (!decoration.range) {
+      lineDecorations.push(decoration)
+      continue
+    }
+    const [start, end] = decoration.range
+    if (hasIntegerOffsets(start, end) && start < end) rangeDecorations.push(decoration)
   }
   const cursor = { index: 0, offset: 0, boundaries: [0, 0] }
 
@@ -41,7 +41,7 @@ export function renderTokenOutput<T>(
     nodes.push(renderer.element([
       'th-line',
       ...active.flatMap((decoration) => splitClassNames(decoration.className)),
-    ], { ...mergeData(active), line: String(line) },
+    ], lineData(active, line),
       renderTokenSlice(tokens, start, end, rangeDecorations, cursor, renderer),
     ))
 
@@ -125,27 +125,18 @@ function includesLine(
     : line >= lines[0] && line <= lines[1]
 }
 
-function mergeData(decorations: ReadonlyArray<HighlightLineDecoration>) {
-  let data: Record<string, string> | undefined
-  for (const decoration of decorations) {
-    if (decoration.data) {
-      data = Object.assign(
-        data || Object.create(null),
-        stringifyData(decoration.data),
-      )
-    }
-  }
+function lineData(decorations: ReadonlyArray<HighlightLineDecoration>, line: number) {
+  const data = Object.fromEntries(decorations.flatMap((decoration) => dataEntries(decoration.data)))
+  data.line = String(line)
   return data
 }
 
 function stringifyData(data?: HighlightDecorationData) {
-  if (!data) return undefined
-  return Object.fromEntries(
-    Object.entries(data).map(([key, value]) => [
-      normalizeDataKey(key),
-      String(value),
-    ]),
-  )
+  if (data) return Object.fromEntries(dataEntries(data))
+}
+
+function dataEntries(data?: HighlightDecorationData) {
+  return Object.entries(data || {}).map(([key, value]) => [normalizeDataKey(key), String(value)] as const)
 }
 
 export function normalizeDataKey(value: string) {
@@ -153,7 +144,7 @@ export function normalizeDataKey(value: string) {
 }
 
 function splitClassNames(className?: string) {
-  return className?.trim().split(/\s+/).filter(Boolean) || []
+  return className?.match(/\S+/g) || []
 }
 
 export function hasIntegerOffsets(start: number, end: number) {
