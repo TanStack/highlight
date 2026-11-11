@@ -3,7 +3,7 @@ import { patternTokenizer } from '../internal/patterns.js'
 
 export const json = defineLanguage({
   name: 'json',
-  aliases: ['jsonc', 'json5'],
+  aliases: ['jsonc', 'json5', 'jsonl'],
   tokenize: patternTokenizer([
     [/\/\/[^\n]*|\/\*[\s\S]*?\*\/|("(?:\\.|[^"\\])*")(?=\s*:)|"(?:\\.|[^"\\])*"/g, (match) => match[0].startsWith('//') || match[0].startsWith('/*')
         ? 'comment'

@@ -46,7 +46,7 @@ Every language is an isolated definition imported from `@tanstack/highlight/lang
 | Java properties | `properties` | `java-properties` | Keys, simple values, escaped key separators and comments |
 | Java | `java` | - | Text blocks, character literals, annotations, contextual keywords, digit separators and hex floats |
 | JavaScript | `js` | `javascript`, `mjs`, `cjs`, `js-vue` | Templates, interpolation, regex literals |
-| JSON | `json` | `jsonc`, `json5` | Properties, comments, strings, literals |
+| JSON | `json` | `jsonc`, `json5`, `jsonl` | Properties, comments, strings, literals |
 | JSX | `jsx` | - | JavaScript plus contextual JSX tags |
 | Julia | `julia` | `jl` | Nested comments, triple-quoted strings, character literals, keywords |
 | Kotlin | `kotlin` | `kt`, `kts` | String templates with nested quotes and braces, raw strings, nested block comments, annotations vs labels, backticked names, contextual soft keywords and accessors |

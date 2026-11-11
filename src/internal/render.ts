@@ -14,26 +14,26 @@ export function renderTokenOutput<T>(
   const rangeDecorations: Array<HighlightRangeDecoration> = []
   const lineDecorations: Array<HighlightLineDecoration> = []
   for (const decoration of options.decorations || []) {
-    if (decoration.range) rangeDecorations.push(decoration)
-    else lineDecorations.push(decoration)
+    if (!decoration.range) {
+      lineDecorations.push(decoration)
+      continue
+    }
+    const [start, end] = decoration.range
+    if (hasIntegerOffsets(start, end) && start < end) rangeDecorations.push(decoration)
   }
-  const wrapLines = Boolean(options.lineNumbers || lineDecorations.length)
   const cursor = { index: 0, offset: 0, boundaries: [0, 0] }
 
-  if (!wrapLines) {
+  if (!options.lineNumbers && !lineDecorations.length) {
     return renderTokenSlice(tokens, 0, Infinity, rangeDecorations, cursor, renderer)
   }
 
   const code = tokens.map((token) => token.value).join('')
   const nodes: Array<T> = []
-  const lineStarts = getLineStarts(code)
+  let start = 0
 
-  for (let index = 0; index < lineStarts.length; index++) {
-    const line = index + 1
-    const start = lineStarts[index]
-    const nextStart = lineStarts[index + 1] ?? code.length
-    const hasNewline = nextStart > start && code[nextStart - 1] === '\n'
-    const end = hasNewline ? nextStart - 1 : nextStart
+  for (let line = 1; ; line++) {
+    const newline = code.indexOf('\n', start)
+    const end = newline < 0 ? code.length : newline
     const active = lineDecorations.filter((decoration) =>
       includesLine(decoration.lines, line),
     )
@@ -41,11 +41,14 @@ export function renderTokenOutput<T>(
     nodes.push(renderer.element([
       'th-line',
       ...active.flatMap((decoration) => splitClassNames(decoration.className)),
-    ], { ...mergeData(active), line: String(line) },
+    ], lineData(active, line),
       renderTokenSlice(tokens, start, end, rangeDecorations, cursor, renderer),
     ))
 
-    if (hasNewline) nodes.push(renderer.text('\n'))
+    if (newline < 0) break
+    nodes.push(renderer.text('\n'))
+    start = end + 1
+    if (start === code.length) break
   }
 
   return nodes
@@ -113,14 +116,6 @@ function renderTokenSlice<T>(
   return nodes
 }
 
-function getLineStarts(code: string) {
-  const starts = [0]
-  for (let index = code.indexOf('\n'); index >= 0 && index + 1 < code.length; index = code.indexOf('\n', index + 1)) {
-    starts.push(index + 1)
-  }
-  return starts
-}
-
 function includesLine(
   lines: number | readonly [start: number, end: number],
   line: number,
@@ -130,22 +125,18 @@ function includesLine(
     : line >= lines[0] && line <= lines[1]
 }
 
-function mergeData(decorations: ReadonlyArray<HighlightLineDecoration>) {
-  const data: Record<string, string> = {}
-  for (const decoration of decorations) {
-    Object.assign(data, stringifyData(decoration.data))
-  }
+function lineData(decorations: ReadonlyArray<HighlightLineDecoration>, line: number) {
+  const data = Object.fromEntries(decorations.flatMap((decoration) => dataEntries(decoration.data)))
+  data.line = String(line)
   return data
 }
 
 function stringifyData(data?: HighlightDecorationData) {
-  if (!data) return undefined
-  return Object.fromEntries(
-    Object.entries(data).map(([key, value]) => [
-      normalizeDataKey(key),
-      String(value),
-    ]),
-  )
+  if (data) return Object.fromEntries(dataEntries(data))
+}
+
+function dataEntries(data?: HighlightDecorationData) {
+  return Object.entries(data || {}).map(([key, value]) => [normalizeDataKey(key), String(value)] as const)
 }
 
 export function normalizeDataKey(value: string) {
@@ -153,5 +144,9 @@ export function normalizeDataKey(value: string) {
 }
 
 function splitClassNames(className?: string) {
-  return className?.trim().split(/\s+/).filter(Boolean) || []
+  return className?.match(/\S+/g) || []
+}
+
+export function hasIntegerOffsets(start: number, end: number) {
+  return Number.isInteger(start) && Number.isInteger(end)
 }

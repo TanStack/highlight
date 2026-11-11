@@ -16,16 +16,13 @@ It occupies the space between minimal JavaScript-only scanners and full grammar 
 
 ## Why another highlighter?
 
-Most syntax highlighters optimize for one of two different products:
+A documentation site may need TypeScript, markup, shell commands, and configuration files in the same page. TanStack Highlight lets you register that mix of languages, render code during SSR, and highlight new samples in the browser with the same synchronous API.
 
-1. **Editors and exact grammar compatibility.** These tools support TextMate grammars, hundreds of languages, editor scopes, and VS Code themes. That capability has a real initialization and bundle cost.
-2. **A single tiny language scanner.** These tools can be extremely small, but may not cover a documentation site's mix of markup, shell, data, and framework files.
-
-TanStack Highlight optimizes for a third product: valid code samples rendered repeatedly in documentation. It gives up automatic language detection, editor state, semantic language-service tokens, and TextMate compatibility in exchange for a small synchronous path that can run on both server and client.
+Its tokenizers target common, valid documentation samples. They do not provide automatic language detection, editor state, semantic language-service tokens, or TextMate compatibility. See [Comparison](comparison) if you need those capabilities.
 
 ## Core principles
 
-### Selective by default
+### Selective imports
 
 The `@tanstack/highlight/core` entry contains no shipped languages. Every language is an isolated `LanguageDefinition` under `@tanstack/highlight/languages/*`.
 

@@ -10,15 +10,17 @@ CI measures selective browser bundles and highlighting performance on real docum
 
 `pnpm run size` builds 66 browser profiles with esbuild and measures minified, gzip, and Brotli bytes independently. It also checks that helper, adapter, and selective language imports retain only the requested modules.
 
-| Profile | Registered languages | Current gzip | CI budget |
-| --- | --- | ---: | ---: |
-| Core | None | 1.89 KB | 2.10 KB |
-| TSX | TSX | 4.39 KB | 4.45 KB |
-| Octane | TypeScript plus Octane MDX adapter | 5.72 KB | 5.80 KB |
-| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.31 KB | 6.40 KB |
-| All | All 79 definitions | 27.75 KB | 28.014 KB |
+The current CI limits for the main registration profiles are:
 
-KB uses 1,000 bytes. Core helpers imported from the root tree-shake to the same engine size. The standalone theme helper is 695 gzip bytes.
+| Profile | Registered languages | Gzip limit |
+| --- | --- | ---: |
+| Core | None | 2.10 KB |
+| TSX | TSX | 4.45 KB |
+| Octane | TypeScript plus Octane MDX adapter | 5.80 KB |
+| Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.40 KB |
+| All | All 79 definitions | 28.014 KB |
+
+KB uses 1,000 bytes. Run `pnpm run size` for current measured sizes and every minified, gzip and Brotli limit.
 
 Selective profiles are the primary metric. The all-language profile exists to prevent convenience-entry growth from becoming invisible.
 
@@ -26,24 +28,22 @@ Selective profiles are the primary metric. The all-language profile exists to pr
 
 The committed corpus contains 334 real code fences sampled from TanStack documentation, with up to twenty samples per normalized language.
 
-`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, the 40 additional language fixtures, and dedicated C#, C++, CMake, Dart, Java, Kotlin, Lua, Perl, PHP, Ruby, Rust, and Swift samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
+`pnpm run bench` measures tokenization, HTML, Markdown, HAST, line numbers, long decorated blocks, the 40 additional language fixtures, and dedicated language samples. Each profile reports the median of three samples after two warmup passes, with a 1.2 second CI budget. The main highlighting profile processes at least 10,000 blocks.
 
-The 40 added definitions each cost 2.8 to 3.8 KB gzip including core. Each stays below a 4 KB gzip budget. Every definition is tested through both its direct subpath and a named barrel import, and unrelated language code must be absent from the resulting bundle.
+Each of the 40 added definitions has a 4 KB gzip budget including core. Every definition is tested through both its direct subpath and a named barrel import, and unrelated language code must be absent from the resulting bundle.
 
 ## Rendering tradeoff
 
-Ordinary HTML blocks serialize tokens directly instead of allocating a render tree. Line numbers and decorations retain the structured rendering path. Escaping first checks whether the string contains an HTML-sensitive character. The token arrays and generated HTML remain identical.
+HTML highlighting writes strings directly, including decorated and numbered blocks. `renderTokens()` returns structured nodes for custom renderers. Escaping first checks whether the string contains an HTML-sensitive character.
 
-On an Apple M5 Pro, fifteen alternating samples after warmup measured:
+The following figures record the earlier plain-block rendering experiment, before the later scanner and decorated-rendering changes. On an Apple M5 Pro, fifteen alternating samples after warmup measured:
 
 | Workload | Node 24.15.0 time reduction | Bun 1.3.14 time reduction |
 | --- | ---: | ---: |
 | All 334 docs snippets | 20% | 27% |
 | 1,000-line TypeScript block | 29% | 32% |
 
-Core grows by 73 gzip bytes and the TSX bundle by 67. Core-dependent budgets allow up to 200 extra minified bytes and 100 compressed bytes. The all-language budget grows separately to cover the 40 additional definitions. Selective TSX imports retain none of those definitions or their scanner.
-
-The comparison uses the same minified browser bundle settings, asserts identical tokens and HTML, warms each implementation for 200 ms, and measures fifteen alternating samples in batches of at least 30 ms. These local measurements exclude module initialization and browser layout. The goal is inexpensive synchronous highlighting, not matching a larger engine's maximum throughput.
+That comparison used identical tokens and HTML, a 200 ms warmup, and fifteen alternating samples in batches of at least 30 ms. It excluded module initialization and browser layout.
 
 ## Comparison scripts
 

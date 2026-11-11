@@ -55,7 +55,7 @@ const highlighter = createHighlighter({
 | `ini` | `@tanstack/highlight/languages/ini` | `cfg` |
 | `java` | `@tanstack/highlight/languages/java` | None |
 | `js` | `@tanstack/highlight/languages/js` | `javascript`, `mjs`, `cjs`, `js-vue` |
-| `json` | `@tanstack/highlight/languages/json` | `jsonc`, `json5` |
+| `json` | `@tanstack/highlight/languages/json` | `jsonc`, `json5`, `jsonl` |
 | `jsx` | `@tanstack/highlight/languages/jsx` | None |
 | `julia` | `@tanstack/highlight/languages/julia` | `jl` |
 | `kotlin` | `@tanstack/highlight/languages/kotlin` | `kt`, `kts` |
