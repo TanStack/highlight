@@ -56,6 +56,12 @@ try {
       outputBytes: htmlBytes,
       targetBlocks: 10_000,
     },
+    c: {
+      fixtures: [{ rawLang: 'c', code: '#include <stdio.h>\n_Static_assert(sizeof(int) == 4, "int");\nstatic void copy(char *restrict dst, const char *restrict src) { while ((*dst++ = *src++)) {} }\nint main(void) { long n = 1\'000 + 0x1Fu; printf("%ld\\n", n); return 0; } // done' }],
+      run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
+      observe: (result) => result.html.length,
+      targetBlocks: 10_000,
+    },
     cpp: {
       fixtures: [{ rawLang: 'cpp', code: '#include <vector>\nconstexpr auto text = R"tag(// raw text)tag";\nint main() { std::vector<int> values{1, 2, 3}; return values.size(); }' }],
       run: (fixture) => highlight(fixture.code, { lang: fixture.rawLang }),
