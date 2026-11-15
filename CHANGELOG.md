@@ -1,5 +1,11 @@
 # @tanstack/highlight
 
+## 1.2.13
+
+### Patch Changes
+
+- 56630d1: Keep CRLF line endings together after highlighted comments and between numbered or decorated lines.
+
 ## 1.2.12
 
 ### Patch Changes
