@@ -33,7 +33,7 @@ export function renderTokenOutput<T>(
 
   for (let line = 1; ; line++) {
     const newline = code.indexOf('\n', start)
-    const end = newline < 0 ? code.length : newline
+    const end = newline < 0 ? code.length : newline - Number(code[newline - 1] === '\r')
     const active = lineDecorations.filter((decoration) =>
       includesLine(decoration.lines, line),
     )
@@ -46,8 +46,8 @@ export function renderTokenOutput<T>(
     ))
 
     if (newline < 0) break
-    nodes.push(renderer.text('\n'))
-    start = end + 1
+    nodes.push(renderer.text(end === newline ? '\n' : '\r\n'))
+    start = newline + 1
     if (start === code.length) break
   }
 

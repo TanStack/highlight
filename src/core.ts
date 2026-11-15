@@ -361,11 +361,17 @@ function normalizeTokenRanges(
 
   const result: Array<TokenRange | HighlightToken> = []
   let end = 0
+  let coveredEnd = 0
   for (const candidate of ranges) {
     const { start, className } = candidate
-    if (start < end) continue
+    if (start < coveredEnd) continue
     if (code !== undefined && start > end) result.push({ value: code.slice(end, start) })
     end = candidate.end
+    coveredEnd = end
+    // Keep a CRLF separator together when a line comment scanner stops at LF.
+    if (className === 'comment' && code?.[end] === '\n' && code[end - 1] === '\r') {
+      if (--end === start) continue
+    }
     result.push(code === undefined
       ? candidate
       : { className, value: code.slice(start, end) })

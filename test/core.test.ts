@@ -10,6 +10,9 @@ import {
   type TokenRange,
 } from '../src/core'
 
+import { python } from '../src/languages/python'
+import { ts } from '../src/languages/ts'
+
 function textContent(nodes: ReadonlyArray<HighlightRenderNode>): string {
   return nodes.map((node) => node.type === 'text'
     ? node.value
@@ -17,6 +20,17 @@ function textContent(nodes: ReadonlyArray<HighlightRenderNode>): string {
 }
 
 describe('rendering', () => {
+  it.each([[ts, '// note'], [python, '# note']] as const)('keeps CRLF together after a line comment in %j', (language, comment) => {
+    const highlighter = createHighlighter({ languages: [language] })
+    const code = comment + '\r\nx = 1\r\n'
+    const result = highlighter.highlight(code, { lang: language.name })
+    expect(result.tokens[0]).toEqual({ value: comment, className: 'comment' })
+    expect(result.tokens.map((token) => token.value).join('')).toBe(code)
+    expect(result.html).toContain(comment + '</span>\r\n')
+    expect(highlighter.highlight(code, { lang: language.name, lineNumbers: true }).html)
+      .toContain(comment + '</span></span>\r\n')
+  })
+
   it.each(['', '\n', '\n\n', 'a\n', 'a\r\nb\r\n', 'a\n\nb', '😀\ntext', 'a\rb\n\u2028\u2029\u0000', 'x'.repeat(65_536) + '\nlast\n'])(
     'preserves line boundaries and source text for %j',
     (code) => {
@@ -30,7 +44,11 @@ describe('rendering', () => {
       const lines = nodes.filter((node) => node.type === 'element')
       const expected = code.split('\n')
       if (code.endsWith('\n')) expected.pop()
-      expect(lines.map((line) => textContent(line.children))).toEqual(expected)
+      expect(lines.map((line) => textContent(line.children))).toEqual(
+        expected.map((line, index) => index < expected.length - 1 || code.endsWith('\n')
+          ? line.replace(/\r$/, '')
+          : line),
+      )
       expect(lines.map((line) => line.data?.line)).toEqual(
         expected.map((_, index) => String(index + 1)),
       )
