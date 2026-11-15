@@ -3,6 +3,7 @@ import path from 'node:path'
 
 export const supportedLanguages = [
   'apache',
+  'c',
   'cmake',
   'cpp',
   'csharp',
@@ -44,6 +45,8 @@ export const supportedLanguages = [
 ]
 
 const aliases = {
+  c: 'c',
+  h: 'c',
   'c++': 'cpp',
   cc: 'cpp',
   cxx: 'cpp',

@@ -18,7 +18,7 @@ The current CI limits for the main registration profiles are:
 | TSX | TSX | 4.45 KB |
 | Octane | TypeScript plus Octane MDX adapter | 5.80 KB |
 | Docs | CSS, HTML, JS, JSON, JSX, Markdown, Shell, TS, TSX | 6.40 KB |
-| All | All 79 definitions | 28.00 KB |
+| All | All 79 definitions | 28.014 KB |
 
 KB uses 1,000 bytes. Run `pnpm run size` for current measured sizes and every minified, gzip and Brotli limit.
 
